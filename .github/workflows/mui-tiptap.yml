@@ -16,25 +16,25 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: volta-cli/action@v3
-      - run: npm ci
+      - run: pnpm install
 
       - name: Dependencies audit
-        run: npm audit --audit-level=moderate
+        run: pnpm audit --audit-level=moderate
 
       - name: Build
-        run: npm run build
+        run: pnpm run build
 
       - name: Format check
-        run: npm run format:check
+        run: pnpm run format:check
 
       - name: Lint check
-        run: npm run lint:check
+        run: pnpm run lint:check
 
       - name: Spell check
-        run: npm run spell:check
+        run: pnpm run spell:check
 
       - name: Test
-        run: npm run test
+        run: pnpm run test
 
       # TODO(Steven DeMartini): Set up releases later
       # - name: Release

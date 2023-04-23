@@ -33,7 +33,7 @@
     "access": "public"
   },
   "scripts": {
-    "build": "npm run clean && npm run type:dts && npm run build:main",
+    "build": "pnpm run clean && pnpm run type:dts && pnpm run build:main",
     "build:main": "swc ./src -d ./build",
     "clean": "rimraf build coverage nyc_output",
     "type:dts": "tsc --emitDeclarationOnly --project tsconfig.build.json",
@@ -42,6 +42,7 @@
     "format:check": "prettier --check src",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx src --fix",
     "lint:check": "eslint --ext .js,.jsx,.ts,.tsx src",
+    "preinstall": "npx only-allow pnpm",
     "test": "vitest run",
     "test:watch": "vitest watch",
     "test:coverage": "vitest run --coverage",
