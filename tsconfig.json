@@ -1,20 +1,20 @@
 {
-  "include": ["./src/**/*.ts"],
+  "include": ["./src"],
   "compilerOptions": {
-    "lib": ["es2022"],
-    "module": "esnext",
-    "target": "es2022",
-    "moduleResolution": "nodenext",
-
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "module": "ESNext",
+    "target": "ESNext",
+    "moduleResolution": "node",
     "rootDir": "./src",
     "outDir": "build",
-
     "strict": true,
     "sourceMap": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "declaration": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "allowJs": false,
+    "noFallthroughCasesInSwitch": true
   }
 }
