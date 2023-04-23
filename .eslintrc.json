@@ -20,6 +20,7 @@
     "plugin:import/typescript",
     "prettier"
   ],
+  "reportUnusedDisableDirectives": true,
   "settings": {
     "import/resolver": {
       "typescript": {
