@@ -1,0 +1,30 @@
+{
+  // only use words from .cspell.json
+  "cSpell.userWords": [],
+  "cSpell.enabled": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.insertSpaces": true,
+  "files.exclude": {
+    "**/node_modules/**": true,
+    "htmlcov/": true,
+    ".coverage": true,
+    "coverage.xml": true,
+    "**/.eslintcache": true,
+    "yarn-error.log": true
+  },
+  "files.trimTrailingWhitespace": true,
+  "files.trimFinalNewlines": true,
+  "files.insertFinalNewline": true,
+  "[json]": {
+    "editor.tabSize": 2
+  },
+  "[typescript][typescriptreact][javascript][javascriptreact]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    },
+    "editor.tabSize": 2
+  },
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true
+}

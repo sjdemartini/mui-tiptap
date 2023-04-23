@@ -1,0 +1,44 @@
+name: mui-tiptap
+
+on: [push]
+
+env:
+  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+jobs:
+  mui-tiptap:
+    runs-on: ubuntu-latest
+
+    concurrency:
+      group: ${{ github.ref }}
+      cancel-in-progress: true
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: volta-cli/action@v3
+      - run: npm ci
+
+      - name: Dependencies audit
+        run: npm audit --audit-level=moderate
+
+      - name: Build
+        run: npm run build
+
+      - name: Format check
+        run: npm run format:check
+
+      - name: Lint check
+        run: npm run lint:check
+
+      - name: Spell check
+        run: npm run spell:check
+
+      - name: Test
+        run: npm run test
+
+      # TODO(Steven DeMartini): Set up releases later
+      # - name: Release
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      #   run: npm run semantic-release
