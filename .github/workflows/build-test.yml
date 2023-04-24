@@ -6,16 +6,25 @@ env:
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
 jobs:
-  mui-tiptap:
+  build-test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18]
 
     concurrency:
       group: ${{ github.ref }}
       cancel-in-progress: true
 
     steps:
-      - uses: actions/checkout@v3
-      - uses: volta-cli/action@v3
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
       - run: pnpm install
 
       - name: Dependencies audit
