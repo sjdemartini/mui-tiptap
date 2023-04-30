@@ -33,6 +33,7 @@
     "build": "pnpm run clean && pnpm run type:dts && pnpm run build:main",
     "build:main": "swc ./src -d ./build",
     "clean": "rimraf build coverage nyc_output",
+    "dev": "pnpm build && pnpm --dir ./demo install && pnpm --dir ./demo run dev",
     "type:dts": "tsc --emitDeclarationOnly --project tsconfig.build.json",
     "type:check": "tsc --noEmit",
     "format": "prettier --write src",
