@@ -16,6 +16,7 @@
     "eslint:recommended",
     "plugin:eslint-comments/recommended",
     "plugin:react/recommended",
+    "plugin:react/jsx-runtime", // Vite enables the automatic JSX runtime
     "plugin:react-hooks/recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",

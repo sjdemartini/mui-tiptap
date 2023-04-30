@@ -1,5 +1,5 @@
 {
-  "include": ["./src"],
+  "include": ["./src", "./demo"],
   "compilerOptions": {
     "lib": ["dom", "dom.iterable", "esnext"],
     "module": "ESNext",
