@@ -32,6 +32,9 @@
       "typescript": {
         "project": "tsconfig.json"
       }
+    },
+    "react": {
+      "version": "detect"
     }
   },
   "rules": {
