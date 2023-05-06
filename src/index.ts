@@ -1,6 +1,7 @@
-import { bar } from "./bar.js";
-import { foo } from "./foo.js";
+import MuiEditorContent from "./MuiEditorContent";
+import MuiEditorReadOnlyViewer from "./MuiEditorReadOnlyViewer";
+import type { UseMuiEditorOptions } from "./useMuiEditor";
+import useMuiEditor from "./useMuiEditor";
 
-export function foobar(a: number, b: number) {
-  return foo().repeat(a).length + bar().repeat(b).length;
-}
+export type { UseMuiEditorOptions };
+export { useMuiEditor, MuiEditorContent, MuiEditorReadOnlyViewer };
