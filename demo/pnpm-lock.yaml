@@ -2,8 +2,8 @@ lockfileVersion: '6.0'
 
 dependencies:
   mui-tiptap:
-    specifier: file:..
-    version: file:..(react@18.2.0)
+    specifier: link:..
+    version: link:..
   react:
     specifier: ^18.2.0
     version: 18.2.0
@@ -518,16 +518,3 @@ packages:
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
-
-  file:..(react@18.2.0):
-    resolution: {directory: .., type: directory}
-    id: file:..
-    name: mui-tiptap
-    version: 0.0.0-development
-    engines: {node: ^18.15.0, pnpm: '>=8'}
-    requiresBuild: true
-    peerDependencies:
-      react: ^16.8.0 || ^17 || ^18
-    dependencies:
-      react: 18.2.0
-    dev: false
