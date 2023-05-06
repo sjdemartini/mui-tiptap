@@ -46,6 +46,13 @@
         "minimumDescriptionLength": 10
       }
     ],
+    "@typescript-eslint/consistent-type-definitions": "off",
+    "@typescript-eslint/no-misused-promises": [
+      "error",
+      {
+        "checksVoidReturn": false
+      }
+    ],
     "@typescript-eslint/no-unused-vars": [
       "warn",
       { "argsIgnorePattern": "^_" } // Ignore arguments that start with an underscore
@@ -62,6 +69,14 @@
     "import/no-extraneous-dependencies": "error",
     "import/no-mutable-exports": "error",
     "import/no-unused-modules": "error",
+    "react/function-component-definition": "warn",
+    "react/jsx-no-useless-fragment": ["warn", { "allowExpressions": true }],
+    "react-hooks/exhaustive-deps": [
+      "warn",
+      {
+        "additionalHooks": "(useUpdateEffect)"
+      }
+    ],
     "react-refresh/only-export-components": "warn"
   }
 }
