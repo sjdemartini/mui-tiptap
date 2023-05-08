@@ -25,6 +25,7 @@
     },
     "editor.tabSize": 2
   },
+  "eslint.workingDirectories": [{ "mode": "auto" }],
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true
 }
