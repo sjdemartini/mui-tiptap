@@ -52,8 +52,8 @@
     "@tiptap/react": "2.0.0-beta.109",
     "@tiptap/suggestion": "2.0.0-beta.91",
     "mui-tiptap": "link:..",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react": "link:../node_modules/react",
+    "react-dom": "link:../node_modules/react-dom"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",
