@@ -299,7 +299,13 @@ devDependencies:
     version: 0.30.1
   y-prosemirror:
     specifier: 1.0.20
-    version: 1.0.20(prosemirror-model@1.18.3)(prosemirror-state@1.4.2)(prosemirror-view@1.29.2)(y-protocols@1.0.5)(yjs@13.6.1)
+    version: 1.0.20(prosemirror-model@1.18.3)(prosemirror-state@1.4.2)(prosemirror-view@1.29.2)(y-protocols@1.0.5)(yjs@13.5.44)
+  y-protocols:
+    specifier: 1.0.5
+    version: 1.0.5
+  yjs:
+    specifier: 13.5.44
+    version: 13.5.44
 
 packages:
 
@@ -788,16 +794,6 @@ packages:
       source-map: 0.5.7
       stylis: 4.2.0
 
-  /@emotion/cache@11.10.8:
-    resolution: {integrity: sha512-5fyqGHi51LU95o7qQ/vD1jyvC4uCY5GcBT+UgP4LHdpO9jPDlXqhrRr9/wCKmfoAvh5G/F7aOh4MwQa+8uEqhA==}
-    dependencies:
-      '@emotion/memoize': 0.8.1
-      '@emotion/sheet': 1.2.2
-      '@emotion/utils': 1.2.1
-      '@emotion/weak-memoize': 0.3.1
-      stylis: 4.1.4
-    dev: false
-
   /@emotion/cache@11.11.0:
     resolution: {integrity: sha512-P34z9ssTCBi3e9EI1ZsWpNHcfY1r09ZO0rZbRO2ob3ZQMnFI35jB536qoXbkdesr5EUhYi22anuEJuyxifaqAQ==}
     dependencies:
@@ -809,11 +805,6 @@ packages:
 
   /@emotion/hash@0.9.1:
     resolution: {integrity: sha512-gJB6HLm5rYwSLI6PQa+X1t5CFGrv1J1TWG+sOyMCeKz2ojaj6Fnl/rZEspogG+cvqbt4AE/2eIyD2QfLKTBNlQ==}
-
-  /@emotion/is-prop-valid@1.2.0:
-    resolution: {integrity: sha512-3aDpDprjM0AwaxGE09bOPkNxHpBd+kA6jty3RnaEXdweX1DF1U3VQpPYb0g1IStAuK7SVQ1cy+bNBBKp4W3Fjg==}
-    dependencies:
-      '@emotion/memoize': 0.8.1
 
   /@emotion/is-prop-valid@1.2.1:
     resolution: {integrity: sha512-61Mf7Ufx4aDxx1xlDeOm8aFFigGHE4z+0sKCa+IHCeZKiyP9RLD0Mmx7m8b9/Cf37f7NAvQOOJAbQQGVr5uERw==}
@@ -842,16 +833,6 @@ packages:
       '@types/react': 18.2.0
       hoist-non-react-statics: 3.3.2
       react: 18.2.0
-
-  /@emotion/serialize@1.1.1:
-    resolution: {integrity: sha512-Zl/0LFggN7+L1liljxXdsVSVlg6E/Z/olVWpfxUTxOAmi8NU7YoeWeLfi1RmnB2TATHoaWwIBRoL+FvAJiTUQA==}
-    dependencies:
-      '@emotion/hash': 0.9.1
-      '@emotion/memoize': 0.8.1
-      '@emotion/unitless': 0.8.1
-      '@emotion/utils': 1.2.1
-      csstype: 3.1.2
-    dev: false
 
   /@emotion/serialize@1.1.2:
     resolution: {integrity: sha512-zR6a/fkFP4EAcCMQtLOhIgpprZOwNmCldtpaISpvz348+DP4Mz8ZoKaGGCQpbzepNIUWbq4w6hNZkwDyKoS+HA==}
@@ -894,10 +875,6 @@ packages:
       react: '>=16.8.0'
     dependencies:
       react: 18.2.0
-
-  /@emotion/utils@1.2.0:
-    resolution: {integrity: sha512-sn3WH53Kzpw8oQ5mgMmIzzyAaH2ZqFEbozVVBSYp538E06OSE6ytOp7pRAjNQR+Q/orwqdQYJSe2m3hCOeznkw==}
-    dev: false
 
   /@emotion/utils@1.2.1:
     resolution: {integrity: sha512-Y2tGf3I+XVnajdItskUCn6LX+VUDmP6lTL4fcqsXAv43dnlbZiuW4MWQW38rW/BVWSE7Q/7+XQocmpnRYILUmg==}
@@ -1236,7 +1213,7 @@ packages:
         optional: true
     dependencies:
       '@babel/runtime': 7.21.5
-      '@emotion/is-prop-valid': 1.2.0
+      '@emotion/is-prop-valid': 1.2.1
       '@mui/types': 7.2.4(@types/react@18.2.0)
       '@mui/utils': 5.12.3(react@18.2.0)
       '@popperjs/core': 2.11.7
@@ -1660,7 +1637,7 @@ packages:
       y-prosemirror: 1.0.20
     dependencies:
       '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.29.2)
-      y-prosemirror: 1.0.20(prosemirror-model@1.18.3)(prosemirror-state@1.4.2)(prosemirror-view@1.29.2)(y-protocols@1.0.5)(yjs@13.6.1)
+      y-prosemirror: 1.0.20(prosemirror-model@1.18.3)(prosemirror-state@1.4.2)(prosemirror-view@1.29.2)(y-protocols@1.0.5)(yjs@13.5.44)
     dev: true
 
   /@tiptap/extension-collaboration@2.0.0-beta.209(@tiptap/core@2.0.0-beta.209)(prosemirror-state@1.4.2)(y-prosemirror@1.0.20):
@@ -1672,7 +1649,7 @@ packages:
     dependencies:
       '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.29.2)
       prosemirror-state: 1.4.2
-      y-prosemirror: 1.0.20(prosemirror-model@1.18.3)(prosemirror-state@1.4.2)(prosemirror-view@1.29.2)(y-protocols@1.0.5)(yjs@13.6.1)
+      y-prosemirror: 1.0.20(prosemirror-model@1.18.3)(prosemirror-state@1.4.2)(prosemirror-view@1.29.2)(y-protocols@1.0.5)(yjs@13.5.44)
     dev: true
 
   /@tiptap/extension-document@2.0.0-beta.15(@tiptap/core@2.0.0-beta.209):
@@ -6057,10 +6034,6 @@ packages:
       peek-readable: 5.0.0
     dev: true
 
-  /stylis@4.1.4:
-    resolution: {integrity: sha512-USf5pszRYwuE6hg9by0OkKChkQYEXfkeTtm0xKw+jqQhwyjCVLdYyMBK7R+n7dhzsblAWJnGxju4vxq5eH20GQ==}
-    dev: false
-
   /stylis@4.2.0:
     resolution: {integrity: sha512-Orov6g6BB1sDfYgzWfTHDOxamtX1bE/zo104Dh9e6fqJ3PooipYyfJ0pUmrZO2wAvO8YbEyeFrkV91XTsGMSrw==}
 
@@ -6212,10 +6185,10 @@ packages:
       '@emotion/server':
         optional: true
     dependencies:
-      '@emotion/cache': 11.10.8
+      '@emotion/cache': 11.11.0
       '@emotion/react': 11.11.0(@types/react@18.2.0)(react@18.2.0)
-      '@emotion/serialize': 1.1.1
-      '@emotion/utils': 1.2.0
+      '@emotion/serialize': 1.1.2
+      '@emotion/utils': 1.2.1
       react: 18.2.0
     dev: false
 
@@ -6587,7 +6560,7 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /y-prosemirror@1.0.20(prosemirror-model@1.18.3)(prosemirror-state@1.4.2)(prosemirror-view@1.29.2)(y-protocols@1.0.5)(yjs@13.6.1):
+  /y-prosemirror@1.0.20(prosemirror-model@1.18.3)(prosemirror-state@1.4.2)(prosemirror-view@1.29.2)(y-protocols@1.0.5)(yjs@13.5.44):
     resolution: {integrity: sha512-LVMtu3qWo0emeYiP+0jgNcvZkqhzE/otOoro+87q0iVKxy/sMKuiJZnokfJdR4cn9qKx0Un5fIxXqbAlR2bFkA==}
     peerDependencies:
       prosemirror-model: ^1.7.1
@@ -6601,7 +6574,7 @@ packages:
       prosemirror-state: 1.4.2
       prosemirror-view: 1.29.2
       y-protocols: 1.0.5
-      yjs: 13.6.1
+      yjs: 13.5.44
     dev: true
 
   /y-protocols@1.0.5:
@@ -6683,9 +6656,8 @@ packages:
       yargs-parser: 20.2.9
     dev: true
 
-  /yjs@13.6.1:
-    resolution: {integrity: sha512-IyyHL+/v9N2S4YLSjGHMa0vMAfFxq8RDG5Nvb77raTTHJPweU3L/fRlqw6ElZvZUuHWnax3ufHR0Tx0ntfG63Q==}
-    engines: {node: '>=16.0.0', npm: '>=8.0.0'}
+  /yjs@13.5.44:
+    resolution: {integrity: sha512-UL+abIh2lQonqXfaJ+en7z9eGshpY11j1zNLc2kDYs0vrTjee4gZJUXC3ZsuhP6geQt0IRU04epCGRaVPQAVCA==}
     dependencies:
       lib0: 0.2.74
     dev: true
