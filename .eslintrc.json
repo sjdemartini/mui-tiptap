@@ -11,7 +11,13 @@
     },
     "project": "./tsconfig.json"
   },
-  "plugins": ["react", "import", "@typescript-eslint", "react-refresh"],
+  "plugins": [
+    "react",
+    "import",
+    "@typescript-eslint",
+    "react-refresh",
+    "tss-unused-classes"
+  ],
   "extends": [
     "eslint:recommended",
     "plugin:eslint-comments/recommended",
@@ -77,6 +83,7 @@
         "additionalHooks": "(useUpdateEffect)"
       }
     ],
-    "react-refresh/only-export-components": "warn"
+    "react-refresh/only-export-components": "warn",
+    "tss-unused-classes/unused-classes": "warn"
   }
 }

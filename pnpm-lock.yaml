@@ -261,6 +261,9 @@ devDependencies:
   eslint-plugin-react-refresh:
     specifier: ^0.3.5
     version: 0.3.5(eslint@8.39.0)
+  eslint-plugin-tss-unused-classes:
+    specifier: ^0.0.4
+    version: 0.0.4(eslint@8.39.0)
   husky:
     specifier: ^8.0.3
     version: 8.0.3
@@ -3486,6 +3489,14 @@ packages:
       resolve: 2.0.0-next.4
       semver: 6.3.0
       string.prototype.matchall: 4.0.8
+    dev: true
+
+  /eslint-plugin-tss-unused-classes@0.0.4(eslint@8.39.0):
+    resolution: {integrity: sha512-QwT1wcG0hM00wOcRKqdIDi4WkUOb55flySNGcvICJoGxXcH9Uk49jy0+UFZOVyUIMOYUVkCFLk02Mq+i5hrc7g==}
+    peerDependencies:
+      eslint: ^7.14.0 || ^8.0.0
+    dependencies:
+      eslint: 8.39.0
     dev: true
 
   /eslint-scope@5.1.1:
