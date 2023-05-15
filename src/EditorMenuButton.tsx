@@ -12,7 +12,9 @@ type Props = {
 
 const useStyles = makeStyles({ name: { EditorMenuButton } })({
   root: {
-    "& .MuiToggleButton-root": {
+    // Use && for additional specificity, since MUI's conditional "disabled"
+    // styles also set the border
+    "&& .MuiToggleButton-root": {
       border: "none",
       padding: 5,
     },
