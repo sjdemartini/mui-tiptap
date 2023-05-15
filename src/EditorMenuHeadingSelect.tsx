@@ -8,7 +8,7 @@ type Props = {
   editor: Editor | null;
 };
 
-const useStyles = makeStyles()({
+const useStyles = makeStyles({ name: { EditorMenuSelectOption } })({
   headingOption: {
     marginBlockStart: 0,
     marginBlockEnd: 0,
@@ -45,7 +45,7 @@ const LEVEL_TO_HEADING_OPTION_VALUE = {
   3: HeadingOptionValue.Heading3,
 } as const;
 
-function EditorMenuSelectOption({ editor }: Props) {
+export default function EditorMenuSelectOption({ editor }: Props) {
   const { classes, cx } = useStyles();
   const handleHeadingType: (
     event: SelectChangeEvent<"" | HeadingOptionValue>
@@ -163,5 +163,3 @@ function EditorMenuSelectOption({ editor }: Props) {
     </Select>
   );
 }
-
-export default EditorMenuSelectOption;

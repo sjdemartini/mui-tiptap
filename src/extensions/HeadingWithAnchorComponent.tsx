@@ -26,42 +26,48 @@ interface Props extends NodeViewProps {
   extension: typeof Heading;
 }
 
-const useStyles = makeStyles()((theme) => ({
-  root: {
-    position: "relative",
-    // Reference the "link" rule name defined below so that when the header
-    // is hovered over, we make the anchor link visible.
-    "&:hover $link": {
-      opacity: 100,
+const useStyles = makeStyles({ name: { HeadingWithAnchorComponent } })(
+  (theme) => ({
+    root: {
+      position: "relative",
+      // Reference the "link" rule name defined below so that when the header
+      // is hovered over, we make the anchor link visible.
+      "&:hover $link": {
+        opacity: 100,
+      },
     },
-  },
 
-  link: {
-    position: "absolute",
-    left: -21,
-    color: `${theme.palette.text.secondary} !important`,
-    opacity: 0, // This is changed by the root hover above
-    transition: theme.transitions.create("opacity"),
-    textDecoration: "none",
-    outline: "none",
+    link: {
+      position: "absolute",
+      left: -21,
+      color: `${theme.palette.text.secondary} !important`,
+      opacity: 0, // This is changed by the root hover above
+      transition: theme.transitions.create("opacity"),
+      textDecoration: "none",
+      outline: "none",
 
-    [theme.breakpoints.down("sm")]: {
-      left: -18,
+      [theme.breakpoints.down("sm")]: {
+        left: -18,
+      },
     },
-  },
 
-  icon: {
-    // Looks better to have at an angle, similar to the GitHub icon
-    transform: "rotate(-45deg)",
+    icon: {
+      // Looks better to have at an angle, similar to the GitHub icon
+      transform: "rotate(-45deg)",
 
-    fontSize: "1.25rem",
-    [theme.breakpoints.down("sm")]: {
-      fontSize: "1.15rem",
+      fontSize: "1.25rem",
+      [theme.breakpoints.down("sm")]: {
+        fontSize: "1.15rem",
+      },
     },
-  },
-}));
+  })
+);
 
-function HeadingWithAnchorComponent({ editor, node, extension }: Props) {
+export default function HeadingWithAnchorComponent({
+  editor,
+  node,
+  extension,
+}: Props) {
   const { classes } = useStyles();
   // Some of the logic here is based on the renderHTML definition from the
   // original Heading Node
@@ -106,5 +112,3 @@ function HeadingWithAnchorComponent({ editor, node, extension }: Props) {
     </NodeViewWrapper>
   );
 }
-
-export default HeadingWithAnchorComponent;

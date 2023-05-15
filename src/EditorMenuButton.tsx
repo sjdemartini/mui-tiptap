@@ -10,7 +10,7 @@ type Props = {
   IconComponent: React.ElementType<{ className: string }>;
 } & ToggleButtonProps;
 
-const useStyles = makeStyles()({
+const useStyles = makeStyles({ name: { EditorMenuButton } })({
   root: {
     "& .MuiToggleButton-root": {
       border: "none",
@@ -23,7 +23,7 @@ const useStyles = makeStyles()({
   },
 });
 
-function EditorMenuButton({
+export default function EditorMenuButton({
   tooltipLabel,
   tooltipShortcutKeys,
   IconComponent,
@@ -43,5 +43,3 @@ function EditorMenuButton({
     </span>
   );
 }
-
-export default EditorMenuButton;

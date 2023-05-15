@@ -101,7 +101,7 @@ export type UseMuiEditorOptions = {
 
 type UseMuiEditorResult = Editor | null;
 
-const useStyles = makeStyles()((theme) => ({
+const useStyles = makeStyles({ name: { useMuiEditor } })((theme) => ({
   editor: {
     ...getEditorStyles(theme),
 

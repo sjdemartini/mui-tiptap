@@ -27,7 +27,7 @@ interface Props {
   preferBottom?: boolean;
 }
 
-const useStyles = makeStyles()((theme) => ({
+const useStyles = makeStyles({ name: { ControlledBubbleMenu } })((theme) => ({
   popper: {
     // This allows the bubble menu to sit higher than the table components (like the
     // column-resize-handle and selectedCells) of useMuiEditor.
@@ -58,7 +58,7 @@ const useStyles = makeStyles()((theme) => ({
 // properly responds to all changes in React props, and it uses MUI's Popper
 // rather than relying on tippy, so we inherently get "Portal" behavior and
 // don't have to worry about visual clipping.
-function ControlledBubbleMenu({
+export default function ControlledBubbleMenu({
   editor,
   open,
   children,
@@ -170,5 +170,3 @@ function ControlledBubbleMenu({
     </Popper>
   );
 }
-
-export default ControlledBubbleMenu;

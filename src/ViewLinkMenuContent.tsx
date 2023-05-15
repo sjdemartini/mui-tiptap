@@ -12,14 +12,19 @@ interface Props {
   onRemove: () => void;
 }
 
-const useStyles = makeStyles()({
+const useStyles = makeStyles({ name: { ViewLinkMenuContent } })({
   linkPreviewText: {
     overflowWrap: "anywhere",
   },
 });
 
 /** Shown when a user is viewing the details of an existing a Link for Tiptap. */
-function ViewLinkMenuContent({ editor, onCancel, onEdit, onRemove }: Props) {
+export default function ViewLinkMenuContent({
+  editor,
+  onCancel,
+  onEdit,
+  onRemove,
+}: Props) {
   const { classes } = useStyles();
   const linkRange = getMarkRange(
     editor.state.selection.$from,
@@ -72,5 +77,3 @@ function ViewLinkMenuContent({ editor, onCancel, onEdit, onRemove }: Props) {
     </>
   );
 }
-
-export default ViewLinkMenuContent;
