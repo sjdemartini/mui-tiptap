@@ -1,20 +1,25 @@
 {
-  "include": ["./src", "./demo"],
   "compilerOptions": {
+    "target": "ESNext",
     "lib": ["dom", "dom.iterable", "esnext"],
     "module": "ESNext",
-    "target": "ESNext",
+    "skipLibCheck": true,
+
+    // Bundler mode
     "moduleResolution": "node",
-    "outDir": "build",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
     "jsx": "react-jsx",
-    "strict": true,
+    "outDir": "dist",
     "sourceMap": true,
     "esModuleInterop": true,
-    "skipLibCheck": true,
+
+    // Linting
+    "strict": true,
     "forceConsistentCasingInFileNames": true,
     "declaration": true,
-    "resolveJsonModule": true,
     "allowJs": false,
     "noFallthroughCasesInSwitch": true
-  }
+  },
+  "include": ["./src", "./demo", "vite.config.ts"]
 }
