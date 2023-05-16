@@ -4,8 +4,8 @@ import { Plugin, PluginKey } from "prosemirror-state";
 import React, { useCallback, useEffect, useState } from "react";
 import ControlledBubbleMenu from "./ControlledBubbleMenu";
 import EditLinkMenuContent from "./EditLinkMenuContent";
-import keymapPluginFactory from "./keymapPluginFactory";
 import ViewLinkMenuContent from "./ViewLinkMenuContent";
+import keymapPluginFactory from "./keymapPluginFactory";
 
 interface UseLinkMenuOptions {
   editor: Editor | null;

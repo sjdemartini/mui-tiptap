@@ -63,15 +63,6 @@
       "warn",
       { "argsIgnorePattern": "^_" } // Ignore arguments that start with an underscore
     ],
-    "import/order": [
-      "error",
-      {
-        "alphabetize": {
-          "order": "asc",
-          "caseInsensitive": true
-        }
-      }
-    ],
     "import/no-extraneous-dependencies": "error",
     "import/no-mutable-exports": "error",
     "import/no-unused-modules": "error",
