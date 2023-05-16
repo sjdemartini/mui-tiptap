@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { MuiEditorContent, useMuiEditor } from "mui-tiptap";
 
 const exampleContent =
@@ -11,7 +11,7 @@ export default function DemoEditor() {
   });
 
   return (
-    <div>
+    <Box sx={{ maxWidth: 1200, my: 3, mx: "auto" }}>
       Using the editor!
       <div style={{ marginTop: 10 }}>
         <MuiEditorContent editor={editor} showFormattingMenuBar />
@@ -23,6 +23,6 @@ export default function DemoEditor() {
       <pre style={{ marginTop: 10, overflow: "scroll", maxWidth: "100%" }}>
         <code>{editor?.getHTML()}</code>
       </pre>
-    </div>
+    </Box>
   );
 }

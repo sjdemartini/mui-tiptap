@@ -18,8 +18,12 @@ Please leverage the repository's own tools to make sure the code is aligned with
 2. Please commit your changes and run a `setup` command so you can actually check how would the template look like once cleaned up
 3. Always leverage the `cz` command to create a commit. We heavily rely on this for automatic releases.
 
-## Development demo setup
+## Development setup
 
 1. Set up [pnpm](https://pnpm.io/installation)
 2. Run `pnpm install`
 3. Run `pnpm dev` and view the demo site at the printed localhost URL
+
+This package uses Vite with Hot Module Replacement (HMR), so file edits should reflect immediately in your browser during local development.
+
+To instead test a "built" version of this package which is installed into an "external" module, you can run `pnpm example`, which runs a server with the separate application in the `example/` directory.

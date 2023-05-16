@@ -44,7 +44,7 @@ export default function App() {
         <AppBar position="static">
           <Toolbar>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              mui-tiptap
+              Example app using <code>mui-tiptap</code>
             </Typography>
 
             <IconButton onClick={togglePaletteMode} color="inherit">
