@@ -316,7 +316,7 @@ export function getEditorStyles(theme: Theme): StyleRules {
 
     // Based on the example styles from https://tiptap.dev/api/extensions/placeholder,
     // this adds the placeholder text at the top
-    "& p.is-editor-empty:first-child::before": {
+    "& p.is-editor-empty:first-of-type::before": {
       color: theme.palette.text.disabled,
       content: "attr(data-placeholder)",
       float: "left",

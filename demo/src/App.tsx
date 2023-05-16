@@ -7,6 +7,7 @@ const exampleContent =
 export default function App() {
   const editor = useMuiEditor({
     content: exampleContent,
+    placeholder: "Add your own content here...",
   });
 
   return (
