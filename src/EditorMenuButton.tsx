@@ -1,7 +1,7 @@
-import { ToggleButton, ToggleButtonProps } from "@mui/material";
+import { ToggleButton, type ToggleButtonProps } from "@mui/material";
 import { makeStyles } from "tss-react/mui";
 import EditorMenuButtonTooltip, {
-  Props as EditorMenuButtonTooltipProps,
+  type Props as EditorMenuButtonTooltipProps,
 } from "./EditorMenuButtonTooltip";
 
 type Props = {

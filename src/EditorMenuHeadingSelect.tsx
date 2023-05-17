@@ -1,5 +1,5 @@
-import { MenuItem, Select, SelectChangeEvent } from "@mui/material";
-import { Editor } from "@tiptap/core";
+import { MenuItem, Select, type SelectChangeEvent } from "@mui/material";
+import type { Editor } from "@tiptap/core";
 import { useCallback } from "react";
 import { makeStyles } from "tss-react/mui";
 import EditorMenuButtonTooltip from "./EditorMenuButtonTooltip";

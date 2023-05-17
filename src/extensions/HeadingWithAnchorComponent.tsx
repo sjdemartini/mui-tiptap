@@ -1,12 +1,9 @@
 import { Link as LinkIcon } from "@mui/icons-material";
-import {
-  NodeViewProps,
-  getText,
-  getTextSerializersFromSchema,
-} from "@tiptap/core";
-import { Heading, Level } from "@tiptap/extension-heading";
+import type { NodeViewProps } from "@tiptap/core";
+import { getText, getTextSerializersFromSchema } from "@tiptap/core";
+import type { Heading, Level } from "@tiptap/extension-heading";
 import { NodeViewContent, NodeViewWrapper } from "@tiptap/react";
-import { Node as ProseMirrorNode } from "prosemirror-model";
+import type { Node as ProseMirrorNode } from "prosemirror-model";
 import { useMemo } from "react";
 import { makeStyles } from "tss-react/mui";
 import slugify from "../utils/slugify";

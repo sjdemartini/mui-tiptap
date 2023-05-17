@@ -1,5 +1,5 @@
 import { keydownHandler } from "prosemirror-keymap";
-import { Command, Plugin, PluginKey } from "prosemirror-state";
+import { Plugin, type Command, type PluginKey } from "prosemirror-state";
 
 /**
  * Create a `keymap` prosemirror plugin for keyboard shortcut use in Tiptap.

@@ -1,7 +1,7 @@
 import {
-  ExtendedRegExpMatchArray,
   InputRule,
   mergeAttributes,
+  type ExtendedRegExpMatchArray,
 } from "@tiptap/core";
 import { Image } from "@tiptap/extension-image";
 import { ReactNodeViewRenderer } from "@tiptap/react";

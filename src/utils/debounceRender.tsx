@@ -12,8 +12,8 @@
  * So copied the brief source directly here instead.
  */
 import hoistNonReactStatics from "hoist-non-react-statics";
-import { debounce as _debounce, DebounceSettings } from "lodash";
-import { Component, ComponentType } from "react";
+import { debounce as _debounce, type DebounceSettings } from "lodash";
+import { Component, type ComponentType } from "react";
 
 function debounceRender<T>(
   ComponentToDebounce: ComponentType<T>,

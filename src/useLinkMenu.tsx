@@ -1,7 +1,8 @@
 import { Box } from "@mui/material";
-import { Editor, getAttributes } from "@tiptap/core";
+import { getAttributes, type Editor } from "@tiptap/core";
 import { Plugin, PluginKey } from "prosemirror-state";
-import React, { useCallback, useEffect, useState } from "react";
+import type React from "react";
+import { useCallback, useEffect, useState } from "react";
 import ControlledBubbleMenu from "./ControlledBubbleMenu";
 import EditLinkMenuContent from "./EditLinkMenuContent";
 import ViewLinkMenuContent from "./ViewLinkMenuContent";

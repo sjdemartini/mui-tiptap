@@ -1,6 +1,10 @@
 import { FormatColorFill, GridOff } from "@mui/icons-material";
 import { styled } from "@mui/material";
-import { Editor, findParentNodeClosestToPos, posToDOMRect } from "@tiptap/core";
+import {
+  findParentNodeClosestToPos,
+  posToDOMRect,
+  type Editor,
+} from "@tiptap/core";
 import { useMemo } from "react";
 import {
   RiDeleteColumn,

@@ -1,5 +1,5 @@
 import { Button, DialogActions, Link } from "@mui/material";
-import { Editor, getMarkRange, getMarkType } from "@tiptap/core";
+import { getMarkRange, getMarkType, type Editor } from "@tiptap/core";
 import { truncate } from "lodash";
 import { useKey } from "react-use";
 import { makeStyles } from "tss-react/mui";

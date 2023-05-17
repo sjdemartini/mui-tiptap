@@ -1,5 +1,5 @@
 import { EditorContent } from "@tiptap/react";
-import useMuiEditor, { UseMuiEditorOptions } from "./useMuiEditor";
+import useMuiEditor, { type UseMuiEditorOptions } from "./useMuiEditor";
 
 type Props = {
   /** The HTML or JSON editor content to render. */

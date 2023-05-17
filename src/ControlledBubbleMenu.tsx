@@ -1,5 +1,5 @@
-import { Fade, Paper, Popper, PopperProps } from "@mui/material";
-import { Editor, isNodeSelection, posToDOMRect } from "@tiptap/core";
+import { Fade, Paper, Popper, type PopperProps } from "@mui/material";
+import { isNodeSelection, posToDOMRect, type Editor } from "@tiptap/core";
 import { useCallback } from "react";
 import { makeStyles } from "tss-react/mui";
 import { EDITOR_TABLE_ELEMENT_Z_INDEX } from "./styles";

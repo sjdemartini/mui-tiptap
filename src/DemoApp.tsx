@@ -4,12 +4,12 @@ import {
   AppBar,
   CssBaseline,
   IconButton,
-  PaletteMode,
   ThemeProvider,
   Toolbar,
   Typography,
   createTheme,
   useMediaQuery,
+  type PaletteMode,
 } from "@mui/material";
 import { useCallback, useMemo, useState } from "react";
 import DemoEditor from "./DemoEditor";

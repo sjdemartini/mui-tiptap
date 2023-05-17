@@ -1,7 +1,7 @@
-import { NodeViewProps } from "@tiptap/core";
+import type { NodeViewProps } from "@tiptap/core";
 import { NodeViewWrapper } from "@tiptap/react";
 import { throttle } from "lodash";
-import { Node as ProseMirrorNode } from "prosemirror-model";
+import type { Node as ProseMirrorNode } from "prosemirror-model";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 // Based on

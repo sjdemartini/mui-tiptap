@@ -1,4 +1,4 @@
-import { alpha, Tooltip, TooltipProps, Typography } from "@mui/material";
+import { Tooltip, Typography, alpha, type TooltipProps } from "@mui/material";
 import { makeStyles } from "tss-react/mui";
 import { getModShortcutKey } from "./utils/platform";
 

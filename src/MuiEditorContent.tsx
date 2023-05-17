@@ -1,7 +1,9 @@
 import { Collapse } from "@mui/material";
-import { Editor, EditorContent } from "@tiptap/react";
-import { Except } from "type-fest";
-import EditorMenuBar, { Props as EditorMenuBarProps } from "./EditorMenuBar";
+import { EditorContent, type Editor } from "@tiptap/react";
+import type { Except } from "type-fest";
+import EditorMenuBar, {
+  type Props as EditorMenuBarProps,
+} from "./EditorMenuBar";
 import TableBubbleMenu from "./TableBubbleMenu";
 import useLinkMenu from "./useLinkMenu";
 

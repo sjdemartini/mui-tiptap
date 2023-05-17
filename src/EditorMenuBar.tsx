@@ -15,7 +15,7 @@ import {
   Superscript as SuperscriptIcon,
 } from "@mui/icons-material";
 import { Grid } from "@mui/material";
-import { Editor } from "@tiptap/core";
+import type { Editor } from "@tiptap/core";
 import { BiCodeBlock, BiTable } from "react-icons/bi";
 import { MdChecklist } from "react-icons/md";
 import { makeStyles } from "tss-react/mui";

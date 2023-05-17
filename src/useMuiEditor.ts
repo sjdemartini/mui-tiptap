@@ -1,4 +1,4 @@
-import { Editor as CoreEditor } from "@tiptap/core";
+import type { Editor as CoreEditor } from "@tiptap/core";
 import { Blockquote } from "@tiptap/extension-blockquote";
 import { Bold } from "@tiptap/extension-bold";
 import { BulletList } from "@tiptap/extension-bullet-list";
@@ -30,15 +30,15 @@ import {
   tableEditingKey,
 } from "@tiptap/prosemirror-tables";
 import {
-  AnyConfig,
-  Editor,
-  EditorEvents,
   getExtensionField,
   getNodeType,
   useEditor,
+  type AnyConfig,
+  type Editor,
+  type EditorEvents,
 } from "@tiptap/react";
-import { Slice } from "prosemirror-model";
-import { EditorView } from "prosemirror-view";
+import type { Slice } from "prosemirror-model";
+import type { EditorView } from "prosemirror-view";
 import { useEffect, useMemo, useRef } from "react";
 import { useUpdateEffect } from "react-use";
 import { keyframes } from "tss-react";

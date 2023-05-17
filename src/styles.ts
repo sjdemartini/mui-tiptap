@@ -1,5 +1,10 @@
-import type { CSSObject } from "@mui/material";
-import { alpha, darken, lighten, Theme } from "@mui/material";
+import {
+  alpha,
+  darken,
+  lighten,
+  type CSSObject,
+  type Theme,
+} from "@mui/material";
 import { omit } from "lodash";
 
 type StyleRules = Record<string, CSSObject>;

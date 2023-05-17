@@ -1,5 +1,5 @@
 import { Button, DialogActions, TextField, Typography } from "@mui/material";
-import { Editor, getMarkRange, getMarkType } from "@tiptap/core";
+import { getMarkRange, getMarkType, type Editor } from "@tiptap/core";
 import encodeurl from "encodeurl";
 import { useCallback, useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
