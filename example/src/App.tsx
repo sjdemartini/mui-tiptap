@@ -12,7 +12,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { useCallback, useMemo, useState } from "react";
-import DemoEditor from "./DemoEditor";
+import PageContentWithEditor from "./PageContentWithEditor";
 
 export default function App() {
   const systemSettingsPrefersDarkMode = useMediaQuery(
@@ -57,7 +57,7 @@ export default function App() {
           </Toolbar>
         </AppBar>
 
-        <DemoEditor />
+        <PageContentWithEditor />
       </div>
     </ThemeProvider>
   );
