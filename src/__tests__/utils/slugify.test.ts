@@ -1,3 +1,4 @@
+/* cSpell:disable */
 import { describe, expect, it } from "vitest";
 import slugify from "../../utils/slugify";
 

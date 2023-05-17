@@ -1,7 +1,19 @@
 {
   "version": "0.2",
   "language": "en",
-  "words": ["esbuild", "mui-tiptap", "Tiptap", "mui", "octocat"],
+  "words": [
+    "contenteditable",
+    "dropcursor",
+    "esbuild",
+    "gapcursor",
+    "keymap",
+    "mui-tiptap",
+    "mui",
+    "octocat",
+    "prosemirror",
+    "selectednode",
+    "Tiptap"
+  ],
   "flagWords": [],
   "ignorePaths": [
     "package.json",

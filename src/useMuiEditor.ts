@@ -460,7 +460,7 @@ export default function useMuiEditor({
     // This makes Table work properly, while also avoiding the need to recreate the
     // editor or have it flash blank when using collaboration. Note that we only
     // reconfigure the table plugins in particular and don't simply reconfigure *all*
-    // plugins based on editor.extenionsManager.plugins alone, or we'd lose any plugins
+    // plugins based on editor.extensionManager.plugins alone, or we'd lose any plugins
     // that were separately registered via registerPlugin (like our link menu plugin).
     const tableExtension = editorRef.current.extensionManager.extensions.find(
       (extension): extension is typeof Table => extension.name == "table"
