@@ -54,7 +54,10 @@
     ],
     "@typescript-eslint/consistent-type-definitions": "off",
     "@typescript-eslint/consistent-type-exports": "error",
-    "@typescript-eslint/consistent-type-imports": "error",
+    "@typescript-eslint/consistent-type-imports": [
+      "warn",
+      { "fixStyle": "inline-type-imports" }
+    ],
     "@typescript-eslint/no-import-type-side-effects": "error",
     "@typescript-eslint/no-misused-promises": [
       "error",
@@ -69,7 +72,11 @@
     "import/no-extraneous-dependencies": "error",
     "import/no-mutable-exports": "error",
     "import/no-unused-modules": "error",
-    "import/no-duplicates": ["warn", { "prefer-inline": true }],
+    // Note that no-duplicates prefer-inline doesn't yet handle duplicate type
+    // imports properly
+    // https://github.com/import-js/eslint-plugin-import/issues/2715
+    // (improvements are unreleased in eslint-plugin-import)
+    "import/no-duplicates": ["error", { "prefer-inline": true }],
     "react/function-component-definition": "warn",
     "react/jsx-no-useless-fragment": ["warn", { "allowExpressions": true }],
     "react-hooks/exhaustive-deps": [
