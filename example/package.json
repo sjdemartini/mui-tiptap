@@ -52,7 +52,7 @@
     "@tiptap/prosemirror-tables": "1.1.4",
     "@tiptap/react": "2.0.0-beta.109",
     "@tiptap/suggestion": "2.0.0-beta.91",
-    "mui-tiptap": "workspace:..",
+    "mui-tiptap": "file:../",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

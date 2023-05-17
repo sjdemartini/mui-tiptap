@@ -18,16 +18,19 @@
   "author": "Steven DeMartini <sjdemartini@users.noreply.github.com>",
   "repository": "sjdemartini/mui-tiptap",
   "type": "module",
-  "main": "dist/index.cjs",
-  "module": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "types": "./dist/index.d.ts",
+  "main": "dist/index.js",
+  "module": "dist/esm/index.js",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs",
-      "types": "./dist/index.d.ts"
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "import": "./dist/esm/index.js"
     }
   },
-  "types": "./dist/index.d.ts",
   "license": "MIT",
   "engines": {
     "node": "^18.15.0",
@@ -38,12 +41,10 @@
     "access": "public"
   },
   "scripts": {
-    "build": "pnpm run clean && pnpm run build:main",
-    "build:main": "vite build",
+    "build": "pnpm clean && tsc --project tsconfig.build.json && tsc --project tsconfig.build-esm.json",
     "clean": "rimraf dist coverage nyc_output",
-    "example": "pnpm build && pnpm --dir ./example install && pnpm --dir ./example run dev",
+    "example": "pnpm build && rimraf ./example/node_modules && pnpm --dir ./example install && pnpm --dir ./example run dev",
     "dev": "vite",
-    "type:dts": "tsc --emitDeclarationOnly --project tsconfig.build.json",
     "type:check": "tsc --noEmit",
     "format": "prettier --write src",
     "format:check": "prettier --check src",
