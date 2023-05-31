@@ -44,6 +44,7 @@ import { useUpdateEffect } from "react-use";
 import { keyframes } from "tss-react";
 import { makeStyles } from "tss-react/mui";
 import HeadingWithAnchor from "./extensions/HeadingWithAnchor";
+import LinkBubbleMenuHandler from "./extensions/LinkBubbleMenuHandler";
 import ResizableImage from "./extensions/ResizableImage";
 import { getEditorStyles } from "./styles";
 
@@ -180,10 +181,10 @@ const onPasteDefault = () => false;
 // (as opposed to having a link created via autolink), the next typed character
 // will be part of the link unexpectedly, and subsequent characters will not be.
 // This may have to do with how we're using `insertContent` and `setLink` in
-// `useLinkMenu`, but I can't figure out an alternative approach that avoids the
-// issue. This is arguably better than being "stuck" in the link without being
-// able to leave it, but it is still not quite right. See the related open
-// issues here:
+// the LinkBubbleMenu, but I can't figure out an alternative approach that
+// avoids the issue. This is arguably better than being "stuck" in the link
+// without being able to leave it, but it is still not quite right. See the
+// related open issues here:
 // https://github.com/ueberdosis/tiptap/issues/2571,
 // https://github.com/ueberdosis/tiptap/issues/2572, and
 // https://github.com/ueberdosis/tiptap/issues/514
@@ -330,6 +331,7 @@ export default function useMuiEditor({
         // We should set this to true when read-only
         openOnClick: false,
       }),
+      LinkBubbleMenuHandler,
 
       // Extensions
       Gapcursor,

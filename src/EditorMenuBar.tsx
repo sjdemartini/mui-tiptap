@@ -28,7 +28,6 @@ import { isTouchDevice } from "./utils/platform";
 
 export interface Props {
   editor: Editor | null;
-  onShowLinkMenu: () => void;
   onAddImagesClick?: () => void;
   /** If true, the indent/unindent buttons show up, even if not using a touch device. */
   alwaysShowIndentButtons?: boolean;
@@ -69,7 +68,6 @@ function shouldShowHeadingSelectOption(editor: Editor | null): boolean {
 
 function EditorMenuBarInner({
   editor,
-  onShowLinkMenu,
   onAddImagesClick,
   alwaysShowIndentButtons = false,
   className,
@@ -155,7 +153,7 @@ function EditorMenuBarInner({
             IconComponent={LinkIcon}
             value="addLink"
             selected={editor?.isActive("link")}
-            onClick={onShowLinkMenu}
+            onClick={editor?.commands.openLinkBubbleMenu}
           />
         </Grid>
 

@@ -4,10 +4,10 @@ import type { Except } from "type-fest";
 import EditorMenuBar, {
   type Props as EditorMenuBarProps,
 } from "./EditorMenuBar";
+import LinkBubbleMenu from "./LinkBubbleMenu";
 import TableBubbleMenu from "./TableBubbleMenu";
-import useLinkMenu from "./useLinkMenu";
 
-type Props = Except<EditorMenuBarProps, "editor" | "onShowLinkMenu"> & {
+type Props = Except<EditorMenuBarProps, "editor"> & {
   editor: Editor | null;
   /**
    * Whether to show the formatting menu bar. When changing between true/false,
@@ -27,10 +27,6 @@ export function EditableTooling({
   classes,
   ...otherMenuBarProps
 }: Props) {
-  const { linkBubbleMenu, onShowLinkMenu } = useLinkMenu({
-    editor,
-  });
-
   return (
     <>
       <Collapse
@@ -40,14 +36,10 @@ export function EditableTooling({
         unmountOnExit
         className={classes?.menuBarContainer}
       >
-        <EditorMenuBar
-          editor={editor}
-          onShowLinkMenu={onShowLinkMenu}
-          {...otherMenuBarProps}
-        />
+        <EditorMenuBar editor={editor} {...otherMenuBarProps} />
       </Collapse>
 
-      {linkBubbleMenu}
+      {editor && <LinkBubbleMenu editor={editor} />}
       {editor && <TableBubbleMenu editor={editor} />}
     </>
   );
