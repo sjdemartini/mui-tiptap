@@ -77,6 +77,12 @@
     // https://github.com/import-js/eslint-plugin-import/issues/2715
     // (improvements are unreleased in eslint-plugin-import)
     "import/no-duplicates": ["error", { "prefer-inline": true }],
+    "no-console": [
+      "warn",
+      {
+        "allow": ["warn", "error"]
+      }
+    ],
     "react/function-component-definition": "warn",
     "react/jsx-no-useless-fragment": ["warn", { "allowExpressions": true }],
     "react-hooks/exhaustive-deps": [
