@@ -70,12 +70,19 @@ export default function ControlledBubbleMenu({
   const defaultAnchorEl = useCallback(() => {
     // The logic here is taken from the positioning implementation in Tiptap's BubbleMenuPlugin
     // https://github.com/ueberdosis/tiptap/blob/16bec4e9d0c99feded855b261edb6e0d3f0bad21/packages/extension-bubble-menu/src/bubble-menu-plugin.ts#L183-L193
-    const { ranges } = editor.state.selection;
-    const from = Math.min(...ranges.map((range) => range.$from.pos));
-    const to = Math.max(...ranges.map((range) => range.$to.pos));
-
+    // Note however that we calculate the `from` and `to` values from within
+    // `getBoundingClientRect` below, since otherwise the original
+    // `defaultAnchorEl` callback function passed to the Popper could get cached
+    // by MUI. That meant that when clicking between different marks in the
+    // editor, the bubble menu position would not update properly, even though
+    // `defaultAnchorEl` would have been updated here when the editor selection
+    // changed.
     return {
       getBoundingClientRect: () => {
+        const { ranges } = editor.state.selection;
+        const from = Math.min(...ranges.map((range) => range.$from.pos));
+        const to = Math.max(...ranges.map((range) => range.$to.pos));
+
         if (isNodeSelection(editor.state.selection)) {
           const node = editor.view.nodeDOM(from);
 
