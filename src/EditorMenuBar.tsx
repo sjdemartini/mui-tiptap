@@ -22,12 +22,12 @@ import { makeStyles } from "tss-react/mui";
 import EditorMenuButton from "./EditorMenuButton";
 import EditorMenuDivider from "./EditorMenuDivider";
 import EditorMenuSelectOption from "./EditorMenuHeadingSelect";
+import { useMUITiptapEditorContext } from "./MUITiptapEditorContext";
 import { parseToNumPixels } from "./styles";
 import debounceRender from "./utils/debounceRender";
 import { isTouchDevice } from "./utils/platform";
 
-export interface Props {
-  editor: Editor | null;
+export interface EditorMenuBarProps {
   onAddImagesClick?: () => void;
   /** If true, the indent/unindent buttons show up, even if not using a touch device. */
   alwaysShowIndentButtons?: boolean;
@@ -67,11 +67,11 @@ function shouldShowHeadingSelectOption(editor: Editor | null): boolean {
 // https://tiptap.dev/api/keyboard-shortcuts
 
 function EditorMenuBarInner({
-  editor,
   onAddImagesClick,
   alwaysShowIndentButtons = false,
   className,
-}: Props) {
+}: EditorMenuBarProps) {
+  const editor = useMUITiptapEditorContext();
   const { classes, cx } = useStyles();
   return (
     <div className={cx(classes.root, className)}>

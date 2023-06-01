@@ -29,8 +29,8 @@ interface Props {
 
 const useStyles = makeStyles({ name: { ControlledBubbleMenu } })((theme) => ({
   popper: {
-    // This allows the bubble menu to sit higher than the table components (like the
-    // column-resize-handle and selectedCells) of useMuiEditor.
+    // This allows the bubble menu to sit higher than the table components (like
+    // the column-resize-handle and selectedCells) of the editor.
     zIndex: EDITOR_TABLE_ELEMENT_Z_INDEX + 1,
   },
 
