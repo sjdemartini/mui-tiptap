@@ -23,7 +23,6 @@ import EditorMenuButton from "./EditorMenuButton";
 import EditorMenuDivider from "./EditorMenuDivider";
 import EditorMenuSelectOption from "./EditorMenuHeadingSelect";
 import { useMuiTiptapEditorContext } from "./context";
-import { parseToNumPixels } from "./styles";
 import debounceRender from "./utils/debounceRender";
 import { isTouchDevice } from "./utils/platform";
 
@@ -35,25 +34,13 @@ export interface EditorMenuBarProps {
 }
 
 const useStyles = makeStyles({ name: { EditorMenuBarInner } })((theme) => {
-  // If this gets embedded in an outlined input (which uses padding to
-  // ensure the different border widths don't change the inner content
-  // position), we have to add negative margins to have the border "reach" the
-  // edges of the input container
-  // TODO(Steven DeMartini): Make sure the editor menu bar doesn't extend beyond
-  // its container except in that context, so perhaps we have the "Outlined"
-  // version of this override its styles with this sort of logic instead.
-  const extraOuterMarginCompensationPixels = 1;
-  const paddingHorizontalPixels =
-    parseToNumPixels(theme.spacing(0.5)) + extraOuterMarginCompensationPixels;
   return {
     root: {
       display: "flex",
-      padding: `${theme.spacing(0.8)} ${paddingHorizontalPixels}px`,
+      padding: theme.spacing(0.8, 0.5),
       borderBottomColor: theme.palette.divider,
       borderBottomStyle: "solid",
       borderBottomWidth: 1,
-      marginLeft: -extraOuterMarginCompensationPixels,
-      marginRight: -extraOuterMarginCompensationPixels,
     },
   };
 });

@@ -9,7 +9,7 @@ type Props = EditorMenuBarProps & {
    * Whether to show the formatting menu bar. When changing between true/false,
    * uses collapse animation.
    */
-  showFormattingMenuBar: boolean;
+  open: boolean;
   classes?: Partial<EditableToolingClasses>;
 };
 
@@ -17,14 +17,14 @@ type EditableToolingClasses = {
   menuBarContainer?: string;
 };
 
-export function CollapsableEditorMenuBar({
-  showFormattingMenuBar,
+export function CollapsibleEditorMenuBar({
+  open,
   classes,
   ...otherMenuBarProps
 }: Except<Props, "editor">) {
   return (
     <Collapse
-      in={showFormattingMenuBar}
+      in={open}
       // For performance reasons, we set unmountOnExit to avoid rendering the
       // menu bar unless it's needed
       unmountOnExit
