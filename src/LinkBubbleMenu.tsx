@@ -17,7 +17,7 @@ export type LinkBubbleMenuProps = {
  * Tiptap editor.
  */
 export default function LinkBubbleMenu({ editor }: LinkBubbleMenuProps) {
-  if (!("linkBubbleMenuHandler" in editor.extensionStorage)) {
+  if (!("linkBubbleMenuHandler" in editor.storage)) {
     throw new Error(
       "You must add the LinkBubbleMenuHandler extension to the useEditor `extensions` array in order to use this component!"
     );

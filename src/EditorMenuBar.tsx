@@ -60,7 +60,7 @@ const useStyles = makeStyles({ name: { EditorMenuBarInner } })((theme) => {
 
 function shouldShowHeadingSelectOption(editor: Editor | null): boolean {
   // Only show the select option if the "heading" extension is enabled
-  return !!editor && "heading" in editor.extensionStorage;
+  return !!editor && "heading" in editor.storage;
 }
 
 // For the list of pre-configured shortcuts, see
@@ -185,7 +185,7 @@ function EditorMenuBarInner({
           />
         </Grid>
 
-        {editor && "taskList" in editor.extensionStorage && (
+        {editor && "taskList" in editor.storage && (
           <Grid item>
             <EditorMenuButton
               tooltipLabel="Task checklist"
@@ -277,7 +277,7 @@ function EditorMenuBarInner({
           />
         </Grid>
 
-        {editor && "image" in editor.extensionStorage && onAddImagesClick && (
+        {editor && "image" in editor.storage && onAddImagesClick && (
           <>
             <Grid item>
               <EditorMenuDivider />

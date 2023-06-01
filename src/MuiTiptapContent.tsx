@@ -92,7 +92,7 @@ const useStyles = makeStyles({ name: { MuiTiptapContent } })((theme) => ({
  * we have to wait until the document content has synced.
  */
 function scrollToAnchorLinkAfterRender(editor: CoreEditor) {
-  if (editor.isDestroyed || !("heading" in editor.extensionStorage)) {
+  if (editor.isDestroyed || !("heading" in editor.storage)) {
     // If the editor is already removed/destroyed, or the heading extension isn't
     // enabled, we can stop
     return;
@@ -229,14 +229,12 @@ export default function MuiTiptapContent({
 
       {editor?.isEditable && (
         <>
-          {"link" in editor.extensionStorage &&
-            "linkBubbleMenuHandler" in editor.extensionStorage && (
+          {"link" in editor.storage &&
+            "linkBubbleMenuHandler" in editor.storage && (
               <LinkBubbleMenu editor={editor} />
             )}
 
-          {"table" in editor.extensionStorage && (
-            <TableBubbleMenu editor={editor} />
-          )}
+          {"table" in editor.storage && <TableBubbleMenu editor={editor} />}
         </>
       )}
     </div>
