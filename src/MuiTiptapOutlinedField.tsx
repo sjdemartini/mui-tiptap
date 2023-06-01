@@ -3,7 +3,7 @@ import { CollapsibleEditorMenuBar } from "./CollapsibleEditorMenuBar";
 import MuiTiptapContent from "./MuiTiptapContent";
 import OutlinedField from "./OutlinedField";
 import { useMuiTiptapEditorContext } from "./context";
-import { EDITOR_TABLE_ELEMENT_Z_INDEX, parseToNumPixels } from "./styles";
+import { Z_INDEXES } from "./styles";
 import useDebouncedFocus from "./useDebouncedFocus";
 
 export type MuiTiptapOutlinedFieldProps = {
@@ -43,30 +43,19 @@ export type MuiTiptapOutlinedFieldProps = {
 const useStyles = makeStyles<{ stickyMenuBarOffset?: number }>({
   name: { MuiTiptapOutlinedField },
 })((theme, { stickyMenuBarOffset }) => {
-  // When this gets embedded in an outlined input (which uses padding to ensure
-  // the different border widths don't change the inner content position), we
-  // have to add negative margins to have the border "reach" the edges of the
-  // input container
-  const extraOuterMarginCompensationPixels = 1;
-  const paddingHorizontalPixels =
-    parseToNumPixels(theme.spacing(0.5)) + extraOuterMarginCompensationPixels;
   return {
-    // `root` and `content` are added to allow convenient user overrides
+    // These first classes are added to allow convenient user overrides
     root: {},
     content: {},
 
     menuBar: {
-      paddingLeft: paddingHorizontalPixels,
-      paddingRight: paddingHorizontalPixels,
-      marginLeft: -extraOuterMarginCompensationPixels,
-      marginRight: -extraOuterMarginCompensationPixels,
+      padding: theme.spacing(1),
     },
 
     menuBarSticky: {
       position: "sticky",
       top: stickyMenuBarOffset ?? 0,
-      // This should sit on top of editor components
-      zIndex: EDITOR_TABLE_ELEMENT_Z_INDEX + 1,
+      zIndex: Z_INDEXES.MENU_BAR,
       background: theme.palette.background.default,
     },
   };

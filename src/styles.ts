@@ -9,7 +9,14 @@ import { omit } from "lodash";
 
 type StyleRules = Record<string, CSSObject>;
 
-export const EDITOR_TABLE_ELEMENT_Z_INDEX = 2;
+export const Z_INDEXES = {
+  TABLE_ELEMENT: 2,
+  // The menu bar must sit higher than the table components (like the
+  // column-resize-handle and selectedCells) of the editor.
+  MENU_BAR: 3,
+  // The bubble menus should appear on top of the menu bar
+  BUBBLE_MENU: 4,
+} as const;
 
 /**
  * Return the number of pixels given a CSS pixel value. Ex: "16px" -> 16.
@@ -291,7 +298,7 @@ export function getEditorStyles(theme: Theme): StyleRules {
     },
 
     "& .selectedCell:after": {
-      zIndex: EDITOR_TABLE_ELEMENT_Z_INDEX,
+      zIndex: Z_INDEXES.TABLE_ELEMENT,
       position: "absolute",
       content: '""',
       left: 0,
@@ -310,7 +317,7 @@ export function getEditorStyles(theme: Theme): StyleRules {
       width: 4,
       // This z-index proved necessary to ensure the handle sits above the background of
       // any cell (header and non-header)
-      zIndex: EDITOR_TABLE_ELEMENT_Z_INDEX,
+      zIndex: Z_INDEXES.TABLE_ELEMENT,
       backgroundColor: theme.palette.primary.light,
       pointerEvents: "none",
     },

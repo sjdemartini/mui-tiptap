@@ -2,7 +2,7 @@ import { Fade, Paper, Popper, useTheme, type PopperProps } from "@mui/material";
 import { isNodeSelection, posToDOMRect, type Editor } from "@tiptap/core";
 import { useCallback } from "react";
 import { makeStyles } from "tss-react/mui";
-import { EDITOR_TABLE_ELEMENT_Z_INDEX } from "./styles";
+import { Z_INDEXES } from "./styles";
 
 interface Props {
   editor: Editor;
@@ -29,9 +29,7 @@ interface Props {
 
 const useStyles = makeStyles({ name: { ControlledBubbleMenu } })((theme) => ({
   popper: {
-    // This allows the bubble menu to sit higher than the table components (like
-    // the column-resize-handle and selectedCells) of the editor.
-    zIndex: EDITOR_TABLE_ELEMENT_Z_INDEX + 1,
+    zIndex: Z_INDEXES.BUBBLE_MENU,
   },
 
   paper: {

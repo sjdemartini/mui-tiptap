@@ -2,6 +2,7 @@ import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import {
   AppBar,
+  Box,
   CssBaseline,
   IconButton,
   ThemeProvider,
@@ -40,25 +41,25 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
 
-      <div>
-        <AppBar position="static">
-          <Toolbar>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              mui-tiptap
-            </Typography>
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            mui-tiptap
+          </Typography>
 
-            <IconButton onClick={togglePaletteMode} color="inherit">
-              {theme.palette.mode === "dark" ? (
-                <Brightness7Icon />
-              ) : (
-                <Brightness4Icon />
-              )}
-            </IconButton>
-          </Toolbar>
-        </AppBar>
+          <IconButton onClick={togglePaletteMode} color="inherit">
+            {theme.palette.mode === "dark" ? (
+              <Brightness7Icon />
+            ) : (
+              <Brightness4Icon />
+            )}
+          </IconButton>
+        </Toolbar>
+      </AppBar>
 
+      <Box sx={{ p: 3 }}>
         <Editor />
-      </div>
+      </Box>
     </ThemeProvider>
   );
 }

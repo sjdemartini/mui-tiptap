@@ -1,7 +1,9 @@
-import { Typography } from "@mui/material";
+import TextFieldsIcon from "@mui/icons-material/TextFields";
+import { Box, Divider, Typography } from "@mui/material";
 import { useEditor } from "@tiptap/react";
-import EditorMenuBar from "../EditorMenuBar";
-import MuiTiptapContent from "../MuiTiptapContent";
+import { useState } from "react";
+import EditorMenuButton from "../EditorMenuButton";
+import MuiTiptapOutlinedField from "../MuiTiptapOutlinedField";
 import MuiTiptapProvider from "../MuiTiptapProvider";
 import useRecommendedExtensions from "../useRecommendedExtensions";
 
@@ -18,23 +20,40 @@ export default function Editor() {
     extensions: extensions,
   });
 
-  return (
-    <div>
-      Using the editor!
-      <div style={{ marginTop: 10 }}>
-        <MuiTiptapProvider editor={editor}>
-          <EditorMenuBar />
+  const [showMenuBar, setShowMenuBar] = useState(true);
 
-          <MuiTiptapContent />
-        </MuiTiptapProvider>
-      </div>
-      <div style={{ marginBottom: 20 }}>
-        <hr />
-      </div>
+  return (
+    <>
+      <MuiTiptapProvider editor={editor}>
+        <MuiTiptapOutlinedField hideMenuBar={!showMenuBar}>
+          {/* Below is an example of adding a toggle within the outlined field
+          for showing/hiding the editor menu bar */}
+          <Box
+            sx={{
+              borderTopStyle: "solid",
+              borderTopWidth: 1,
+              borderTopColor: (theme) => theme.palette.divider,
+              p: 1,
+            }}
+          >
+            <EditorMenuButton
+              value="formatting"
+              tooltipLabel={showMenuBar ? "Hide formatting" : "Show formatting"}
+              size="small"
+              onClick={() => setShowMenuBar((currentState) => !currentState)}
+              selected={showMenuBar}
+              IconComponent={TextFieldsIcon}
+            />
+          </Box>
+        </MuiTiptapOutlinedField>
+      </MuiTiptapProvider>
+
+      <Divider sx={{ my: 2 }} />
+
       <Typography variant="h5">HTML result:</Typography>
       <pre style={{ marginTop: 10, overflow: "scroll", maxWidth: "100%" }}>
         <code>{editor?.getHTML()}</code>
       </pre>
-    </div>
+    </>
   );
 }
