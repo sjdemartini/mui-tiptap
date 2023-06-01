@@ -1,20 +1,20 @@
 import EditorMenuBar, { type EditorMenuBarProps } from "./EditorMenuBar";
-import MUITiptapContent, {
-  type MUITiptapContentProps,
-} from "./MUITiptapContent";
-import MUITiptapProvider, {
-  type MUITiptapProviderProps,
-} from "./MUITiptapProvider";
+import MuiTiptapContent, {
+  type MuiTiptapContentProps,
+} from "./MuiTiptapContent";
+import MuiTiptapProvider, {
+  type MuiTiptapProviderProps,
+} from "./MuiTiptapProvider";
 import useRecommendedExtensions from "./useRecommendedExtensions";
 
 export type {
   EditorMenuBarProps,
-  MUITiptapContentProps,
-  MUITiptapProviderProps,
+  MuiTiptapContentProps,
+  MuiTiptapProviderProps,
 };
 export {
   EditorMenuBar,
-  MUITiptapContent,
-  MUITiptapProvider,
+  MuiTiptapContent,
+  MuiTiptapProvider,
   useRecommendedExtensions,
 };

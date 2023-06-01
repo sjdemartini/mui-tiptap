@@ -2,8 +2,8 @@ import { Box, Typography } from "@mui/material";
 import { useEditor } from "@tiptap/react";
 import {
   EditorMenuBar,
-  MUITiptapContent,
-  MUITiptapProvider,
+  MuiTiptapContent,
+  MuiTiptapProvider,
   useRecommendedExtensions,
 } from "mui-tiptap";
 
@@ -24,11 +24,11 @@ export default function PageContentWithEditor() {
     <Box sx={{ maxWidth: 1200, my: 3, mx: "auto" }}>
       Using the editor!
       <div style={{ marginTop: 10 }}>
-        <MUITiptapProvider editor={editor}>
+        <MuiTiptapProvider editor={editor}>
           <EditorMenuBar />
 
-          <MUITiptapContent />
-        </MUITiptapProvider>
+          <MuiTiptapContent />
+        </MuiTiptapProvider>
       </div>
       <div style={{ marginBottom: 20 }}>
         <hr />

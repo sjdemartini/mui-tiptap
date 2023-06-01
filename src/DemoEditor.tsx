@@ -1,8 +1,8 @@
 import { Typography } from "@mui/material";
 import { useEditor } from "@tiptap/react";
 import EditorMenuBar from "./EditorMenuBar";
-import MUITiptapContent from "./MUITiptapContent";
-import MUITiptapProvider from "./MUITiptapProvider";
+import MuiTiptapContent from "./MuiTiptapContent";
+import MuiTiptapProvider from "./MuiTiptapProvider";
 import useRecommendedExtensions from "./useRecommendedExtensions";
 
 const exampleContent =
@@ -22,11 +22,11 @@ export default function DemoEditor() {
     <div>
       Using the editor!
       <div style={{ marginTop: 10 }}>
-        <MUITiptapProvider editor={editor}>
+        <MuiTiptapProvider editor={editor}>
           <EditorMenuBar />
 
-          <MUITiptapContent />
-        </MUITiptapProvider>
+          <MuiTiptapContent />
+        </MuiTiptapProvider>
       </div>
       <div style={{ marginBottom: 20 }}>
         <hr />

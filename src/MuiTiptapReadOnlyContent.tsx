@@ -1,9 +1,9 @@
 import { EditorContent, useEditor, type EditorOptions } from "@tiptap/react";
 import type { Except } from "type-fest";
 
-export type MUITiptapReadOnlyContentProps = Except<EditorOptions, "editable">;
+export type MuiTiptapReadOnlyContentProps = Except<EditorOptions, "editable">;
 
-function EditorReadOnlyViewerInternal(props: MUITiptapReadOnlyContentProps) {
+function EditorReadOnlyViewerInternal(props: MuiTiptapReadOnlyContentProps) {
   const editor = useEditor({
     ...props,
     editable: false,
@@ -13,7 +13,7 @@ function EditorReadOnlyViewerInternal(props: MUITiptapReadOnlyContentProps) {
 }
 
 /**
- * While useEditor, MUITiptapProvider, and MUITiptapContent can be used as
+ * While useEditor, MuiTiptapProvider, and MuiTiptapContent can be used as
  * read-only via the editor's `editable` prop, this is a simpler and more
  * efficient version that only renders content and nothing more (e.g., does not
  * instantiate a toolbar, bubble menu, etc. that can't/won't be used in a
@@ -21,10 +21,10 @@ function EditorReadOnlyViewerInternal(props: MUITiptapReadOnlyContentProps) {
  * content to display). It can be used directly without needing the provider or
  * a separate useEditor invocation.
  */
-function MUITiptapReadOnlyContent({
+function MuiTiptapReadOnlyContent({
   content,
   ...otherProps
-}: MUITiptapReadOnlyContentProps) {
+}: MuiTiptapReadOnlyContentProps) {
   if (!content) {
     // Don't bother instantiating an editor at all (for performance) if we have no
     // content
@@ -34,4 +34,4 @@ function MUITiptapReadOnlyContent({
   return <EditorReadOnlyViewerInternal content={content} {...otherProps} />;
 }
 
-export default MUITiptapReadOnlyContent;
+export default MuiTiptapReadOnlyContent;

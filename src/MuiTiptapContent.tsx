@@ -15,11 +15,11 @@ import { useUpdateEffect } from "react-use";
 import { keyframes } from "tss-react";
 import { makeStyles } from "tss-react/mui";
 import LinkBubbleMenu from "./LinkBubbleMenu";
-import { useMUITiptapEditorContext } from "./MUITiptapEditorContext";
 import TableBubbleMenu from "./TableBubbleMenu";
+import { useMuiTiptapEditorContext } from "./context";
 import { getEditorStyles } from "./styles";
 
-export type MUITiptapContentProps = {
+export type MuiTiptapContentProps = {
   /** Optional additional className to provide to the root element. */
   className?: string;
   /**
@@ -32,7 +32,7 @@ export type MUITiptapContentProps = {
   skipScrollToAnchor?: boolean;
 };
 
-const useStyles = makeStyles({ name: { MUITiptapContent } })((theme) => ({
+const useStyles = makeStyles({ name: { MuiTiptapContent } })((theme) => ({
   editor: {
     "& .ProseMirror": {
       ...getEditorStyles(theme),
@@ -121,14 +121,14 @@ function scrollToAnchorLinkAfterRender(editor: CoreEditor) {
  * A component for rendering a MUI-styled version of Tiptap rich text editor
  * content.
  *
- * Must be used as a child of the MUITiptapProvider.
+ * Must be used as a child of the MuiTiptapProvider.
  */
-export default function MUITiptapContent({
+export default function MuiTiptapContent({
   skipScrollToAnchor = false,
   className,
-}: MUITiptapContentProps) {
+}: MuiTiptapContentProps) {
   const { classes, cx } = useStyles();
-  const editor = useMUITiptapEditorContext();
+  const editor = useMuiTiptapEditorContext();
   const editorClasses = useMemo(
     () =>
       cx(

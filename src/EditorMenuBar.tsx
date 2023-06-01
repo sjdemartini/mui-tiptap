@@ -22,7 +22,7 @@ import { makeStyles } from "tss-react/mui";
 import EditorMenuButton from "./EditorMenuButton";
 import EditorMenuDivider from "./EditorMenuDivider";
 import EditorMenuSelectOption from "./EditorMenuHeadingSelect";
-import { useMUITiptapEditorContext } from "./MUITiptapEditorContext";
+import { useMuiTiptapEditorContext } from "./context";
 import { parseToNumPixels } from "./styles";
 import debounceRender from "./utils/debounceRender";
 import { isTouchDevice } from "./utils/platform";
@@ -71,7 +71,7 @@ function EditorMenuBarInner({
   alwaysShowIndentButtons = false,
   className,
 }: EditorMenuBarProps) {
-  const editor = useMUITiptapEditorContext();
+  const editor = useMuiTiptapEditorContext();
   const { classes, cx } = useStyles();
   return (
     <div className={cx(classes.root, className)}>
