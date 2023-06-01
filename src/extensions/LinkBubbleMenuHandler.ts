@@ -110,6 +110,21 @@ const LinkBubbleMenuHandler = Extension.create<
     };
   },
 
+  onSelectionUpdate() {
+    // To ensure we maintain the proper bubble menu state, if someone is viewing
+    // an existing link but moves off of it (e.g. with their keyboard), we'll
+    // close the bubble menu. Note that we only do this for "view" (and not
+    // "edit"), since when adding a new link, there is not yet a link at the
+    // current position and the user's focus will be in the edit form anyway,
+    // where clicking out would already close the menu.
+    if (
+      this.storage.state === LinkMenuState.VIEW_LINK_DETAILS &&
+      !this.editor.isActive("link")
+    ) {
+      this.editor.commands.closeLinkBubbleMenu();
+    }
+  },
+
   addKeyboardShortcuts() {
     return {
       "Mod-Shift-u": () => {

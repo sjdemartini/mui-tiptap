@@ -1,4 +1,4 @@
-import { Fade, Paper, Popper, type PopperProps } from "@mui/material";
+import { Fade, Paper, Popper, useTheme, type PopperProps } from "@mui/material";
 import { isNodeSelection, posToDOMRect, type Editor } from "@tiptap/core";
 import { useCallback } from "react";
 import { makeStyles } from "tss-react/mui";
@@ -66,6 +66,7 @@ export default function ControlledBubbleMenu({
   preferBottom = false,
 }: Props) {
   const { classes } = useStyles();
+  const theme = useTheme();
 
   const defaultAnchorEl = useCallback(() => {
     // The logic here is taken from the positioning implementation in Tiptap's BubbleMenuPlugin
@@ -161,7 +162,17 @@ export default function ControlledBubbleMenu({
       transition
     >
       {({ TransitionProps }) => (
-        <Fade {...TransitionProps}>
+        <Fade
+          {...TransitionProps}
+          timeout={{
+            enter: theme.transitions.duration.enteringScreen,
+            // Exit immediately rather than using a transition, since the
+            // content of the bubble menu will usually be updating as the editor
+            // content and thus `open` state changes, and we don't want it to
+            // "flash" with incorrect content during the transition
+            exit: 0,
+          }}
+        >
           <Paper elevation={10} className={classes.paper}>
             {children}
           </Paper>

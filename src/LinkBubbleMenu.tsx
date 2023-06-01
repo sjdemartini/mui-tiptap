@@ -95,37 +95,11 @@ export default function LinkBubbleMenu({ editor }: LinkBubbleMenuProps) {
     );
   }
 
-  // We'll show the link bubble menu as open if the user is currently adding/editing a link
-  let shouldShow: boolean;
-  if (menuState === LinkMenuState.HIDDEN) {
-    shouldShow = false;
-  } else if (menuState === LinkMenuState.VIEW_LINK_DETAILS) {
-    // While we could just set `shouldShow = true;` here and everything would
-    // work properly, by checking that a link is currently active under the
-    // editor cursor, we can more quickly "close" the bubble menu if someone
-    // clicks off (without having to wait for the "cancel" click-handler to set
-    // the menuState in response to clicking off of a link), to prevent menu
-    // repositioning/flashing before closing. We can only do this for "view"
-    // (and not "edit"), since when adding a new link, there is not yet a link
-    // at the current position.
-    shouldShow = !!editor.isActive("link");
-
-    // TODO(Steven DeMartini): We could perhaps add a useEffect hook which
-    // calls `closeLinkBubbleMenu` in the event that this condition is reached,
-    // so that the storage/state is updated to reflect that the link menu should
-    // be closed. Otherwise, moving the cursor with the arrow keys away from one
-    // link will close the menu, and entering a link again with the keyboard
-    // will re-open the menu. (A minor edge case.) Or, this could probably
-    // better be solved by moving the menuState state from this React component
-    // instead into the LinkBubbleMenuHandler extension, and having that
-    // extension listen to `onUpdate`. Then there aren't two sources of truth
-    // for the link menu state.
-  } else {
-    shouldShow = true;
-  }
-
   return (
-    <ControlledBubbleMenu editor={editor} open={shouldShow}>
+    <ControlledBubbleMenu
+      editor={editor}
+      open={menuState !== LinkMenuState.HIDDEN}
+    >
       <Box sx={{ pt: 1.5, px: 2, pb: 0.5 }}>{linkMenuContent}</Box>
     </ControlledBubbleMenu>
   );
