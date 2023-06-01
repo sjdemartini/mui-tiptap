@@ -12,9 +12,9 @@ import {
   type PaletteMode,
 } from "@mui/material";
 import { useCallback, useMemo, useState } from "react";
-import DemoEditor from "./DemoEditor";
+import Editor from "./Editor";
 
-export default function DemoApp() {
+export default function App() {
   const systemSettingsPrefersDarkMode = useMediaQuery(
     "(prefers-color-scheme: dark)"
   );
@@ -57,7 +57,7 @@ export default function DemoApp() {
           </Toolbar>
         </AppBar>
 
-        <DemoEditor />
+        <Editor />
       </div>
     </ThemeProvider>
   );
