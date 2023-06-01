@@ -19,13 +19,11 @@ const useStyles = makeStyles({ name: { OutlinedField } })((theme) => {
 
   return {
     root: {
-      position: "relative",
       borderRadius: theme.shape.borderRadius,
       borderColor,
       borderStyle: "solid",
       borderWidth: 1,
       padding: 1,
-      overflow: "hidden",
 
       "&:hover": {
         borderColor: theme.palette.text.primary,
