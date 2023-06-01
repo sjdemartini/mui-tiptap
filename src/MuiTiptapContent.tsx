@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import type { Editor as CoreEditor } from "@tiptap/core";
 import type { Table } from "@tiptap/extension-table";
 import {
@@ -224,9 +225,7 @@ export default function MuiTiptapContent({
   }, [editor?.isEditable]);
 
   return (
-    <div className={editorClasses}>
-      <EditorContent editor={editor} />
-
+    <Box className={editorClasses} component={EditorContent} editor={editor}>
       {editor?.isEditable && (
         <>
           {"link" in editor.storage &&
@@ -237,6 +236,6 @@ export default function MuiTiptapContent({
           {"table" in editor.storage && <TableBubbleMenu editor={editor} />}
         </>
       )}
-    </div>
+    </Box>
   );
 }
