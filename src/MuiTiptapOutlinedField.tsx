@@ -6,7 +6,7 @@ import { useMuiTiptapEditorContext } from "./context";
 import { EDITOR_TABLE_ELEMENT_Z_INDEX, parseToNumPixels } from "./styles";
 import useDebouncedFocus from "./useDebouncedFocus";
 
-type Props = {
+export type MuiTiptapOutlinedFieldProps = {
   /** Class applied to the outlined field, the outermost `root` element. */
   className?: string;
   /**
@@ -41,7 +41,7 @@ type Props = {
 };
 
 const useStyles = makeStyles<{ stickyMenuBarOffset?: number }>({
-  name: { MuiTiptapField: MuiTiptapOutlinedField },
+  name: { MuiTiptapOutlinedField },
 })((theme, { stickyMenuBarOffset }) => {
   // When this gets embedded in an outlined input (which uses padding to ensure
   // the different border widths don't change the inner content position), we
@@ -84,7 +84,7 @@ export default function MuiTiptapOutlinedField({
   hideMenuBar = false,
   disableStickyMenuBar = false,
   stickyMenuBarOffset,
-}: Props) {
+}: MuiTiptapOutlinedFieldProps) {
   const { classes, cx } = useStyles(
     { stickyMenuBarOffset },
     {
