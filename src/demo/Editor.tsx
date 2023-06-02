@@ -1,7 +1,7 @@
-import TextFieldsIcon from "@mui/icons-material/TextFields";
-import { Box, Button, Typography } from "@mui/material";
+import { Lock, LockOpen, TextFields } from "@mui/icons-material";
+import { Box, Button, Stack, Typography } from "@mui/material";
 import { useEditor } from "@tiptap/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MenuButton from "../MenuButton";
 import MuiTiptapOutlinedField from "../MuiTiptapOutlinedField";
 import MuiTiptapProvider from "../MuiTiptapProvider";
@@ -15,10 +15,19 @@ export default function Editor() {
     placeholder: "Add your own content here...",
   });
 
+  const [isEditable, setIsEditable] = useState(true);
   const editor = useEditor({
     content: exampleContent,
     extensions: extensions,
+    editable: isEditable,
   });
+
+  useEffect(() => {
+    if (!editor || editor.isDestroyed || editor.isEditable === isEditable) {
+      return;
+    }
+    editor.setEditable(isEditable);
+  }, [isEditable, editor]);
 
   const [showMenuBar, setShowMenuBar] = useState(true);
 
@@ -32,7 +41,9 @@ export default function Editor() {
           {/* Below is an example of adding a toggle within the outlined field
           for showing/hiding the editor menu bar, and a "submit" button for
           saving/viewing the HTML content */}
-          <Box
+          <Stack
+            direction="row"
+            spacing={2}
             sx={{
               borderTopStyle: "solid",
               borderTopWidth: 1,
@@ -46,8 +57,20 @@ export default function Editor() {
               size="small"
               onClick={() => setShowMenuBar((currentState) => !currentState)}
               selected={showMenuBar}
-              IconComponent={TextFieldsIcon}
-              sx={{ mr: 2 }}
+              IconComponent={TextFields}
+            />
+
+            <MenuButton
+              value="formatting"
+              tooltipLabel={
+                isEditable
+                  ? "Prevent edits (use read-only mode)"
+                  : "Allow edits"
+              }
+              size="small"
+              onClick={() => setIsEditable((currentState) => !currentState)}
+              selected={!isEditable}
+              IconComponent={isEditable ? Lock : LockOpen}
             />
 
             <Button
@@ -59,7 +82,7 @@ export default function Editor() {
             >
               Save
             </Button>
-          </Box>
+          </Stack>
         </MuiTiptapOutlinedField>
       </MuiTiptapProvider>
 
