@@ -124,7 +124,7 @@ export default function MenuHeadingSelect({ editor }: Props) {
   const isCurrentlyParagraphOrHeading = selectedValue !== "";
   const canSetParagraph = editor?.can().setParagraph();
   // We have to pass a level when running `can`, so this is just an arbitrary one
-  const canSetHeading = editor?.can().setHeading({ level: 2 });
+  const canSetHeading = editor?.can().setHeading({ level: 1 });
 
   // Figure out which settings the user has enabled with the heading extension
   const enabledHeadingLevels: Set<Level> = useMemo(() => {

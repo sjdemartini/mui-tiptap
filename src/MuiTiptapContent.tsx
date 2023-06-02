@@ -1,5 +1,4 @@
 import { Box } from "@mui/material";
-import type { Editor as CoreEditor } from "@tiptap/core";
 import type { Table } from "@tiptap/extension-table";
 import {
   columnResizingPluginKey,
@@ -24,14 +23,6 @@ import { getEditorStyles } from "./styles";
 export type MuiTiptapContentProps = {
   /** Optional additional className to provide to the root element. */
   className?: string;
-  /**
-   * If true, checks whether the current URL hash string indicates we should be
-   * anchored to a specific heading, and if so, scrolls to that heading after
-   * rendering editor content. Since Tiptap's editor does not add content to the
-   * DOM on initial/server render, this must be set to true in order to scroll
-   * after mounting.
-   */
-  skipScrollToAnchor?: boolean;
 };
 
 const useStyles = makeStyles({ name: { MuiTiptapContent } })((theme) => ({
@@ -82,53 +73,12 @@ const useStyles = makeStyles({ name: { MuiTiptapContent } })((theme) => ({
 }));
 
 /**
- * Check whether there's a URL hash string indicating we should be anchored to a
- * specific heading.
- *
- * We have to do this programmatically, since when the page first loads, this
- * component and its editor content will not be mounted/rendered, so the browser
- * doesn't move to the anchor automatically. Note that we only want to do this
- * once on mount/create. When not using collaboration, we can plug into
- * `onCreate`, to be sure that our HeadingWithAnchor node-views have rendered,
- * since they happen after initial document rendering. When using collaboration,
- * we have to wait until the document content has synced.
- */
-function scrollToAnchorLinkAfterRender(editor: CoreEditor) {
-  if (editor.isDestroyed || !("heading" in editor.storage)) {
-    // If the editor is already removed/destroyed, or the heading extension isn't
-    // enabled, we can stop
-    return;
-  }
-
-  const currentHash = window.location.hash;
-  const elementId = currentHash.slice(1);
-  if (!elementId) {
-    return;
-  }
-
-  const elementForHash = window.document.getElementById(elementId);
-
-  // We'll only scroll if the given hash points to an element that's part of our
-  // editor content (e.g., ignore external Note anchors)
-  if (elementForHash && editor.options.element.contains(elementForHash)) {
-    elementForHash.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-      inline: "nearest",
-    });
-  }
-}
-
-/**
  * A component for rendering a MUI-styled version of Tiptap rich text editor
  * content.
  *
  * Must be used as a child of the MuiTiptapProvider.
  */
-export default function MuiTiptapContent({
-  skipScrollToAnchor = false,
-  className,
-}: MuiTiptapContentProps) {
+export default function MuiTiptapContent({ className }: MuiTiptapContentProps) {
   const { classes, cx } = useStyles();
   const editor = useMuiTiptapEditorContext();
   const editorClasses = useMemo(
@@ -141,14 +91,6 @@ export default function MuiTiptapContent({
       ),
     [className, classes, editor?.isEditable, cx]
   );
-
-  useEffect(() => {
-    if (skipScrollToAnchor || !editor) {
-      return;
-    }
-
-    scrollToAnchorLinkAfterRender(editor);
-  }, [skipScrollToAnchor, editor]);
 
   // In order to utilize the latest `editor` in effect hooks below, but avoid
   // those hooks running just due to the editor changing (rather only run in
