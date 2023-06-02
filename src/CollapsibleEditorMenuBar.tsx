@@ -2,6 +2,7 @@ import { Collapse } from "@mui/material";
 import type { Editor } from "@tiptap/react";
 import type { Except } from "type-fest";
 import EditorMenuBar, { type EditorMenuBarProps } from "./EditorMenuBar";
+import classNames from "./classNames";
 
 type Props = EditorMenuBarProps & {
   editor: Editor | null;
@@ -10,10 +11,10 @@ type Props = EditorMenuBarProps & {
    * uses collapse animation.
    */
   open: boolean;
-  classes?: Partial<EditableToolingClasses>;
+  classes?: Partial<CollapsibleEditorMenuBarClasses>;
 };
 
-type EditableToolingClasses = {
+type CollapsibleEditorMenuBarClasses = {
   menuBarContainer?: string;
 };
 
@@ -22,13 +23,16 @@ export function CollapsibleEditorMenuBar({
   classes,
   ...otherMenuBarProps
 }: Except<Props, "editor">) {
+  const containerClassName = `${classNames.MuiTiptapMenuBarContainer} ${
+    classes?.menuBarContainer ?? ""
+  }`;
   return (
     <Collapse
       in={open}
       // For performance reasons, we set unmountOnExit to avoid rendering the
       // menu bar unless it's needed
       unmountOnExit
-      className={classes?.menuBarContainer}
+      className={containerClassName}
     >
       <EditorMenuBar {...otherMenuBarProps} />
     </Collapse>

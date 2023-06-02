@@ -25,7 +25,8 @@ export default function Editor() {
   const [submittedContent, setSubmittedContent] = useState("");
 
   return (
-    <>
+    // This demonstrates how styles can be overridden for the components below
+    <Box sx={{ "& .MuiTiptapContent": { p: 1 } }}>
       <MuiTiptapProvider editor={editor}>
         <MuiTiptapOutlinedField hideMenuBar={!showMenuBar}>
           {/* Below is an example of adding a toggle within the outlined field
@@ -76,6 +77,6 @@ export default function Editor() {
           to save your data in a form.
         </>
       )}
-    </>
+    </Box>
   );
 }

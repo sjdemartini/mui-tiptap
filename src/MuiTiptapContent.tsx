@@ -17,6 +17,7 @@ import { keyframes } from "tss-react";
 import { makeStyles } from "tss-react/mui";
 import LinkBubbleMenu from "./LinkBubbleMenu";
 import TableBubbleMenu from "./TableBubbleMenu";
+import classNames from "./classNames";
 import { useMuiTiptapEditorContext } from "./context";
 import { getEditorStyles } from "./styles";
 
@@ -133,6 +134,7 @@ export default function MuiTiptapContent({
   const editorClasses = useMemo(
     () =>
       cx(
+        classNames.MuiTiptapContent,
         className,
         classes.editor,
         editor?.isEditable && classes.editableEditor

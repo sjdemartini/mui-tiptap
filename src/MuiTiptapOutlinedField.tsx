@@ -2,6 +2,7 @@ import { makeStyles } from "tss-react/mui";
 import { CollapsibleEditorMenuBar } from "./CollapsibleEditorMenuBar";
 import MuiTiptapContent from "./MuiTiptapContent";
 import OutlinedField from "./OutlinedField";
+import classNames from "./classNames";
 import { useMuiTiptapEditorContext } from "./context";
 import { Z_INDEXES } from "./styles";
 import useDebouncedFocus from "./useDebouncedFocus";
@@ -91,7 +92,7 @@ export default function MuiTiptapOutlinedField({
     <OutlinedField
       focused={isOutlinedFieldFocused}
       disabled={disabled}
-      className={cx(className, classes.root)}
+      className={cx(classNames.MuiTiptapOutlinedField, className, classes.root)}
     >
       <CollapsibleEditorMenuBar
         open={!hideMenuBar}

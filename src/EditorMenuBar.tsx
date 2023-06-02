@@ -21,6 +21,7 @@ import { makeStyles } from "tss-react/mui";
 import EditorMenuButton from "./EditorMenuButton";
 import EditorMenuDivider from "./EditorMenuDivider";
 import EditorMenuSelectOption from "./EditorMenuHeadingSelect";
+import classNames from "./classNames";
 import { useMuiTiptapEditorContext } from "./context";
 import debounceRender from "./utils/debounceRender";
 import { isTouchDevice } from "./utils/platform";
@@ -55,7 +56,7 @@ function EditorMenuBarInner({
   const editor = useMuiTiptapEditorContext();
   const { classes, cx } = useStyles();
   return (
-    <div className={cx(classes.root, className)}>
+    <div className={cx(classNames.MuiTiptapMenuBar, classes.root, className)}>
       <Grid container columnSpacing={0.5} rowSpacing={0.3} alignItems="center">
         {!!editor && "heading" in editor.storage && (
           <Grid item>
