@@ -33,6 +33,12 @@ export function parseToNumPixels(value: string): number {
 
 // TODO(Steven DeMartini): Add better types here
 export function getEditorStyles(theme: Theme): StyleRules {
+  // Check whether the user has enabled responsive typography
+  // (https://mui.com/material-ui/customization/typography/#responsive-font-sizes)
+  const hasResponsiveStyles = Object.keys(theme.typography.h1).some((key) =>
+    key.includes("@media")
+  );
+
   return {
     // Include all of the body1 text styles except for line-height, since we want a
     // little less height (falling back to the default line-height)
@@ -43,27 +49,37 @@ export function getEditorStyles(theme: Theme): StyleRules {
     },
 
     "& h1": {
-      // We don't use MUI's `h1-h3` typography styles here since they're a bit too
-      // huge/dramatic. Instead, we just take our usual font family, set a bold font
-      // weight, and set the font size based on a scaled-up 20% increase to
-      // `typography.h4` (which we use as our next smaller header). Note that we
-      // increase the font size at all responsive breakpoints, akin to and to
-      // work nicely alongside the `responsiveFontSizes` MUI theme utility.
+      // We don't use MUI's default heading typography styles of h1-h6 here
+      // since h1 and h2 are a bit too huge/dramatic. Instead, for we use h3-h6,
+      // subtitle1, and subtitle2.
+
+      // For h1, we take our usual font family, set a bold font weight, and set
+      // the font size based on a scaled-up 20% increase to `typography.h4`
+      // (which we use as our next smaller header). Note that if the MUI
+      // `responsiveFontSizes` theme utility was used, we increase the font size
+      // at all responsive breakpoints.
       fontFamily: theme.typography.h3.fontFamily,
       fontWeight: "bold",
-      fontSize: `${1.5625 * 1.2}rem`,
 
-      [theme.breakpoints.up("sm")]: {
-        fontSize: `${1.8219 * 1.2}rem`,
-      },
+      ...(hasResponsiveStyles
+        ? {
+            fontSize: `${1.5625 * 1.2}rem`,
 
-      [theme.breakpoints.up("md")]: {
-        fontSize: `${2.0243 * 1.2}rem`,
-      },
+            [theme.breakpoints.up("sm")]: {
+              fontSize: `${1.8219 * 1.2}rem`,
+            },
 
-      [theme.breakpoints.up("lg")]: {
-        fontSize: `${2.0243 * 1.2}rem`,
-      },
+            [theme.breakpoints.up("md")]: {
+              fontSize: `${2.0243 * 1.2}rem`,
+            },
+
+            [theme.breakpoints.up("lg")]: {
+              fontSize: `${2.0243 * 1.2}rem`,
+            },
+          }
+        : {
+            fontSize: `${2.0243 * 1.2}rem`,
+          }),
     },
 
     "& h2": {
@@ -73,6 +89,22 @@ export function getEditorStyles(theme: Theme): StyleRules {
 
     "& h3": {
       ...omit(theme.typography.h5, ["lineHeight"]),
+      fontWeight: 500,
+    },
+
+    "& h4": {
+      ...omit(theme.typography.h6, ["lineHeight"]),
+      fontWeight: 500,
+    },
+
+    "& h5": {
+      ...omit(theme.typography.subtitle1, ["lineHeight"]),
+      fontWeight: 500,
+    },
+
+    "& h6": {
+      ...omit(theme.typography.subtitle2, ["lineHeight"]),
+      fontWeight: 500,
     },
 
     // Remove above/below margins from all of our blocks

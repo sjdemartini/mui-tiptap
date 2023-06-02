@@ -15,7 +15,6 @@ import {
   Superscript as SuperscriptIcon,
 } from "@mui/icons-material";
 import { Grid } from "@mui/material";
-import type { Editor } from "@tiptap/core";
 import { BiCodeBlock, BiTable } from "react-icons/bi";
 import { MdChecklist } from "react-icons/md";
 import { makeStyles } from "tss-react/mui";
@@ -45,11 +44,6 @@ const useStyles = makeStyles({ name: { EditorMenuBarInner } })((theme) => {
   };
 });
 
-function shouldShowHeadingSelectOption(editor: Editor | null): boolean {
-  // Only show the select option if the "heading" extension is enabled
-  return !!editor && "heading" in editor.storage;
-}
-
 // For the list of pre-configured shortcuts, see
 // https://tiptap.dev/api/keyboard-shortcuts
 
@@ -63,7 +57,7 @@ function EditorMenuBarInner({
   return (
     <div className={cx(classes.root, className)}>
       <Grid container columnSpacing={0.5} rowSpacing={0.3} alignItems="center">
-        {shouldShowHeadingSelectOption(editor) && (
+        {!!editor && "heading" in editor.storage && (
           <Grid item>
             <EditorMenuSelectOption editor={editor} />
           </Grid>
