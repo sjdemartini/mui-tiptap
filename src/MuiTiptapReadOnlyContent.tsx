@@ -1,7 +1,11 @@
-import { EditorContent, useEditor, type EditorOptions } from "@tiptap/react";
+import { useEditor, type EditorOptions } from "@tiptap/react";
 import type { Except } from "type-fest";
+import MuiTiptapContent from "./MuiTiptapContent";
+import MuiTiptapProvider from "./MuiTiptapProvider";
 
-export type MuiTiptapReadOnlyContentProps = Except<EditorOptions, "editable">;
+export type MuiTiptapReadOnlyContentProps = Partial<
+  Except<EditorOptions, "editable">
+>;
 
 function EditorReadOnlyViewerInternal(props: MuiTiptapReadOnlyContentProps) {
   const editor = useEditor({
@@ -9,10 +13,16 @@ function EditorReadOnlyViewerInternal(props: MuiTiptapReadOnlyContentProps) {
     editable: false,
   });
 
-  return <EditorContent editor={editor} />;
+  return (
+    <MuiTiptapProvider editor={editor}>
+      <MuiTiptapContent />
+    </MuiTiptapProvider>
+  );
 }
 
 /**
+ * An all-in-one component to directly render read-only Tiptap editor content.
+ *
  * While useEditor, MuiTiptapProvider, and MuiTiptapContent can be used as
  * read-only via the editor's `editable` prop, this is a simpler and more
  * efficient version that only renders content and nothing more (e.g., does not
@@ -20,18 +30,18 @@ function EditorReadOnlyViewerInternal(props: MuiTiptapReadOnlyContentProps) {
  * read-only context, and skips instantiating the editor at all if there's no
  * content to display). It can be used directly without needing the provider or
  * a separate useEditor invocation.
+ *
+ * Example:
+ * <MuiTiptapReadOnlyContent content="<p>Hello world</p>" extensions=[...] />
  */
-function MuiTiptapReadOnlyContent({
-  content,
-  ...otherProps
-}: MuiTiptapReadOnlyContentProps) {
-  if (!content) {
+function MuiTiptapReadOnlyContent(editorProps: MuiTiptapReadOnlyContentProps) {
+  if (!editorProps.content) {
     // Don't bother instantiating an editor at all (for performance) if we have no
     // content
     return null;
   }
 
-  return <EditorReadOnlyViewerInternal content={content} {...otherProps} />;
+  return <EditorReadOnlyViewerInternal {...editorProps} />;
 }
 
 export default MuiTiptapReadOnlyContent;
