@@ -6,7 +6,8 @@ export interface Props {
   label: string;
   shortcutKeys?: string[];
   placement?: TooltipProps["placement"];
-  children: React.ReactElement;
+  contentWrapperClassName?: string;
+  children: React.ReactNode;
 }
 
 const useStyles = makeStyles({ name: { EditorMenuButtonTooltip } })(
@@ -41,6 +42,7 @@ export default function EditorMenuButtonTooltip({
   label,
   shortcutKeys,
   placement = "top",
+  contentWrapperClassName,
   children,
 }: Props) {
   const { classes } = useStyles();
@@ -66,7 +68,7 @@ export default function EditorMenuButtonTooltip({
     >
       {/* Use a span around the children so we show a tooltip even if the
       element inside is disabled */}
-      <span>{children}</span>
+      <span className={contentWrapperClassName}>{children}</span>
     </Tooltip>
   );
 }

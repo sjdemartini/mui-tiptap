@@ -13,6 +13,14 @@ type Props = {
 const useStyles = makeStyles({ name: { EditorMenuSelectOption } })((theme) => {
   const editorStyles = getEditorStyles(theme);
   return {
+    menuOption: {
+      // These styles ensure the item fills its MenuItem container, and the
+      // tooltip appears in the same place when hovering over the item generally
+      // (not just the text of the item)
+      display: "block",
+      width: "100%",
+    },
+
     headingOption: {
       marginBlockStart: 0,
       marginBlockEnd: 0,
@@ -171,16 +179,13 @@ export default function EditorMenuSelectOption({ editor }: Props) {
         value={HEADING_OPTION_VALUES.Paragraph}
         disabled={!isCurrentlyParagraphOrHeading && !canSetParagraph}
       >
-        {/* TODO(Steven DeMartini): Ideally we could have the tooltip reach the
-        edge of the MenuItem, but the inline elements currently make that
-        tricky, and the fact that MenuItems must be direct descendents of the
-        Select */}
         <EditorMenuButtonTooltip
           label=""
           shortcutKeys={["mod", "alt", "0"]}
           placement="right"
+          contentWrapperClassName={classes.menuOption}
         >
-          <span>Paragraph</span>
+          Paragraph
         </EditorMenuButtonTooltip>
       </MenuItem>
 
@@ -193,10 +198,13 @@ export default function EditorMenuSelectOption({ editor }: Props) {
             label=""
             shortcutKeys={["mod", "alt", "1"]}
             placement="right"
+            contentWrapperClassName={cx(
+              classes.menuOption,
+              classes.headingOption,
+              classes.headingOption1
+            )}
           >
-            <span className={cx(classes.headingOption, classes.headingOption1)}>
-              {HEADING_OPTION_VALUES.Heading1}
-            </span>
+            {HEADING_OPTION_VALUES.Heading1}
           </EditorMenuButtonTooltip>
         </MenuItem>
       )}
@@ -210,10 +218,13 @@ export default function EditorMenuSelectOption({ editor }: Props) {
             label=""
             shortcutKeys={["mod", "alt", "2"]}
             placement="right"
+            contentWrapperClassName={cx(
+              classes.menuOption,
+              classes.headingOption,
+              classes.headingOption2
+            )}
           >
-            <span className={cx(classes.headingOption, classes.headingOption2)}>
-              {HEADING_OPTION_VALUES.Heading2}
-            </span>
+            {HEADING_OPTION_VALUES.Heading2}
           </EditorMenuButtonTooltip>
         </MenuItem>
       )}
@@ -227,10 +238,13 @@ export default function EditorMenuSelectOption({ editor }: Props) {
             label=""
             shortcutKeys={["mod", "alt", "3"]}
             placement="right"
+            contentWrapperClassName={cx(
+              classes.menuOption,
+              classes.headingOption,
+              classes.headingOption3
+            )}
           >
-            <span className={cx(classes.headingOption, classes.headingOption3)}>
-              {HEADING_OPTION_VALUES.Heading3}
-            </span>
+            {HEADING_OPTION_VALUES.Heading3}
           </EditorMenuButtonTooltip>
         </MenuItem>
       )}
@@ -244,10 +258,13 @@ export default function EditorMenuSelectOption({ editor }: Props) {
             label=""
             shortcutKeys={["mod", "alt", "4"]}
             placement="right"
+            contentWrapperClassName={cx(
+              classes.menuOption,
+              classes.headingOption,
+              classes.headingOption4
+            )}
           >
-            <span className={cx(classes.headingOption, classes.headingOption4)}>
-              {HEADING_OPTION_VALUES.Heading4}
-            </span>
+            {HEADING_OPTION_VALUES.Heading4}
           </EditorMenuButtonTooltip>
         </MenuItem>
       )}
@@ -261,10 +278,13 @@ export default function EditorMenuSelectOption({ editor }: Props) {
             label=""
             shortcutKeys={["mod", "alt", "5"]}
             placement="right"
+            contentWrapperClassName={cx(
+              classes.menuOption,
+              classes.headingOption,
+              classes.headingOption5
+            )}
           >
-            <span className={cx(classes.headingOption, classes.headingOption5)}>
-              {HEADING_OPTION_VALUES.Heading5}
-            </span>
+            {HEADING_OPTION_VALUES.Heading5}
           </EditorMenuButtonTooltip>
         </MenuItem>
       )}
@@ -278,10 +298,13 @@ export default function EditorMenuSelectOption({ editor }: Props) {
             label=""
             shortcutKeys={["mod", "alt", "6"]}
             placement="right"
+            contentWrapperClassName={cx(
+              classes.menuOption,
+              classes.headingOption,
+              classes.headingOption6
+            )}
           >
-            <span className={cx(classes.headingOption, classes.headingOption6)}>
-              {HEADING_OPTION_VALUES.Heading6}
-            </span>
+            {HEADING_OPTION_VALUES.Heading6}
           </EditorMenuButtonTooltip>
         </MenuItem>
       )}
