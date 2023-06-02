@@ -33,9 +33,12 @@ const HeadingWithAnchor = Heading.extend<HeadingWithAnchorOptions>({
 
   onCreate() {
     // It seems that when `onCreate` is called via this extension `onCreate`
-    // definition, our HeadingWithAnchor React node-views have yet to be
-    // rendered. Delaying until the end of the event loop with setTimeout should
-    // do the trick.
+    // definition, our content and HeadingWithAnchor React node-views have yet
+    // to be rendered. (Also notably, react renderers are async so don't appear
+    // even when the rest of the document HTML first shows up, as mentioned in
+    // https://github.com/ueberdosis/tiptap/issues/1527#issuecomment-888380206.)
+    // Delaying until the end of the event loop with setTimeout should do the
+    // trick.
     if (this.options.scrollToAnchorOnMount) {
       setTimeout(() => {
         scrollToCurrentAnchor(this.editor);
