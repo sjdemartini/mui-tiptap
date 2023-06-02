@@ -31,7 +31,6 @@ export function parseToNumPixels(value: string): number {
   return Number(value.replace("px", ""));
 }
 
-// TODO(Steven DeMartini): Add better types here
 export function getEditorStyles(theme: Theme): StyleRules {
   // Check whether the user has enabled responsive typography
   // (https://mui.com/material-ui/customization/typography/#responsive-font-sizes)
@@ -232,8 +231,8 @@ export function getEditorStyles(theme: Theme): StyleRules {
       borderColor: theme.palette.divider,
       borderRadius: theme.shape.borderRadius,
       background: theme.palette.action.hover,
-      // By default the line-height of "Ubuntu Mono" appears to be a bit taller than
-      // necessary in pre block format
+      // By default the line-height of some monospace fonts (like "Ubuntu Mono")
+      // appears to be a bit taller than necessary in pre block format
       lineHeight: 1.4,
       overflowX: "auto",
       // Override the default Prosemirror styles, which use pre-wrap. We want code
@@ -317,9 +316,9 @@ export function getEditorStyles(theme: Theme): StyleRules {
     },
 
     // When in editing mode, the <table> element is wrapped in a div with a
-    // `tableWrapper` class. When we have that arrangement, we change how overflow works
-    // on the table to instead overflow with the wrapper and revert back to
-    // display:table, as we'd typically expect/want.
+    // `tableWrapper` class. When we have that arrangement, we change how
+    // overflow works on the table to instead overflow with the wrapper and
+    // revert back to display:table, as we'd typically expect/want.
     "& .tableWrapper": {
       overflowX: "auto",
 
@@ -486,8 +485,9 @@ export function getImageBackgroundColorStyles(theme: Theme): {
     // Chrome does in dark mode when viewing an image in its own tab. (Chrome uses a
     // background color of "hsl(0, 0%, 90%)", or equivalently "#e6e6e6".)
     backgroundColor,
-    // The "alt text" of an image will be shown if it fails to render (e.g. for tif files
-    // pending upload), so make sure the font color is readable
+    // The "alt text" of an image will be shown if it fails to render (e.g. for
+    // tif or other file formats that can't be rendered in-browser, like with a
+    // pending image upload), so make sure the font color is readable
     color: theme.palette.getContrastText(backgroundColor),
   };
 }

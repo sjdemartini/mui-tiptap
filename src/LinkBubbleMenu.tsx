@@ -20,7 +20,7 @@ const useStyles = makeStyles({ name: { LinkBubbleMenu } })((theme) => ({
 
 /**
  * A hook for providing a menu for viewing, creating, or editing a link in a
- * Tiptap editor.
+ * Tiptap editor. To be rendered when using the LinkBubbleMenuHandler extension.
  */
 export default function LinkBubbleMenu({ editor }: LinkBubbleMenuProps) {
   const { classes } = useStyles();

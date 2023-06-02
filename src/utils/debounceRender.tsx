@@ -5,10 +5,8 @@
  *
  * https://github.com/podefr/react-debounce-render
  *
- * The originally library seems to be packaged incorrectly, in that it contains ES6/JSX
- * (not just raw JS) in its build, which breaks Jest tests. Theoretically this could be
- * fixed by editing `transformIgnorePatterns` in our Jest config, but doing so then
- * caused problems for our `moduleNameMapper` jest config option used with `react-pdf`.
+ * The original library seems to be packaged incorrectly, in that it contains
+ * ES6/JSX (not just raw JS) in its build, which broke tests upon first testing.
  * So copied the brief source directly here instead.
  */
 import hoistNonReactStatics from "hoist-non-react-statics";

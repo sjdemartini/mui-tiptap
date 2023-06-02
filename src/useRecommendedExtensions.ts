@@ -77,7 +77,7 @@ export default function useRecommendedExtensions({
   placeholder,
 }: UseRecommendedExtensionsOptions = {}): EditorOptions["extensions"] {
   return useMemo(() => {
-    const includedExtensions = [
+    return [
       // We use some but not all of the extensions from
       // https://tiptap.dev/api/extensions/starter-kit, plus a few additional ones
 
@@ -153,13 +153,10 @@ export default function useRecommendedExtensions({
       Placeholder.configure({
         placeholder,
       }),
+
+      // We use the regular `History` (undo/redo) extension when not using
+      // collaborative editing
+      History,
     ];
-
-    // We use the regular `History` (undo/redo) extension when not using
-    // collaborative editing
-    // TODO(Steven DeMartini): Add explicit support for a collaboration provider
-    includedExtensions.push(History);
-
-    return includedExtensions;
   }, [placeholder]);
 }
