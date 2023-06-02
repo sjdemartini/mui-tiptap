@@ -150,43 +150,44 @@ export default function MuiTiptapContent({
     scrollToAnchorLinkAfterRender(editor);
   }, [skipScrollToAnchor, editor]);
 
-  // Because we want to utilize the latest `editor` in several effect hooks
-  // below, but don't want those hooks to run just due to the editor changing
-  // (but rather only in response to some other property changing), we create a
-  // ref to point to the current `editor` instance to use in those contexts.
+  // In order to utilize the latest `editor` in effect hooks below, but avoid
+  // those hooks running just due to the editor changing (rather only run in
+  // response to some other dependencies changing), we create a ref to point to
+  // the current `editor` instance to use in those contexts.
   const editorRef = useRef(editor);
   useEffect(() => {
     editorRef.current = editor;
   }, [editor]);
 
+  // Whenever the editor's `editable` state changes, we need to refresh our
+  // plugins to get the Table extension to properly reflect the current state.
   useUpdateEffect(() => {
     if (!editorRef.current || editorRef.current.isDestroyed) {
       return;
     }
 
-    // Update the editable state, since it's changed
-    editorRef.current.setEditable(editorRef.current.isEditable);
-
-    // The Table extension doesn't properly handle changes between editable=true and
-    // editable=false via `setEditable`. The extension uses different markup and also
-    // allows/disallows column resizing depending on `editable` state due to how it's
-    // plugins are registered, and changing state with just `setEditable` doesn't
-    // properly reset the extension's plugins for this behavior
-    // (https://github.com/ueberdosis/tiptap/issues/2301), even on a newer version of
-    // the extension (2.0.0-beta.209). We used to have `editable` be a dependency of the
-    // `useEditor` hook so that we'd re-create the entire `editor` itself (and so
-    // re-instantiate the extensions) any time the editable state changed, but this is
-    // overkill and would lead to a "flash" when switching between `editable` true vs
-    // false when using Collaboration, since the document appears blank on first render
-    // of an editor when its content comes from a collaboration Y.Doc. So instead, based
-    // on the logic in
+    // The Table extension doesn't properly handle changes between editable=true
+    // and editable=false via `setEditable`. The extension uses different markup
+    // and also allows/disallows column resizing depending on `editable` state
+    // due to how it's plugins are registered, and changing state with just
+    // `setEditable` doesn't properly reset the extension's plugins for this
+    // behavior (https://github.com/ueberdosis/tiptap/issues/2301), even on a
+    // newer version of the extension (2.0.0-beta.209). Callers could have
+    // `editable` be a dependency of the `useEditor` hook itself so that we'd
+    // re-create the entire `editor` (and so re-instantiate the extensions) any
+    // time the editable state changed, but this is overkill and would lead to a
+    // "flash" when switching between `editable` true vs false when using
+    // Collaboration, since the document appears blank on first render of an
+    // editor when its content comes from a collaboration Y.Doc. So instead,
+    // based on the logic in
     // https://github.com/ueberdosis/tiptap/blob/5fed0f2fc69fc42e7e287c84f6414b8437becb4d/packages/core/src/ExtensionManager.ts#L298-L308,
-    // we simply re-register the Table plugins editor whenever we toggle `editable`.
-    // This makes Table work properly, while also avoiding the need to recreate the
-    // editor or have it flash blank when using collaboration. Note that we only
-    // reconfigure the table plugins in particular and don't simply reconfigure *all*
-    // plugins based on editor.extensionManager.plugins alone, or we'd lose any plugins
-    // that were separately registered via registerPlugin.
+    // we simply re-register the Table plugins editor whenever we toggle
+    // `editable`. This makes Table work properly, while also avoiding the need
+    // to recreate the editor or have it flash blank when using collaboration.
+    // Note that we only reconfigure the table plugins in particular and don't
+    // simply reconfigure *all* plugins based on editor.extensionManager.plugins
+    // alone, or we'd lose any plugins that were separately registered via
+    // registerPlugin.
     const tableExtension = editorRef.current.extensionManager.extensions.find(
       (extension): extension is typeof Table => extension.name == "table"
     );
