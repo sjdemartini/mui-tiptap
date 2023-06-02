@@ -1,13 +1,13 @@
 {
   "name": "mui-tiptap",
-  "version": "0.0.0-development",
+  "version": "1.0.0-alpha.0",
   "description": "A Material-UI (MUI) styled WYSIWYG rich text editor, using Tiptap",
   "keywords": [
     "mui",
     "tiptap",
     "material-ui",
     "prosemirror",
-    "rich text",
+    "rich text editor",
     "wysiwyg",
     "quill",
     "draftjs",
@@ -16,7 +16,7 @@
   "homepage": "https://github.com/sjdemartini/mui-tiptap",
   "bugs": "https://github.com/sjdemartini/mui-tiptap/issues",
   "author": "Steven DeMartini <sjdemartini@users.noreply.github.com>",
-  "repository": "sjdemartini/mui-tiptap",
+  "repository": "github:sjdemartini/mui-tiptap",
   "type": "module",
   "files": [
     "dist"
