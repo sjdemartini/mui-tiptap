@@ -33,7 +33,6 @@
   },
   "license": "MIT",
   "engines": {
-    "node": "^18.15.0",
     "pnpm": ">=8"
   },
   "packageManager": "pnpm@8.4.0",
