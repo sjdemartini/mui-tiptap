@@ -1,5 +1,5 @@
-import { Box } from "@mui/material";
 import type { Editor } from "@tiptap/core";
+import { makeStyles } from "tss-react/mui";
 import ControlledBubbleMenu from "./ControlledBubbleMenu";
 import EditLinkMenuContent from "./EditLinkMenuContent";
 import ViewLinkMenuContent from "./ViewLinkMenuContent";
@@ -12,11 +12,18 @@ export type LinkBubbleMenuProps = {
   editor: Editor;
 };
 
+const useStyles = makeStyles({ name: { LinkBubbleMenu } })((theme) => ({
+  content: {
+    padding: theme.spacing(1.5, 2, 0.5),
+  },
+}));
+
 /**
  * A hook for providing a menu for viewing, creating, or editing a link in a
  * Tiptap editor.
  */
 export default function LinkBubbleMenu({ editor }: LinkBubbleMenuProps) {
+  const { classes } = useStyles();
   if (!("linkBubbleMenuHandler" in editor.storage)) {
     throw new Error(
       "You must add the LinkBubbleMenuHandler extension to the useEditor `extensions` array in order to use this component!"
@@ -29,10 +36,7 @@ export default function LinkBubbleMenu({ editor }: LinkBubbleMenuProps) {
   const menuState = handlerStorage.state;
 
   let linkMenuContent = null;
-  if (
-    editor.isActive("link") &&
-    menuState === LinkMenuState.VIEW_LINK_DETAILS
-  ) {
+  if (menuState === LinkMenuState.VIEW_LINK_DETAILS) {
     linkMenuContent = (
       <ViewLinkMenuContent
         editor={editor}
@@ -100,7 +104,7 @@ export default function LinkBubbleMenu({ editor }: LinkBubbleMenuProps) {
       editor={editor}
       open={menuState !== LinkMenuState.HIDDEN}
     >
-      <Box sx={{ pt: 1.5, px: 2, pb: 0.5 }}>{linkMenuContent}</Box>
+      <div className={classes.content}>{linkMenuContent}</div>
     </ControlledBubbleMenu>
   );
 }
