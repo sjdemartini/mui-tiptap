@@ -12,7 +12,7 @@ import {
 } from "@tiptap/react";
 import { useEffect, useMemo, useRef } from "react";
 import { useUpdateEffect } from "react-use";
-import { keyframes } from "tss-react";
+import type { CSSObject } from "tss-react";
 import { makeStyles } from "tss-react/mui";
 import LinkBubbleMenu from "./LinkBubbleMenu";
 import TableBubbleMenu from "./TableBubbleMenu";
@@ -25,42 +25,25 @@ export type MuiTiptapContentProps = {
   className?: string;
 };
 
-const useStyles = makeStyles({ name: { MuiTiptapContent } })((theme) => ({
-  editor: {
-    "& .ProseMirror": {
-      ...getEditorStyles(theme),
-
-      // So that we initially show the user name above the caret on first render
-      // (e.g. when a user clicks to move their cursor, and on page load), use an
-      // animation to delay updating the opacity. We'll then use transitions based
-      // on :hover selectors on the caret to let users view the name again while
-      // hovering thereafter. Note that we define this here and not in the
-      // getEditorStyles function, since @keyframes definitions for the animation
-      // cannot appear within a selector and must be a top-level definition in the
-      // JSS styles. We also use a slightly different selector here ("&& ..."
-      // instead of "& ..." to avoid overwriting those getEditorStyles CSS
-      // properties for the label. "&&"" just adds extra specificity.)
-      "&& .collaboration-cursor__label": {
-        animation: `${keyframes`
-            // We start at fully visible, then fade out after the user would've had a chance
-            // to see/read the user name
-            "0%,95%": {
-              opacity: 1,
-            },
-            "100%": {
-              opacity: 0,
-            },
-          `}
-          3s linear 1`,
-      },
+const useStyles = makeStyles({ name: { MuiTiptapContent } })((theme) => {
+  return {
+    editor: {
+      // We add `as CSSObject` to get around typing issues with our editor
+      // styles function. For future reference, this old issue and its solution
+      // are related, though not quite right
+      // https://github.com/garronej/tss-react/issues/2
+      // https://github.com/garronej/tss-react/commit/9dc3f6f9f70b6df0bd83cd5689c3313467fb4f06
+      "& .ProseMirror": {
+        ...getEditorStyles(theme),
+      } as CSSObject,
     },
-  },
 
-  editableEditor: {
-    // Add padding around the input area
-    padding: theme.spacing(1.5),
-  },
-}));
+    editableEditor: {
+      // Add padding around the input area
+      padding: theme.spacing(1.5),
+    },
+  };
+});
 
 /**
  * A component for rendering a MUI-styled version of Tiptap rich text editor

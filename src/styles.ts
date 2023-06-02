@@ -6,6 +6,7 @@ import {
   type Theme,
 } from "@mui/material";
 import { omit } from "lodash";
+import { keyframes } from "tss-react";
 
 type StyleRules = Record<string, CSSObject>;
 
@@ -37,6 +38,15 @@ export function getEditorStyles(theme: Theme): StyleRules {
   const hasResponsiveStyles = Object.keys(theme.typography.h1).some((key) =>
     key.includes("@media")
   );
+
+  const cursorDelayOpacityChangeAnimation = keyframes`
+    0%, 95% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  `;
 
   return {
     // Include all of the body1 text styles except for line-height, since we want a
@@ -441,6 +451,14 @@ export function getEditorStyles(theme: Theme): StyleRules {
         duration: 100,
         easing: "linear",
       }),
+      // So that we initially show the user name above the caret on first render
+      // (e.g. when a user clicks to move their cursor, and on page load), use
+      // an animation to delay updating the opacity. We'll then use transitions
+      // based on :hover selectors (above) on the caret to let users view the
+      // name again while hovering thereafter. We start at fully visible, then
+      // fade out after the user would've had a chance to see/read the user
+      // name.
+      animation: `${cursorDelayOpacityChangeAnimation} 3s linear 1`,
     },
   };
 }
