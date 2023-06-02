@@ -1,5 +1,5 @@
 import { makeStyles } from "tss-react/mui";
-import { CollapsibleEditorMenuBar } from "./CollapsibleEditorMenuBar";
+import { CollapsibleMenuBar } from "./CollapsibleMenuBar";
 import MuiTiptapContent from "./MuiTiptapContent";
 import OutlinedField from "./OutlinedField";
 import classNames from "./classNames";
@@ -94,7 +94,7 @@ export default function MuiTiptapOutlinedField({
       disabled={disabled}
       className={cx(classNames.MuiTiptapOutlinedField, className, classes.root)}
     >
-      <CollapsibleEditorMenuBar
+      <CollapsibleMenuBar
         open={!hideMenuBar}
         classes={{
           // Note that we have to apply the sticky CSS classes to the container

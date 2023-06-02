@@ -1,24 +1,24 @@
 import { Collapse } from "@mui/material";
 import type { Editor } from "@tiptap/react";
 import type { Except } from "type-fest";
-import EditorMenuBar, { type EditorMenuBarProps } from "./EditorMenuBar";
+import MenuBar, { type MenuBarProps } from "./MenuBar";
 import classNames from "./classNames";
 
-type Props = EditorMenuBarProps & {
+type Props = MenuBarProps & {
   editor: Editor | null;
   /**
    * Whether to show the formatting menu bar. When changing between true/false,
    * uses collapse animation.
    */
   open: boolean;
-  classes?: Partial<CollapsibleEditorMenuBarClasses>;
+  classes?: Partial<CollapsibleMenuBarClasses>;
 };
 
-type CollapsibleEditorMenuBarClasses = {
+type CollapsibleMenuBarClasses = {
   menuBarContainer?: string;
 };
 
-export function CollapsibleEditorMenuBar({
+export function CollapsibleMenuBar({
   open,
   classes,
   ...otherMenuBarProps
@@ -34,7 +34,7 @@ export function CollapsibleEditorMenuBar({
       unmountOnExit
       className={containerClassName}
     >
-      <EditorMenuBar {...otherMenuBarProps} />
+      <MenuBar {...otherMenuBarProps} />
     </Collapse>
   );
 }

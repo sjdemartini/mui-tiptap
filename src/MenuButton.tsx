@@ -1,16 +1,16 @@
 import { ToggleButton, type ToggleButtonProps } from "@mui/material";
 import { makeStyles } from "tss-react/mui";
-import EditorMenuButtonTooltip, {
-  type Props as EditorMenuButtonTooltipProps,
-} from "./EditorMenuButtonTooltip";
+import MenuButtonTooltip, {
+  type Props as MenuButtonTooltipProps,
+} from "./MenuButtonTooltip";
 
 type Props = {
-  tooltipLabel: EditorMenuButtonTooltipProps["label"];
-  tooltipShortcutKeys?: EditorMenuButtonTooltipProps["shortcutKeys"];
+  tooltipLabel: MenuButtonTooltipProps["label"];
+  tooltipShortcutKeys?: MenuButtonTooltipProps["shortcutKeys"];
   IconComponent: React.ElementType<{ className: string }>;
 } & ToggleButtonProps;
 
-const useStyles = makeStyles({ name: { EditorMenuButton } })({
+const useStyles = makeStyles({ name: { MenuButton } })({
   root: {
     // Use && for additional specificity, since MUI's conditional "disabled"
     // styles also set the border
@@ -25,7 +25,7 @@ const useStyles = makeStyles({ name: { EditorMenuButton } })({
   },
 });
 
-export default function EditorMenuButton({
+export default function MenuButton({
   tooltipLabel,
   tooltipShortcutKeys,
   IconComponent,
@@ -34,14 +34,14 @@ export default function EditorMenuButton({
   const { classes } = useStyles();
   return (
     <span className={classes.root}>
-      <EditorMenuButtonTooltip
+      <MenuButtonTooltip
         label={tooltipLabel}
         shortcutKeys={tooltipShortcutKeys}
       >
         <ToggleButton size="small" {...toggleButtonProps}>
           <IconComponent className={classes.menuButtonIcon} />
         </ToggleButton>
-      </EditorMenuButtonTooltip>
+      </MenuButtonTooltip>
     </span>
   );
 }

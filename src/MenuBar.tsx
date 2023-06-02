@@ -18,22 +18,22 @@ import { Grid } from "@mui/material";
 import { BiCodeBlock, BiTable } from "react-icons/bi";
 import { MdChecklist } from "react-icons/md";
 import { makeStyles } from "tss-react/mui";
-import EditorMenuButton from "./EditorMenuButton";
-import EditorMenuDivider from "./EditorMenuDivider";
-import EditorMenuSelectOption from "./EditorMenuHeadingSelect";
+import MenuButton from "./MenuButton";
+import MenuDivider from "./MenuDivider";
+import MenuHeadingSelect from "./MenuHeadingSelect";
 import classNames from "./classNames";
 import { useMuiTiptapEditorContext } from "./context";
 import debounceRender from "./utils/debounceRender";
 import { isTouchDevice } from "./utils/platform";
 
-export interface EditorMenuBarProps {
+export interface MenuBarProps {
   onAddImagesClick?: () => void;
   /** If true, the indent/unindent buttons show up, even if not using a touch device. */
   alwaysShowIndentButtons?: boolean;
   className?: string;
 }
 
-const useStyles = makeStyles({ name: { EditorMenuBarInner } })((theme) => {
+const useStyles = makeStyles({ name: { MenuBarInner } })((theme) => {
   return {
     root: {
       display: "flex",
@@ -48,11 +48,11 @@ const useStyles = makeStyles({ name: { EditorMenuBarInner } })((theme) => {
 // For the list of pre-configured shortcuts, see
 // https://tiptap.dev/api/keyboard-shortcuts
 
-function EditorMenuBarInner({
+function MenuBarInner({
   onAddImagesClick,
   alwaysShowIndentButtons = false,
   className,
-}: EditorMenuBarProps) {
+}: MenuBarProps) {
   const editor = useMuiTiptapEditorContext();
   const { classes, cx } = useStyles();
   return (
@@ -60,12 +60,12 @@ function EditorMenuBarInner({
       <Grid container columnSpacing={0.5} rowSpacing={0.3} alignItems="center">
         {!!editor && "heading" in editor.storage && (
           <Grid item>
-            <EditorMenuSelectOption editor={editor} />
+            <MenuHeadingSelect editor={editor} />
           </Grid>
         )}
 
         <Grid item>
-          <EditorMenuButton
+          <MenuButton
             tooltipLabel="Bold"
             tooltipShortcutKeys={["mod", "B"]}
             IconComponent={FormatBold}
@@ -77,7 +77,7 @@ function EditorMenuBarInner({
         </Grid>
 
         <Grid item>
-          <EditorMenuButton
+          <MenuButton
             tooltipLabel="Italic"
             tooltipShortcutKeys={["mod", "I"]}
             IconComponent={FormatItalic}
@@ -89,7 +89,7 @@ function EditorMenuBarInner({
         </Grid>
 
         <Grid item>
-          <EditorMenuButton
+          <MenuButton
             tooltipLabel="Strikethrough"
             tooltipShortcutKeys={["mod", "Shift", "X"]}
             IconComponent={StrikethroughS}
@@ -101,7 +101,7 @@ function EditorMenuBarInner({
         </Grid>
 
         <Grid item>
-          <EditorMenuButton
+          <MenuButton
             tooltipLabel="Subscript"
             tooltipShortcutKeys={["mod", ","]}
             IconComponent={SubscriptIcon}
@@ -113,7 +113,7 @@ function EditorMenuBarInner({
         </Grid>
 
         <Grid item>
-          <EditorMenuButton
+          <MenuButton
             tooltipLabel="Superscript"
             tooltipShortcutKeys={["mod", "."]}
             IconComponent={SuperscriptIcon}
@@ -125,11 +125,11 @@ function EditorMenuBarInner({
         </Grid>
 
         <Grid item>
-          <EditorMenuDivider />
+          <MenuDivider />
         </Grid>
 
         <Grid item>
-          <EditorMenuButton
+          <MenuButton
             tooltipLabel="Link"
             tooltipShortcutKeys={["mod", "Shift", "U"]}
             IconComponent={LinkIcon}
@@ -140,11 +140,11 @@ function EditorMenuBarInner({
         </Grid>
 
         <Grid item>
-          <EditorMenuDivider />
+          <MenuDivider />
         </Grid>
 
         <Grid item>
-          <EditorMenuButton
+          <MenuButton
             tooltipLabel="Ordered list"
             tooltipShortcutKeys={["mod", "Shift", "7"]}
             IconComponent={FormatListNumbered}
@@ -156,7 +156,7 @@ function EditorMenuBarInner({
         </Grid>
 
         <Grid item>
-          <EditorMenuButton
+          <MenuButton
             tooltipLabel="Bulleted list"
             tooltipShortcutKeys={["mod", "Shift", "8"]}
             IconComponent={FormatListBulleted}
@@ -169,7 +169,7 @@ function EditorMenuBarInner({
 
         {editor && "taskList" in editor.storage && (
           <Grid item>
-            <EditorMenuButton
+            <MenuButton
               tooltipLabel="Task checklist"
               tooltipShortcutKeys={["mod", "Shift", "9"]}
               IconComponent={MdChecklist}
@@ -188,7 +188,7 @@ function EditorMenuBarInner({
         {(alwaysShowIndentButtons || isTouchDevice()) && (
           <>
             <Grid item>
-              <EditorMenuButton
+              <MenuButton
                 tooltipLabel="Indent"
                 tooltipShortcutKeys={["Tab"]}
                 IconComponent={FormatIndentIncrease}
@@ -201,7 +201,7 @@ function EditorMenuBarInner({
             </Grid>
 
             <Grid item>
-              <EditorMenuButton
+              <MenuButton
                 tooltipLabel="Unindent"
                 tooltipShortcutKeys={["Shift", "Tab"]}
                 IconComponent={FormatIndentDecrease}
@@ -216,11 +216,11 @@ function EditorMenuBarInner({
         )}
 
         <Grid item>
-          <EditorMenuDivider />
+          <MenuDivider />
         </Grid>
 
         <Grid item>
-          <EditorMenuButton
+          <MenuButton
             tooltipLabel="Blockquote"
             tooltipShortcutKeys={["mod", "Shift", "B"]}
             IconComponent={FormatQuote}
@@ -232,11 +232,11 @@ function EditorMenuBarInner({
         </Grid>
 
         <Grid item>
-          <EditorMenuDivider />
+          <MenuDivider />
         </Grid>
 
         <Grid item>
-          <EditorMenuButton
+          <MenuButton
             tooltipLabel="Code"
             tooltipShortcutKeys={["mod", "E"]}
             IconComponent={CodeIcon}
@@ -248,7 +248,7 @@ function EditorMenuBarInner({
         </Grid>
 
         <Grid item>
-          <EditorMenuButton
+          <MenuButton
             tooltipLabel="Code block"
             tooltipShortcutKeys={["mod", "Alt", "C"]}
             IconComponent={BiCodeBlock}
@@ -262,11 +262,11 @@ function EditorMenuBarInner({
         {editor && "image" in editor.storage && onAddImagesClick && (
           <>
             <Grid item>
-              <EditorMenuDivider />
+              <MenuDivider />
             </Grid>
 
             <Grid item>
-              <EditorMenuButton
+              <MenuButton
                 tooltipLabel="Upload an image"
                 IconComponent={AddPhotoAlternate}
                 value="addImage"
@@ -278,11 +278,11 @@ function EditorMenuBarInner({
         )}
 
         <Grid item>
-          <EditorMenuDivider />
+          <MenuDivider />
         </Grid>
 
         <Grid item>
-          <EditorMenuButton
+          <MenuButton
             tooltipLabel="Insert table"
             IconComponent={BiTable}
             value="insertTable"
@@ -298,11 +298,11 @@ function EditorMenuBarInner({
         </Grid>
 
         <Grid item>
-          <EditorMenuDivider />
+          <MenuDivider />
         </Grid>
 
         <Grid item>
-          <EditorMenuButton
+          <MenuButton
             tooltipLabel="Remove inline formatting"
             IconComponent={FormatClear}
             value="unsetAllMarks"
@@ -323,8 +323,8 @@ function EditorMenuBarInner({
 // performant, so this is a reasonable enough balance. Google Docs seems to do something
 // similar, based on some barely-noticeable delay between action/movement and menu bar
 // state.
-const EditorMenuBar = debounceRender(EditorMenuBarInner, 170, {
+const MenuBar = debounceRender(MenuBarInner, 170, {
   maxWait: 300,
 });
 
-export default EditorMenuBar;
+export default MenuBar;

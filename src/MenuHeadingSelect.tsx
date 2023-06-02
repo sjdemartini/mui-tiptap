@@ -3,14 +3,14 @@ import type { Editor } from "@tiptap/core";
 import type { Heading, Level } from "@tiptap/extension-heading";
 import { useCallback, useMemo } from "react";
 import { makeStyles } from "tss-react/mui";
-import EditorMenuButtonTooltip from "./EditorMenuButtonTooltip";
+import MenuButtonTooltip from "./MenuButtonTooltip";
 import { getEditorStyles } from "./styles";
 
 type Props = {
   editor: Editor | null;
 };
 
-const useStyles = makeStyles({ name: { EditorMenuSelectOption } })((theme) => {
+const useStyles = makeStyles({ name: { MenuHeadingSelect } })((theme) => {
   const editorStyles = getEditorStyles(theme);
   return {
     menuOption: {
@@ -83,7 +83,7 @@ const LEVEL_TO_HEADING_OPTION_VALUE = {
   6: HEADING_OPTION_VALUES.Heading6,
 } as const;
 
-export default function EditorMenuSelectOption({ editor }: Props) {
+export default function MenuHeadingSelect({ editor }: Props) {
   const { classes, cx } = useStyles();
   const handleHeadingType: (
     event: SelectChangeEvent<"" | HeadingOptionValue>
@@ -179,14 +179,14 @@ export default function EditorMenuSelectOption({ editor }: Props) {
         value={HEADING_OPTION_VALUES.Paragraph}
         disabled={!isCurrentlyParagraphOrHeading && !canSetParagraph}
       >
-        <EditorMenuButtonTooltip
+        <MenuButtonTooltip
           label=""
           shortcutKeys={["mod", "alt", "0"]}
           placement="right"
           contentWrapperClassName={classes.menuOption}
         >
           Paragraph
-        </EditorMenuButtonTooltip>
+        </MenuButtonTooltip>
       </MenuItem>
 
       {enabledHeadingLevels.has(1) && (
@@ -194,7 +194,7 @@ export default function EditorMenuSelectOption({ editor }: Props) {
           value={HEADING_OPTION_VALUES.Heading1}
           disabled={!canSetHeading}
         >
-          <EditorMenuButtonTooltip
+          <MenuButtonTooltip
             label=""
             shortcutKeys={["mod", "alt", "1"]}
             placement="right"
@@ -205,7 +205,7 @@ export default function EditorMenuSelectOption({ editor }: Props) {
             )}
           >
             {HEADING_OPTION_VALUES.Heading1}
-          </EditorMenuButtonTooltip>
+          </MenuButtonTooltip>
         </MenuItem>
       )}
 
@@ -214,7 +214,7 @@ export default function EditorMenuSelectOption({ editor }: Props) {
           value={HEADING_OPTION_VALUES.Heading2}
           disabled={!canSetHeading}
         >
-          <EditorMenuButtonTooltip
+          <MenuButtonTooltip
             label=""
             shortcutKeys={["mod", "alt", "2"]}
             placement="right"
@@ -225,7 +225,7 @@ export default function EditorMenuSelectOption({ editor }: Props) {
             )}
           >
             {HEADING_OPTION_VALUES.Heading2}
-          </EditorMenuButtonTooltip>
+          </MenuButtonTooltip>
         </MenuItem>
       )}
 
@@ -234,7 +234,7 @@ export default function EditorMenuSelectOption({ editor }: Props) {
           value={HEADING_OPTION_VALUES.Heading3}
           disabled={!canSetHeading}
         >
-          <EditorMenuButtonTooltip
+          <MenuButtonTooltip
             label=""
             shortcutKeys={["mod", "alt", "3"]}
             placement="right"
@@ -245,7 +245,7 @@ export default function EditorMenuSelectOption({ editor }: Props) {
             )}
           >
             {HEADING_OPTION_VALUES.Heading3}
-          </EditorMenuButtonTooltip>
+          </MenuButtonTooltip>
         </MenuItem>
       )}
 
@@ -254,7 +254,7 @@ export default function EditorMenuSelectOption({ editor }: Props) {
           value={HEADING_OPTION_VALUES.Heading4}
           disabled={!canSetHeading}
         >
-          <EditorMenuButtonTooltip
+          <MenuButtonTooltip
             label=""
             shortcutKeys={["mod", "alt", "4"]}
             placement="right"
@@ -265,7 +265,7 @@ export default function EditorMenuSelectOption({ editor }: Props) {
             )}
           >
             {HEADING_OPTION_VALUES.Heading4}
-          </EditorMenuButtonTooltip>
+          </MenuButtonTooltip>
         </MenuItem>
       )}
 
@@ -274,7 +274,7 @@ export default function EditorMenuSelectOption({ editor }: Props) {
           value={HEADING_OPTION_VALUES.Heading5}
           disabled={!canSetHeading}
         >
-          <EditorMenuButtonTooltip
+          <MenuButtonTooltip
             label=""
             shortcutKeys={["mod", "alt", "5"]}
             placement="right"
@@ -285,7 +285,7 @@ export default function EditorMenuSelectOption({ editor }: Props) {
             )}
           >
             {HEADING_OPTION_VALUES.Heading5}
-          </EditorMenuButtonTooltip>
+          </MenuButtonTooltip>
         </MenuItem>
       )}
 
@@ -294,7 +294,7 @@ export default function EditorMenuSelectOption({ editor }: Props) {
           value={HEADING_OPTION_VALUES.Heading6}
           disabled={!canSetHeading}
         >
-          <EditorMenuButtonTooltip
+          <MenuButtonTooltip
             label=""
             shortcutKeys={["mod", "alt", "6"]}
             placement="right"
@@ -305,7 +305,7 @@ export default function EditorMenuSelectOption({ editor }: Props) {
             )}
           >
             {HEADING_OPTION_VALUES.Heading6}
-          </EditorMenuButtonTooltip>
+          </MenuButtonTooltip>
         </MenuItem>
       )}
     </Select>

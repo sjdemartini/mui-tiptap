@@ -19,8 +19,8 @@ import {
   RiSplitCellsHorizontal,
 } from "react-icons/ri";
 import ControlledBubbleMenu from "./ControlledBubbleMenu";
-import EditorMenuButton from "./EditorMenuButton";
-import EditorMenuDivider from "./EditorMenuDivider";
+import MenuButton from "./MenuButton";
+import MenuDivider from "./MenuDivider";
 import debounceRender from "./utils/debounceRender";
 
 interface Props {
@@ -37,7 +37,7 @@ const MenuBarContainer = styled("div")(({ theme }) => ({
 function TableMenuBar({ editor }: Props) {
   return (
     <MenuBarContainer>
-      <EditorMenuButton
+      <MenuButton
         tooltipLabel="Insert column before"
         IconComponent={RiInsertColumnLeft}
         value="addColumnBefore"
@@ -45,7 +45,7 @@ function TableMenuBar({ editor }: Props) {
         disabled={!editor.can().addColumnBefore()}
       />
 
-      <EditorMenuButton
+      <MenuButton
         tooltipLabel="Insert column after"
         IconComponent={RiInsertColumnRight}
         value="addColumnAfter"
@@ -53,7 +53,7 @@ function TableMenuBar({ editor }: Props) {
         disabled={!editor.can().addColumnAfter()}
       />
 
-      <EditorMenuButton
+      <MenuButton
         tooltipLabel="Delete column"
         IconComponent={RiDeleteColumn}
         value="deleteColumn"
@@ -61,9 +61,9 @@ function TableMenuBar({ editor }: Props) {
         disabled={!editor.can().deleteColumn()}
       />
 
-      <EditorMenuDivider />
+      <MenuDivider />
 
-      <EditorMenuButton
+      <MenuButton
         tooltipLabel="Insert row above"
         IconComponent={RiInsertRowTop}
         value="addRowBefore"
@@ -71,7 +71,7 @@ function TableMenuBar({ editor }: Props) {
         disabled={!editor.can().addRowBefore()}
       />
 
-      <EditorMenuButton
+      <MenuButton
         tooltipLabel="Insert row below"
         IconComponent={RiInsertRowBottom}
         value="addRowAfter"
@@ -79,7 +79,7 @@ function TableMenuBar({ editor }: Props) {
         disabled={!editor.can().addRowAfter()}
       />
 
-      <EditorMenuButton
+      <MenuButton
         tooltipLabel="Delete row"
         IconComponent={RiDeleteRow}
         value="deleteRow"
@@ -87,9 +87,9 @@ function TableMenuBar({ editor }: Props) {
         disabled={!editor.can().deleteRow()}
       />
 
-      <EditorMenuDivider />
+      <MenuDivider />
 
-      <EditorMenuButton
+      <MenuButton
         tooltipLabel="Merge cells"
         IconComponent={RiMergeCellsHorizontal}
         value="mergeCells"
@@ -97,7 +97,7 @@ function TableMenuBar({ editor }: Props) {
         disabled={!editor.can().mergeCells()}
       />
 
-      <EditorMenuButton
+      <MenuButton
         tooltipLabel="Split cell"
         IconComponent={RiSplitCellsHorizontal}
         value="splitCell"
@@ -105,9 +105,9 @@ function TableMenuBar({ editor }: Props) {
         disabled={!editor.can().splitCell()}
       />
 
-      <EditorMenuDivider />
+      <MenuDivider />
 
-      <EditorMenuButton
+      <MenuButton
         tooltipLabel="Toggle header row"
         IconComponent={RiLayoutRowFill}
         value="toggleHeaderRow"
@@ -115,7 +115,7 @@ function TableMenuBar({ editor }: Props) {
         disabled={!editor.can().toggleHeaderRow()}
       />
 
-      <EditorMenuButton
+      <MenuButton
         tooltipLabel="Toggle header column"
         IconComponent={RiLayoutColumnFill}
         value="toggleHeaderColumn"
@@ -123,7 +123,7 @@ function TableMenuBar({ editor }: Props) {
         disabled={!editor.can().toggleHeaderColumn()}
       />
 
-      <EditorMenuButton
+      <MenuButton
         tooltipLabel="Toggle header cell"
         IconComponent={FormatColorFill}
         value="toggleHeaderCell"
@@ -132,9 +132,9 @@ function TableMenuBar({ editor }: Props) {
         selected={editor.isActive("tableHeader")}
       />
 
-      <EditorMenuDivider />
+      <MenuDivider />
 
-      <EditorMenuButton
+      <MenuButton
         tooltipLabel="Delete table"
         IconComponent={GridOff}
         value="deleteTable"
@@ -213,9 +213,9 @@ function TableBubbleMenuInner({ editor }: Props) {
 }
 
 // We use a debounced render since the menu is expensive to render but needs to update
-// per editor state change. We use a longer debounce duration than for EditorMenuBar,
+// per editor state change. We use a longer debounce duration than for MenuBar,
 // since this component is more expensive, and it has less internal state that needs
-// frequent updating (vs the EditorMenuBar which shows lots of different active/inactive
+// frequent updating (vs the MenuBar which shows lots of different active/inactive
 // options). Generally, going between editing inside or outside of a table is what will
 // require the most important re-render (or potentially having the table resize), and
 // that's relatively rarer than typing within or outside a table.

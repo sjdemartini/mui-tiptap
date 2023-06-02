@@ -10,35 +10,33 @@ export interface Props {
   children: React.ReactNode;
 }
 
-const useStyles = makeStyles({ name: { EditorMenuButtonTooltip } })(
-  (theme) => ({
-    titleContainer: {
-      textAlign: "center",
+const useStyles = makeStyles({ name: { MenuButtonTooltip } })((theme) => ({
+  titleContainer: {
+    textAlign: "center",
+  },
+
+  label: {
+    fontSize: theme.typography.pxToRem(13),
+  },
+
+  shortcutKey: {
+    fontSize: theme.typography.pxToRem(12),
+    border: `1px solid ${alpha(theme.palette.text.secondary, 0.2)}`,
+    backgroundColor: alpha(theme.palette.background.paper, 0.3),
+    height: "19px",
+    lineHeight: "19px",
+    padding: "0 4px",
+    minWidth: 17,
+    borderRadius: theme.shape.borderRadius,
+    display: "inline-block",
+
+    "&:not(:first-of-type)": {
+      marginLeft: 1,
     },
+  },
+}));
 
-    label: {
-      fontSize: theme.typography.pxToRem(13),
-    },
-
-    shortcutKey: {
-      fontSize: theme.typography.pxToRem(12),
-      border: `1px solid ${alpha(theme.palette.text.secondary, 0.2)}`,
-      backgroundColor: alpha(theme.palette.background.paper, 0.3),
-      height: "19px",
-      lineHeight: "19px",
-      padding: "0 4px",
-      minWidth: 17,
-      borderRadius: theme.shape.borderRadius,
-      display: "inline-block",
-
-      "&:not(:first-of-type)": {
-        marginLeft: 1,
-      },
-    },
-  })
-);
-
-export default function EditorMenuButtonTooltip({
+export default function MenuButtonTooltip({
   label,
   shortcutKeys,
   placement = "top",

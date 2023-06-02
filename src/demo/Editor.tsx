@@ -2,7 +2,7 @@ import TextFieldsIcon from "@mui/icons-material/TextFields";
 import { Box, Button, Typography } from "@mui/material";
 import { useEditor } from "@tiptap/react";
 import { useState } from "react";
-import EditorMenuButton from "../EditorMenuButton";
+import MenuButton from "../MenuButton";
 import MuiTiptapOutlinedField from "../MuiTiptapOutlinedField";
 import MuiTiptapProvider from "../MuiTiptapProvider";
 import useRecommendedExtensions from "../useRecommendedExtensions";
@@ -40,7 +40,7 @@ export default function Editor() {
               p: 1,
             }}
           >
-            <EditorMenuButton
+            <MenuButton
               value="formatting"
               tooltipLabel={showMenuBar ? "Hide formatting" : "Show formatting"}
               size="small"

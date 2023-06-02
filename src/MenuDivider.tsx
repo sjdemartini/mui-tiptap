@@ -5,8 +5,6 @@ const StyledDivider = styled(Divider)(({ theme }) => ({
   margin: theme.spacing(0, 0.5),
 }));
 
-function EditorMenuDivider() {
+export default function MenuDivider() {
   return <StyledDivider orientation="vertical" />;
 }
-
-export default EditorMenuDivider;

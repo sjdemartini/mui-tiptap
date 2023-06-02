@@ -4,9 +4,9 @@
  */
 const classNames = {
   MuiTiptapContent: "MuiTiptapContent",
-  MuiTiptapOutlinedField: "MuiTiptapOutlinedField",
-  MuiTiptapMenuBar: "MuiTiptapEditorMenuBar",
+  MuiTiptapMenuBar: "MuiTiptapMenuBar",
   MuiTiptapMenuBarContainer: "MuiTiptapMenuBarContainer",
+  MuiTiptapOutlinedField: "MuiTiptapOutlinedField",
 } as const;
 
 // TODO(Steven DeMartini): Support "slots" for these in the same way as MUI

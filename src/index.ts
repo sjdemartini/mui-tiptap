@@ -1,4 +1,4 @@
-import EditorMenuBar, { type EditorMenuBarProps } from "./EditorMenuBar";
+import MenuBar, { type MenuBarProps } from "./MenuBar";
 import MuiTiptapContent, {
   type MuiTiptapContentProps,
 } from "./MuiTiptapContent";
@@ -11,13 +11,13 @@ import MuiTiptapProvider, {
 import useRecommendedExtensions from "./useRecommendedExtensions";
 
 export type {
-  EditorMenuBarProps,
+  MenuBarProps,
   MuiTiptapContentProps,
   MuiTiptapOutlinedFieldProps,
   MuiTiptapProviderProps,
 };
 export {
-  EditorMenuBar,
+  MenuBar,
   MuiTiptapContent,
   MuiTiptapOutlinedField,
   MuiTiptapProvider,
