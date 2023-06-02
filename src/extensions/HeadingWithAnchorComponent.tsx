@@ -23,42 +23,44 @@ interface Props extends NodeViewProps {
   extension: typeof Heading;
 }
 
-const useStyles = makeStyles({ name: { HeadingWithAnchorComponent } })(
-  (theme) => ({
-    root: {
-      position: "relative",
-      // Reference the "link" rule name defined below so that when the header
-      // is hovered over, we make the anchor link visible.
-      "&:hover $link": {
-        opacity: 100,
-      },
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+const useStyles = makeStyles<void, "link">({
+  name: { HeadingWithAnchorComponent },
+  uniqId: "kNc4LD", // https://docs.tss-react.dev/nested-selectors#ssr
+})((theme, _params, classes) => ({
+  root: {
+    position: "relative",
+    // Reference the "link" class defined below so that when the header is
+    // hovered over, we make the anchor link visible.
+    [`&:hover .${classes.link}`]: {
+      opacity: 100,
     },
+  },
 
-    link: {
-      position: "absolute",
-      left: -21,
-      color: `${theme.palette.text.secondary} !important`,
-      opacity: 0, // This is changed by the root hover above
-      transition: theme.transitions.create("opacity"),
-      textDecoration: "none",
-      outline: "none",
+  link: {
+    position: "absolute",
+    left: -21,
+    color: `${theme.palette.text.secondary} !important`,
+    opacity: 0, // This is changed by the root hover above
+    transition: theme.transitions.create("opacity"),
+    textDecoration: "none",
+    outline: "none",
 
-      [theme.breakpoints.down("sm")]: {
-        left: -18,
-      },
+    [theme.breakpoints.down("sm")]: {
+      left: -18,
     },
+  },
 
-    icon: {
-      // Looks better to have at an angle, similar to the GitHub icon
-      transform: "rotate(-45deg)",
+  icon: {
+    // Looks better to have at an angle, similar to the GitHub icon
+    transform: "rotate(-45deg)",
 
-      fontSize: "1.25rem",
-      [theme.breakpoints.down("sm")]: {
-        fontSize: "1.15rem",
-      },
+    fontSize: "1.25rem",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "1.15rem",
     },
-  })
-);
+  },
+}));
 
 export default function HeadingWithAnchorComponent({
   editor,
