@@ -59,16 +59,6 @@ const useStyles = makeStyles({ name: { MuiTiptapContent } })((theme) => ({
   editableEditor: {
     // Add padding around the input area
     padding: theme.spacing(1.5),
-
-    // We may want to restrict the height of the editor input area, since it
-    // gets unwieldy to use the menu bar otherwise (particularly for an
-    // "embedded" editor as opposed to full-page document editor, though we'd
-    // probably set up the menu bar and page behavior differently on a
-    // Confluence-like "page"). The caveat is that it could be a scrollable zone
-    // inside an outer scrollable zone, which is super awkward. So don't add
-    // this for now.
-    // maxHeight: "calc(60vh - 80px)",
-    // overflowY: "auto",
   },
 }));
 
