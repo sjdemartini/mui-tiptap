@@ -1,5 +1,5 @@
 import TextFieldsIcon from "@mui/icons-material/TextFields";
-import { Box, Divider, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { useEditor } from "@tiptap/react";
 import { useState } from "react";
 import EditorMenuButton from "../EditorMenuButton";
@@ -22,12 +22,15 @@ export default function Editor() {
 
   const [showMenuBar, setShowMenuBar] = useState(true);
 
+  const [submittedContent, setSubmittedContent] = useState("");
+
   return (
     <>
       <MuiTiptapProvider editor={editor}>
         <MuiTiptapOutlinedField hideMenuBar={!showMenuBar}>
           {/* Below is an example of adding a toggle within the outlined field
-          for showing/hiding the editor menu bar */}
+          for showing/hiding the editor menu bar, and a "submit" button for
+          saving/viewing the HTML content */}
           <Box
             sx={{
               borderTopStyle: "solid",
@@ -43,17 +46,36 @@ export default function Editor() {
               onClick={() => setShowMenuBar((currentState) => !currentState)}
               selected={showMenuBar}
               IconComponent={TextFieldsIcon}
+              sx={{ mr: 2 }}
             />
+
+            <Button
+              variant="contained"
+              size="small"
+              onClick={() => {
+                setSubmittedContent(editor?.getHTML() ?? "");
+              }}
+            >
+              Save
+            </Button>
           </Box>
         </MuiTiptapOutlinedField>
       </MuiTiptapProvider>
 
-      <Divider sx={{ my: 2 }} />
-
-      <Typography variant="h5">HTML result:</Typography>
-      <pre style={{ marginTop: 10, overflow: "scroll", maxWidth: "100%" }}>
-        <code>{editor?.getHTML()}</code>
-      </pre>
+      <Typography variant="h5" sx={{ mt: 5 }}>
+        Saved result:
+      </Typography>
+      {submittedContent ? (
+        <pre style={{ marginTop: 10, overflow: "auto", maxWidth: "100%" }}>
+          <code>{submittedContent}</code>
+        </pre>
+      ) : (
+        <>
+          Press “Save” above to show the HTML markup for the editor content.
+          Typically you’d use a similar <code>editor.getHTML()</code> approach
+          to save your data in a form.
+        </>
+      )}
     </>
   );
 }
