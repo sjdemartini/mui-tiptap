@@ -13,6 +13,7 @@ type Props = {
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 const useStyles = makeStyles<void, "notchedOutline">({
   name: { OutlinedField },
+  uniqId: "Os7ZPW", // https://docs.tss-react.dev/nested-selectors#ssr
 })((theme, _params, classes) => {
   // Based on the concept behind and styles of OutlinedInput and NotchedOutline
   // styles here, to imitate outlined input appearance in material-ui
