@@ -55,6 +55,7 @@ function MenuBarInner({
 }: MenuBarProps) {
   const editor = useMuiTiptapEditorContext();
   const { classes, cx } = useStyles();
+  const isEditable = !!editor?.isEditable;
   return (
     <div className={cx(classNames.MuiTiptapMenuBar, classes.root, className)}>
       <Grid container columnSpacing={0.5} rowSpacing={0.3} alignItems="center">
@@ -71,7 +72,7 @@ function MenuBarInner({
             IconComponent={FormatBold}
             value="bold"
             selected={editor?.isActive("bold") ?? false}
-            disabled={!editor?.can().toggleBold()}
+            disabled={!isEditable || !editor.can().toggleBold()}
             onClick={() => editor?.chain().focus().toggleBold().run()}
           />
         </Grid>
@@ -83,7 +84,7 @@ function MenuBarInner({
             IconComponent={FormatItalic}
             value="italic"
             selected={editor?.isActive("italic") ?? false}
-            disabled={!editor?.can().toggleItalic()}
+            disabled={!isEditable || !editor.can().toggleItalic()}
             onClick={() => editor?.chain().focus().toggleItalic().run()}
           />
         </Grid>
@@ -95,7 +96,7 @@ function MenuBarInner({
             IconComponent={StrikethroughS}
             value="strike"
             selected={editor?.isActive("strike") ?? false}
-            disabled={!editor?.can().toggleStrike()}
+            disabled={!isEditable || !editor.can().toggleStrike()}
             onClick={() => editor?.chain().focus().toggleStrike().run()}
           />
         </Grid>
@@ -107,7 +108,7 @@ function MenuBarInner({
             IconComponent={SubscriptIcon}
             value="subscript"
             selected={editor?.isActive("subscript") ?? false}
-            disabled={!editor?.can().toggleSubscript()}
+            disabled={!isEditable || !editor.can().toggleSubscript()}
             onClick={() => editor?.chain().focus().toggleSubscript().run()}
           />
         </Grid>
@@ -119,7 +120,7 @@ function MenuBarInner({
             IconComponent={SuperscriptIcon}
             value="superscript"
             selected={editor?.isActive("superscript") ?? false}
-            disabled={!editor?.can().toggleSuperscript()}
+            disabled={!isEditable || !editor.can().toggleSuperscript()}
             onClick={() => editor?.chain().focus().toggleSuperscript().run()}
           />
         </Grid>
@@ -135,6 +136,7 @@ function MenuBarInner({
             IconComponent={LinkIcon}
             value="addLink"
             selected={editor?.isActive("link")}
+            disabled={!isEditable}
             onClick={editor?.commands.openLinkBubbleMenu}
           />
         </Grid>
@@ -150,7 +152,7 @@ function MenuBarInner({
             IconComponent={FormatListNumbered}
             value="orderedList"
             selected={editor?.isActive("orderedList") ?? false}
-            disabled={!editor?.can().toggleOrderedList()}
+            disabled={!isEditable || !editor.can().toggleOrderedList()}
             onClick={() => editor?.chain().focus().toggleOrderedList().run()}
           />
         </Grid>
@@ -162,7 +164,7 @@ function MenuBarInner({
             IconComponent={FormatListBulleted}
             value="bulletList"
             selected={editor?.isActive("bulletList") ?? false}
-            disabled={!editor?.can().toggleBulletList()}
+            disabled={!isEditable || !editor.can().toggleBulletList()}
             onClick={() => editor?.chain().focus().toggleBulletList().run()}
           />
         </Grid>
@@ -175,7 +177,7 @@ function MenuBarInner({
               IconComponent={MdChecklist}
               value="taskList"
               selected={editor.isActive("taskList")}
-              disabled={!editor.can().toggleTaskList()}
+              disabled={!isEditable || !editor.can().toggleTaskList()}
               onClick={() => editor.chain().focus().toggleTaskList().run()}
             />
           </Grid>
@@ -193,7 +195,7 @@ function MenuBarInner({
                 tooltipShortcutKeys={["Tab"]}
                 IconComponent={FormatIndentIncrease}
                 value="sinkListItem"
-                disabled={!editor?.can().sinkListItem("listItem")}
+                disabled={!isEditable || !editor.can().sinkListItem("listItem")}
                 onClick={() =>
                   editor?.chain().focus().sinkListItem("listItem").run()
                 }
@@ -206,7 +208,7 @@ function MenuBarInner({
                 tooltipShortcutKeys={["Shift", "Tab"]}
                 IconComponent={FormatIndentDecrease}
                 value="liftListItem"
-                disabled={!editor?.can().liftListItem("listItem")}
+                disabled={!isEditable || !editor.can().liftListItem("listItem")}
                 onClick={() =>
                   editor?.chain().focus().liftListItem("listItem").run()
                 }
@@ -226,7 +228,7 @@ function MenuBarInner({
             IconComponent={FormatQuote}
             value="blockquote"
             selected={editor?.isActive("blockquote") ?? false}
-            disabled={!editor?.can().toggleBlockquote()}
+            disabled={!isEditable || !editor.can().toggleBlockquote()}
             onClick={() => editor?.chain().focus().toggleBlockquote().run()}
           />
         </Grid>
@@ -242,7 +244,7 @@ function MenuBarInner({
             IconComponent={CodeIcon}
             value="code"
             selected={editor?.isActive("code") ?? false}
-            disabled={!editor?.can().toggleCode()}
+            disabled={!isEditable || !editor.can().toggleCode()}
             onClick={() => editor?.chain().focus().toggleCode().run()}
           />
         </Grid>
@@ -254,7 +256,7 @@ function MenuBarInner({
             IconComponent={BiCodeBlock}
             value="codeBlock"
             selected={editor?.isActive("codeBlock") ?? false}
-            disabled={!editor?.can().toggleCodeBlock()}
+            disabled={!isEditable || !editor.can().toggleCodeBlock()}
             onClick={() => editor?.chain().focus().toggleCodeBlock().run()}
           />
         </Grid>
@@ -270,7 +272,10 @@ function MenuBarInner({
                 tooltipLabel="Upload an image"
                 IconComponent={AddPhotoAlternate}
                 value="addImage"
-                disabled={!editor.can().setImage({ src: "http://example.com" })}
+                disabled={
+                  !isEditable ||
+                  !editor.can().setImage({ src: "http://example.com" })
+                }
                 onClick={onAddImagesClick}
               />
             </Grid>
@@ -286,7 +291,7 @@ function MenuBarInner({
             tooltipLabel="Insert table"
             IconComponent={BiTable}
             value="insertTable"
-            disabled={!editor?.can().insertTable()}
+            disabled={!isEditable || !editor.can().insertTable()}
             onClick={() =>
               editor
                 ?.chain()
@@ -306,7 +311,7 @@ function MenuBarInner({
             tooltipLabel="Remove inline formatting"
             IconComponent={FormatClear}
             value="unsetAllMarks"
-            disabled={!editor?.can().unsetAllMarks()}
+            disabled={!isEditable || !editor.can().unsetAllMarks()}
             onClick={() => editor?.chain().focus().unsetAllMarks().run()}
           />
         </Grid>

@@ -147,7 +147,8 @@ export default function MenuHeadingSelect({ editor }: Props) {
       size="small"
       onChange={handleHeadingType}
       disabled={
-        !isCurrentlyParagraphOrHeading && !canSetParagraph && !canSetHeading
+        !editor?.isEditable ||
+        (!isCurrentlyParagraphOrHeading && !canSetParagraph && !canSetHeading)
       }
       displayEmpty
       renderValue={(selected) => {
