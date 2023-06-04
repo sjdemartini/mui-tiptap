@@ -35,7 +35,7 @@
   "engines": {
     "pnpm": ">=8"
   },
-  "packageManager": "pnpm@8.4.0",
+  "packageManager": "pnpm@8.6.0",
   "publishConfig": {
     "access": "public"
   },
