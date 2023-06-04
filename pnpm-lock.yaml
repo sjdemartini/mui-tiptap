@@ -82,9 +82,6 @@ devDependencies:
   '@tiptap/extension-bold':
     specifier: 2.0.0-beta.26
     version: 2.0.0-beta.26(@tiptap/core@2.0.0-beta.209)
-  '@tiptap/extension-bubble-menu':
-    specifier: 2.0.0-beta.209
-    version: 2.0.0-beta.209(@tiptap/core@2.0.0-beta.209)(prosemirror-state@1.4.2)(prosemirror-view@1.29.2)
   '@tiptap/extension-bullet-list':
     specifier: 2.0.0-beta.26
     version: 2.0.0-beta.26(@tiptap/core@2.0.0-beta.209)
@@ -106,9 +103,6 @@ devDependencies:
   '@tiptap/extension-dropcursor':
     specifier: 2.0.0-beta.25
     version: 2.0.0-beta.25(@tiptap/core@2.0.0-beta.209)
-  '@tiptap/extension-floating-menu':
-    specifier: 2.0.0-beta.209
-    version: 2.0.0-beta.209(@tiptap/core@2.0.0-beta.209)(prosemirror-state@1.4.2)(prosemirror-view@1.29.2)
   '@tiptap/extension-gapcursor':
     specifier: 2.0.0-beta.34
     version: 2.0.0-beta.34(@tiptap/core@2.0.0-beta.209)
