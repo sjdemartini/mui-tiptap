@@ -1,5 +1,25 @@
-# mui-tiptap
+<p align="center">
+  <img src="https://github.com/sjdemartini/mui-tiptap/assets/1647130/e1f01441-c74a-410c-b25d-5a58615d3e6a" alt="mui-tiptap-logo" width="350" />
+</p>
 
-![GitHub Workflow Status](https://github.com/sjdemartini/mui-tiptap/actions/workflows/build-test.yml/badge.svg?branch=main)
+<p align="center">
+  <b>mui-tiptap</b>: A Material-UI (MUI) styled WYSIWYG rich text editor, using Tiptap.
+</p>
 
-A Material-UI (MUI) styled WYSIWYG rich text editor, using Tiptap.
+<p align="center">
+  <a href="https://www.npmjs.com/package/mui-tiptap">
+    <img alt="npm mui-tiptap package" src="https://img.shields.io/npm/v/mui-tiptap">
+  </a>
+  <a href="https://www.npmjs.com/package/mui-tiptap">
+    <img alt="npm type definitions" src="https://img.shields.io/npm/types/mui-tiptap">
+  </a>
+  <a href="https://github.com/sjdemartini/mui-tiptap/actions">
+    <img alt="GitHub Workflow Status" src="https://img.shields.io/github/actions/workflow/status/sjdemartini/mui-tiptap/build-test.yml">
+  </a>
+  <a href="https://github.com/sjdemartini/mui-tiptap/blob/main/LICENSE">
+    <img src="https://img.shields.io/npm/l/mui-tiptap">
+  </a>
+</p>
+
+
+
