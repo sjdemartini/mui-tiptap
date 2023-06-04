@@ -82,7 +82,7 @@ export function scrollToCurrentAnchor(editor: Editor) {
   const elementForHash = window.document.getElementById(elementId);
 
   // We'll only scroll if the given hash points to an element that's part of our
-  // editor content (e.g., ignore external Note anchors)
+  // editor content (i.e., ignore external anchors)
   if (elementForHash && editor.options.element.contains(elementForHash)) {
     elementForHash.scrollIntoView({
       behavior: "smooth",
