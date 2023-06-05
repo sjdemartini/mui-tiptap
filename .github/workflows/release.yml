@@ -1,0 +1,51 @@
+name: Publish Package to npmjs
+on:
+  push:
+    tags:
+      - "v*.*.*"
+jobs:
+  # Re-run the usual tests and build steps to ensure things are stable for release
+  build-test:
+    uses: ./.github/workflows/build-test.yml # use the callable built-test to run tests
+
+  # Then release to npm
+  release:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18]
+
+    needs: [build-test] # Require standard CI steps to pass before publishing
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      # Set up .npmrc file to publish to npm. This also allows NODE_AUTH_TOKEN
+      # to work below.
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "18.x"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - run: pnpm install
+
+      - run: pnpm run build
+
+      # TODO(Steven DeMartini): If pre-releases are used in the future (after a
+      # non-alpha release has been published), we'll probably want to update
+      # this command to pass in `--tag` with next/alpha/beta as appropriate, to
+      # avoid updating the default `latest` tag. We could presumably parse the
+      # package version using something like
+      # `cat package.json | jq -r '.version'`
+      # (https://gist.github.com/DarrenN/8c6a5b969481725a4413?permalink_comment_id=4156395#gistcomment-4156395)
+      # to parse the version, then could regex for whether it's a pre-release or
+      # not.
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

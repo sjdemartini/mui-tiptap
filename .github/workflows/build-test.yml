@@ -1,12 +1,8 @@
-name: mui-tiptap
-
-on: [push]
-
-env:
-  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
+name: build-test
+# Run this any time there's a push, and allow this to be called from other workflows
+on: [push, workflow_call]
 jobs:
-  build-test:
+  build_and_test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -44,10 +40,3 @@ jobs:
 
       - name: Test
         run: pnpm run test
-
-      # TODO(Steven DeMartini): Set up releases later
-      # - name: Release
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #     NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      #   run: npm run semantic-release
