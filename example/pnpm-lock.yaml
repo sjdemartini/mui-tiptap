@@ -1,4 +1,8 @@
-lockfileVersion: '6.0'
+lockfileVersion: '6.1'
+
+settings:
+  autoInstallPeers: false
+  excludeLinksFromLockfile: false
 
 dependencies:
   '@emotion/react':
@@ -18,16 +22,13 @@ dependencies:
     version: 5.12.3(@emotion/react@11.11.0)(@emotion/styled@11.11.0)(@types/react@18.0.28)(react-dom@18.2.0)(react@18.2.0)
   '@tiptap/core':
     specifier: 2.0.0-beta.209
-    version: 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.31.1)
+    version: 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.29.2)
   '@tiptap/extension-blockquote':
     specifier: 2.0.0-beta.26
     version: 2.0.0-beta.26(@tiptap/core@2.0.0-beta.209)
   '@tiptap/extension-bold':
     specifier: 2.0.0-beta.26
     version: 2.0.0-beta.26(@tiptap/core@2.0.0-beta.209)
-  '@tiptap/extension-bubble-menu':
-    specifier: 2.0.0-beta.209
-    version: 2.0.0-beta.209(@tiptap/core@2.0.0-beta.209)(prosemirror-state@1.4.2)(prosemirror-view@1.31.1)
   '@tiptap/extension-bullet-list':
     specifier: 2.0.0-beta.26
     version: 2.0.0-beta.26(@tiptap/core@2.0.0-beta.209)
@@ -37,12 +38,6 @@ dependencies:
   '@tiptap/extension-code-block':
     specifier: 2.0.0-beta.37
     version: 2.0.0-beta.37(@tiptap/core@2.0.0-beta.209)
-  '@tiptap/extension-collaboration':
-    specifier: 2.0.0-beta.209
-    version: 2.0.0-beta.209(@tiptap/core@2.0.0-beta.209)(prosemirror-state@1.4.2)(y-prosemirror@1.0.20)
-  '@tiptap/extension-collaboration-cursor':
-    specifier: 2.0.0-beta.209
-    version: 2.0.0-beta.209(@tiptap/core@2.0.0-beta.209)(y-prosemirror@1.0.20)
   '@tiptap/extension-document':
     specifier: 2.0.0-beta.15
     version: 2.0.0-beta.15(@tiptap/core@2.0.0-beta.209)
@@ -51,7 +46,7 @@ dependencies:
     version: 2.0.0-beta.25(@tiptap/core@2.0.0-beta.209)
   '@tiptap/extension-floating-menu':
     specifier: 2.0.0-beta.209
-    version: 2.0.0-beta.209(@tiptap/core@2.0.0-beta.209)(prosemirror-state@1.4.2)(prosemirror-view@1.31.1)
+    version: 2.0.0-beta.209(@tiptap/core@2.0.0-beta.209)(prosemirror-state@1.4.2)(prosemirror-view@1.29.2)
   '@tiptap/extension-gapcursor':
     specifier: 2.0.0-beta.34
     version: 2.0.0-beta.34(@tiptap/core@2.0.0-beta.209)
@@ -99,7 +94,7 @@ dependencies:
     version: 2.0.0-beta.10(@tiptap/core@2.0.0-beta.209)
   '@tiptap/extension-table':
     specifier: 2.0.0-beta.209
-    version: 2.0.0-beta.209(@tiptap/core@2.0.0-beta.209)(@tiptap/prosemirror-tables@1.1.4)(prosemirror-model@1.18.3)(prosemirror-state@1.4.2)(prosemirror-view@1.31.1)
+    version: 2.0.0-beta.209(@tiptap/core@2.0.0-beta.209)(@tiptap/prosemirror-tables@1.1.4)(prosemirror-model@1.18.3)(prosemirror-state@1.4.2)(prosemirror-view@1.29.2)
   '@tiptap/extension-table-cell':
     specifier: 2.0.0-beta.209
     version: 2.0.0-beta.209(@tiptap/core@2.0.0-beta.209)
@@ -120,7 +115,7 @@ dependencies:
     version: 2.0.0-beta.15(@tiptap/core@2.0.0-beta.209)
   '@tiptap/prosemirror-tables':
     specifier: 1.1.4
-    version: 1.1.4(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.31.1)
+    version: 1.1.4(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.29.2)
   '@tiptap/react':
     specifier: 2.0.0-beta.109
     version: 2.0.0-beta.109(@tiptap/core@2.0.0-beta.209)(prosemirror-state@1.4.2)(react-dom@18.2.0)(react@18.2.0)
@@ -130,13 +125,37 @@ dependencies:
   mui-tiptap:
     specifier: file:../
     version: >-
-      file:..(@emotion/react@11.11.0)(@emotion/styled@11.11.0)(@mui/icons-material@5.11.16)(@mui/material@5.12.3)(@tiptap/core@2.0.0-beta.209)(@tiptap/extension-blockquote@2.0.0-beta.26)(@tiptap/extension-bold@2.0.0-beta.26)(@tiptap/extension-bubble-menu@2.0.0-beta.209)(@tiptap/extension-bullet-list@2.0.0-beta.26)(@tiptap/extension-code-block@2.0.0-beta.37)(@tiptap/extension-code@2.0.0-beta.26)(@tiptap/extension-collaboration-cursor@2.0.0-beta.209)(@tiptap/extension-collaboration@2.0.0-beta.209)(@tiptap/extension-document@2.0.0-beta.15)(@tiptap/extension-dropcursor@2.0.0-beta.25)(@tiptap/extension-floating-menu@2.0.0-beta.209)(@tiptap/extension-gapcursor@2.0.0-beta.34)(@tiptap/extension-hard-break@2.0.0-beta.30)(@tiptap/extension-heading@2.0.0-beta.26)(@tiptap/extension-history@2.0.0-beta.21)(@tiptap/extension-image@2.0.0-beta.27)(@tiptap/extension-italic@2.0.0-beta.26)(@tiptap/extension-link@2.0.0-beta.37)(@tiptap/extension-list-item@2.0.0-beta.209)(@tiptap/extension-mention@2.0.0-beta.96)(@tiptap/extension-ordered-list@2.0.0-beta.27)(@tiptap/extension-paragraph@2.0.0-beta.23)(@tiptap/extension-placeholder@2.0.0-beta.48)(@tiptap/extension-strike@2.0.0-beta.27)(@tiptap/extension-subscript@2.0.0-beta.10)(@tiptap/extension-superscript@2.0.0-beta.10)(@tiptap/extension-table-cell@2.0.0-beta.209)(@tiptap/extension-table-header@2.0.0-beta.209)(@tiptap/extension-table-row@2.0.0-beta.209)(@tiptap/extension-table@2.0.0-beta.209)(@tiptap/extension-task-item@2.0.0-beta.32)(@tiptap/extension-task-list@2.0.0-beta.26)(@tiptap/extension-text@2.0.0-beta.15)(@tiptap/prosemirror-tables@1.1.4)(@tiptap/react@2.0.0-beta.109)(@tiptap/suggestion@2.0.0-beta.91)(@types/react@18.0.28)(react-dom@18.2.0)(react-icons@4.8.0)(react@18.2.0)
+      file:..(@emotion/react@11.11.0)(@emotion/styled@11.11.0)(@mui/icons-material@5.11.16)(@mui/material@5.12.3)(@tiptap/core@2.0.0-beta.209)(@tiptap/extension-blockquote@2.0.0-beta.26)(@tiptap/extension-bold@2.0.0-beta.26)(@tiptap/extension-bullet-list@2.0.0-beta.26)(@tiptap/extension-code-block@2.0.0-beta.37)(@tiptap/extension-code@2.0.0-beta.26)(@tiptap/extension-document@2.0.0-beta.15)(@tiptap/extension-dropcursor@2.0.0-beta.25)(@tiptap/extension-gapcursor@2.0.0-beta.34)(@tiptap/extension-hard-break@2.0.0-beta.30)(@tiptap/extension-heading@2.0.0-beta.26)(@tiptap/extension-history@2.0.0-beta.21)(@tiptap/extension-image@2.0.0-beta.27)(@tiptap/extension-italic@2.0.0-beta.26)(@tiptap/extension-link@2.0.0-beta.37)(@tiptap/extension-list-item@2.0.0-beta.209)(@tiptap/extension-mention@2.0.0-beta.96)(@tiptap/extension-ordered-list@2.0.0-beta.27)(@tiptap/extension-paragraph@2.0.0-beta.23)(@tiptap/extension-placeholder@2.0.0-beta.48)(@tiptap/extension-strike@2.0.0-beta.27)(@tiptap/extension-subscript@2.0.0-beta.10)(@tiptap/extension-superscript@2.0.0-beta.10)(@tiptap/extension-table-cell@2.0.0-beta.209)(@tiptap/extension-table-header@2.0.0-beta.209)(@tiptap/extension-table-row@2.0.0-beta.209)(@tiptap/extension-table@2.0.0-beta.209)(@tiptap/extension-task-item@2.0.0-beta.32)(@tiptap/extension-task-list@2.0.0-beta.26)(@tiptap/extension-text@2.0.0-beta.15)(@tiptap/prosemirror-tables@1.1.4)(@tiptap/react@2.0.0-beta.109)(@tiptap/suggestion@2.0.0-beta.91)(@types/react@18.0.28)(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.29.2)(react-dom@18.2.0)(react-icons@4.3.1)(react@18.2.0)
+  prosemirror-commands:
+    specifier: ^1.5.0
+    version: 1.5.0
+  prosemirror-keymap:
+    specifier: ^1.2.0
+    version: 1.2.0
+  prosemirror-model:
+    specifier: ^1.18.3
+    version: 1.18.3
+  prosemirror-schema-list:
+    specifier: ^1.2.2
+    version: 1.2.2
+  prosemirror-state:
+    specifier: ^1.4.2
+    version: 1.4.2
+  prosemirror-transform:
+    specifier: ^1.7.1
+    version: 1.7.1
+  prosemirror-view:
+    specifier: ^1.29.2
+    version: 1.29.2
   react:
     specifier: ^18.2.0
     version: 18.2.0
   react-dom:
     specifier: ^18.2.0
     version: 18.2.0(react@18.2.0)
+  react-icons:
+    specifier: ^4.3.1
+    version: 4.3.1(react@18.2.0)
 
 devDependencies:
   '@types/react':
@@ -819,7 +838,7 @@ packages:
       '@swc/core-win32-x64-msvc': 1.3.56
     dev: true
 
-  /@tiptap/core@2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.31.1):
+  /@tiptap/core@2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.29.2):
     resolution: {integrity: sha512-DOOzfo2XKD5Qt2oEGW33/6ugwSnvpl4WbxtlKdPadLoApk6Kja3K1Eps3pihBgIGmo4tkctkCzmj8wNWS7KeWg==}
     peerDependencies:
       prosemirror-commands: ^1.3.1
@@ -836,7 +855,7 @@ packages:
       prosemirror-schema-list: 1.2.2
       prosemirror-state: 1.4.2
       prosemirror-transform: 1.7.1
-      prosemirror-view: 1.31.1
+      prosemirror-view: 1.29.2
     dev: false
 
   /@tiptap/extension-blockquote@2.0.0-beta.26(@tiptap/core@2.0.0-beta.209):
@@ -844,7 +863,7 @@ packages:
     peerDependencies:
       '@tiptap/core': ^2.0.0-beta.1
     dependencies:
-      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.31.1)
+      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.29.2)
     dev: false
 
   /@tiptap/extension-bold@2.0.0-beta.26(@tiptap/core@2.0.0-beta.209):
@@ -852,7 +871,7 @@ packages:
     peerDependencies:
       '@tiptap/core': ^2.0.0-beta.1
     dependencies:
-      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.31.1)
+      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.29.2)
     dev: false
 
   /@tiptap/extension-bubble-menu@2.0.0-beta.209(@tiptap/core@2.0.0-beta.209)(prosemirror-state@1.4.2)(prosemirror-view@1.31.1):
@@ -862,7 +881,7 @@ packages:
       prosemirror-state: ^1.4.1
       prosemirror-view: ^1.28.2
     dependencies:
-      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.31.1)
+      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.29.2)
       lodash: 4.17.21
       prosemirror-state: 1.4.2
       prosemirror-view: 1.31.1
@@ -874,7 +893,7 @@ packages:
     peerDependencies:
       '@tiptap/core': ^2.0.0-beta.1
     dependencies:
-      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.31.1)
+      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.29.2)
     dev: false
 
   /@tiptap/extension-code-block@2.0.0-beta.37(@tiptap/core@2.0.0-beta.209):
@@ -882,7 +901,7 @@ packages:
     peerDependencies:
       '@tiptap/core': ^2.0.0-beta.1
     dependencies:
-      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.31.1)
+      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.29.2)
       prosemirror-state: 1.4.2
     dev: false
 
@@ -891,29 +910,7 @@ packages:
     peerDependencies:
       '@tiptap/core': ^2.0.0-beta.1
     dependencies:
-      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.31.1)
-    dev: false
-
-  /@tiptap/extension-collaboration-cursor@2.0.0-beta.209(@tiptap/core@2.0.0-beta.209)(y-prosemirror@1.0.20):
-    resolution: {integrity: sha512-CVl7ueLxyyjW1o9fnZWq52BaPDy53c+F4FpgsAbI9U0jyDT3/j2K6PMoZfXpiQkMMdifF0lrtKMRvEQ4izym4g==}
-    peerDependencies:
-      '@tiptap/core': ^2.0.0-beta.193
-      y-prosemirror: 1.0.20
-    dependencies:
-      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.31.1)
-      y-prosemirror: 1.0.20(prosemirror-model@1.18.3)(prosemirror-state@1.4.2)(prosemirror-view@1.31.1)(y-protocols@1.0.5)(yjs@13.5.44)
-    dev: false
-
-  /@tiptap/extension-collaboration@2.0.0-beta.209(@tiptap/core@2.0.0-beta.209)(prosemirror-state@1.4.2)(y-prosemirror@1.0.20):
-    resolution: {integrity: sha512-SXdClg2RNrl/ZvVHCHBGUbvEGKLEddUEGPUEmhn7nZmXYXuMm3L2m01kH6G5mXVq9GFEwgmzfT8C4Wl75dXRFQ==}
-    peerDependencies:
-      '@tiptap/core': ^2.0.0-beta.193
-      prosemirror-state: ^1.4.1
-      y-prosemirror: 1.0.20
-    dependencies:
-      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.31.1)
-      prosemirror-state: 1.4.2
-      y-prosemirror: 1.0.20(prosemirror-model@1.18.3)(prosemirror-state@1.4.2)(prosemirror-view@1.31.1)(y-protocols@1.0.5)(yjs@13.5.44)
+      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.29.2)
     dev: false
 
   /@tiptap/extension-document@2.0.0-beta.15(@tiptap/core@2.0.0-beta.209):
@@ -921,7 +918,7 @@ packages:
     peerDependencies:
       '@tiptap/core': ^2.0.0-beta.1
     dependencies:
-      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.31.1)
+      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.29.2)
     dev: false
 
   /@tiptap/extension-dropcursor@2.0.0-beta.25(@tiptap/core@2.0.0-beta.209):
@@ -929,9 +926,22 @@ packages:
     peerDependencies:
       '@tiptap/core': ^2.0.0-beta.1
     dependencies:
-      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.31.1)
+      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.29.2)
       '@types/prosemirror-dropcursor': 1.5.0
       prosemirror-dropcursor: 1.4.0
+    dev: false
+
+  /@tiptap/extension-floating-menu@2.0.0-beta.209(@tiptap/core@2.0.0-beta.209)(prosemirror-state@1.4.2)(prosemirror-view@1.29.2):
+    resolution: {integrity: sha512-m5ucAguqDxuOvNcsmvuSLcN8TMkbhFmiC6dTJOyaAGjGn6d8Ly6aZh+lEwU228TebM0TKHTp8Xob1cLjV4TGgg==}
+    peerDependencies:
+      '@tiptap/core': ^2.0.0-beta.193
+      prosemirror-state: ^1.4.1
+      prosemirror-view: ^1.28.2
+    dependencies:
+      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.29.2)
+      prosemirror-state: 1.4.2
+      prosemirror-view: 1.29.2
+      tippy.js: 6.3.7
     dev: false
 
   /@tiptap/extension-floating-menu@2.0.0-beta.209(@tiptap/core@2.0.0-beta.209)(prosemirror-state@1.4.2)(prosemirror-view@1.31.1):
@@ -941,7 +951,7 @@ packages:
       prosemirror-state: ^1.4.1
       prosemirror-view: ^1.28.2
     dependencies:
-      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.31.1)
+      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.29.2)
       prosemirror-state: 1.4.2
       prosemirror-view: 1.31.1
       tippy.js: 6.3.7
@@ -952,7 +962,7 @@ packages:
     peerDependencies:
       '@tiptap/core': ^2.0.0-beta.1
     dependencies:
-      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.31.1)
+      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.29.2)
       '@types/prosemirror-gapcursor': 1.3.0
       prosemirror-gapcursor: 1.3.1
     dev: false
@@ -962,7 +972,7 @@ packages:
     peerDependencies:
       '@tiptap/core': ^2.0.0-beta.1
     dependencies:
-      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.31.1)
+      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.29.2)
     dev: false
 
   /@tiptap/extension-heading@2.0.0-beta.26(@tiptap/core@2.0.0-beta.209):
@@ -970,7 +980,7 @@ packages:
     peerDependencies:
       '@tiptap/core': ^2.0.0-beta.1
     dependencies:
-      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.31.1)
+      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.29.2)
     dev: false
 
   /@tiptap/extension-history@2.0.0-beta.21(@tiptap/core@2.0.0-beta.209):
@@ -978,7 +988,7 @@ packages:
     peerDependencies:
       '@tiptap/core': ^2.0.0-beta.1
     dependencies:
-      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.31.1)
+      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.29.2)
       '@types/prosemirror-history': 1.3.0
       prosemirror-history: 1.3.1
     dev: false
@@ -988,7 +998,7 @@ packages:
     peerDependencies:
       '@tiptap/core': ^2.0.0-beta.1
     dependencies:
-      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.31.1)
+      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.29.2)
     dev: false
 
   /@tiptap/extension-italic@2.0.0-beta.26(@tiptap/core@2.0.0-beta.209):
@@ -996,7 +1006,7 @@ packages:
     peerDependencies:
       '@tiptap/core': ^2.0.0-beta.1
     dependencies:
-      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.31.1)
+      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.29.2)
     dev: false
 
   /@tiptap/extension-link@2.0.0-beta.37(@tiptap/core@2.0.0-beta.209):
@@ -1004,7 +1014,7 @@ packages:
     peerDependencies:
       '@tiptap/core': ^2.0.0-beta.1
     dependencies:
-      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.31.1)
+      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.29.2)
       linkifyjs: 3.0.5
       prosemirror-model: 1.18.3
       prosemirror-state: 1.4.2
@@ -1015,7 +1025,7 @@ packages:
     peerDependencies:
       '@tiptap/core': ^2.0.0-beta.193
     dependencies:
-      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.31.1)
+      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.29.2)
     dev: false
 
   /@tiptap/extension-mention@2.0.0-beta.96(@tiptap/core@2.0.0-beta.209):
@@ -1023,7 +1033,7 @@ packages:
     peerDependencies:
       '@tiptap/core': ^2.0.0-beta.1
     dependencies:
-      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.31.1)
+      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.29.2)
       '@tiptap/suggestion': 2.0.0-beta.91(@tiptap/core@2.0.0-beta.209)
       prosemirror-model: 1.18.3
       prosemirror-state: 1.4.2
@@ -1034,7 +1044,7 @@ packages:
     peerDependencies:
       '@tiptap/core': ^2.0.0-beta.1
     dependencies:
-      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.31.1)
+      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.29.2)
     dev: false
 
   /@tiptap/extension-paragraph@2.0.0-beta.23(@tiptap/core@2.0.0-beta.209):
@@ -1042,7 +1052,7 @@ packages:
     peerDependencies:
       '@tiptap/core': ^2.0.0-beta.1
     dependencies:
-      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.31.1)
+      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.29.2)
     dev: false
 
   /@tiptap/extension-placeholder@2.0.0-beta.48(@tiptap/core@2.0.0-beta.209):
@@ -1050,7 +1060,7 @@ packages:
     peerDependencies:
       '@tiptap/core': ^2.0.0-beta.1
     dependencies:
-      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.31.1)
+      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.29.2)
       prosemirror-model: 1.18.3
       prosemirror-state: 1.4.2
       prosemirror-view: 1.31.1
@@ -1061,7 +1071,7 @@ packages:
     peerDependencies:
       '@tiptap/core': ^2.0.0-beta.1
     dependencies:
-      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.31.1)
+      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.29.2)
     dev: false
 
   /@tiptap/extension-subscript@2.0.0-beta.10(@tiptap/core@2.0.0-beta.209):
@@ -1069,7 +1079,7 @@ packages:
     peerDependencies:
       '@tiptap/core': ^2.0.0-beta.1
     dependencies:
-      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.31.1)
+      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.29.2)
     dev: false
 
   /@tiptap/extension-superscript@2.0.0-beta.10(@tiptap/core@2.0.0-beta.209):
@@ -1077,7 +1087,7 @@ packages:
     peerDependencies:
       '@tiptap/core': ^2.0.0-beta.1
     dependencies:
-      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.31.1)
+      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.29.2)
     dev: false
 
   /@tiptap/extension-table-cell@2.0.0-beta.209(@tiptap/core@2.0.0-beta.209):
@@ -1085,7 +1095,7 @@ packages:
     peerDependencies:
       '@tiptap/core': ^2.0.0-beta.193
     dependencies:
-      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.31.1)
+      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.29.2)
     dev: false
 
   /@tiptap/extension-table-header@2.0.0-beta.209(@tiptap/core@2.0.0-beta.209):
@@ -1093,7 +1103,7 @@ packages:
     peerDependencies:
       '@tiptap/core': ^2.0.0-beta.193
     dependencies:
-      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.31.1)
+      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.29.2)
     dev: false
 
   /@tiptap/extension-table-row@2.0.0-beta.209(@tiptap/core@2.0.0-beta.209):
@@ -1101,10 +1111,10 @@ packages:
     peerDependencies:
       '@tiptap/core': ^2.0.0-beta.193
     dependencies:
-      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.31.1)
+      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.29.2)
     dev: false
 
-  /@tiptap/extension-table@2.0.0-beta.209(@tiptap/core@2.0.0-beta.209)(@tiptap/prosemirror-tables@1.1.4)(prosemirror-model@1.18.3)(prosemirror-state@1.4.2)(prosemirror-view@1.31.1):
+  /@tiptap/extension-table@2.0.0-beta.209(@tiptap/core@2.0.0-beta.209)(@tiptap/prosemirror-tables@1.1.4)(prosemirror-model@1.18.3)(prosemirror-state@1.4.2)(prosemirror-view@1.29.2):
     resolution: {integrity: sha512-vyaVrH4rY+2S+qHGLn7CeDYDM/dyKx52jfmnNCN7wn9GMDsRrxqdFrQjtw0eDkGZyymIM7pEHf2h8kSNBxH2+Q==}
     peerDependencies:
       '@tiptap/core': ^2.0.0-beta.193
@@ -1113,11 +1123,11 @@ packages:
       prosemirror-state: ^1.4.1
       prosemirror-view: ^1.28.2
     dependencies:
-      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.31.1)
-      '@tiptap/prosemirror-tables': 1.1.4(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.31.1)
+      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.29.2)
+      '@tiptap/prosemirror-tables': 1.1.4(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.29.2)
       prosemirror-model: 1.18.3
       prosemirror-state: 1.4.2
-      prosemirror-view: 1.31.1
+      prosemirror-view: 1.29.2
     dev: false
 
   /@tiptap/extension-task-item@2.0.0-beta.32(@tiptap/core@2.0.0-beta.209):
@@ -1125,7 +1135,7 @@ packages:
     peerDependencies:
       '@tiptap/core': ^2.0.0-beta.1
     dependencies:
-      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.31.1)
+      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.29.2)
     dev: false
 
   /@tiptap/extension-task-list@2.0.0-beta.26(@tiptap/core@2.0.0-beta.209):
@@ -1133,7 +1143,7 @@ packages:
     peerDependencies:
       '@tiptap/core': ^2.0.0-beta.1
     dependencies:
-      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.31.1)
+      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.29.2)
     dev: false
 
   /@tiptap/extension-text@2.0.0-beta.15(@tiptap/core@2.0.0-beta.209):
@@ -1141,10 +1151,10 @@ packages:
     peerDependencies:
       '@tiptap/core': ^2.0.0-beta.1
     dependencies:
-      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.31.1)
+      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.29.2)
     dev: false
 
-  /@tiptap/prosemirror-tables@1.1.4(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.31.1):
+  /@tiptap/prosemirror-tables@1.1.4(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.29.2):
     resolution: {integrity: sha512-O2XnDhZV7xTHSFxMMl8Ei3UVeCxuMlbGYZ+J2QG8CzkK8mxDpBa66kFr5DdyAhvdi1ptpcH9u7/GMwItQpN4sA==}
     deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
     peerDependencies:
@@ -1158,7 +1168,7 @@ packages:
       prosemirror-model: 1.18.3
       prosemirror-state: 1.4.2
       prosemirror-transform: 1.7.1
-      prosemirror-view: 1.31.1
+      prosemirror-view: 1.29.2
     dev: false
 
   /@tiptap/react@2.0.0-beta.109(@tiptap/core@2.0.0-beta.209)(prosemirror-state@1.4.2)(react-dom@18.2.0)(react@18.2.0):
@@ -1168,7 +1178,7 @@ packages:
       react: ^17.0.0 || ^18.0.0
       react-dom: ^17.0.0 || ^18.0.0
     dependencies:
-      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.31.1)
+      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.29.2)
       '@tiptap/extension-bubble-menu': 2.0.0-beta.209(@tiptap/core@2.0.0-beta.209)(prosemirror-state@1.4.2)(prosemirror-view@1.31.1)
       '@tiptap/extension-floating-menu': 2.0.0-beta.209(@tiptap/core@2.0.0-beta.209)(prosemirror-state@1.4.2)(prosemirror-view@1.31.1)
       prosemirror-view: 1.31.1
@@ -1183,7 +1193,7 @@ packages:
     peerDependencies:
       '@tiptap/core': ^2.0.0-beta.1
     dependencies:
-      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.31.1)
+      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.29.2)
       prosemirror-model: 1.18.3
       prosemirror-state: 1.4.2
       prosemirror-view: 1.31.1
@@ -1502,10 +1512,6 @@ packages:
       has: 1.0.3
     dev: false
 
-  /isomorphic.js@0.2.5:
-    resolution: {integrity: sha512-PIeMbHqMt4DnUP3MA/Flc0HElYjMXArsw1qwJZcm9sqR8mq3l8NYizFMty0pWwE/tzIGH3EKK5+jes5mAr85yw==}
-    dev: false
-
   /js-cookie@2.2.1:
     resolution: {integrity: sha512-HvdH2LzI/EAZcUwA8+0nKNtWHqS+ZmijLA30RwZA0bo7ToCckjK5MkGhjED9KoRcXO6BaGI3I9UIzSA1FKFPOQ==}
     dev: false
@@ -1516,14 +1522,6 @@ packages:
 
   /json-parse-even-better-errors@2.3.1:
     resolution: {integrity: sha512-xyFwyhro/JEof6Ghe2iz2NcXoj2sloNsWr/XsERDK/oiPCfaNhl5ONfp+jQdAZRQQ0IJWNzH9zIZF7li91kh2w==}
-    dev: false
-
-  /lib0@0.2.74:
-    resolution: {integrity: sha512-roj9i46/JwG5ik5KNTkxP2IytlnrssAkD/OhlAVtE+GqectrdkfR+pttszVLrOzMDeXNs1MPt6yo66MUolWSiA==}
-    engines: {node: '>=14'}
-    hasBin: true
-    dependencies:
-      isomorphic.js: 0.2.5
     dev: false
 
   /lines-and-columns@1.2.4:
@@ -1750,8 +1748,8 @@ packages:
       react: 18.2.0
     dev: false
 
-  /react-icons@4.8.0(react@18.2.0):
-    resolution: {integrity: sha512-N6+kOLcihDiAnj5Czu637waJqSnwlMNROzVZMhfX68V/9bu9qHaMIJC4UdozWoOk57gahFCNHwVvWzm0MTzRjg==}
+  /react-icons@4.3.1(react@18.2.0):
+    resolution: {integrity: sha512-cB10MXLTs3gVuXimblAdI71jrJx8njrJZmNMEMC+sQu5B/BIOmlsAjskdqpn81y8UBVEGuHODd7/ci5DvoSzTQ==}
     peerDependencies:
       react: '*'
     dependencies:
@@ -2030,46 +2028,17 @@ packages:
     resolution: {integrity: sha512-f+fciywl1SJEniZHD6H+kUO8gOnwIr7f4ijKA6+ZvJFjeGi1r4PDLl53Ayud9O/rk64RqgoQine0feoeOU0kXg==}
     dev: false
 
-  /y-prosemirror@1.0.20(prosemirror-model@1.18.3)(prosemirror-state@1.4.2)(prosemirror-view@1.31.1)(y-protocols@1.0.5)(yjs@13.5.44):
-    resolution: {integrity: sha512-LVMtu3qWo0emeYiP+0jgNcvZkqhzE/otOoro+87q0iVKxy/sMKuiJZnokfJdR4cn9qKx0Un5fIxXqbAlR2bFkA==}
-    peerDependencies:
-      prosemirror-model: ^1.7.1
-      prosemirror-state: ^1.2.3
-      prosemirror-view: ^1.9.10
-      y-protocols: ^1.0.1
-      yjs: ^13.3.2
-    dependencies:
-      lib0: 0.2.74
-      prosemirror-model: 1.18.3
-      prosemirror-state: 1.4.2
-      prosemirror-view: 1.31.1
-      y-protocols: 1.0.5
-      yjs: 13.5.44
-    dev: false
-
-  /y-protocols@1.0.5:
-    resolution: {integrity: sha512-Wil92b7cGk712lRHDqS4T90IczF6RkcvCwAD0A2OPg+adKmOe+nOiT/N2hvpQIWS3zfjmtL4CPaH5sIW1Hkm/A==}
-    dependencies:
-      lib0: 0.2.74
-    dev: false
-
   /yaml@1.10.2:
     resolution: {integrity: sha512-r3vXyErRCYJ7wg28yvBY5VSoAF8ZvlcW9/BwUzEtUsjvX/DKs24dIkuwjtuprwJJHsbyUbLApepYTR1BN4uHrg==}
     engines: {node: '>= 6'}
     dev: false
 
-  /yjs@13.5.44:
-    resolution: {integrity: sha512-UL+abIh2lQonqXfaJ+en7z9eGshpY11j1zNLc2kDYs0vrTjee4gZJUXC3ZsuhP6geQt0IRU04epCGRaVPQAVCA==}
-    dependencies:
-      lib0: 0.2.74
-    dev: false
-
-  ? file:..(@emotion/react@11.11.0)(@emotion/styled@11.11.0)(@mui/icons-material@5.11.16)(@mui/material@5.12.3)(@tiptap/core@2.0.0-beta.209)(@tiptap/extension-blockquote@2.0.0-beta.26)(@tiptap/extension-bold@2.0.0-beta.26)(@tiptap/extension-bubble-menu@2.0.0-beta.209)(@tiptap/extension-bullet-list@2.0.0-beta.26)(@tiptap/extension-code-block@2.0.0-beta.37)(@tiptap/extension-code@2.0.0-beta.26)(@tiptap/extension-collaboration-cursor@2.0.0-beta.209)(@tiptap/extension-collaboration@2.0.0-beta.209)(@tiptap/extension-document@2.0.0-beta.15)(@tiptap/extension-dropcursor@2.0.0-beta.25)(@tiptap/extension-floating-menu@2.0.0-beta.209)(@tiptap/extension-gapcursor@2.0.0-beta.34)(@tiptap/extension-hard-break@2.0.0-beta.30)(@tiptap/extension-heading@2.0.0-beta.26)(@tiptap/extension-history@2.0.0-beta.21)(@tiptap/extension-image@2.0.0-beta.27)(@tiptap/extension-italic@2.0.0-beta.26)(@tiptap/extension-link@2.0.0-beta.37)(@tiptap/extension-list-item@2.0.0-beta.209)(@tiptap/extension-mention@2.0.0-beta.96)(@tiptap/extension-ordered-list@2.0.0-beta.27)(@tiptap/extension-paragraph@2.0.0-beta.23)(@tiptap/extension-placeholder@2.0.0-beta.48)(@tiptap/extension-strike@2.0.0-beta.27)(@tiptap/extension-subscript@2.0.0-beta.10)(@tiptap/extension-superscript@2.0.0-beta.10)(@tiptap/extension-table-cell@2.0.0-beta.209)(@tiptap/extension-table-header@2.0.0-beta.209)(@tiptap/extension-table-row@2.0.0-beta.209)(@tiptap/extension-table@2.0.0-beta.209)(@tiptap/extension-task-item@2.0.0-beta.32)(@tiptap/extension-task-list@2.0.0-beta.26)(@tiptap/extension-text@2.0.0-beta.15)(@tiptap/prosemirror-tables@1.1.4)(@tiptap/react@2.0.0-beta.109)(@tiptap/suggestion@2.0.0-beta.91)(@types/react@18.0.28)(react-dom@18.2.0)(react-icons@4.8.0)(react@18.2.0)
+  ? file:..(@emotion/react@11.11.0)(@emotion/styled@11.11.0)(@mui/icons-material@5.11.16)(@mui/material@5.12.3)(@tiptap/core@2.0.0-beta.209)(@tiptap/extension-blockquote@2.0.0-beta.26)(@tiptap/extension-bold@2.0.0-beta.26)(@tiptap/extension-bullet-list@2.0.0-beta.26)(@tiptap/extension-code-block@2.0.0-beta.37)(@tiptap/extension-code@2.0.0-beta.26)(@tiptap/extension-document@2.0.0-beta.15)(@tiptap/extension-dropcursor@2.0.0-beta.25)(@tiptap/extension-gapcursor@2.0.0-beta.34)(@tiptap/extension-hard-break@2.0.0-beta.30)(@tiptap/extension-heading@2.0.0-beta.26)(@tiptap/extension-history@2.0.0-beta.21)(@tiptap/extension-image@2.0.0-beta.27)(@tiptap/extension-italic@2.0.0-beta.26)(@tiptap/extension-link@2.0.0-beta.37)(@tiptap/extension-list-item@2.0.0-beta.209)(@tiptap/extension-mention@2.0.0-beta.96)(@tiptap/extension-ordered-list@2.0.0-beta.27)(@tiptap/extension-paragraph@2.0.0-beta.23)(@tiptap/extension-placeholder@2.0.0-beta.48)(@tiptap/extension-strike@2.0.0-beta.27)(@tiptap/extension-subscript@2.0.0-beta.10)(@tiptap/extension-superscript@2.0.0-beta.10)(@tiptap/extension-table-cell@2.0.0-beta.209)(@tiptap/extension-table-header@2.0.0-beta.209)(@tiptap/extension-table-row@2.0.0-beta.209)(@tiptap/extension-table@2.0.0-beta.209)(@tiptap/extension-task-item@2.0.0-beta.32)(@tiptap/extension-task-list@2.0.0-beta.26)(@tiptap/extension-text@2.0.0-beta.15)(@tiptap/prosemirror-tables@1.1.4)(@tiptap/react@2.0.0-beta.109)(@tiptap/suggestion@2.0.0-beta.91)(@types/react@18.0.28)(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.29.2)(react-dom@18.2.0)(react-icons@4.3.1)(react@18.2.0)
   : resolution: {directory: .., type: directory}
     id: file:..
     name: mui-tiptap
-    version: 0.0.0-development
-    engines: {node: ^18.15.0, pnpm: '>=8'}
+    version: 1.0.0-alpha.0
+    engines: {pnpm: '>=8'}
     requiresBuild: true
     peerDependencies:
       '@emotion/react': ^11.4.1
@@ -2078,7 +2047,6 @@ packages:
       '@tiptap/core': 2.0.0-beta.209
       '@tiptap/extension-blockquote': 2.0.0-beta.26
       '@tiptap/extension-bold': 2.0.0-beta.26
-      '@tiptap/extension-bubble-menu': 2.0.0-beta.209
       '@tiptap/extension-bullet-list': 2.0.0-beta.26
       '@tiptap/extension-code': 2.0.0-beta.26
       '@tiptap/extension-code-block': 2.0.0-beta.37
@@ -2086,7 +2054,6 @@ packages:
       '@tiptap/extension-collaboration-cursor': 2.0.0-beta.209
       '@tiptap/extension-document': 2.0.0-beta.15
       '@tiptap/extension-dropcursor': 2.0.0-beta.25
-      '@tiptap/extension-floating-menu': 2.0.0-beta.209
       '@tiptap/extension-gapcursor': 2.0.0-beta.34
       '@tiptap/extension-hard-break': 2.0.0-beta.30
       '@tiptap/extension-heading': 2.0.0-beta.26
@@ -2112,24 +2079,28 @@ packages:
       '@tiptap/prosemirror-tables': 1.1.4
       '@tiptap/react': 2.0.0-beta.109
       '@tiptap/suggestion': 2.0.0-beta.91
-      react: ^16.8.0 || ^17.0.2 || ^18
-      react-icons: ^4.0.0
+      prosemirror-commands: ^1.5.0
+      prosemirror-keymap: ^1.2.0
+      prosemirror-model: ^1.18.3
+      prosemirror-schema-list: ^1.2.2
+      prosemirror-state: ^1.4.2
+      prosemirror-transform: ^1.7.1
+      prosemirror-view: ^1.29.2
+      react: ^16.8.0 || ^17.0.2 || ^18.0.0
+      react-dom: ^16.8.0 || ^17.0.2 || ^18.0.0
+      react-icons: ^4.3.1
     dependencies:
       '@emotion/react': 11.11.0(@types/react@18.0.28)(react@18.2.0)
       '@mui/icons-material': 5.11.16(@mui/material@5.12.3)(@types/react@18.0.28)(react@18.2.0)
       '@mui/material': 5.12.3(@emotion/react@11.11.0)(@emotion/styled@11.11.0)(@types/react@18.0.28)(react-dom@18.2.0)(react@18.2.0)
-      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.31.1)
+      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.29.2)
       '@tiptap/extension-blockquote': 2.0.0-beta.26(@tiptap/core@2.0.0-beta.209)
       '@tiptap/extension-bold': 2.0.0-beta.26(@tiptap/core@2.0.0-beta.209)
-      '@tiptap/extension-bubble-menu': 2.0.0-beta.209(@tiptap/core@2.0.0-beta.209)(prosemirror-state@1.4.2)(prosemirror-view@1.31.1)
       '@tiptap/extension-bullet-list': 2.0.0-beta.26(@tiptap/core@2.0.0-beta.209)
       '@tiptap/extension-code': 2.0.0-beta.26(@tiptap/core@2.0.0-beta.209)
       '@tiptap/extension-code-block': 2.0.0-beta.37(@tiptap/core@2.0.0-beta.209)
-      '@tiptap/extension-collaboration': 2.0.0-beta.209(@tiptap/core@2.0.0-beta.209)(prosemirror-state@1.4.2)(y-prosemirror@1.0.20)
-      '@tiptap/extension-collaboration-cursor': 2.0.0-beta.209(@tiptap/core@2.0.0-beta.209)(y-prosemirror@1.0.20)
       '@tiptap/extension-document': 2.0.0-beta.15(@tiptap/core@2.0.0-beta.209)
       '@tiptap/extension-dropcursor': 2.0.0-beta.25(@tiptap/core@2.0.0-beta.209)
-      '@tiptap/extension-floating-menu': 2.0.0-beta.209(@tiptap/core@2.0.0-beta.209)(prosemirror-state@1.4.2)(prosemirror-view@1.31.1)
       '@tiptap/extension-gapcursor': 2.0.0-beta.34(@tiptap/core@2.0.0-beta.209)
       '@tiptap/extension-hard-break': 2.0.0-beta.30(@tiptap/core@2.0.0-beta.209)
       '@tiptap/extension-heading': 2.0.0-beta.26(@tiptap/core@2.0.0-beta.209)
@@ -2145,14 +2116,14 @@ packages:
       '@tiptap/extension-strike': 2.0.0-beta.27(@tiptap/core@2.0.0-beta.209)
       '@tiptap/extension-subscript': 2.0.0-beta.10(@tiptap/core@2.0.0-beta.209)
       '@tiptap/extension-superscript': 2.0.0-beta.10(@tiptap/core@2.0.0-beta.209)
-      '@tiptap/extension-table': 2.0.0-beta.209(@tiptap/core@2.0.0-beta.209)(@tiptap/prosemirror-tables@1.1.4)(prosemirror-model@1.18.3)(prosemirror-state@1.4.2)(prosemirror-view@1.31.1)
+      '@tiptap/extension-table': 2.0.0-beta.209(@tiptap/core@2.0.0-beta.209)(@tiptap/prosemirror-tables@1.1.4)(prosemirror-model@1.18.3)(prosemirror-state@1.4.2)(prosemirror-view@1.29.2)
       '@tiptap/extension-table-cell': 2.0.0-beta.209(@tiptap/core@2.0.0-beta.209)
       '@tiptap/extension-table-header': 2.0.0-beta.209(@tiptap/core@2.0.0-beta.209)
       '@tiptap/extension-table-row': 2.0.0-beta.209(@tiptap/core@2.0.0-beta.209)
       '@tiptap/extension-task-item': 2.0.0-beta.32(@tiptap/core@2.0.0-beta.209)
       '@tiptap/extension-task-list': 2.0.0-beta.26(@tiptap/core@2.0.0-beta.209)
       '@tiptap/extension-text': 2.0.0-beta.15(@tiptap/core@2.0.0-beta.209)
-      '@tiptap/prosemirror-tables': 1.1.4(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.31.1)
+      '@tiptap/prosemirror-tables': 1.1.4(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.29.2)
       '@tiptap/react': 2.0.0-beta.109(@tiptap/core@2.0.0-beta.209)(prosemirror-state@1.4.2)(react-dom@18.2.0)(react@18.2.0)
       '@tiptap/suggestion': 2.0.0-beta.91(@tiptap/core@2.0.0-beta.209)
       encodeurl: 1.0.2
@@ -2170,13 +2141,13 @@ packages:
       prosemirror-transform: 1.7.1
       prosemirror-view: 1.29.2
       react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
       react-hook-form: 7.43.9(react@18.2.0)
-      react-icons: 4.8.0(react@18.2.0)
+      react-icons: 4.3.1(react@18.2.0)
       react-use: 17.4.0(react-dom@18.2.0)(react@18.2.0)
       tss-react: 4.8.3(@emotion/react@11.11.0)(react@18.2.0)
     transitivePeerDependencies:
       - '@emotion/server'
       - '@emotion/styled'
       - '@types/react'
-      - react-dom
     dev: false

@@ -17,9 +17,6 @@ dependencies:
   material-ui-popup-state:
     specifier: ^5.0.8
     version: 5.0.8(@emotion/react@11.11.0)(@emotion/styled@11.11.0)(@types/react@18.2.0)(react-dom@18.2.0)(react@18.2.0)
-  prosemirror-commands:
-    specifier: 1.5.0
-    version: 1.5.0
   prosemirror-dropcursor:
     specifier: 1.4.0
     version: 1.4.0
@@ -29,24 +26,6 @@ dependencies:
   prosemirror-history:
     specifier: ^1.2.0
     version: 1.2.0
-  prosemirror-keymap:
-    specifier: 1.2.0
-    version: 1.2.0
-  prosemirror-model:
-    specifier: 1.18.3
-    version: 1.18.3
-  prosemirror-schema-list:
-    specifier: 1.2.2
-    version: 1.2.2
-  prosemirror-state:
-    specifier: 1.4.2
-    version: 1.4.2
-  prosemirror-transform:
-    specifier: 1.7.1
-    version: 1.7.1
-  prosemirror-view:
-    specifier: 1.29.2
-    version: 1.29.2
   react-hook-form:
     specifier: ^7.43.9
     version: 7.43.9(react@18.2.0)
@@ -280,6 +259,27 @@ devDependencies:
   prettier-plugin-organize-imports:
     specifier: ^3.2.2
     version: 3.2.2(prettier@2.8.8)(typescript@5.0.4)
+  prosemirror-commands:
+    specifier: 1.5.0
+    version: 1.5.0
+  prosemirror-keymap:
+    specifier: 1.2.0
+    version: 1.2.0
+  prosemirror-model:
+    specifier: 1.18.3
+    version: 1.18.3
+  prosemirror-schema-list:
+    specifier: 1.2.2
+    version: 1.2.2
+  prosemirror-state:
+    specifier: 1.4.2
+    version: 1.4.2
+  prosemirror-transform:
+    specifier: 1.7.1
+    version: 1.7.1
+  prosemirror-view:
+    specifier: 1.29.2
+    version: 1.29.2
   react:
     specifier: ^18.2.0
     version: 18.2.0
@@ -5019,6 +5019,7 @@ packages:
       prosemirror-model: 1.18.3
       prosemirror-state: 1.4.2
       prosemirror-transform: 1.7.1
+    dev: true
 
   /prosemirror-dropcursor@1.4.0:
     resolution: {integrity: sha512-6+YwTjmqDwlA/Dm+5wK67ezgqgjA/MhSDgaNxKUzH97SmeuWFXyLeDRxxOPZeSo7yTxcDGUCWTEjmQZsVBuMrQ==}
@@ -5059,6 +5060,7 @@ packages:
       prosemirror-model: 1.18.3
       prosemirror-state: 1.4.2
       prosemirror-transform: 1.7.1
+    dev: true
 
   /prosemirror-state@1.4.2:
     resolution: {integrity: sha512-puuzLD2mz/oTdfgd8msFbe0A42j5eNudKAAPDB0+QJRw8cO1ygjLmhLrg9RvDpf87Dkd6D4t93qdef00KKNacQ==}
