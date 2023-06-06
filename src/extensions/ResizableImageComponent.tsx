@@ -1,3 +1,4 @@
+import { useTheme } from "@mui/material";
 import type { NodeViewProps } from "@tiptap/core";
 import { NodeViewWrapper } from "@tiptap/react";
 import { throttle } from "lodash";
@@ -29,12 +30,11 @@ type ResizerProps = {
   onResize: (event: MouseEvent) => void;
 };
 
-const IMAGE_SELECTED_OUTLINE_COLOR = "#68CEF8";
-
 const IMAGE_MINIMUM_WIDTH_PIXELS = 15;
 
 function Resizer({ onResize }: ResizerProps) {
   const [mouseDown, setMouseDown] = useState(false);
+  const theme = useTheme();
 
   useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
@@ -83,7 +83,7 @@ function Resizer({ onResize }: ResizerProps) {
         right: -3,
         width: 12,
         height: 12,
-        background: IMAGE_SELECTED_OUTLINE_COLOR,
+        background: theme.palette.primary.main,
         cursor: "nwse-resize",
       }}
       onMouseDown={handleMouseDown}
@@ -98,6 +98,8 @@ function ResizableImageComponent({
   updateAttributes,
 }: Props) {
   const { attrs } = node;
+
+  const theme = useTheme();
 
   const imageRef = useRef<HTMLImageElement | null>(null);
 
@@ -187,7 +189,7 @@ function ResizableImageComponent({
           // not using our custom resizable image). We'll only show this when
           // the editor content is editable, though.
           outline: isSelectedAndEditable
-            ? `3px solid ${IMAGE_SELECTED_OUTLINE_COLOR}`
+            ? `3px solid ${theme.palette.primary.main}`
             : undefined,
         }}
         // For consistency with the standard Image extension selection class/UI (but

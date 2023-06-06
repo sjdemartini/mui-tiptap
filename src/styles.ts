@@ -281,9 +281,7 @@ export function getEditorStyles(theme: Theme): StyleRules {
       // Behavior when an image (node) is selected, at which point it can be deleted,
       // moved, etc.
       "&.ProseMirror-selectednode": {
-        // These styles are from Tiptap's example but work well in both light and dark
-        // mode
-        outline: "3px solid #68CEF8",
+        outline: `3px solid ${theme.palette.primary.main}`,
       },
     },
 
