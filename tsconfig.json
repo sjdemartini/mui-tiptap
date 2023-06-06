@@ -11,7 +11,7 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "outDir": "./dist",
-    "sourceMap": true,
+    "sourceMap": false,
     "esModuleInterop": true,
 
     // Linting
