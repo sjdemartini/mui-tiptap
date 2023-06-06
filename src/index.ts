@@ -40,7 +40,10 @@ export {
   default as HeadingWithAnchor,
   type HeadingWithAnchorOptions,
 } from "./extensions/HeadingWithAnchor";
-export { default as LinkBubbleMenuHandler } from "./extensions/LinkBubbleMenuHandler";
+export {
+  default as LinkBubbleMenuHandler,
+  type LinkBubbleMenuHandlerStorage,
+} from "./extensions/LinkBubbleMenuHandler";
 export { default as ResizableImage } from "./extensions/ResizableImage";
 export { default as useDebouncedFocus } from "./useDebouncedFocus";
 export { default as useRecommendedExtensions } from "./useRecommendedExtensions";
