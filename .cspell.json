@@ -10,6 +10,9 @@
     "mui-tiptap",
     "mui",
     "octocat",
+    "premajor",
+    "preminor",
+    "prepatch",
     "prosemirror",
     "selectednode",
     "Tiptap"
