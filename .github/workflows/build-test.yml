@@ -36,7 +36,11 @@ jobs:
         run: pnpm run lint:check
 
       - name: Spell check
-        run: pnpm run spell:check
+        # Note that we run the spell check so we can see the output in CI
+        # if/when we like, but we won't enforce it (using `|| true`), since
+        # there are too many technical/product words used that are outside the
+        # standard dictionary.
+        run: pnpm run spell:check || true
 
       - name: Test
         run: pnpm run test
