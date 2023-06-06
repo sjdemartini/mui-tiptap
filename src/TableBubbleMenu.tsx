@@ -23,9 +23,9 @@ import MenuButton from "./MenuButton";
 import MenuDivider from "./MenuDivider";
 import debounceRender from "./utils/debounceRender";
 
-interface Props {
+export type TableBubbleMenuProps = {
   editor: Editor;
-}
+};
 
 const MenuBarContainer = styled("div")(({ theme }) => ({
   display: "flex",
@@ -34,7 +34,7 @@ const MenuBarContainer = styled("div")(({ theme }) => ({
   padding: theme.spacing(0.5, 1),
 }));
 
-function TableMenuBar({ editor }: Props) {
+function TableMenuBar({ editor }: TableBubbleMenuProps) {
   return (
     <MenuBarContainer>
       <MenuButton
@@ -145,7 +145,7 @@ function TableMenuBar({ editor }: Props) {
   );
 }
 
-function TableBubbleMenuInner({ editor }: Props) {
+function TableBubbleMenuInner({ editor }: TableBubbleMenuProps) {
   // We want to position the table menu outside the entire table, rather than at the
   // current cursor position, so that it's essentially static even as the table changes
   // in size and doesn't "block" things within the table while you're trying to edit.

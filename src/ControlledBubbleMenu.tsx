@@ -4,7 +4,7 @@ import { useCallback } from "react";
 import { makeStyles } from "tss-react/mui";
 import { Z_INDEXES } from "./styles";
 
-interface Props {
+export type ControlledBubbleMenuProps = {
   editor: Editor;
   open: boolean;
   children: React.ReactNode;
@@ -25,7 +25,7 @@ interface Props {
    * than above to avoid covering up the main editor menu bar.
    */
   preferBottom?: boolean;
-}
+};
 
 const useStyles = makeStyles({ name: { ControlledBubbleMenu } })((theme) => ({
   popper: {
@@ -62,7 +62,7 @@ export default function ControlledBubbleMenu({
   children,
   anchorEl,
   preferBottom = false,
-}: Props) {
+}: ControlledBubbleMenuProps) {
   const { classes } = useStyles();
   const theme = useTheme();
 

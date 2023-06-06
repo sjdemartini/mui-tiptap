@@ -1,5 +1,5 @@
 import { makeStyles } from "tss-react/mui";
-import { CollapsibleMenuBar } from "./CollapsibleMenuBar";
+import CollapsibleMenuBar from "./CollapsibleMenuBar";
 import MuiTiptapContent from "./MuiTiptapContent";
 import OutlinedField from "./OutlinedField";
 import classNames from "./classNames";

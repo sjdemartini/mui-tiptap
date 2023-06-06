@@ -1,10 +1,10 @@
 import { ToggleButton, type ToggleButtonProps } from "@mui/material";
 import { makeStyles } from "tss-react/mui";
 import MenuButtonTooltip, {
-  type Props as MenuButtonTooltipProps,
+  type MenuButtonTooltipProps,
 } from "./MenuButtonTooltip";
 
-type Props = {
+export type MenuButtonProps = {
   tooltipLabel: MenuButtonTooltipProps["label"];
   tooltipShortcutKeys?: MenuButtonTooltipProps["shortcutKeys"];
   IconComponent: React.ElementType<{ className: string }>;
@@ -30,7 +30,7 @@ export default function MenuButton({
   tooltipShortcutKeys,
   IconComponent,
   ...toggleButtonProps
-}: Props) {
+}: MenuButtonProps) {
   const { classes } = useStyles();
   return (
     <span className={classes.root}>
