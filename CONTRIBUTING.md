@@ -2,8 +2,6 @@
 
 _Pull requests, bug reports, and all other forms of contribution are welcomed and highly encouraged!_ :octocat:
 
-This guide serves to set clear expectations for everyone involved with the project so that we can improve it together while also creating a welcoming space for everyone to participate. Following these guidelines will help ensure a positive experience for contributors and maintainers.
-
 ## :inbox_tray: How can I Contribute?
 
 ### GitHub issues
@@ -27,3 +25,14 @@ Please leverage the repository's own tools to make sure the code is aligned with
 This package uses Vite with Hot Module Replacement (HMR), so file edits should reflect immediately in your browser during local development.
 
 To instead test a "built" version of this package which is installed into an "external" module, you can run `pnpm example`, which runs a server with the separate application in the `example/` directory.
+
+## Releasing a new version (for maintainers)
+
+When a new version should be cut since some new changes have landed on the `main` branch, do the following to publish it:
+
+1. Go to the `main` branch and pull in the latest changes.
+2. Run `npm version <major | minor | patch | premajor | preminor | prepatch | prerelease>`, depending on what's appropriate per semver conventions for the latest changes .
+   - This will create a commit that updates the `version` in `package.json`, and add a git tag for that new commit.
+3. Push the commit and tags (ex: `git push --tags`)
+4. The `release.yml` GitHub Actions workflow will run and should publish to npm upon completion.
+5. Once the new version has been successfully published to npm, create a "Release" in GitHub for to the newly pushed tag, per the steps [here](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository#creating-a-release), which can auto-generate release notes that can be edited and cleaned up for clarity and succinctness.
