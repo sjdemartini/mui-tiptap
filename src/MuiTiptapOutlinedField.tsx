@@ -45,12 +45,17 @@ const useStyles = makeStyles<{ stickyMenuBarOffset?: number }>({
   name: { MuiTiptapOutlinedField },
 })((theme, { stickyMenuBarOffset }) => {
   return {
-    // These first classes are added to allow convenient user overrides
+    // This first class is added to allow convenient user overrides. Users can
+    // similarly override the other classes below.
     root: {},
-    content: {},
+
+    content: {
+      // Add padding around the input area, since it's contained in the outline
+      padding: theme.spacing(1.5),
+    },
 
     menuBar: {
-      padding: theme.spacing(1),
+      padding: theme.spacing(1, 1.5),
     },
 
     menuBarSticky: {

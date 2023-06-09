@@ -48,7 +48,8 @@ export default function Editor() {
               borderTopStyle: "solid",
               borderTopWidth: 1,
               borderTopColor: (theme) => theme.palette.divider,
-              p: 1,
+              py: 1,
+              px: 1.5,
             }}
           >
             <MenuButton
