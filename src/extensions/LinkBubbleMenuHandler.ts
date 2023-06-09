@@ -47,7 +47,7 @@ const LinkBubbleMenuHandler = Extension.create<
     return {
       openLinkBubbleMenu:
         () =>
-        ({ editor, chain }) => {
+        ({ editor, chain, dispatch }) => {
           const currentMenuState = this.storage.state;
 
           let newMenuState: LinkMenuState;
@@ -77,24 +77,38 @@ const LinkBubbleMenuHandler = Extension.create<
             newMenuState = LinkMenuState.EDIT_LINK;
           }
 
-          this.storage.state = newMenuState;
+          if (dispatch) {
+            // Only change the state if this is not a dry-run
+            // https://tiptap.dev/api/commands#dry-run-for-commands. Note that
+            // this happens automatically for the Tiptap built-in commands
+            // called with `chain()` above.
+            this.storage.state = newMenuState;
+          }
+
           return true;
         },
 
-      editLinkInBubbleMenu: () => () => {
-        const currentMenuState = this.storage.state;
-        const newMenuState = LinkMenuState.EDIT_LINK;
-        if (currentMenuState === newMenuState) {
-          return false;
-        }
+      editLinkInBubbleMenu:
+        () =>
+        ({ dispatch }) => {
+          const currentMenuState = this.storage.state;
+          const newMenuState = LinkMenuState.EDIT_LINK;
+          if (currentMenuState === newMenuState) {
+            return false;
+          }
 
-        this.storage.state = newMenuState;
-        return true;
-      },
+          if (dispatch) {
+            // Only change the state if this is not a dry-run
+            // https://tiptap.dev/api/commands#dry-run-for-commands.
+            this.storage.state = newMenuState;
+          }
+
+          return true;
+        },
 
       closeLinkBubbleMenu:
         () =>
-        ({ commands }) => {
+        ({ commands, dispatch }) => {
           const currentMenuState = this.storage.state;
           if (currentMenuState === LinkMenuState.HIDDEN) {
             return false;
@@ -104,7 +118,14 @@ const LinkBubbleMenuHandler = Extension.create<
           // previously editing and has now canceled
           commands.focus();
 
-          this.storage.state = LinkMenuState.HIDDEN;
+          if (dispatch) {
+            // Only change the state if this is not a dry-run
+            // https://tiptap.dev/api/commands#dry-run-for-commands. Note that
+            // this happens automatically for the Tiptap built-in commands
+            // called with `commands` above.
+            this.storage.state = LinkMenuState.HIDDEN;
+          }
+
           return true;
         },
     };
