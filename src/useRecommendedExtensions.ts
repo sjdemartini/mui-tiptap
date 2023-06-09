@@ -18,7 +18,6 @@ import { Placeholder } from "@tiptap/extension-placeholder";
 import { Strike } from "@tiptap/extension-strike";
 import { Subscript } from "@tiptap/extension-subscript";
 import { Superscript } from "@tiptap/extension-superscript";
-import { Table } from "@tiptap/extension-table";
 import { TableCell } from "@tiptap/extension-table-cell";
 import { TableHeader } from "@tiptap/extension-table-header";
 import { TableRow } from "@tiptap/extension-table-row";
@@ -29,6 +28,7 @@ import { useMemo } from "react";
 import HeadingWithAnchor from "./extensions/HeadingWithAnchor";
 import LinkBubbleMenuHandler from "./extensions/LinkBubbleMenuHandler";
 import ResizableImage from "./extensions/ResizableImage";
+import TableImproved from "./extensions/TableImproved";
 
 export type UseRecommendedExtensionsOptions = {
   /** Placeholder hint to show in the text input area before a user types a message. */
@@ -93,7 +93,7 @@ export default function useRecommendedExtensions({
       // note in prosemirror-tables on the need to have these plugins be lower
       // precedence
       // https://github.com/ueberdosis/prosemirror-tables/blob/1a0428af3ca891d7db648ce3f08a2c74d47dced7/src/index.js#L26-L30
-      Table.configure({
+      TableImproved.configure({
         resizable: true,
       }),
       TableRow,

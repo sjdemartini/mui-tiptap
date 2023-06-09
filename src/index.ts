@@ -45,5 +45,6 @@ export {
   type LinkBubbleMenuHandlerStorage,
 } from "./extensions/LinkBubbleMenuHandler";
 export { default as ResizableImage } from "./extensions/ResizableImage";
+export { default as TableImproved } from "./extensions/TableImproved";
 export { default as useDebouncedFocus } from "./useDebouncedFocus";
 export { default as useRecommendedExtensions } from "./useRecommendedExtensions";
