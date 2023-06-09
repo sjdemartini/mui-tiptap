@@ -35,9 +35,12 @@ export default function Editor() {
 
   return (
     // This demonstrates how styles can be overridden for the components below
-    <Box sx={{ "& .MuiTiptapContent": { p: 1 } }}>
+    <Box sx={{ "& .MuiTiptapContent": { py: 1.5, px: 2 } }}>
       <MuiTiptapProvider editor={editor}>
-        <MuiTiptapOutlinedField hideMenuBar={!showMenuBar}>
+        <MuiTiptapOutlinedField
+          hideMenuBar={!showMenuBar}
+          disabled={!isEditable}
+        >
           {/* Below is an example of adding a toggle within the outlined field
           for showing/hiding the editor menu bar, and a "submit" button for
           saving/viewing the HTML content */}

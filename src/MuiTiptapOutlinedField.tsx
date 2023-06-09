@@ -95,7 +95,7 @@ export default function MuiTiptapOutlinedField({
 
   return (
     <OutlinedField
-      focused={isOutlinedFieldFocused}
+      focused={!disabled && isOutlinedFieldFocused}
       disabled={disabled}
       className={cx(classNames.MuiTiptapOutlinedField, className, classes.root)}
     >
