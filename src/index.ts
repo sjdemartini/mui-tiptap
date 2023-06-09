@@ -36,15 +36,6 @@ export {
   default as TableBubbleMenu,
   type TableBubbleMenuProps,
 } from "./TableBubbleMenu";
-export {
-  default as HeadingWithAnchor,
-  type HeadingWithAnchorOptions,
-} from "./extensions/HeadingWithAnchor";
-export {
-  default as LinkBubbleMenuHandler,
-  type LinkBubbleMenuHandlerStorage,
-} from "./extensions/LinkBubbleMenuHandler";
-export { default as ResizableImage } from "./extensions/ResizableImage";
-export { default as TableImproved } from "./extensions/TableImproved";
+export * from "./extensions";
 export { default as useDebouncedFocus } from "./useDebouncedFocus";
 export { default as useRecommendedExtensions } from "./useRecommendedExtensions";
