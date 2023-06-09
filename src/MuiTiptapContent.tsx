@@ -37,11 +37,6 @@ const useStyles = makeStyles({ name: { MuiTiptapContent } })((theme) => {
         ...getEditorStyles(theme),
       } as CSSObject,
     },
-
-    editableEditor: {
-      // Add padding around the input area
-      padding: theme.spacing(1.5),
-    },
   };
 });
 
@@ -55,14 +50,8 @@ export default function MuiTiptapContent({ className }: MuiTiptapContentProps) {
   const { classes, cx } = useStyles();
   const editor = useMuiTiptapEditorContext();
   const editorClasses = useMemo(
-    () =>
-      cx(
-        classNames.MuiTiptapContent,
-        className,
-        classes.editor,
-        editor?.isEditable && classes.editableEditor
-      ),
-    [className, classes, editor?.isEditable, cx]
+    () => cx(classNames.MuiTiptapContent, className, classes.editor),
+    [className, classes, cx]
   );
 
   // In order to utilize the latest `editor` in effect hooks below, but avoid
