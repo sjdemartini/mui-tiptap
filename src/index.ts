@@ -17,13 +17,13 @@ export {
   type MenuButtonTooltipProps,
 } from "./MenuButtonTooltip";
 export {
-  default as MuiTiptapProvider,
-  type MuiTiptapProviderProps,
-} from "./MuiTiptapProvider";
-export {
   default as RichTextContent,
   type RichTextContentProps,
 } from "./RichTextContent";
+export {
+  default as RichTextEditorProvider,
+  type RichTextEditorProviderProps,
+} from "./RichTextEditorProvider";
 export {
   default as RichTextOutlinedField,
   type RichTextOutlinedFieldProps,
