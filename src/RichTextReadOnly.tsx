@@ -1,7 +1,7 @@
 import { useEditor, type EditorOptions } from "@tiptap/react";
 import type { Except } from "type-fest";
-import MuiTiptapProvider from "./MuiTiptapProvider";
 import RichTextContent from "./RichTextContent";
+import RichTextEditorProvider from "./RichTextEditorProvider";
 
 export type RichTextReadOnlyProps = Partial<Except<EditorOptions, "editable">>;
 
@@ -12,16 +12,16 @@ function EditorReadOnlyViewerInternal(props: RichTextReadOnlyProps) {
   });
 
   return (
-    <MuiTiptapProvider editor={editor}>
+    <RichTextEditorProvider editor={editor}>
       <RichTextContent />
-    </MuiTiptapProvider>
+    </RichTextEditorProvider>
   );
 }
 
 /**
  * An all-in-one component to directly render read-only Tiptap editor content.
  *
- * While useEditor, MuiTiptapProvider, and RichTextContent can be used as
+ * While useEditor, RichTextEditorProvider, and RichTextContent can be used as
  * read-only via the editor's `editable` prop, this is a simpler and more
  * efficient version that only renders content and nothing more (e.g., does not
  * instantiate a toolbar, bubble menu, etc. that can't/won't be used in a
@@ -32,7 +32,7 @@ function EditorReadOnlyViewerInternal(props: RichTextReadOnlyProps) {
  * Example:
  * <RichTextReadOnly content="<p>Hello world</p>" extensions=[...] />
  */
-function RichTextReadOnly(editorProps: RichTextReadOnlyProps) {
+export default function RichTextReadOnly(editorProps: RichTextReadOnlyProps) {
   if (!editorProps.content) {
     // Don't bother instantiating an editor at all (for performance) if we have no
     // content
@@ -41,5 +41,3 @@ function RichTextReadOnly(editorProps: RichTextReadOnlyProps) {
 
   return <EditorReadOnlyViewerInternal {...editorProps} />;
 }
-
-export default RichTextReadOnly;

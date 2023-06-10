@@ -52,7 +52,7 @@ const useStyles = makeStyles({ name: { RichTextContent } })((theme) => {
  * A component for rendering a MUI-styled version of Tiptap rich text editor
  * content.
  *
- * Must be used as a child of the MuiTiptapProvider.
+ * Must be used as a child of the RichTextEditorProvider.
  */
 export default function RichTextContent({
   className,

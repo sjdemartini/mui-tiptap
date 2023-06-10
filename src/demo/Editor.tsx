@@ -3,7 +3,7 @@ import { Box, Button, Stack, Typography } from "@mui/material";
 import { useEditor } from "@tiptap/react";
 import { useEffect, useState } from "react";
 import MenuButton from "../MenuButton";
-import MuiTiptapProvider from "../MuiTiptapProvider";
+import RichTextEditorProvider from "../RichTextEditorProvider";
 import RichTextOutlinedField from "../RichTextOutlinedField";
 import useRecommendedExtensions from "../hooks/useRecommendedExtensions";
 
@@ -36,7 +36,7 @@ export default function Editor() {
   return (
     // This demonstrates how styles can be overridden for the components below
     <Box sx={{ "& .RichTextContent": { py: 1.5, px: 2 } }}>
-      <MuiTiptapProvider editor={editor}>
+      <RichTextEditorProvider editor={editor}>
         <RichTextOutlinedField
           hideMenuBar={!showMenuBar}
           disabled={!isEditable}
@@ -88,7 +88,7 @@ export default function Editor() {
             </Button>
           </Stack>
         </RichTextOutlinedField>
-      </MuiTiptapProvider>
+      </RichTextEditorProvider>
 
       <Typography variant="h5" sx={{ mt: 5 }}>
         Saved result:
