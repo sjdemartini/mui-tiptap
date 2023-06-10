@@ -3,26 +3,43 @@ import {
   mergeAttributes,
   type ExtendedRegExpMatchArray,
 } from "@tiptap/core";
-import { Image } from "@tiptap/extension-image";
+import { Image, type ImageOptions } from "@tiptap/extension-image";
 import { ReactNodeViewRenderer } from "@tiptap/react";
 import ResizableImageComponent from "./ResizableImageComponent";
 
-// TODO(Steven DeMartini): Allow users to define their own `isAllowedImgSrc`
-// function here
+export type ResizableImageOptions = ImageOptions & {
+  /**
+   * Return true if this is an img src we will permit to be created/rendered.
+   *
+   * If not provided, defaults to allowing all non-empty image `src` values.
+   *
+   * This option can be used to restrict which images are permitted. For
+   * instance, this can be set such that only images from a certain set of
+   * hostnames are allowed.
+   */
+  isAllowedImgSrc(src: string | null): boolean;
+};
 
-/**
- * Return true if this is an img src we will permit to be rendered.
- */
-export function isAllowedImgSrc(src: string | null): boolean {
-  if (!src) {
-    // The src field should be non-empty to be valid
-    return false;
-  }
+const ResizableImage = Image.extend<ResizableImageOptions>({
+  addOptions() {
+    return {
+      // Tiptap claims this.parent can be undefined, so disable this eslint rule
+      // https://tiptap.dev/guide/custom-extensions/#extend-existing-attributes
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      ...this.parent?.(),
 
-  return true;
-}
+      // By default, allow all images where `src` is non-empty
+      isAllowedImgSrc: (src: string | null) => {
+        if (!src) {
+          // The src field should be non-empty to be valid
+          return false;
+        }
 
-const ResizableImage = Image.extend({
+        return true;
+      },
+    };
+  },
+
   addAttributes() {
     return {
       ...this.parent?.(),
@@ -113,7 +130,7 @@ const ResizableImage = Image.extend({
           // is successful
           // https://prosemirror.net/docs/ref/version/0.18.0.html#model.ParseRule.getAttrs.)
           const src = node.getAttribute("src");
-          return isAllowedImgSrc(src) && null;
+          return this.options.isAllowedImgSrc(src) && null;
         },
       },
     ];
@@ -153,7 +170,7 @@ const ResizableImage = Image.extend({
           find: rule.find,
           handler: (props) => {
             const attributes = getAttributes(props.match);
-            if (!isAllowedImgSrc(attributes.src)) {
+            if (!this.options.isAllowedImgSrc(attributes.src)) {
               // Skip this and don't transform the text into an Image
               return;
             }
