@@ -26,6 +26,9 @@ jobs:
       - name: Dependencies audit
         run: pnpm audit --audit-level=moderate
 
+      - name: Check for duplicate dependencies
+        run: pnpm dedupe --check
+
       - name: Build
         run: pnpm run build
 
