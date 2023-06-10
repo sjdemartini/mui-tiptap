@@ -1,10 +1,8 @@
 import { Lock, LockOpen, TextFields } from "@mui/icons-material";
 import { Box, Button, Stack, Typography } from "@mui/material";
-import { useEditor } from "@tiptap/react";
-import { useEffect, useState } from "react";
+import { useRef, useState } from "react";
 import MenuButton from "../MenuButton";
-import RichTextEditorProvider from "../RichTextEditorProvider";
-import RichTextOutlinedField from "../RichTextOutlinedField";
+import RichTextEditor, { type RichTextEditorRef } from "../RichTextEditor";
 import useRecommendedExtensions from "../hooks/useRecommendedExtensions";
 
 const exampleContent =
@@ -14,21 +12,8 @@ export default function Editor() {
   const extensions = useRecommendedExtensions({
     placeholder: "Add your own content here...",
   });
-
+  const rteRef = useRef<RichTextEditorRef>(null);
   const [isEditable, setIsEditable] = useState(true);
-  const editor = useEditor({
-    content: exampleContent,
-    extensions: extensions,
-    editable: isEditable,
-  });
-
-  useEffect(() => {
-    if (!editor || editor.isDestroyed || editor.isEditable === isEditable) {
-      return;
-    }
-    editor.setEditable(isEditable);
-  }, [isEditable, editor]);
-
   const [showMenuBar, setShowMenuBar] = useState(true);
 
   const [submittedContent, setSubmittedContent] = useState("");
@@ -36,63 +21,76 @@ export default function Editor() {
   return (
     // This demonstrates how styles can be overridden for the components below
     <Box sx={{ "& .RichTextContent": { py: 1.5, px: 2 } }}>
-      <RichTextEditorProvider editor={editor}>
-        <RichTextOutlinedField
-          hideMenuBar={!showMenuBar}
-          disabled={!isEditable}
-        >
-          {/* Below is an example of adding a toggle within the outlined field
-          for showing/hiding the editor menu bar, and a "submit" button for
-          saving/viewing the HTML content */}
-          <Stack
-            direction="row"
-            spacing={2}
-            sx={{
-              borderTopStyle: "solid",
-              borderTopWidth: 1,
-              borderTopColor: (theme) => theme.palette.divider,
-              py: 1,
-              px: 1.5,
-            }}
-          >
-            <MenuButton
-              value="formatting"
-              tooltipLabel={showMenuBar ? "Hide formatting" : "Show formatting"}
-              size="small"
-              onClick={() => setShowMenuBar((currentState) => !currentState)}
-              selected={showMenuBar}
-              IconComponent={TextFields}
-            />
+      <RichTextEditor
+        ref={rteRef}
+        extensions={extensions}
+        content={exampleContent}
+        editable={isEditable}
+        slotProps={{
+          field: {
+            hideMenuBar: !showMenuBar,
+            // Below is an example of adding a toggle within the outlined field
+            // for showing/hiding the editor menu bar, and a "submit" button for
+            // saving/viewing the HTML content
+            footer: (
+              <Stack
+                direction="row"
+                spacing={2}
+                sx={{
+                  borderTopStyle: "solid",
+                  borderTopWidth: 1,
+                  borderTopColor: (theme) => theme.palette.divider,
+                  py: 1,
+                  px: 1.5,
+                }}
+              >
+                <MenuButton
+                  value="formatting"
+                  tooltipLabel={
+                    showMenuBar ? "Hide formatting" : "Show formatting"
+                  }
+                  size="small"
+                  onClick={() =>
+                    setShowMenuBar((currentState) => !currentState)
+                  }
+                  selected={showMenuBar}
+                  IconComponent={TextFields}
+                />
 
-            <MenuButton
-              value="formatting"
-              tooltipLabel={
-                isEditable
-                  ? "Prevent edits (use read-only mode)"
-                  : "Allow edits"
-              }
-              size="small"
-              onClick={() => setIsEditable((currentState) => !currentState)}
-              selected={!isEditable}
-              IconComponent={isEditable ? Lock : LockOpen}
-            />
+                <MenuButton
+                  value="formatting"
+                  tooltipLabel={
+                    isEditable
+                      ? "Prevent edits (use read-only mode)"
+                      : "Allow edits"
+                  }
+                  size="small"
+                  onClick={() => setIsEditable((currentState) => !currentState)}
+                  selected={!isEditable}
+                  IconComponent={isEditable ? Lock : LockOpen}
+                />
 
-            <Button
-              variant="contained"
-              size="small"
-              onClick={() => {
-                setSubmittedContent(editor?.getHTML() ?? "");
-              }}
-            >
-              Save
-            </Button>
-          </Stack>
-        </RichTextOutlinedField>
-      </RichTextEditorProvider>
+                <Button
+                  variant="contained"
+                  size="small"
+                  onClick={() => {
+                    setSubmittedContent(
+                      rteRef.current?.editor?.getHTML() ?? ""
+                    );
+                  }}
+                >
+                  Save
+                </Button>
+              </Stack>
+            ),
+          },
+        }}
+      />
 
       <Typography variant="h5" sx={{ mt: 5 }}>
         Saved result:
       </Typography>
+
       {submittedContent ? (
         <pre style={{ marginTop: 10, overflow: "auto", maxWidth: "100%" }}>
           <code>{submittedContent}</code>
