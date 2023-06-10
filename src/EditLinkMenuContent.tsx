@@ -1,19 +1,13 @@
 import { Button, DialogActions, TextField, Typography } from "@mui/material";
 import { getMarkRange, getMarkType, type Editor } from "@tiptap/core";
 import encodeurl from "encodeurl";
-import { useCallback, useEffect, useRef } from "react";
-import { useForm } from "react-hook-form";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useKey } from "react-use";
 
 type Props = {
   editor: Editor;
   onCancel: () => void;
   onSave: ({ text, link }: { text: string; link: string }) => void;
-};
-
-type EditLinkFormValues = {
-  text: string;
-  href: string;
 };
 
 /** Shown when a user is adding/editing a Link for Tiptap. */
@@ -37,28 +31,12 @@ function EditLinkMenuContent({ editor, onCancel, onSave }: Props) {
   // If we're on a link, we'll use the full link text, otherwise we'll fall back
   // to the selected text
   const initialText = linkText || selectedText;
-  // TODO(Steven DeMartini): Convert react-hook-form to just react state to
-  // reduce bundle size and simplify
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    formState: { isSubmitting, errors },
-  } = useForm<EditLinkFormValues>({
-    defaultValues: {
-      text: initialText,
-      href: existingHref,
-    },
-  });
+
+  const [textValue, setTextValue] = useState(initialText);
+  const [hrefValue, setHrefValue] = useState(existingHref);
 
   const textRef = useRef<HTMLInputElement | null>(null);
   const hrefRef = useRef<HTMLInputElement | null>(null);
-  const { ref: textRegisterRef, ...textRegisterRest } = register("text", {
-    required: true,
-  });
-  const { ref: hrefRegisterRef, ...hrefRegisterRest } = register("href", {
-    required: true,
-  });
 
   // If there's already a link where the user has clicked, they're "editing",
   // otherwise the menu has been brought up to add a new link
@@ -86,10 +64,6 @@ function EditLinkMenuContent({ editor, onCancel, onSave }: Props) {
 
   // If the user presses escape, we should cancel
   useKey("Escape", onCancel, { event: "keydown" }, [onCancel]);
-
-  const onSubmit = handleSubmit((data) => {
-    onSave({ text: data.text, link: data.href });
-  });
 
   const formatHref = useCallback(() => {
     if (!hrefRef.current) {
@@ -121,42 +95,48 @@ function EditLinkMenuContent({ editor, onCancel, onSave }: Props) {
     // already-encoded sequences, they're not double-encoded and thus broken.
     // (Useful for instance when a user pastes a URL into the form with complex
     // and already-encoded parameters.)
-    setValue("href", encodeurl(currentHrefValue));
-  }, [setValue]);
+    setHrefValue(encodeurl(currentHrefValue));
+  }, []);
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   return (
-    <form onSubmit={onSubmit} autoComplete="off">
+    <form
+      onSubmit={(event) => {
+        // Don't submit the form with a standard full-page request
+        event.preventDefault();
+
+        setIsSubmitting(true);
+        const text = textRef.current?.value ?? "";
+        const href = hrefRef.current?.value ?? "";
+        onSave({ text: text, link: href });
+        setIsSubmitting(false);
+      }}
+      autoComplete="off"
+    >
       <Typography variant="h6">{editMenuTitle}</Typography>
 
       <TextField
-        {...textRegisterRest}
-        inputRef={(element: HTMLInputElement) => {
-          textRegisterRef(element);
-          textRef.current = element;
-        }}
+        inputRef={textRef}
+        value={textValue}
         disabled={isSubmitting}
+        onChange={(event) => setTextValue(event.target.value)}
         label="Text"
         margin="normal"
         size="small"
-        error={!!errors.text}
-        helperText={errors.text?.message}
         fullWidth
         required
       />
 
       <TextField
-        {...hrefRegisterRest}
-        inputRef={(element: HTMLInputElement) => {
-          hrefRegisterRef(element);
-          hrefRef.current = element;
-        }}
+        inputRef={hrefRef}
+        value={hrefValue}
+        onChange={(event) => setHrefValue(event.target.value)}
         disabled={isSubmitting}
         label="Link"
         margin="dense"
         size="small"
         type="url"
-        error={!!errors.href}
-        helperText={errors.href?.message}
         onBlur={formatHref}
         onKeyDown={(event) => {
           // If the user is trying to submit the form directly from the href field, make
