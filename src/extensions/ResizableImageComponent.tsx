@@ -1,7 +1,7 @@
 import { useTheme } from "@mui/material";
 import type { NodeViewProps } from "@tiptap/core";
 import { NodeViewWrapper } from "@tiptap/react";
-import { throttle } from "lodash";
+import throttle from "lodash/throttle";
 import type { Node as ProseMirrorNode } from "prosemirror-model";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
