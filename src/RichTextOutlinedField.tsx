@@ -20,7 +20,7 @@ export type RichTextOutlinedFieldProps = {
    * Any additional content to render inside the outlined field, below the
    * editor content.
    */
-  children?: React.ReactNode;
+  footer?: React.ReactNode;
   /**
    * Whether to hide the editor menu bar. When toggling between true and false,
    * uses a collapse animation.
@@ -75,7 +75,7 @@ export default function RichTextOutlinedField({
   disabled,
   className,
   classes: overrideClasses = {},
-  children,
+  footer,
   hideMenuBar = false,
   disableStickyMenuBar = false,
   stickyMenuBarOffset,
@@ -110,7 +110,7 @@ export default function RichTextOutlinedField({
         className={classes.menuBar}
       />
       <RichTextContent className={classes.content} />
-      {children}
+      {footer}
     </OutlinedField>
   );
 }

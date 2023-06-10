@@ -21,6 +21,11 @@ export {
   type RichTextContentProps,
 } from "./RichTextContent";
 export {
+  default as RichTextEditor,
+  type RichTextEditorProps,
+  type RichTextEditorRef,
+} from "./RichTextEditor";
+export {
   default as RichTextEditorProvider,
   type RichTextEditorProviderProps,
 } from "./RichTextEditorProvider";
