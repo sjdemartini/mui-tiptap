@@ -25,10 +25,10 @@ import { TaskItem } from "@tiptap/extension-task-item";
 import { TaskList } from "@tiptap/extension-task-list";
 import { Text } from "@tiptap/extension-text";
 import { useMemo } from "react";
-import HeadingWithAnchor from "./extensions/HeadingWithAnchor";
-import LinkBubbleMenuHandler from "./extensions/LinkBubbleMenuHandler";
-import ResizableImage from "./extensions/ResizableImage";
-import TableImproved from "./extensions/TableImproved";
+import HeadingWithAnchor from "../extensions/HeadingWithAnchor";
+import LinkBubbleMenuHandler from "../extensions/LinkBubbleMenuHandler";
+import ResizableImage from "../extensions/ResizableImage";
+import TableImproved from "../extensions/TableImproved";
 
 export type UseRecommendedExtensionsOptions = {
   /** Placeholder hint to show in the text input area before a user types a message. */

@@ -37,5 +37,4 @@ export {
   type TableBubbleMenuProps,
 } from "./TableBubbleMenu";
 export * from "./extensions";
-export { default as useDebouncedFocus } from "./useDebouncedFocus";
-export { default as useRecommendedExtensions } from "./useRecommendedExtensions";
+export * from "./hooks";

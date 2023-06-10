@@ -2,9 +2,9 @@ import type { Editor } from "@tiptap/core";
 import { debounce } from "lodash";
 import { useEffect, useMemo, useState } from "react";
 
-interface UseDebouncedFocusOptions {
+export type UseDebouncedFocusOptions = {
   editor: Editor | null;
-}
+};
 
 /**
  * A hook for getting the Tiptap editor focused state, but debounced to prevent
