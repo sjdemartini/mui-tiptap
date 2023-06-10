@@ -4,8 +4,8 @@ import MuiTiptapContent from "./MuiTiptapContent";
 import OutlinedField from "./OutlinedField";
 import classNames from "./classNames";
 import { useMuiTiptapEditorContext } from "./context";
+import useDebouncedFocus from "./hooks/useDebouncedFocus";
 import { Z_INDEXES } from "./styles";
-import useDebouncedFocus from "./useDebouncedFocus";
 
 export type MuiTiptapOutlinedFieldProps = {
   /** Class applied to the outlined field, the outermost `root` element. */
