@@ -1,8 +1,8 @@
 import { Button, DialogActions, Link } from "@mui/material";
 import { getMarkRange, getMarkType, type Editor } from "@tiptap/core";
 import { truncate } from "lodash";
-import { useKey } from "react-use";
 import { makeStyles } from "tss-react/mui";
+import useKeyDown from "./hooks/useKeyDown";
 import truncateMiddle from "./utils/truncateMiddle";
 
 interface Props {
@@ -37,7 +37,7 @@ export default function ViewLinkMenuContent({
   const currentHref = editor.getAttributes("link").href as string;
 
   // If the user presses escape, we should cancel
-  useKey("Escape", onCancel, { event: "keydown" }, [onCancel]);
+  useKeyDown("Escape", onCancel);
 
   return (
     <>

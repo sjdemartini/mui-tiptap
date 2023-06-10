@@ -2,7 +2,7 @@ import { Button, DialogActions, TextField, Typography } from "@mui/material";
 import { getMarkRange, getMarkType, type Editor } from "@tiptap/core";
 import encodeurl from "encodeurl";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useKey } from "react-use";
+import useKeyDown from "./hooks/useKeyDown";
 
 type Props = {
   editor: Editor;
@@ -63,7 +63,7 @@ function EditLinkMenuContent({ editor, onCancel, onSave }: Props) {
   }, [isNewLink, initialText]);
 
   // If the user presses escape, we should cancel
-  useKey("Escape", onCancel, { event: "keydown" }, [onCancel]);
+  useKeyDown("Escape", onCancel);
 
   const formatHref = useCallback(() => {
     if (!hrefRef.current) {
