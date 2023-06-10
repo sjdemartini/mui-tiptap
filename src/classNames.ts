@@ -3,7 +3,7 @@
  * styles.
  */
 const classNames = {
-  MuiTiptapContent: "MuiTiptapContent",
+  RichTextContent: "RichTextContent",
   MuiTiptapMenuBar: "MuiTiptapMenuBar",
   MuiTiptapMenuBarContainer: "MuiTiptapMenuBarContainer",
   MuiTiptapOutlinedField: "MuiTiptapOutlinedField",
