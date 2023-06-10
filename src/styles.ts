@@ -5,7 +5,7 @@ import {
   type CSSObject,
   type Theme,
 } from "@mui/material";
-import { omit } from "lodash";
+import omit from "lodash/omit";
 import { keyframes } from "tss-react";
 
 type StyleRules = Record<string, CSSObject>;
