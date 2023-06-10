@@ -21,10 +21,6 @@ export {
   type MuiTiptapProviderProps,
 } from "./MuiTiptapProvider";
 export {
-  default as MuiTiptapReadOnlyContent,
-  type MuiTiptapReadOnlyContentProps,
-} from "./MuiTiptapReadOnlyContent";
-export {
   default as RichTextContent,
   type RichTextContentProps,
 } from "./RichTextContent";
@@ -32,6 +28,10 @@ export {
   default as RichTextOutlinedField,
   type RichTextOutlinedFieldProps,
 } from "./RichTextOutlinedField";
+export {
+  default as RichTextReadOnly,
+  type RichTextReadOnlyProps,
+} from "./RichTextReadOnly";
 export {
   default as TableBubbleMenu,
   type TableBubbleMenuProps,

@@ -3,11 +3,9 @@ import type { Except } from "type-fest";
 import MuiTiptapProvider from "./MuiTiptapProvider";
 import RichTextContent from "./RichTextContent";
 
-export type MuiTiptapReadOnlyContentProps = Partial<
-  Except<EditorOptions, "editable">
->;
+export type RichTextReadOnlyProps = Partial<Except<EditorOptions, "editable">>;
 
-function EditorReadOnlyViewerInternal(props: MuiTiptapReadOnlyContentProps) {
+function EditorReadOnlyViewerInternal(props: RichTextReadOnlyProps) {
   const editor = useEditor({
     ...props,
     editable: false,
@@ -32,9 +30,9 @@ function EditorReadOnlyViewerInternal(props: MuiTiptapReadOnlyContentProps) {
  * a separate useEditor invocation.
  *
  * Example:
- * <MuiTiptapReadOnlyContent content="<p>Hello world</p>" extensions=[...] />
+ * <RichTextReadOnly content="<p>Hello world</p>" extensions=[...] />
  */
-function MuiTiptapReadOnlyContent(editorProps: MuiTiptapReadOnlyContentProps) {
+function RichTextReadOnly(editorProps: RichTextReadOnlyProps) {
   if (!editorProps.content) {
     // Don't bother instantiating an editor at all (for performance) if we have no
     // content
@@ -44,4 +42,4 @@ function MuiTiptapReadOnlyContent(editorProps: MuiTiptapReadOnlyContentProps) {
   return <EditorReadOnlyViewerInternal {...editorProps} />;
 }
 
-export default MuiTiptapReadOnlyContent;
+export default RichTextReadOnly;
