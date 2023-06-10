@@ -6,11 +6,11 @@ const classNames = {
   RichTextContent: "RichTextContent",
   MuiTiptapMenuBar: "MuiTiptapMenuBar",
   MuiTiptapMenuBarContainer: "MuiTiptapMenuBarContainer",
-  MuiTiptapOutlinedField: "MuiTiptapOutlinedField",
+  RichTextOutlinedField: "RichTextOutlinedField",
 } as const;
 
 // TODO(Steven DeMartini): Support "slots" for these in the same way as MUI
-// does, like MuiTiptapOutlinedField-root, MuiTiptapOutlinedField-menuBarSticky,
+// does, like RichTextOutlinedField-root, RichTextOutlinedField-menuBarSticky,
 // etc.
 
 export default classNames;

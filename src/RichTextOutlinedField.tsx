@@ -7,7 +7,7 @@ import { useMuiTiptapEditorContext } from "./context";
 import useDebouncedFocus from "./hooks/useDebouncedFocus";
 import { Z_INDEXES } from "./styles";
 
-export type MuiTiptapOutlinedFieldProps = {
+export type RichTextOutlinedFieldProps = {
   /** Class applied to the outlined field, the outermost `root` element. */
   className?: string;
   /**
@@ -42,7 +42,7 @@ export type MuiTiptapOutlinedFieldProps = {
 };
 
 const useStyles = makeStyles<{ stickyMenuBarOffset?: number }>({
-  name: { MuiTiptapOutlinedField },
+  name: { RichTextOutlinedField },
 })((theme, { stickyMenuBarOffset }) => {
   return {
     // This first class is added to allow convenient user overrides. Users can
@@ -71,7 +71,7 @@ const useStyles = makeStyles<{ stickyMenuBarOffset?: number }>({
  * A version of the MUI Tiptap editor including the content and menu bar, with
  * an interface like the material-ui TextField with the "outlined" variant.
  */
-export default function MuiTiptapOutlinedField({
+export default function RichTextOutlinedField({
   disabled,
   className,
   classes: overrideClasses = {},
@@ -79,7 +79,7 @@ export default function MuiTiptapOutlinedField({
   hideMenuBar = false,
   disableStickyMenuBar = false,
   stickyMenuBarOffset,
-}: MuiTiptapOutlinedFieldProps) {
+}: RichTextOutlinedFieldProps) {
   const { classes, cx } = useStyles(
     { stickyMenuBarOffset },
     {
@@ -97,7 +97,7 @@ export default function MuiTiptapOutlinedField({
     <OutlinedField
       focused={!disabled && isOutlinedFieldFocused}
       disabled={disabled}
-      className={cx(classNames.MuiTiptapOutlinedField, className, classes.root)}
+      className={cx(classNames.RichTextOutlinedField, className, classes.root)}
     >
       <CollapsibleMenuBar
         open={!hideMenuBar}

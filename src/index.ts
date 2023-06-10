@@ -17,10 +17,6 @@ export {
   type MenuButtonTooltipProps,
 } from "./MenuButtonTooltip";
 export {
-  default as MuiTiptapOutlinedField,
-  type MuiTiptapOutlinedFieldProps,
-} from "./MuiTiptapOutlinedField";
-export {
   default as MuiTiptapProvider,
   type MuiTiptapProviderProps,
 } from "./MuiTiptapProvider";
@@ -32,6 +28,10 @@ export {
   default as RichTextContent,
   type RichTextContentProps,
 } from "./RichTextContent";
+export {
+  default as RichTextOutlinedField,
+  type RichTextOutlinedFieldProps,
+} from "./RichTextOutlinedField";
 export {
   default as TableBubbleMenu,
   type TableBubbleMenuProps,
