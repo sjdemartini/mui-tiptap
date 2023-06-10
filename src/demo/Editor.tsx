@@ -35,7 +35,7 @@ export default function Editor() {
 
   return (
     // This demonstrates how styles can be overridden for the components below
-    <Box sx={{ "& .MuiTiptapContent": { py: 1.5, px: 2 } }}>
+    <Box sx={{ "& .RichTextContent": { py: 1.5, px: 2 } }}>
       <MuiTiptapProvider editor={editor}>
         <MuiTiptapOutlinedField
           hideMenuBar={!showMenuBar}

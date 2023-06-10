@@ -9,14 +9,14 @@ import classNames from "./classNames";
 import { useMuiTiptapEditorContext } from "./context";
 import { getEditorStyles } from "./styles";
 
-export type MuiTiptapContentProps = {
+export type RichTextContentProps = {
   /** Optional additional className to provide to the root element. */
   className?: string;
   /** Override or extend existing styles. */
   classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
 };
 
-const useStyles = makeStyles({ name: { MuiTiptapContent } })((theme) => {
+const useStyles = makeStyles({ name: { RichTextContent } })((theme) => {
   return {
     root: {
       // We add `as CSSObject` to get around typing issues with our editor
@@ -54,10 +54,10 @@ const useStyles = makeStyles({ name: { MuiTiptapContent } })((theme) => {
  *
  * Must be used as a child of the MuiTiptapProvider.
  */
-export default function MuiTiptapContent({
+export default function RichTextContent({
   className,
   classes: overrideClasses = {},
-}: MuiTiptapContentProps) {
+}: RichTextContentProps) {
   const { classes, cx } = useStyles(undefined, {
     props: { classes: overrideClasses },
   });
@@ -65,7 +65,7 @@ export default function MuiTiptapContent({
   const editorClasses = useMemo(
     () =>
       cx(
-        classNames.MuiTiptapContent,
+        classNames.RichTextContent,
         className,
         classes.root,
         editor?.isEditable ? classes.editable : classes.readonly

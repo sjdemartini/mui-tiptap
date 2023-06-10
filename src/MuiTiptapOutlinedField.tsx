@@ -1,7 +1,7 @@
 import { makeStyles } from "tss-react/mui";
 import CollapsibleMenuBar from "./CollapsibleMenuBar";
-import MuiTiptapContent from "./MuiTiptapContent";
 import OutlinedField from "./OutlinedField";
+import RichTextContent from "./RichTextContent";
 import classNames from "./classNames";
 import { useMuiTiptapEditorContext } from "./context";
 import useDebouncedFocus from "./hooks/useDebouncedFocus";
@@ -109,7 +109,7 @@ export default function MuiTiptapOutlinedField({
         }}
         className={classes.menuBar}
       />
-      <MuiTiptapContent className={classes.content} />
+      <RichTextContent className={classes.content} />
       {children}
     </OutlinedField>
   );

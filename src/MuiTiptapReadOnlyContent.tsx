@@ -1,7 +1,7 @@
 import { useEditor, type EditorOptions } from "@tiptap/react";
 import type { Except } from "type-fest";
-import MuiTiptapContent from "./MuiTiptapContent";
 import MuiTiptapProvider from "./MuiTiptapProvider";
+import RichTextContent from "./RichTextContent";
 
 export type MuiTiptapReadOnlyContentProps = Partial<
   Except<EditorOptions, "editable">
@@ -15,7 +15,7 @@ function EditorReadOnlyViewerInternal(props: MuiTiptapReadOnlyContentProps) {
 
   return (
     <MuiTiptapProvider editor={editor}>
-      <MuiTiptapContent />
+      <RichTextContent />
     </MuiTiptapProvider>
   );
 }
@@ -23,7 +23,7 @@ function EditorReadOnlyViewerInternal(props: MuiTiptapReadOnlyContentProps) {
 /**
  * An all-in-one component to directly render read-only Tiptap editor content.
  *
- * While useEditor, MuiTiptapProvider, and MuiTiptapContent can be used as
+ * While useEditor, MuiTiptapProvider, and RichTextContent can be used as
  * read-only via the editor's `editable` prop, this is a simpler and more
  * efficient version that only renders content and nothing more (e.g., does not
  * instantiate a toolbar, bubble menu, etc. that can't/won't be used in a

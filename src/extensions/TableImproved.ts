@@ -9,7 +9,7 @@ const TableImproved = Table.extend({
   // This function is taken directly from
   // https://github.com/ueberdosis/tiptap/blob/31c3a9aad9eb37f445eadcd27135611291178ca6/packages/extension-table/src/table.ts#L229-L245,
   // except overridden to always include `columnResizing`, even if `editable` is
-  // false. We update our MuiTiptapContent styles so that the table resizing
+  // false. We update our RichTextContent styles so that the table resizing
   // controls are not visible when `editable` is false, and since the editor
   // itself has contenteditable=false, the table will remain read-only. By doing
   // this, we can ensure that column widths are preserved when editable is false
