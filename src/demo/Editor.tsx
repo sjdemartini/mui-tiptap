@@ -1,5 +1,5 @@
 import { Lock, LockOpen, TextFields } from "@mui/icons-material";
-import { Box, Button, Stack, Typography } from "@mui/material";
+import { Button, Stack, Typography } from "@mui/material";
 import { useRef, useState } from "react";
 import MenuButton from "../MenuButton";
 import RichTextEditor, { type RichTextEditorRef } from "../RichTextEditor";
@@ -19,8 +19,7 @@ export default function Editor() {
   const [submittedContent, setSubmittedContent] = useState("");
 
   return (
-    // This demonstrates how styles can be overridden for the components below
-    <Box sx={{ "& .RichTextContent": { py: 1.5, px: 2 } }}>
+    <>
       <RichTextEditor
         ref={rteRef}
         extensions={extensions}
@@ -102,6 +101,6 @@ export default function Editor() {
           to save your data in a form.
         </>
       )}
-    </Box>
+    </>
   );
 }

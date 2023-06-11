@@ -1,13 +1,11 @@
 import { useEditor, type Editor, type EditorOptions } from "@tiptap/react";
 import { forwardRef, useEffect, useImperativeHandle, useRef } from "react";
 import RichTextEditorProvider from "./RichTextEditorProvider";
-import RichTextOutlinedField, {
-  type RichTextOutlinedFieldProps,
-} from "./RichTextOutlinedField";
+import RichTextField, { type RichTextFieldProps } from "./RichTextField";
 
 export type RichTextEditorProps = Partial<EditorOptions> & {
   slotProps?: {
-    field?: RichTextOutlinedFieldProps;
+    field?: RichTextFieldProps;
   };
 };
 
@@ -74,7 +72,7 @@ const RichTextEditor = forwardRef<RichTextEditorRef, RichTextEditorProps>(
 
     return (
       <RichTextEditorProvider editor={editor}>
-        <RichTextOutlinedField disabled={!editable} {...slotProps.field} />
+        <RichTextField disabled={!editable} {...slotProps.field} />
       </RichTextEditorProvider>
     );
   }

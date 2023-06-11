@@ -30,9 +30,9 @@ export {
   type RichTextEditorProviderProps,
 } from "./RichTextEditorProvider";
 export {
-  default as RichTextOutlinedField,
-  type RichTextOutlinedFieldProps,
-} from "./RichTextOutlinedField";
+  default as RichTextField,
+  type RichTextFieldProps,
+} from "./RichTextField";
 export {
   default as RichTextReadOnly,
   type RichTextReadOnlyProps,
