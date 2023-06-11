@@ -4,6 +4,10 @@ import { useEffect, useMemo, useState } from "react";
 
 export type UseDebouncedFocusOptions = {
   editor: Editor | null;
+  /**
+   * The debounce wait timeout in ms for updating focused state. By default 250.
+   */
+  wait?: number;
 };
 
 /**
@@ -16,19 +20,20 @@ export type UseDebouncedFocusOptions = {
  */
 export default function useDebouncedFocus({
   editor,
+  wait = 250,
 }: UseDebouncedFocusOptions): boolean {
   const [isFocusedDebounced, setIsFocusedDebounced] = useState(
     !!editor?.isFocused
   );
 
-  const setIsOutlinedFieldFocusedDebounced = useMemo(
-    () => debounce((focused: boolean) => setIsFocusedDebounced(focused), 250),
-    []
+  const updateIsFocusedDebounced = useMemo(
+    () => debounce((focused: boolean) => setIsFocusedDebounced(focused), wait),
+    [wait]
   );
 
   useEffect(() => {
     const isFocused = !!editor?.isFocused;
-    setIsOutlinedFieldFocusedDebounced(isFocused);
+    updateIsFocusedDebounced(isFocused);
 
     // We'll immediately "flush" to update the focused state of the outlined field when
     // the editor *becomes* focused (e.g. when a user first clicks into it), but we'll
@@ -36,13 +41,13 @@ export default function useDebouncedFocus({
     // menu bar, for instance. It feels fine to have a visual delay losing the focus
     // outline, but awkward to have delay in gaining the focus outline.
     if (isFocused) {
-      setIsOutlinedFieldFocusedDebounced.flush();
+      updateIsFocusedDebounced.flush();
     }
 
     return () => {
-      setIsOutlinedFieldFocusedDebounced.cancel();
+      updateIsFocusedDebounced.cancel();
     };
-  }, [editor?.isFocused, setIsOutlinedFieldFocusedDebounced]);
+  }, [editor?.isFocused, updateIsFocusedDebounced]);
 
   return isFocusedDebounced;
 }
