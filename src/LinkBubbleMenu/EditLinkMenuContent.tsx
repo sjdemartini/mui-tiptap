@@ -2,7 +2,7 @@ import { Button, DialogActions, TextField, Typography } from "@mui/material";
 import { getMarkRange, getMarkType, type Editor } from "@tiptap/core";
 import encodeurl from "encodeurl";
 import { useCallback, useEffect, useRef, useState } from "react";
-import useKeyDown from "./hooks/useKeyDown";
+import useKeyDown from "../hooks/useKeyDown";
 
 type Props = {
   editor: Editor;
