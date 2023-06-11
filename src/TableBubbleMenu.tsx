@@ -220,6 +220,8 @@ function TableBubbleMenuInner({ editor }: TableBubbleMenuProps) {
 // require the most important re-render (or potentially having the table resize), and
 // that's relatively rarer than typing within or outside a table.
 const TableBubbleMenu = debounceRender(TableBubbleMenuInner, 400, {
+  leading: true,
+  trailing: true,
   maxWait: 750,
 });
 
