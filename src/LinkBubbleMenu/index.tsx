@@ -1,12 +1,12 @@
 import { makeStyles } from "tss-react/mui";
-import ControlledBubbleMenu from "./ControlledBubbleMenu";
-import EditLinkMenuContent from "./EditLinkMenuContent";
-import ViewLinkMenuContent from "./ViewLinkMenuContent";
-import { useRichTextEditorContext } from "./context";
+import ControlledBubbleMenu from "../ControlledBubbleMenu";
+import { useRichTextEditorContext } from "../context";
 import {
   LinkMenuState,
   type LinkBubbleMenuHandlerStorage,
-} from "./extensions/LinkBubbleMenuHandler";
+} from "../extensions/LinkBubbleMenuHandler";
+import EditLinkMenuContent from "./EditLinkMenuContent";
+import ViewLinkMenuContent from "./ViewLinkMenuContent";
 
 const useStyles = makeStyles({ name: { LinkBubbleMenu } })((theme) => ({
   content: {
