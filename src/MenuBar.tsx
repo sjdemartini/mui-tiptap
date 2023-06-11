@@ -61,7 +61,7 @@ function MenuBarInner({
       <Grid container columnSpacing={0.5} rowSpacing={0.3} alignItems="center">
         {!!editor && "heading" in editor.storage && (
           <Grid item>
-            <MenuHeadingSelect editor={editor} />
+            <MenuHeadingSelect />
           </Grid>
         )}
 

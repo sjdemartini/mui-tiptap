@@ -1,16 +1,12 @@
-import type { Editor } from "@tiptap/core";
 import { makeStyles } from "tss-react/mui";
 import ControlledBubbleMenu from "./ControlledBubbleMenu";
 import EditLinkMenuContent from "./EditLinkMenuContent";
 import ViewLinkMenuContent from "./ViewLinkMenuContent";
+import { useRichTextEditorContext } from "./context";
 import {
   LinkMenuState,
   type LinkBubbleMenuHandlerStorage,
 } from "./extensions/LinkBubbleMenuHandler";
-
-export type LinkBubbleMenuProps = {
-  editor: Editor;
-};
 
 const useStyles = makeStyles({ name: { LinkBubbleMenu } })((theme) => ({
   content: {
@@ -22,8 +18,14 @@ const useStyles = makeStyles({ name: { LinkBubbleMenu } })((theme) => ({
  * A hook for providing a menu for viewing, creating, or editing a link in a
  * Tiptap editor. To be rendered when using the LinkBubbleMenuHandler extension.
  */
-export default function LinkBubbleMenu({ editor }: LinkBubbleMenuProps) {
+export default function LinkBubbleMenu() {
   const { classes } = useStyles();
+  const editor = useRichTextEditorContext();
+
+  if (!editor) {
+    return null;
+  }
+
   if (!("linkBubbleMenuHandler" in editor.storage)) {
     throw new Error(
       "You must add the LinkBubbleMenuHandler extension to the useEditor `extensions` array in order to use this component!"

@@ -1,14 +1,10 @@
 import { MenuItem, Select, type SelectChangeEvent } from "@mui/material";
-import type { Editor } from "@tiptap/core";
 import type { Heading, Level } from "@tiptap/extension-heading";
 import { useCallback, useMemo } from "react";
 import { makeStyles } from "tss-react/mui";
 import MenuButtonTooltip from "./MenuButtonTooltip";
+import { useRichTextEditorContext } from "./context";
 import { getEditorStyles } from "./styles";
-
-type Props = {
-  editor: Editor | null;
-};
 
 const useStyles = makeStyles({ name: { MenuHeadingSelect } })((theme) => {
   const editorStyles = getEditorStyles(theme);
@@ -83,8 +79,10 @@ const LEVEL_TO_HEADING_OPTION_VALUE = {
   6: HEADING_OPTION_VALUES.Heading6,
 } as const;
 
-export default function MenuHeadingSelect({ editor }: Props) {
+export default function MenuHeadingSelect() {
   const { classes, cx } = useStyles();
+  const editor = useRichTextEditorContext();
+
   const handleHeadingType: (
     event: SelectChangeEvent<"" | HeadingOptionValue>
   ) => void = useCallback(
