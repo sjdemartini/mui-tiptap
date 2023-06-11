@@ -30,18 +30,7 @@ const useStyles = makeStyles({ name: { RichTextContent } })((theme) => {
     },
 
     // Styles applied when the editor is in read-only mode (editable=false)
-    readonly: {
-      "& .ProseMirror": {
-        // When in read-only mode, don't allow users to resize tables, by hiding
-        // the resize handle and cursor
-        "& .column-resize-handle": {
-          display: "none",
-        },
-        "&.resize-cursor": {
-          display: "none",
-        },
-      },
-    },
+    readonly: {},
 
     // Styles applied when the editor is editable (editable=true)
     editable: {},
