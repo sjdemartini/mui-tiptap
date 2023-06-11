@@ -365,6 +365,18 @@ export function getEditorStyles(theme: Theme): StyleRules {
       cursor: "col-resize",
     },
 
+    // When the editor has `editable` set to `false`, the table column resize
+    // tools should be hidden
+    '&[contenteditable="false"]': {
+      "& .column-resize-handle": {
+        display: "none",
+      },
+
+      "&.resize-cursor": {
+        display: "none",
+      },
+    },
+
     // Based on the example styles from https://tiptap.dev/api/extensions/placeholder,
     // this adds the placeholder text at the top
     "& p.is-editor-empty:first-of-type::before": {
