@@ -22,6 +22,7 @@ import ControlledBubbleMenu from "./ControlledBubbleMenu";
 import MenuButton from "./MenuButton";
 import MenuDivider from "./MenuDivider";
 import { useRichTextEditorContext } from "./context";
+import { useDebouncedFocus } from "./hooks";
 import debounceRender from "./utils/debounceRender";
 
 type TableMenuBarProps = {
@@ -146,10 +147,30 @@ function TableMenuBar({ editor }: TableMenuBarProps) {
   );
 }
 
+// We use a debounced render since the menu is expensive to render (relies on
+// several editor `can` commands) but needs to update per editor state change.
+// Note that generally, going between editing inside or outside of a table is
+// what will require the most important re-render (or potentially having the
+// table resize), and that's not debounced.
+const TableMenuBarDebounced = debounceRender(TableMenuBar, 170, {
+  leading: true,
+  trailing: true,
+  maxWait: 300,
+});
+
 function TableBubbleMenuInner({ editor }: TableMenuBarProps) {
   // We want to position the table menu outside the entire table, rather than at the
   // current cursor position, so that it's essentially static even as the table changes
   // in size and doesn't "block" things within the table while you're trying to edit.
+
+  // Because the user interactions with the table menu bar buttons unfocus the
+  // editor (since it's not part of the editor content), we'll debounce our
+  // visual focused state so that we keep the bubble menu open during those
+  // interactions. That way we don't close it upon menu bar button click
+  // immediately, which can prevent menu button callbacks from working and
+  // also undesirably will close the bubble menu rather than keeping it open for
+  // future menu interaction.
+  const isEditorFocusedDebounced = useDebouncedFocus({ editor });
 
   // NOTE: Popper accepts an `anchorEl` prop as an HTML element, virtualElement
   // (https://popper.js.org/docs/v2/virtual-elements/), or a function that returns
@@ -204,35 +225,21 @@ function TableBubbleMenuInner({ editor }: TableMenuBarProps) {
   return (
     <ControlledBubbleMenu
       editor={editor}
-      open={editor.isFocused && editor.isActive("table")}
+      open={isEditorFocusedDebounced && editor.isActive("table")}
       anchorEl={bubbleMenuAnchorEl}
       preferBottom
     >
-      <TableMenuBar editor={editor} />
+      <TableMenuBarDebounced editor={editor} />
     </ControlledBubbleMenu>
   );
 }
 
-// Wrap the inner component so that we can require the `editor` to be present
-function TableBubbleMenuWrapped() {
+// Wrap the inner component so that we can require the `editor` to be present,
+// which simplifies that inner component's logic
+export default function TableBubbleMenu() {
   const editor = useRichTextEditorContext();
   if (!editor) {
     return null;
   }
   return <TableBubbleMenuInner editor={editor} />;
 }
-
-// We use a debounced render since the menu is expensive to render but needs to update
-// per editor state change. We use a longer debounce duration than for MenuBar,
-// since this component is more expensive, and it has less internal state that needs
-// frequent updating (vs the MenuBar which shows lots of different active/inactive
-// options). Generally, going between editing inside or outside of a table is what will
-// require the most important re-render (or potentially having the table resize), and
-// that's relatively rarer than typing within or outside a table.
-const TableBubbleMenu = debounceRender(TableBubbleMenuWrapped, 400, {
-  leading: true,
-  trailing: true,
-  maxWait: 750,
-});
-
-export default TableBubbleMenu;
