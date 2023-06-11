@@ -30,6 +30,7 @@ export {
   type RichTextReadOnlyProps,
 } from "./RichTextReadOnly";
 export { default as TableBubbleMenu } from "./TableBubbleMenu";
+export { default as TableMenuBar } from "./TableMenuBar";
 export { RichTextEditorContext, useRichTextEditorContext } from "./context";
 export {
   default as MenuButton,
