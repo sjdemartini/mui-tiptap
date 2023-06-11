@@ -19,9 +19,9 @@ import {
   RiSplitCellsHorizontal,
 } from "react-icons/ri";
 import ControlledBubbleMenu from "./ControlledBubbleMenu";
-import MenuButton from "./MenuButton";
 import MenuDivider from "./MenuDivider";
 import { useRichTextEditorContext } from "./context";
+import MenuButton from "./controls/MenuButton";
 import { useDebouncedFocus } from "./hooks";
 import debounceRender from "./utils/debounceRender";
 

@@ -1,8 +1,8 @@
 import { Lock, LockOpen, TextFields } from "@mui/icons-material";
 import { Button, Stack, Typography } from "@mui/material";
 import { useRef, useState } from "react";
-import MenuButton from "../MenuButton";
 import RichTextEditor, { type RichTextEditorRef } from "../RichTextEditor";
+import MenuButton from "../controls/MenuButton";
 import useRecommendedExtensions from "../hooks/useRecommendedExtensions";
 
 const exampleContent =

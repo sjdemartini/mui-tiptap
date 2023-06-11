@@ -2,9 +2,9 @@ import { MenuItem, Select, type SelectChangeEvent } from "@mui/material";
 import type { Heading, Level } from "@tiptap/extension-heading";
 import { useCallback, useMemo } from "react";
 import { makeStyles } from "tss-react/mui";
+import { useRichTextEditorContext } from "../context";
+import { getEditorStyles } from "../styles";
 import MenuButtonTooltip from "./MenuButtonTooltip";
-import { useRichTextEditorContext } from "./context";
-import { getEditorStyles } from "./styles";
 
 const useStyles = makeStyles({ name: { MenuHeadingSelect } })((theme) => {
   const editorStyles = getEditorStyles(theme);
