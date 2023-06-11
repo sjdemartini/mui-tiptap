@@ -1,5 +1,6 @@
 import { ToggleButton, type ToggleButtonProps } from "@mui/material";
 import { makeStyles } from "tss-react/mui";
+import type { SetOptional } from "type-fest";
 import MenuButtonTooltip, {
   type MenuButtonTooltipProps,
 } from "./MenuButtonTooltip";
@@ -8,7 +9,7 @@ export type MenuButtonProps = {
   tooltipLabel: MenuButtonTooltipProps["label"];
   tooltipShortcutKeys?: MenuButtonTooltipProps["shortcutKeys"];
   IconComponent: React.ElementType<{ className: string }>;
-} & ToggleButtonProps;
+} & SetOptional<ToggleButtonProps, "value">;
 
 const useStyles = makeStyles({ name: { MenuButton } })({
   root: {
@@ -38,7 +39,7 @@ export default function MenuButton({
         label={tooltipLabel}
         shortcutKeys={tooltipShortcutKeys}
       >
-        <ToggleButton size="small" {...toggleButtonProps}>
+        <ToggleButton size="small" value={tooltipLabel} {...toggleButtonProps}>
           <IconComponent className={classes.menuButtonIcon} />
         </ToggleButton>
       </MenuButtonTooltip>
