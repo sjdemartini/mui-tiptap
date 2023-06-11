@@ -329,6 +329,8 @@ function MenuBarInner({
 // similar, based on some barely-noticeable delay between action/movement and menu bar
 // state.
 const MenuBar = debounceRender(MenuBarInner, 170, {
+  leading: true,
+  trailing: true,
   maxWait: 300,
 });
 
