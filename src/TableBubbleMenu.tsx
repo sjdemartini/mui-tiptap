@@ -42,7 +42,6 @@ function TableMenuBar({ editor }: TableMenuBarProps) {
       <MenuButton
         tooltipLabel="Insert column before"
         IconComponent={RiInsertColumnLeft}
-        value="addColumnBefore"
         onClick={() => editor.chain().focus().addColumnBefore().run()}
         disabled={!editor.can().addColumnBefore()}
       />
@@ -50,7 +49,6 @@ function TableMenuBar({ editor }: TableMenuBarProps) {
       <MenuButton
         tooltipLabel="Insert column after"
         IconComponent={RiInsertColumnRight}
-        value="addColumnAfter"
         onClick={() => editor.chain().focus().addColumnAfter().run()}
         disabled={!editor.can().addColumnAfter()}
       />
@@ -58,7 +56,6 @@ function TableMenuBar({ editor }: TableMenuBarProps) {
       <MenuButton
         tooltipLabel="Delete column"
         IconComponent={RiDeleteColumn}
-        value="deleteColumn"
         onClick={() => editor.chain().focus().deleteColumn().run()}
         disabled={!editor.can().deleteColumn()}
       />
@@ -68,7 +65,6 @@ function TableMenuBar({ editor }: TableMenuBarProps) {
       <MenuButton
         tooltipLabel="Insert row above"
         IconComponent={RiInsertRowTop}
-        value="addRowBefore"
         onClick={() => editor.chain().focus().addRowBefore().run()}
         disabled={!editor.can().addRowBefore()}
       />
@@ -76,7 +72,6 @@ function TableMenuBar({ editor }: TableMenuBarProps) {
       <MenuButton
         tooltipLabel="Insert row below"
         IconComponent={RiInsertRowBottom}
-        value="addRowAfter"
         onClick={() => editor.chain().focus().addRowAfter().run()}
         disabled={!editor.can().addRowAfter()}
       />
@@ -84,7 +79,6 @@ function TableMenuBar({ editor }: TableMenuBarProps) {
       <MenuButton
         tooltipLabel="Delete row"
         IconComponent={RiDeleteRow}
-        value="deleteRow"
         onClick={() => editor.chain().focus().deleteRow().run()}
         disabled={!editor.can().deleteRow()}
       />
@@ -94,7 +88,6 @@ function TableMenuBar({ editor }: TableMenuBarProps) {
       <MenuButton
         tooltipLabel="Merge cells"
         IconComponent={RiMergeCellsHorizontal}
-        value="mergeCells"
         onClick={() => editor.chain().focus().mergeCells().run()}
         disabled={!editor.can().mergeCells()}
       />
@@ -102,7 +95,6 @@ function TableMenuBar({ editor }: TableMenuBarProps) {
       <MenuButton
         tooltipLabel="Split cell"
         IconComponent={RiSplitCellsHorizontal}
-        value="splitCell"
         onClick={() => editor.chain().focus().splitCell().run()}
         disabled={!editor.can().splitCell()}
       />
@@ -112,7 +104,6 @@ function TableMenuBar({ editor }: TableMenuBarProps) {
       <MenuButton
         tooltipLabel="Toggle header row"
         IconComponent={RiLayoutRowFill}
-        value="toggleHeaderRow"
         onClick={() => editor.chain().focus().toggleHeaderRow().run()}
         disabled={!editor.can().toggleHeaderRow()}
       />
@@ -120,7 +111,6 @@ function TableMenuBar({ editor }: TableMenuBarProps) {
       <MenuButton
         tooltipLabel="Toggle header column"
         IconComponent={RiLayoutColumnFill}
-        value="toggleHeaderColumn"
         onClick={() => editor.chain().focus().toggleHeaderColumn().run()}
         disabled={!editor.can().toggleHeaderColumn()}
       />
@@ -128,7 +118,6 @@ function TableMenuBar({ editor }: TableMenuBarProps) {
       <MenuButton
         tooltipLabel="Toggle header cell"
         IconComponent={FormatColorFill}
-        value="toggleHeaderCell"
         onClick={() => editor.chain().focus().toggleHeaderCell().run()}
         disabled={!editor.can().toggleHeaderCell()}
         selected={editor.isActive("tableHeader")}
@@ -139,7 +128,6 @@ function TableMenuBar({ editor }: TableMenuBarProps) {
       <MenuButton
         tooltipLabel="Delete table"
         IconComponent={GridOff}
-        value="deleteTable"
         onClick={() => editor.chain().focus().deleteTable().run()}
         disabled={!editor.can().deleteTable()}
       />
