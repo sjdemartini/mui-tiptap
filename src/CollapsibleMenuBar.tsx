@@ -1,11 +1,8 @@
 import { Collapse } from "@mui/material";
-import type { Editor } from "@tiptap/react";
-import type { Except } from "type-fest";
 import MenuBar, { type MenuBarProps } from "./MenuBar";
 import classNames from "./classNames";
 
 export type CollapsibleMenuBarProps = MenuBarProps & {
-  editor: Editor | null;
   /**
    * Whether to show the formatting menu bar. When changing between true/false,
    * uses collapse animation.
@@ -22,7 +19,7 @@ export default function CollapsibleMenuBar({
   open,
   classes,
   ...otherMenuBarProps
-}: Except<CollapsibleMenuBarProps, "editor">) {
+}: CollapsibleMenuBarProps) {
   const containerClassName = `${classNames.MuiTiptapMenuBarContainer} ${
     classes?.menuBarContainer ?? ""
   }`;
