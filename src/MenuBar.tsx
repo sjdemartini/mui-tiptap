@@ -18,11 +18,11 @@ import { Grid } from "@mui/material";
 import { BiCodeBlock, BiTable } from "react-icons/bi";
 import { MdChecklist } from "react-icons/md";
 import { makeStyles } from "tss-react/mui";
-import MenuButton from "./MenuButton";
 import MenuDivider from "./MenuDivider";
-import MenuHeadingSelect from "./MenuHeadingSelect";
 import classNames from "./classNames";
 import { useRichTextEditorContext } from "./context";
+import MenuButton from "./controls/MenuButton";
+import MenuHeadingSelect from "./controls/MenuHeadingSelect";
 import debounceRender from "./utils/debounceRender";
 import { isTouchDevice } from "./utils/platform";
 

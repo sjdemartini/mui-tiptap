@@ -8,11 +8,6 @@ export {
 } from "./ControlledBubbleMenu";
 export { default as LinkBubbleMenu } from "./LinkBubbleMenu";
 export { default as MenuBar, type MenuBarProps } from "./MenuBar";
-export { default as MenuButton, type MenuButtonProps } from "./MenuButton";
-export {
-  default as MenuButtonTooltip,
-  type MenuButtonTooltipProps,
-} from "./MenuButtonTooltip";
 export {
   default as RichTextContent,
   type RichTextContentProps,
@@ -36,5 +31,13 @@ export {
 } from "./RichTextReadOnly";
 export { default as TableBubbleMenu } from "./TableBubbleMenu";
 export { RichTextEditorContext, useRichTextEditorContext } from "./context";
+export {
+  default as MenuButton,
+  type MenuButtonProps,
+} from "./controls/MenuButton";
+export {
+  default as MenuButtonTooltip,
+  type MenuButtonTooltipProps,
+} from "./controls/MenuButtonTooltip";
 export * from "./extensions";
 export * from "./hooks";
