@@ -7,7 +7,9 @@ import { useMuiTiptapEditorContext } from "./context";
 import useDebouncedFocus from "./hooks/useDebouncedFocus";
 import { Z_INDEXES } from "./styles";
 
-export type RichTextOutlinedFieldProps = {
+export type RichTextFieldProps = {
+  /** Which style to use for */
+  variant?: "outlined" | "standard";
   /** Class applied to the outlined field, the outermost `root` element. */
   className?: string;
   /**
@@ -41,22 +43,38 @@ export type RichTextOutlinedFieldProps = {
   classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
 };
 
-const useStyles = makeStyles<{ stickyMenuBarOffset?: number }>({
-  name: { RichTextOutlinedField },
-})((theme, { stickyMenuBarOffset }) => {
+const useStyles = makeStyles<{ stickyMenuBarOffset?: number }, "menuBar">({
+  name: { RichTextField },
+})((theme, { stickyMenuBarOffset }, classes) => {
   return {
     // This first class is added to allow convenient user overrides. Users can
     // similarly override the other classes below.
     root: {},
 
-    content: {
-      // Add padding around the input area, since it's contained in the outline
-      padding: theme.spacing(1.5),
+    standard: {
+      // We don't need horizontal spacing when not using the outlined variant
+      "& .RichTextContent": {
+        padding: theme.spacing(1.5, 0),
+      },
+
+      [`& .${classes.menuBar}`]: {
+        padding: theme.spacing(1, 0),
+      },
     },
 
-    menuBar: {
-      padding: theme.spacing(1, 1.5),
+    outlined: {
+      // Add padding around the input area and menu bar, since they're
+      // contained in the outline
+      "& .RichTextContent": {
+        padding: theme.spacing(1.5),
+      },
+
+      [`& .${classes.menuBar}`]: {
+        padding: theme.spacing(1, 1.5),
+      },
     },
+
+    menuBar: {},
 
     menuBarSticky: {
       position: "sticky",
@@ -71,7 +89,8 @@ const useStyles = makeStyles<{ stickyMenuBarOffset?: number }>({
  * A version of the MUI Tiptap editor including the content and menu bar, with
  * an interface like the material-ui TextField with the "outlined" variant.
  */
-export default function RichTextOutlinedField({
+export default function RichTextField({
+  variant = "outlined",
   disabled,
   className,
   classes: overrideClasses = {},
@@ -79,7 +98,7 @@ export default function RichTextOutlinedField({
   hideMenuBar = false,
   disableStickyMenuBar = false,
   stickyMenuBarOffset,
-}: RichTextOutlinedFieldProps) {
+}: RichTextFieldProps) {
   const { classes, cx } = useStyles(
     { stickyMenuBarOffset },
     {
@@ -93,12 +112,8 @@ export default function RichTextOutlinedField({
   // state of the OutlinedField so that it doesn't "flash" when that happens
   const isOutlinedFieldFocused = useDebouncedFocus({ editor });
 
-  return (
-    <OutlinedField
-      focused={!disabled && isOutlinedFieldFocused}
-      disabled={disabled}
-      className={cx(classNames.RichTextOutlinedField, className, classes.root)}
-    >
+  const content = (
+    <>
       <CollapsibleMenuBar
         open={!hideMenuBar}
         classes={{
@@ -109,8 +124,34 @@ export default function RichTextOutlinedField({
         }}
         className={classes.menuBar}
       />
-      <RichTextContent className={classes.content} />
+      <RichTextContent />
       {footer}
+    </>
+  );
+
+  return variant === "outlined" ? (
+    <OutlinedField
+      focused={!disabled && isOutlinedFieldFocused}
+      disabled={disabled}
+      className={cx(
+        classNames.RichTextField,
+        className,
+        classes.root,
+        classes.outlined
+      )}
+    >
+      {content}
     </OutlinedField>
+  ) : (
+    <div
+      className={cx(
+        classNames.RichTextField,
+        className,
+        classes.root,
+        classes.standard
+      )}
+    >
+      {content}
+    </div>
   );
 }
