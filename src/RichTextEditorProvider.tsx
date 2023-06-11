@@ -1,5 +1,5 @@
 import type { Editor } from "@tiptap/react";
-import { MuiTiptapEditorContext } from "./context";
+import { RichTextEditorContext } from "./context";
 
 export type RichTextEditorProviderProps = {
   editor: Editor | null;
@@ -11,8 +11,8 @@ export default function RichTextEditorProvider({
   children,
 }: RichTextEditorProviderProps) {
   return (
-    <MuiTiptapEditorContext.Provider value={editor}>
+    <RichTextEditorContext.Provider value={editor}>
       {children}
-    </MuiTiptapEditorContext.Provider>
+    </RichTextEditorContext.Provider>
   );
 }

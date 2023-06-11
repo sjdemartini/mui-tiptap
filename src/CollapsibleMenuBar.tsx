@@ -20,7 +20,7 @@ export default function CollapsibleMenuBar({
   classes,
   ...otherMenuBarProps
 }: CollapsibleMenuBarProps) {
-  const containerClassName = `${classNames.MuiTiptapMenuBarContainer} ${
+  const containerClassName = `${classNames.MenuBarContainer} ${
     classes?.menuBarContainer ?? ""
   }`;
   return (
