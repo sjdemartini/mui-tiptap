@@ -14,17 +14,29 @@ export type ControlledBubbleMenuProps = {
    */
   anchorEl?: PopperProps["anchorEl"];
   /**
-   * Whether to prefer placing the bubble element on the bottom rather than top of the
-   * anchor reference area. By default false. Useful for long-standing menus like the
-   * Table menu, where we want to avoid covering up the main editor menu bar above.
-   *
-   * This is particularly useful if the anchor reference element for which we're showing
-   * a popper (e.g. a Table) is currently at the *top* of our editor and there's no
-   * alternative flip that fully satisfies all constraints (like preventing overflow).
-   * In that situation, it's better to place the bubble menu below the element rather
-   * than above to avoid covering up the main editor menu bar.
+   * The placement to use for this bubble menu. By default "top". See
+   * https://popper.js.org/docs/v2/constructors/#options (and
+   * https://mui.com/material-ui/api/popper/).
    */
-  preferBottom?: boolean;
+  placement?: PopperProps["placement"];
+  /**
+   * Alternate consecutive placements to try if the first placement does not
+   * fit. By default tries other bottom and top placements (avoiding sides,
+   * since the editor caret will tend to move horizontally as a user
+   * types/interacts).
+   */
+  fallbackPlacements?: PopperProps["placement"][];
+  /**
+   * Applies virtual padding to the element when testing whether to flip the
+   * placement. (i.e. if the element had the additional padding, would it exceed
+   * its boundary and so need to be flipped?) See
+   * https://popper.js.org/docs/v2/modifiers/flip/#padding and
+   * https://popper.js.org/docs/v2/utils/detect-overflow/#padding. By default
+   * 8px on all sides.
+   */
+  flipPadding?:
+    | number
+    | { top?: number; right?: number; bottom?: number; left?: number };
 };
 
 const useStyles = makeStyles({ name: { ControlledBubbleMenu } })((theme) => ({
@@ -61,7 +73,15 @@ export default function ControlledBubbleMenu({
   open,
   children,
   anchorEl,
-  preferBottom = false,
+  placement = "top",
+  fallbackPlacements = [
+    "bottom",
+    "top-start",
+    "bottom-start",
+    "top-end",
+    "bottom-end",
+  ],
+  flipPadding = 8,
 }: ControlledBubbleMenuProps) {
   const { classes } = useStyles();
   const theme = useTheme();
@@ -91,7 +111,7 @@ export default function ControlledBubbleMenu({
   return (
     <Popper
       open={open}
-      placement={preferBottom ? "bottom" : "top"}
+      placement={placement}
       modifiers={[
         {
           name: "offset",
@@ -108,14 +128,8 @@ export default function ControlledBubbleMenu({
             // outside of the editor. (This is necessary since our children aren't actually rendered
             // here, but instead with a portal, so the editor DOM node isn't a parent.)
             boundary: editor.options.element,
-            fallbackPlacements: [
-              preferBottom ? "top" : "bottom",
-              "top-start",
-              "bottom-start",
-              "top-end",
-              "bottom-end",
-            ],
-            padding: 8,
+            fallbackPlacements: fallbackPlacements,
+            padding: flipPadding,
           },
         },
         {
