@@ -3,7 +3,7 @@ import CollapsibleMenuBar from "./CollapsibleMenuBar";
 import OutlinedField from "./OutlinedField";
 import RichTextContent from "./RichTextContent";
 import classNames from "./classNames";
-import { useMuiTiptapEditorContext } from "./context";
+import { useRichTextEditorContext } from "./context";
 import useDebouncedFocus from "./hooks/useDebouncedFocus";
 import { Z_INDEXES } from "./styles";
 
@@ -105,7 +105,7 @@ export default function RichTextField({
       props: { classes: overrideClasses },
     }
   );
-  const editor = useMuiTiptapEditorContext();
+  const editor = useRichTextEditorContext();
 
   // Because the user interactions with the editor menu bar buttons unfocus the editor
   // (since it's not part of the editor content), we'll debounce our visual focused

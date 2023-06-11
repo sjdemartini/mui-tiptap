@@ -22,7 +22,7 @@ import MenuButton from "./MenuButton";
 import MenuDivider from "./MenuDivider";
 import MenuHeadingSelect from "./MenuHeadingSelect";
 import classNames from "./classNames";
-import { useMuiTiptapEditorContext } from "./context";
+import { useRichTextEditorContext } from "./context";
 import debounceRender from "./utils/debounceRender";
 import { isTouchDevice } from "./utils/platform";
 
@@ -53,11 +53,11 @@ function MenuBarInner({
   alwaysShowIndentButtons = false,
   className,
 }: MenuBarProps) {
-  const editor = useMuiTiptapEditorContext();
+  const editor = useRichTextEditorContext();
   const { classes, cx } = useStyles();
   const isEditable = !!editor?.isEditable;
   return (
-    <div className={cx(classNames.MuiTiptapMenuBar, classes.root, className)}>
+    <div className={cx(classNames.MenuBar, classes.root, className)}>
       <Grid container columnSpacing={0.5} rowSpacing={0.3} alignItems="center">
         {!!editor && "heading" in editor.storage && (
           <Grid item>

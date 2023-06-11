@@ -6,7 +6,7 @@ import { makeStyles } from "tss-react/mui";
 import LinkBubbleMenu from "./LinkBubbleMenu";
 import TableBubbleMenu from "./TableBubbleMenu";
 import classNames from "./classNames";
-import { useMuiTiptapEditorContext } from "./context";
+import { useRichTextEditorContext } from "./context";
 import { getEditorStyles } from "./styles";
 
 export type RichTextContentProps = {
@@ -61,7 +61,7 @@ export default function RichTextContent({
   const { classes, cx } = useStyles(undefined, {
     props: { classes: overrideClasses },
   });
-  const editor = useMuiTiptapEditorContext();
+  const editor = useRichTextEditorContext();
   const editorClasses = useMemo(
     () =>
       cx(
