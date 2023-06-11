@@ -78,11 +78,9 @@ export default function RichTextContent({
       {editor?.isEditable && (
         <>
           {"link" in editor.storage &&
-            "linkBubbleMenuHandler" in editor.storage && (
-              <LinkBubbleMenu editor={editor} />
-            )}
+            "linkBubbleMenuHandler" in editor.storage && <LinkBubbleMenu />}
 
-          {"table" in editor.storage && <TableBubbleMenu editor={editor} />}
+          {"table" in editor.storage && <TableBubbleMenu />}
         </>
       )}
     </Box>

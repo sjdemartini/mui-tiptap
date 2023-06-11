@@ -21,9 +21,10 @@ import {
 import ControlledBubbleMenu from "./ControlledBubbleMenu";
 import MenuButton from "./MenuButton";
 import MenuDivider from "./MenuDivider";
+import { useRichTextEditorContext } from "./context";
 import debounceRender from "./utils/debounceRender";
 
-export type TableBubbleMenuProps = {
+type TableMenuBarProps = {
   editor: Editor;
 };
 
@@ -34,7 +35,7 @@ const MenuBarContainer = styled("div")(({ theme }) => ({
   padding: theme.spacing(0.5, 1),
 }));
 
-function TableMenuBar({ editor }: TableBubbleMenuProps) {
+function TableMenuBar({ editor }: TableMenuBarProps) {
   return (
     <MenuBarContainer>
       <MenuButton
@@ -145,7 +146,7 @@ function TableMenuBar({ editor }: TableBubbleMenuProps) {
   );
 }
 
-function TableBubbleMenuInner({ editor }: TableBubbleMenuProps) {
+function TableBubbleMenuInner({ editor }: TableMenuBarProps) {
   // We want to position the table menu outside the entire table, rather than at the
   // current cursor position, so that it's essentially static even as the table changes
   // in size and doesn't "block" things within the table while you're trying to edit.
@@ -212,6 +213,15 @@ function TableBubbleMenuInner({ editor }: TableBubbleMenuProps) {
   );
 }
 
+// Wrap the inner component so that we can require the `editor` to be present
+function TableBubbleMenuWrapped() {
+  const editor = useRichTextEditorContext();
+  if (!editor) {
+    return null;
+  }
+  return <TableBubbleMenuInner editor={editor} />;
+}
+
 // We use a debounced render since the menu is expensive to render but needs to update
 // per editor state change. We use a longer debounce duration than for MenuBar,
 // since this component is more expensive, and it has less internal state that needs
@@ -219,7 +229,7 @@ function TableBubbleMenuInner({ editor }: TableBubbleMenuProps) {
 // options). Generally, going between editing inside or outside of a table is what will
 // require the most important re-render (or potentially having the table resize), and
 // that's relatively rarer than typing within or outside a table.
-const TableBubbleMenu = debounceRender(TableBubbleMenuInner, 400, {
+const TableBubbleMenu = debounceRender(TableBubbleMenuWrapped, 400, {
   leading: true,
   trailing: true,
   maxWait: 750,
