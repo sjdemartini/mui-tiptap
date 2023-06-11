@@ -227,7 +227,36 @@ function TableBubbleMenuInner({ editor }: TableMenuBarProps) {
       editor={editor}
       open={isEditorFocusedDebounced && editor.isActive("table")}
       anchorEl={bubbleMenuAnchorEl}
-      preferBottom
+      // So the menu doesn't move as columns are added, removed, or resized, we
+      // prefer "foo-start" rather than the centered "foo" placement. Similarly,
+      // we prefer "top" to "bottom" so that the menu doesn't move as the number
+      // and size of rows changes.
+      placement="top-start"
+      fallbackPlacements={[
+        "bottom-start",
+        "top",
+        "bottom",
+        "top-end",
+        "bottom-end",
+      ]}
+      // Though we prefer for the menu to stay on top if there's room, we
+      // definitely do not want the table bubble menu to cover up the main
+      // editor menu bar, which is typically going to be above the editor, since
+      // users are likely to want to change styles of elements within a table
+      // while using/editing a table. This overlap could happen if the Table is
+      // the first element within the editor content, or if the content is long
+      // and the menu bar is sticky, with the user having scrolled such that a
+      // table is at the top of the page. What would be nice is if PopperJS let
+      // you specify a placement to use if the `placement` *and none of the
+      // fallbacks* are satisfied, so that we could default to "bottom-start" in
+      // that scenario rather than the main `placement` value of "top-start".
+      // Since that is not an option, we add an artificial infinite negative
+      // bottom padding (so that it's like we actually have infinite extra room
+      // below our table bubble menu within the editor) as a way to ensure we
+      // only fall back to bottom placements if the top has no room. Similarly
+      // we add a top padding equal to what should give us enough room to avoid
+      // overlapping the main menu bar.
+      flipPadding={{ top: 35, left: 8, right: 8, bottom: -Infinity }}
     >
       <TableMenuBarDebounced editor={editor} />
     </ControlledBubbleMenu>
