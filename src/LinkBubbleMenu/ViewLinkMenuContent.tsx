@@ -5,12 +5,12 @@ import { makeStyles } from "tss-react/mui";
 import useKeyDown from "../hooks/useKeyDown";
 import truncateMiddle from "../utils/truncateMiddle";
 
-interface Props {
+type Props = {
   editor: Editor;
   onCancel: () => void;
   onEdit: () => void;
   onRemove: () => void;
-}
+};
 
 const useStyles = makeStyles({ name: { ViewLinkMenuContent } })({
   linkPreviewText: {
