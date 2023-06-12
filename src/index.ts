@@ -32,4 +32,12 @@ export { RichTextEditorContext, useRichTextEditorContext } from "./context";
 export * from "./controls";
 export * from "./extensions";
 export * from "./hooks";
+export {
+  DARK_MODE_PAPER_BACKGROUND_COLOR_ELEVATION_1,
+  DARK_MODE_PAPER_BACKGROUND_COLOR_ELEVATION_2,
+  Z_INDEXES,
+  getEditorStyles,
+  getImageBackgroundColorStyles,
+  parseToNumPixels,
+} from "./styles";
 export { getModShortcutKey, isMac, isTouchDevice } from "./utils/platform";
