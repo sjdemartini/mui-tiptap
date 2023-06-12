@@ -43,46 +43,44 @@ export default function PageContentWithEditor() {
           ref={rteRef}
           content={exampleContent}
           extensions={extensions}
-          RichTextFieldProps={{
-            renderControls: () => (
-              <MenuControlsContainer>
-                <MenuHeadingSelect />
-                <MenuButtonBold />
-                <MenuButtonItalic />
-                <MenuButtonStrikethrough />
-                <MenuButtonSubscript />
-                <MenuButtonSuperscript />
+          renderControls={() => (
+            <MenuControlsContainer>
+              <MenuHeadingSelect />
+              <MenuButtonBold />
+              <MenuButtonItalic />
+              <MenuButtonStrikethrough />
+              <MenuButtonSubscript />
+              <MenuButtonSuperscript />
 
-                <MenuDivider />
+              <MenuDivider />
 
-                <MenuButtonEditLink />
+              <MenuButtonEditLink />
 
-                <MenuDivider />
+              <MenuDivider />
 
-                <MenuButtonOrderedList />
-                <MenuButtonBulletedList />
-                <MenuButtonTaskList />
+              <MenuButtonOrderedList />
+              <MenuButtonBulletedList />
+              <MenuButtonTaskList />
 
-                <MenuDivider />
+              <MenuDivider />
 
-                <MenuButtonBlockquote />
+              <MenuButtonBlockquote />
 
-                <MenuDivider />
+              <MenuDivider />
 
-                <MenuButtonCode />
+              <MenuButtonCode />
 
-                <MenuButtonCodeBlock />
+              <MenuButtonCodeBlock />
 
-                <MenuDivider />
+              <MenuDivider />
 
-                <MenuButtonAddTable />
+              <MenuButtonAddTable />
 
-                <MenuDivider />
+              <MenuDivider />
 
-                <MenuButtonRemoveFormatting />
-              </MenuControlsContainer>
-            ),
-          }}
+              <MenuButtonRemoveFormatting />
+            </MenuControlsContainer>
+          )}
         />
       </div>
       <Divider sx={{ mt: 5, mb: 2 }} />

@@ -1,4 +1,3 @@
-import type { Editor } from "@tiptap/react";
 import { makeStyles } from "tss-react/mui";
 import MenuBar from "./MenuBar";
 import OutlinedField from "./OutlinedField";
@@ -30,18 +29,18 @@ export type RichTextFieldProps = {
    */
   hideMenuBar?: boolean;
   /**
-   * Render the controls content to show inside the menu bar. Typically will be
-   * set to render a <MenuControlsContainer> containing several MenuButton*
-   * components, depending on what controls you want to include in the menu bar
-   * (and what extensions you've enabled).
+   * The controls content to show inside the menu bar. Typically will be set to
+   * a <MenuControlsContainer> containing several MenuButton* components,
+   * depending on what controls you want to include in the menu bar (and what
+   * extensions you've enabled).
    */
-  renderControls?: (editor: Editor | null) => React.ReactNode;
+  controls?: React.ReactNode;
   /**
-   * If true, the controls rendered via `renderControls` will not be debounced.
-   * If not debounced, then upon every editor interaction (caret movement,
-   * character typed, etc.), the entire renderControls content will re-render,
-   * which tends to be very expensive and can bog down the editor performance,
-   * so debouncing is generally recommended. By default false.
+   * If true, the controls rendered via `controls` will not be debounced. If not
+   * debounced, then upon every editor interaction (caret movement, character
+   * typed, etc.), the entire controls content will re-render, which tends to be
+   * very expensive and can bog down the editor performance, so debouncing is
+   * generally recommended. By default false.
    */
   disableDebounceRenderControls?: boolean;
   /**
@@ -103,7 +102,7 @@ const useStyles = makeStyles<void, "menuBar" | "content">({
  */
 export default function RichTextField({
   variant = "outlined",
-  renderControls,
+  controls,
   disableDebounceRenderControls = false,
   disabled,
   className,
@@ -126,7 +125,7 @@ export default function RichTextField({
 
   const content = (
     <>
-      {renderControls && (
+      {controls && (
         <MenuBar
           className={classes.menuBar}
           hide={hideMenuBar}
@@ -134,9 +133,9 @@ export default function RichTextField({
           stickyOffset={stickyMenuBarOffset}
         >
           {disableDebounceRenderControls ? (
-            renderControls(editor)
+            controls
           ) : (
-            <DebounceRender>{renderControls(editor)}</DebounceRender>
+            <DebounceRender>{controls}</DebounceRender>
           )}
         </MenuBar>
       )}
