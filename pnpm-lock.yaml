@@ -8,9 +8,6 @@ dependencies:
   encodeurl:
     specifier: ^1.0.2
     version: 1.0.2
-  hoist-non-react-statics:
-    specifier: ^3.3.2
-    version: 3.3.2
   lodash:
     specifier: ^4.17.21
     version: 4.17.21
@@ -142,9 +139,6 @@ devDependencies:
   '@types/encodeurl':
     specifier: ^1.0.0
     version: 1.0.0
-  '@types/hoist-non-react-statics':
-    specifier: ^3.3.1
-    version: 3.3.1
   '@types/lodash':
     specifier: ^4.14.194
     version: 4.14.194
@@ -1914,13 +1908,6 @@ packages:
 
   /@types/estree@0.0.39:
     resolution: {integrity: sha512-EYNwp3bU+98cpU4lAWYYL7Zz+2gryWH1qbdDTidVd6hkiR6weksdbMadyXKXNPEkQFhXM+hVO9ZygomHXp+AIw==}
-    dev: true
-
-  /@types/hoist-non-react-statics@3.3.1:
-    resolution: {integrity: sha512-iMIqiko6ooLrTh1joXodJK5X9xeEALT1kM5G3ZLhD3hszxBdIEd5C75U834D9mLcINgD4OyZf5uQXjkuYydWvA==}
-    dependencies:
-      '@types/react': 18.2.0
-      hoist-non-react-statics: 3.3.2
     dev: true
 
   /@types/istanbul-lib-coverage@2.0.4:
