@@ -1,12 +1,37 @@
 import { findParentNodeClosestToPos, posToDOMRect } from "@tiptap/core";
 import { useMemo } from "react";
+import { makeStyles } from "tss-react/mui";
 import ControlledBubbleMenu from "./ControlledBubbleMenu";
-import TableMenuBar from "./TableMenuBar";
+import TableMenuControls from "./TableMenuControls";
 import { useRichTextEditorContext } from "./context";
 import { useDebouncedFocus } from "./hooks";
+import DebounceRender from "./utils/DebounceRender";
 
-export default function TableBubbleMenu() {
+export type TableBubbleMenuProps = {
+  /**
+   * If true, the rendering of the table controls will not be debounced. If not
+   * debounced, then upon every editor interaction (caret movement, character
+   * typed, etc.), the entire content will re-render, which tends to be
+   * expensive and can bog down the editor performance, so debouncing is
+   * generally recommended. By default false.
+   */
+  disableDebounce?: boolean;
+};
+
+const useStyles = makeStyles({
+  name: { TableBubbleMenu },
+})((theme) => ({
+  controls: {
+    maxWidth: "90vw",
+    padding: theme.spacing(0.5, 1),
+  },
+}));
+
+export default function TableBubbleMenu({
+  disableDebounce = false,
+}: TableBubbleMenuProps) {
   const editor = useRichTextEditorContext();
+  const { classes } = useStyles();
 
   // Because the user interactions with the table menu bar buttons unfocus the
   // editor (since it's not part of the editor content), we'll debounce our
@@ -77,6 +102,8 @@ export default function TableBubbleMenu() {
     return null;
   }
 
+  const controls = <TableMenuControls className={classes.controls} />;
+
   return (
     <ControlledBubbleMenu
       editor={editor}
@@ -113,7 +140,12 @@ export default function TableBubbleMenu() {
       // overlapping the main menu bar.
       flipPadding={{ top: 35, left: 8, right: 8, bottom: -Infinity }}
     >
-      <TableMenuBar />
+      {/* We debounce rendering of the controls to improve performance, since
+      otherwise it will be expensive to re-render (since it relies on several
+      editor `can` commands, and would otherwise be updating upon every editor
+      interaction like caret movement and typing). See DebounceRender.tsx for
+      more notes on this rationale and approach. */}
+      {disableDebounce ? controls : <DebounceRender>{controls}</DebounceRender>}
     </ControlledBubbleMenu>
   );
 }

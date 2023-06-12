@@ -4,7 +4,6 @@
  */
 const classNames = {
   MenuBar: "MenuBar",
-  MenuBarContainer: "MenuBarContainer",
   RichTextContent: "RichTextContent",
   RichTextField: "RichTextField",
 } as const;

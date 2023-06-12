@@ -1,5 +1,22 @@
 import { Box, Button, Divider } from "@mui/material";
 import {
+  MenuButtonAddTable,
+  MenuButtonBlockquote,
+  MenuButtonBold,
+  MenuButtonBulletedList,
+  MenuButtonCode,
+  MenuButtonCodeBlock,
+  MenuButtonEditLink,
+  MenuButtonItalic,
+  MenuButtonOrderedList,
+  MenuButtonRemoveFormatting,
+  MenuButtonStrikethrough,
+  MenuButtonSubscript,
+  MenuButtonSuperscript,
+  MenuButtonTaskList,
+  MenuControlsContainer,
+  MenuDivider,
+  MenuHeadingSelect,
   RichTextEditor,
   useRecommendedExtensions,
   type RichTextEditorRef,
@@ -26,6 +43,46 @@ export default function PageContentWithEditor() {
           ref={rteRef}
           content={exampleContent}
           extensions={extensions}
+          RichTextFieldProps={{
+            renderControls: () => (
+              <MenuControlsContainer>
+                <MenuHeadingSelect />
+                <MenuButtonBold />
+                <MenuButtonItalic />
+                <MenuButtonStrikethrough />
+                <MenuButtonSubscript />
+                <MenuButtonSuperscript />
+
+                <MenuDivider />
+
+                <MenuButtonEditLink />
+
+                <MenuDivider />
+
+                <MenuButtonOrderedList />
+                <MenuButtonBulletedList />
+                <MenuButtonTaskList />
+
+                <MenuDivider />
+
+                <MenuButtonBlockquote />
+
+                <MenuDivider />
+
+                <MenuButtonCode />
+
+                <MenuButtonCodeBlock />
+
+                <MenuDivider />
+
+                <MenuButtonAddTable />
+
+                <MenuDivider />
+
+                <MenuButtonRemoveFormatting />
+              </MenuControlsContainer>
+            ),
+          }}
         />
       </div>
       <Divider sx={{ mt: 5, mb: 2 }} />
