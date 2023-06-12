@@ -301,7 +301,8 @@ export function getEditorStyles(theme: Theme): StyleRules {
 
       "& td, th": {
         minWidth: "1em",
-        border: "1px solid",
+        borderWidth: 1,
+        borderStyle: "solid",
         borderColor:
           theme.palette.mode === "dark"
             ? theme.palette.grey[500]
@@ -413,8 +414,9 @@ export function getEditorStyles(theme: Theme): StyleRules {
         left: -3,
         right: 0,
         top: -2,
+        borderWidth: 3,
+        borderStyle: "solid",
         borderColor: "inherit",
-        border: "3px solid",
       },
 
       // When hovering, show the user's name
