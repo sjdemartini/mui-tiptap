@@ -1,13 +1,10 @@
 export {
-  default as CollapsibleMenuBar,
-  type CollapsibleMenuBarProps,
-} from "./CollapsibleMenuBar";
-export {
   default as ControlledBubbleMenu,
   type ControlledBubbleMenuProps,
 } from "./ControlledBubbleMenu";
 export { default as LinkBubbleMenu } from "./LinkBubbleMenu";
 export { default as MenuBar, type MenuBarProps } from "./MenuBar";
+export { default as MenuDivider } from "./MenuDivider";
 export {
   default as RichTextContent,
   type RichTextContentProps,
@@ -30,15 +27,9 @@ export {
   type RichTextReadOnlyProps,
 } from "./RichTextReadOnly";
 export { default as TableBubbleMenu } from "./TableBubbleMenu";
-export { default as TableMenuBar } from "./TableMenuBar";
+export { default as TableMenuControls } from "./TableMenuControls";
 export { RichTextEditorContext, useRichTextEditorContext } from "./context";
-export {
-  default as MenuButton,
-  type MenuButtonProps,
-} from "./controls/MenuButton";
-export {
-  default as MenuButtonTooltip,
-  type MenuButtonTooltipProps,
-} from "./controls/MenuButtonTooltip";
+export * from "./controls";
 export * from "./extensions";
 export * from "./hooks";
+export { getModShortcutKey, isMac, isTouchDevice } from "./utils/platform";

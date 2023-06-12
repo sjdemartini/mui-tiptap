@@ -1,11 +1,12 @@
+import type { Editor } from "@tiptap/react";
 import { makeStyles } from "tss-react/mui";
-import CollapsibleMenuBar from "./CollapsibleMenuBar";
+import MenuBar from "./MenuBar";
 import OutlinedField from "./OutlinedField";
 import RichTextContent from "./RichTextContent";
 import classNames from "./classNames";
 import { useRichTextEditorContext } from "./context";
 import useDebouncedFocus from "./hooks/useDebouncedFocus";
-import { Z_INDEXES } from "./styles";
+import DebounceRender from "./utils/DebounceRender";
 
 export type RichTextFieldProps = {
   /** Which style to use for */
@@ -29,6 +30,21 @@ export type RichTextFieldProps = {
    */
   hideMenuBar?: boolean;
   /**
+   * Render the controls content to show inside the menu bar. Typically will be
+   * set to render a <MenuControlsContainer> containing several MenuButton*
+   * components, depending on what controls you want to include in the menu bar
+   * (and what extensions you've enabled).
+   */
+  renderControls?: (editor: Editor | null) => React.ReactNode;
+  /**
+   * If true, the controls rendered via `renderControls` will not be debounced.
+   * If not debounced, then upon every editor interaction (caret movement,
+   * character typed, etc.), the entire renderControls content will re-render,
+   * which tends to be very expensive and can bog down the editor performance,
+   * so debouncing is generally recommended. By default false.
+   */
+  disableDebounceRenderControls?: boolean;
+  /**
    * If true, the menu bar will not "stick" inside the outlined editor as you
    * scroll past it.
    */
@@ -43,9 +59,11 @@ export type RichTextFieldProps = {
   classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
 };
 
-const useStyles = makeStyles<{ stickyMenuBarOffset?: number }, "menuBar">({
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+const useStyles = makeStyles<void, "menuBar" | "content">({
   name: { RichTextField },
-})((theme, { stickyMenuBarOffset }, classes) => {
+  uniqId: "E2Alw3", // https://docs.tss-react.dev/nested-selectors#ssr
+})((theme, _params, classes) => {
   return {
     // This first class is added to allow convenient user overrides. Users can
     // similarly override the other classes below.
@@ -53,7 +71,7 @@ const useStyles = makeStyles<{ stickyMenuBarOffset?: number }, "menuBar">({
 
     standard: {
       // We don't need horizontal spacing when not using the outlined variant
-      "& .RichTextContent": {
+      [`& .${classes.content}`]: {
         padding: theme.spacing(1.5, 0),
       },
 
@@ -65,7 +83,7 @@ const useStyles = makeStyles<{ stickyMenuBarOffset?: number }, "menuBar">({
     outlined: {
       // Add padding around the input area and menu bar, since they're
       // contained in the outline
-      "& .RichTextContent": {
+      [`& .${classes.content}`]: {
         padding: theme.spacing(1.5),
       },
 
@@ -75,13 +93,7 @@ const useStyles = makeStyles<{ stickyMenuBarOffset?: number }, "menuBar">({
     },
 
     menuBar: {},
-
-    menuBarSticky: {
-      position: "sticky",
-      top: stickyMenuBarOffset ?? 0,
-      zIndex: Z_INDEXES.MENU_BAR,
-      background: theme.palette.background.default,
-    },
+    content: {},
   };
 });
 
@@ -91,6 +103,8 @@ const useStyles = makeStyles<{ stickyMenuBarOffset?: number }, "menuBar">({
  */
 export default function RichTextField({
   variant = "outlined",
+  renderControls,
+  disableDebounceRenderControls = false,
   disabled,
   className,
   classes: overrideClasses = {},
@@ -99,32 +113,34 @@ export default function RichTextField({
   disableStickyMenuBar = false,
   stickyMenuBarOffset,
 }: RichTextFieldProps) {
-  const { classes, cx } = useStyles(
-    { stickyMenuBarOffset },
-    {
-      props: { classes: overrideClasses },
-    }
-  );
+  const { classes, cx } = useStyles(undefined, {
+    props: { classes: overrideClasses },
+  });
   const editor = useRichTextEditorContext();
 
-  // Because the user interactions with the editor menu bar buttons unfocus the editor
-  // (since it's not part of the editor content), we'll debounce our visual focused
-  // state of the OutlinedField so that it doesn't "flash" when that happens
+  // Because the user interactions with the editor menu bar buttons unfocus the
+  // editor (since it's not part of the editor content), we'll debounce our
+  // visual focused state of the OutlinedField so that it doesn't "flash" when
+  // that happens
   const isOutlinedFieldFocused = useDebouncedFocus({ editor });
 
   const content = (
     <>
-      <CollapsibleMenuBar
-        open={!hideMenuBar}
-        classes={{
-          // Note that we have to apply the sticky CSS classes to the container
-          // (rather than the menu bar itself) in order for it to behave
-          // properly
-          menuBarContainer: cx(!disableStickyMenuBar && classes.menuBarSticky),
-        }}
-        className={classes.menuBar}
-      />
-      <RichTextContent />
+      {renderControls && (
+        <MenuBar
+          className={classes.menuBar}
+          hide={hideMenuBar}
+          disableSticky={disableStickyMenuBar}
+          stickyOffset={stickyMenuBarOffset}
+        >
+          {disableDebounceRenderControls ? (
+            renderControls(editor)
+          ) : (
+            <DebounceRender>{renderControls(editor)}</DebounceRender>
+          )}
+        </MenuBar>
+      )}
+      <RichTextContent className={classes.content} />
       {footer}
     </>
   );

@@ -4,9 +4,12 @@ import RichTextEditorProvider from "./RichTextEditorProvider";
 import RichTextField, { type RichTextFieldProps } from "./RichTextField";
 
 export type RichTextEditorProps = Partial<EditorOptions> & {
-  slotProps?: {
-    field?: RichTextFieldProps;
-  };
+  /**
+   * Props applied to the RichTextField element inside. Typically, at least the
+   * `renderControls` field within this should be specified, if the user wants
+   * to show a menu bar with editor controls.
+   */
+  RichTextFieldProps?: RichTextFieldProps;
 };
 
 export type RichTextEditorRef = {
@@ -23,7 +26,7 @@ export type RichTextEditorRef = {
 const RichTextEditor = forwardRef<RichTextEditorRef, RichTextEditorProps>(
   function RichTextEditor(
     {
-      slotProps = {},
+      RichTextFieldProps = {},
       // We default to `editable=true` just like `useEditor` does
       editable = true,
       ...editorProps
@@ -72,7 +75,7 @@ const RichTextEditor = forwardRef<RichTextEditorRef, RichTextEditorProps>(
 
     return (
       <RichTextEditorProvider editor={editor}>
-        <RichTextField disabled={!editable} {...slotProps.field} />
+        <RichTextField disabled={!editable} {...RichTextFieldProps} />
       </RichTextEditorProvider>
     );
   }

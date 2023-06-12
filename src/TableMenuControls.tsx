@@ -1,5 +1,4 @@
 import { FormatColorFill, GridOff } from "@mui/icons-material";
-import { styled } from "@mui/material";
 import {
   RiDeleteColumn,
   RiDeleteRow,
@@ -15,19 +14,19 @@ import {
 import MenuDivider from "./MenuDivider";
 import { useRichTextEditorContext } from "./context";
 import MenuButton from "./controls/MenuButton";
-import debounceRender from "./utils/debounceRender";
+import MenuControlsContainer from "./controls/MenuControlsContainer";
 
-const MenuBarContainer = styled("div")(({ theme }) => ({
-  display: "flex",
-  flexWrap: "wrap",
-  maxWidth: "90vw",
-  padding: theme.spacing(0.5, 1),
-}));
+type TableMenuControlsProps = {
+  /** Class applied to the root controls container element. */
+  className?: string;
+};
 
-function TableMenuBarInner() {
+export default function TableMenuControls({
+  className,
+}: TableMenuControlsProps) {
   const editor = useRichTextEditorContext();
   return (
-    <MenuBarContainer>
+    <MenuControlsContainer className={className}>
       <MenuButton
         tooltipLabel="Insert column before"
         IconComponent={RiInsertColumnLeft}
@@ -120,19 +119,6 @@ function TableMenuBarInner() {
         onClick={() => editor?.chain().focus().deleteTable().run()}
         disabled={!editor?.can().deleteTable()}
       />
-    </MenuBarContainer>
+    </MenuControlsContainer>
   );
 }
-
-// We use a debounced render since the menu is expensive to render (relies on
-// several editor `can` commands) but needs to update per editor state change.
-// Note that generally, going between editing inside or outside of a table is
-// what will require the most important re-render (or potentially having the
-// table resize), and that's not debounced.
-const TableMenuBar = debounceRender(TableMenuBarInner, 170, {
-  leading: true,
-  trailing: true,
-  maxWait: 300,
-});
-
-export default TableMenuBar;
