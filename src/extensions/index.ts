@@ -1,5 +1,6 @@
 export {
   default as HeadingWithAnchor,
+  scrollToCurrentHeadingAnchor,
   type HeadingWithAnchorOptions,
 } from "./HeadingWithAnchor";
 export {
