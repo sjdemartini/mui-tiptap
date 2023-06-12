@@ -81,7 +81,6 @@ export default function useRecommendedExtensions({
       // We use some but not all of the extensions from
       // https://tiptap.dev/api/extensions/starter-kit, plus a few additional ones
 
-      // Nodes
       // Note that the Table extension must come before other nodes that also have "tab"
       // shortcut keys so that when using the tab key within a table on a node that also
       // responds to that shortcut, it respects that inner node with higher precedence
@@ -100,7 +99,6 @@ export default function useRecommendedExtensions({
       TableHeader,
       TableCell,
 
-      Blockquote,
       BulletList,
       CodeBlock,
       Document,
@@ -112,8 +110,14 @@ export default function useRecommendedExtensions({
       CustomSuperscript,
       Text,
 
-      // Marks
+      // Blockquote must come after Bold, since we want the "Cmd+B" shortcut to
+      // have lower precedence than the Blockquote "Cmd+Shift+B" shortcut.
+      // Otherwise using "Cmd+Shift+B" will mistakenly toggle the bold mark.
+      // (See https://github.com/ueberdosis/tiptap/issues/4005,
+      // https://github.com/ueberdosis/tiptap/issues/4006)
       Bold,
+      Blockquote,
+
       Code,
       Italic,
       Strike,
