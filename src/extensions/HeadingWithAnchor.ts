@@ -41,7 +41,7 @@ const HeadingWithAnchor = Heading.extend<HeadingWithAnchorOptions>({
     // trick.
     if (this.options.scrollToAnchorOnMount) {
       setTimeout(() => {
-        scrollToCurrentAnchor(this.editor);
+        scrollToCurrentHeadingAnchor(this.editor);
       });
     }
   },
@@ -66,7 +66,7 @@ export default HeadingWithAnchor;
  * just from having the anchor in the URL. Note that we only want to do this
  * once on mount/create.
  */
-export function scrollToCurrentAnchor(editor: Editor) {
+export function scrollToCurrentHeadingAnchor(editor: Editor) {
   if (editor.isDestroyed || !("heading" in editor.storage)) {
     // If the editor is already removed/destroyed, or the heading extension
     // isn't enabled, we can stop
