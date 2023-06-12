@@ -36,7 +36,7 @@ export default function PageContentWithEditor() {
   const [htmlResult, setHtmlResult] = useState("");
 
   return (
-    <Box sx={{ maxWidth: 1200, my: 3, mx: "auto" }}>
+    <Box sx={{ maxWidth: 1200, my: 3, mx: "auto", px: 2 }}>
       Try the editor below!
       <div style={{ marginTop: 10 }}>
         <RichTextEditor
