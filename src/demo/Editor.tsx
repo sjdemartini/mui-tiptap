@@ -28,7 +28,9 @@ export default function Editor() {
         editable={isEditable}
         renderControls={() => <EditorMenuControls />}
         RichTextFieldProps={{
-          hideMenuBar: !showMenuBar,
+          MenuBarProps: {
+            hide: !showMenuBar,
+          },
           // Below is an example of adding a toggle within the outlined field
           // for showing/hiding the editor menu bar, and a "submit" button for
           // saving/viewing the HTML content

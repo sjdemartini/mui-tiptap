@@ -1,5 +1,4 @@
 import { makeStyles } from "tss-react/mui";
-import classNames from "../classNames";
 
 export type MenuControlsContainerProps = {
   /** The set of controls (buttons, etc) to include in the menu bar. */
@@ -27,9 +26,5 @@ export default function MenuControlsContainer({
   className,
 }: MenuControlsContainerProps) {
   const { classes, cx } = useStyles();
-  return (
-    <div className={cx(classNames.MenuBar, classes.root, className)}>
-      {children}
-    </div>
-  );
+  return <div className={cx(classes.root, className)}>{children}</div>;
 }

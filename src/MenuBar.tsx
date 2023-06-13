@@ -1,7 +1,8 @@
 import { Collapse } from "@mui/material";
 import { makeStyles } from "tss-react/mui";
-import classNames from "./classNames";
-import { Z_INDEXES } from "./styles";
+import { Z_INDEXES, getUtilityClasses } from "./styles";
+
+export type MenuBarClasses = ReturnType<typeof useStyles>["classes"];
 
 export type MenuBarProps = {
   /**
@@ -26,8 +27,15 @@ export type MenuBarProps = {
   /** Class applied to the outermost `root` element. */
   className?: string;
   /** Override or extend existing styles. */
-  classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
+  classes?: Partial<MenuBarClasses>;
 };
+
+const menuBarClasses: MenuBarClasses = getUtilityClasses(MenuBar.name, [
+  "root",
+  "sticky",
+  "nonSticky",
+  "content",
+]);
 
 const useStyles = makeStyles<{ stickyOffset?: number }>({
   name: { MenuBar },
@@ -47,6 +55,8 @@ const useStyles = makeStyles<{ stickyOffset?: number }>({
     },
 
     nonSticky: {},
+
+    content: {},
   };
 });
 
@@ -78,13 +88,15 @@ export default function MenuBar({
       // (rather than the menu bar itself) in order for it to behave
       // properly
       className={cx(
-        classNames.MenuBar,
+        menuBarClasses.root,
         classes.root,
-        disableSticky ? classes.nonSticky : classes.sticky,
+        disableSticky
+          ? [menuBarClasses.nonSticky, classes.nonSticky]
+          : [menuBarClasses.sticky, classes.sticky],
         className
       )}
     >
-      {children}
+      <div className={classes.content}>{children}</div>
     </Collapse>
   );
 }
