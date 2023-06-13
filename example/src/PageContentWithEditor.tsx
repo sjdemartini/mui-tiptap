@@ -1,5 +1,6 @@
 import { Box, Button, Divider } from "@mui/material";
 import {
+  LinkBubbleMenu,
   MenuButtonAddTable,
   MenuButtonBlockquote,
   MenuButtonBold,
@@ -18,6 +19,7 @@ import {
   MenuDivider,
   MenuHeadingSelect,
   RichTextEditor,
+  TableBubbleMenu,
   useRecommendedExtensions,
   type RichTextEditorRef,
 } from "mui-tiptap";
@@ -81,7 +83,14 @@ export default function PageContentWithEditor() {
               <MenuButtonRemoveFormatting />
             </MenuControlsContainer>
           )}
-        />
+        >
+          {() => (
+            <>
+              <LinkBubbleMenu />
+              <TableBubbleMenu />
+            </>
+          )}
+        </RichTextEditor>
       </div>
       <Divider sx={{ mt: 5, mb: 2 }} />
       <Button

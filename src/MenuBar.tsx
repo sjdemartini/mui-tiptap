@@ -82,7 +82,7 @@ export default function MenuBar({
     <Collapse
       in={!hide}
       // For performance reasons, we set unmountOnExit to avoid rendering the
-      // menu bar unless it's needed
+      // menu bar unless it's needed/shown
       unmountOnExit
       // Note that we have to apply the sticky CSS classes to the container
       // (rather than the menu bar itself) in order for it to behave
