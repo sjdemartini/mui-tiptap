@@ -1,4 +1,5 @@
 import { makeStyles } from "tss-react/mui";
+import type { Except } from "type-fest";
 import ControlledBubbleMenu, {
   type ControlledBubbleMenuProps,
 } from "../ControlledBubbleMenu";
@@ -11,10 +12,7 @@ import EditLinkMenuContent from "./EditLinkMenuContent";
 import ViewLinkMenuContent from "./ViewLinkMenuContent";
 
 export type LinkBubbleMenuProps = Partial<
-  Pick<
-    ControlledBubbleMenuProps,
-    "anchorEl" | "placement" | "fallbackPlacements" | "flipPadding"
-  >
+  Except<ControlledBubbleMenuProps, "open" | "editor" | "children">
 >;
 
 const useStyles = makeStyles({ name: { LinkBubbleMenu } })((theme) => ({

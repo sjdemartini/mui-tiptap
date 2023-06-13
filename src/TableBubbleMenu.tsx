@@ -1,6 +1,7 @@
 import { findParentNodeClosestToPos, posToDOMRect } from "@tiptap/core";
 import { useMemo } from "react";
 import { makeStyles } from "tss-react/mui";
+import type { Except } from "type-fest";
 import ControlledBubbleMenu, {
   type ControlledBubbleMenuProps,
 } from "./ControlledBubbleMenu";
@@ -18,12 +19,7 @@ export type TableBubbleMenuProps = {
    * generally recommended. By default false.
    */
   disableDebounce?: boolean;
-} & Partial<
-  Pick<
-    ControlledBubbleMenuProps,
-    "anchorEl" | "placement" | "fallbackPlacements" | "flipPadding"
-  >
->;
+} & Partial<Except<ControlledBubbleMenuProps, "open" | "editor" | "children">>;
 
 const useStyles = makeStyles({
   name: { TableBubbleMenu },
