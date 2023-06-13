@@ -3,8 +3,6 @@ import { EditorContent } from "@tiptap/react";
 import { useMemo } from "react";
 import type { CSSObject } from "tss-react";
 import { makeStyles } from "tss-react/mui";
-import LinkBubbleMenu from "./LinkBubbleMenu";
-import TableBubbleMenu from "./TableBubbleMenu";
 import { useRichTextEditorContext } from "./context";
 import { getEditorStyles, getUtilityClasses } from "./styles";
 
@@ -71,15 +69,6 @@ export default function RichTextContent({
   );
 
   return (
-    <Box className={editorClasses} component={EditorContent} editor={editor}>
-      {editor?.isEditable && (
-        <>
-          {"link" in editor.storage &&
-            "linkBubbleMenuHandler" in editor.storage && <LinkBubbleMenu />}
-
-          {"table" in editor.storage && <TableBubbleMenu />}
-        </>
-      )}
-    </Box>
+    <Box className={editorClasses} component={EditorContent} editor={editor} />
   );
 }

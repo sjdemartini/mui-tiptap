@@ -1,7 +1,9 @@
 import { Lock, LockOpen, TextFields } from "@mui/icons-material";
 import { Button, Stack, Typography } from "@mui/material";
 import { useRef, useState } from "react";
+import LinkBubbleMenu from "../LinkBubbleMenu";
 import RichTextEditor, { type RichTextEditorRef } from "../RichTextEditor";
+import TableBubbleMenu from "../TableBubbleMenu";
 import MenuButton from "../controls/MenuButton";
 import useRecommendedExtensions from "../hooks/useRecommendedExtensions";
 import EditorMenuControls from "./EditorMenuControls";
@@ -82,7 +84,14 @@ export default function Editor() {
             </Stack>
           ),
         }}
-      />
+      >
+        {() => (
+          <>
+            <LinkBubbleMenu />
+            <TableBubbleMenu />
+          </>
+        )}
+      </RichTextEditor>
 
       <Typography variant="h5" sx={{ mt: 5 }}>
         Saved result:

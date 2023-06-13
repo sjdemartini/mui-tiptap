@@ -26,6 +26,14 @@ export type RichTextEditorProps = Partial<EditorOptions> & {
    * the editor changes).
    */
   RichTextFieldProps?: Except<RichTextFieldProps, "controls">;
+  /**
+   * Optional content to render alongisde/after the inner RichTextField, where
+   * you can access the editor via the parameter to this render prop, or in a
+   * child component via `useRichTextEditorContext()`. Useful for including
+   * plugins like mui-tiptap's LinkBubbleMenu and TableBubbleMenu, or other
+   * custom components (e.g. a menu that utilizes Tiptap's FloatingMenu).
+   */
+  children?: (editor: Editor | null) => React.ReactNode;
 };
 
 export type RichTextEditorRef = {
@@ -44,6 +52,7 @@ const RichTextEditor = forwardRef<RichTextEditorRef, RichTextEditorProps>(
     {
       renderControls,
       RichTextFieldProps = {},
+      children,
       // We default to `editable=true` just like `useEditor` does
       editable = true,
       ...editorProps
@@ -97,6 +106,7 @@ const RichTextEditor = forwardRef<RichTextEditorRef, RichTextEditorProps>(
           controls={renderControls?.(editor)}
           {...RichTextFieldProps}
         />
+        {children?.(editor)}
       </RichTextEditorProvider>
     );
   }
