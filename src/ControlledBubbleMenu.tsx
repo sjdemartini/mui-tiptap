@@ -214,7 +214,7 @@ export default function ControlledBubbleMenu({
           }}
         >
           <Paper
-            elevation={10}
+            elevation={7}
             {...PaperProps}
             className={cx(
               controlledBubbleMenuClasses.paper,
