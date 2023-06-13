@@ -12,7 +12,7 @@ export type RichTextFieldClasses = ReturnType<typeof useStyles>["classes"];
 export type RichTextFieldProps = {
   /** Which style to use for */
   variant?: "outlined" | "standard";
-  /** Class applied to the outlined field, the outermost `root` element. */
+  /** Class applied to the root element. */
   className?: string;
   /**
    * Whether the outlined field should appear as disabled. Typically the

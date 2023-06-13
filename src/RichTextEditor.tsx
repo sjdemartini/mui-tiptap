@@ -1,5 +1,11 @@
 import { useEditor, type Editor, type EditorOptions } from "@tiptap/react";
-import { forwardRef, useEffect, useImperativeHandle, useRef } from "react";
+import {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  type DependencyList,
+} from "react";
 import type { Except } from "type-fest";
 import RichTextEditorProvider from "./RichTextEditorProvider";
 import RichTextField, { type RichTextFieldProps } from "./RichTextField";
@@ -34,6 +40,13 @@ export type RichTextEditorProps = Partial<EditorOptions> & {
    * custom components (e.g. a menu that utilizes Tiptap's FloatingMenu).
    */
   children?: (editor: Editor | null) => React.ReactNode;
+  /**
+   * A dependency array for the useEditor hook, which will re-create the editor
+   * when any value in the array changes.
+   */
+  editorDependencies?: DependencyList;
+  /** Class applied to the root element. */
+  className?: string;
 };
 
 export type RichTextEditorRef = {
@@ -50,9 +63,11 @@ export type RichTextEditorRef = {
 const RichTextEditor = forwardRef<RichTextEditorRef, RichTextEditorProps>(
   function RichTextEditor(
     {
+      className,
       renderControls,
       RichTextFieldProps = {},
       children,
+      editorDependencies = [],
       // We default to `editable=true` just like `useEditor` does
       editable = true,
       ...editorProps
@@ -63,10 +78,13 @@ const RichTextEditor = forwardRef<RichTextEditorRef, RichTextEditorProps>(
     // etc. callbacks in refs that we pass in here, so that changes to those
     // props will take effect. Note though that this is handled in tiptap 2.0.0
     // itself thanks to https://github.com/ueberdosis/tiptap/pull/3811
-    const editor = useEditor({
-      editable: editable,
-      ...editorProps,
-    });
+    const editor = useEditor(
+      {
+        editable: editable,
+        ...editorProps,
+      },
+      editorDependencies
+    );
 
     // Allow consumers of this component to access the editor via ref
     useImperativeHandle<RichTextEditorRef, RichTextEditorRef>(ref, () => ({
@@ -104,6 +122,7 @@ const RichTextEditor = forwardRef<RichTextEditorRef, RichTextEditorProps>(
         <RichTextField
           disabled={!editable}
           controls={renderControls?.(editor)}
+          className={className}
           {...RichTextFieldProps}
         />
         {children?.(editor)}
