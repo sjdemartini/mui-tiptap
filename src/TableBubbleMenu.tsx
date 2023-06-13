@@ -102,7 +102,7 @@ export default function TableBubbleMenu({
     [editor]
   );
 
-  if (!editor) {
+  if (!editor?.isEditable) {
     return null;
   }
 
