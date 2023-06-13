@@ -1,7 +1,9 @@
 import { findParentNodeClosestToPos, posToDOMRect } from "@tiptap/core";
 import { useMemo } from "react";
 import { makeStyles } from "tss-react/mui";
-import ControlledBubbleMenu from "./ControlledBubbleMenu";
+import ControlledBubbleMenu, {
+  type ControlledBubbleMenuProps,
+} from "./ControlledBubbleMenu";
 import TableMenuControls from "./TableMenuControls";
 import { useRichTextEditorContext } from "./context";
 import { useDebouncedFocus } from "./hooks";
@@ -16,7 +18,12 @@ export type TableBubbleMenuProps = {
    * generally recommended. By default false.
    */
   disableDebounce?: boolean;
-};
+} & Partial<
+  Pick<
+    ControlledBubbleMenuProps,
+    "anchorEl" | "placement" | "fallbackPlacements" | "flipPadding"
+  >
+>;
 
 const useStyles = makeStyles({
   name: { TableBubbleMenu },
@@ -29,6 +36,7 @@ const useStyles = makeStyles({
 
 export default function TableBubbleMenu({
   disableDebounce = false,
+  ...controlledBubbleMenuProps
 }: TableBubbleMenuProps) {
   const editor = useRichTextEditorContext();
   const { classes } = useStyles();
@@ -139,6 +147,7 @@ export default function TableBubbleMenu({
       // we add a top padding equal to what should give us enough room to avoid
       // overlapping the main menu bar.
       flipPadding={{ top: 35, left: 8, right: 8, bottom: -Infinity }}
+      {...controlledBubbleMenuProps}
     >
       {/* We debounce rendering of the controls to improve performance, since
       otherwise it will be expensive to re-render (since it relies on several
