@@ -31,7 +31,7 @@ export default function LinkBubbleMenu({
   const { classes } = useStyles();
   const editor = useRichTextEditorContext();
 
-  if (!editor) {
+  if (!editor?.isEditable) {
     return null;
   }
 
