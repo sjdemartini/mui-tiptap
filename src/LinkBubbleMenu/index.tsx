@@ -1,5 +1,7 @@
 import { makeStyles } from "tss-react/mui";
-import ControlledBubbleMenu from "../ControlledBubbleMenu";
+import ControlledBubbleMenu, {
+  type ControlledBubbleMenuProps,
+} from "../ControlledBubbleMenu";
 import { useRichTextEditorContext } from "../context";
 import {
   LinkMenuState,
@@ -7,6 +9,13 @@ import {
 } from "../extensions/LinkBubbleMenuHandler";
 import EditLinkMenuContent from "./EditLinkMenuContent";
 import ViewLinkMenuContent from "./ViewLinkMenuContent";
+
+export type LinkBubbleMenuProps = Partial<
+  Pick<
+    ControlledBubbleMenuProps,
+    "anchorEl" | "placement" | "fallbackPlacements" | "flipPadding"
+  >
+>;
 
 const useStyles = makeStyles({ name: { LinkBubbleMenu } })((theme) => ({
   content: {
@@ -18,7 +27,9 @@ const useStyles = makeStyles({ name: { LinkBubbleMenu } })((theme) => ({
  * A hook for providing a menu for viewing, creating, or editing a link in a
  * Tiptap editor. To be rendered when using the LinkBubbleMenuHandler extension.
  */
-export default function LinkBubbleMenu() {
+export default function LinkBubbleMenu({
+  ...controlledBubbleMenuProps
+}: LinkBubbleMenuProps) {
   const { classes } = useStyles();
   const editor = useRichTextEditorContext();
 
@@ -105,6 +116,7 @@ export default function LinkBubbleMenu() {
     <ControlledBubbleMenu
       editor={editor}
       open={menuState !== LinkMenuState.HIDDEN}
+      {...controlledBubbleMenuProps}
     >
       <div className={classes.content}>{linkMenuContent}</div>
     </ControlledBubbleMenu>
