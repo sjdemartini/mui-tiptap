@@ -7,13 +7,7 @@ import useDebouncedFocus from "./hooks/useDebouncedFocus";
 import { getUtilityClasses } from "./styles";
 import DebounceRender from "./utils/DebounceRender";
 
-// We only want to expose a set number of classes here. Some are used just for
-// internal targeting. Component utility classes or
-// MenuBarProps/RichTextContentProps should be used by end-users instead.
-export type RichTextFieldClasses = Pick<
-  ReturnType<typeof useStyles>["classes"],
-  "root" | "standard" | "outlined"
->;
+export type RichTextFieldClasses = ReturnType<typeof useStyles>["classes"];
 
 export type RichTextFieldProps = {
   /** Which style to use for */
@@ -61,7 +55,7 @@ export type RichTextFieldProps = {
 
 const richTextFieldClasses: RichTextFieldClasses = getUtilityClasses(
   RichTextField.name,
-  ["root", "standard", "outlined"]
+  ["root", "standard", "outlined", "menuBar", "menuBarContent", "content"]
 );
 
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
@@ -133,8 +127,20 @@ export default function RichTextField({
     <>
       {controls && (
         <MenuBar
-          classes={{ root: classes.menuBar, content: classes.menuBarContent }}
           {...MenuBarProps}
+          classes={{
+            ...MenuBarProps?.classes,
+            root: cx(
+              richTextFieldClasses.menuBar,
+              classes.menuBar,
+              MenuBarProps?.classes?.root
+            ),
+            content: cx(
+              richTextFieldClasses.content,
+              classes.menuBarContent,
+              MenuBarProps?.classes?.content
+            ),
+          }}
         >
           {disableDebounceRenderControls ? (
             controls
@@ -144,7 +150,14 @@ export default function RichTextField({
         </MenuBar>
       )}
 
-      <RichTextContent className={classes.content} {...RichTextContentProps} />
+      <RichTextContent
+        {...RichTextContentProps}
+        className={cx(
+          richTextFieldClasses.content,
+          classes.content,
+          RichTextContentProps?.className
+        )}
+      />
 
       {footer}
     </>
