@@ -69,7 +69,7 @@ const useStyles = makeStyles<void, "notchedOutline">({
       borderWidth: 1,
       pointerEvents: "none",
       overflow: "hidden",
-      zIndex: Z_INDEXES.MENU_BAR,
+      zIndex: Z_INDEXES.NOTCHED_OUTLINE,
     },
   };
 });
