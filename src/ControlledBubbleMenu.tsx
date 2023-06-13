@@ -2,7 +2,11 @@ import { Fade, Paper, Popper, useTheme, type PopperProps } from "@mui/material";
 import { isNodeSelection, posToDOMRect, type Editor } from "@tiptap/core";
 import { useCallback } from "react";
 import { makeStyles } from "tss-react/mui";
-import { Z_INDEXES } from "./styles";
+import { Z_INDEXES, getUtilityClasses } from "./styles";
+
+export type ControlledBubbleMenuClasses = ReturnType<
+  typeof useStyles
+>["classes"];
 
 export type ControlledBubbleMenuProps = {
   editor: Editor;
@@ -37,10 +41,17 @@ export type ControlledBubbleMenuProps = {
   flipPadding?:
     | number
     | { top?: number; right?: number; bottom?: number; left?: number };
+  /** Class applied to the root Popper element. */
+  className?: string;
+  /** Override or extend existing styles. */
+  classes?: Partial<ControlledBubbleMenuClasses>;
 };
 
+const controlledBubbleMenuClasses: ControlledBubbleMenuClasses =
+  getUtilityClasses(ControlledBubbleMenu.name, ["root", "paper"]);
+
 const useStyles = makeStyles({ name: { ControlledBubbleMenu } })((theme) => ({
-  popper: {
+  root: {
     zIndex: Z_INDEXES.BUBBLE_MENU,
   },
 
@@ -71,6 +82,8 @@ const useStyles = makeStyles({ name: { ControlledBubbleMenu } })((theme) => ({
 export default function ControlledBubbleMenu({
   editor,
   open,
+  className,
+  classes: overrideClasses = {},
   children,
   anchorEl,
   placement = "top",
@@ -83,7 +96,9 @@ export default function ControlledBubbleMenu({
   ],
   flipPadding = 8,
 }: ControlledBubbleMenuProps) {
-  const { classes } = useStyles();
+  const { classes, cx } = useStyles(undefined, {
+    props: { classes: overrideClasses },
+  });
   const theme = useTheme();
 
   const defaultAnchorEl = useCallback(() => {
@@ -157,7 +172,7 @@ export default function ControlledBubbleMenu({
         // which is probably not worth it
       ]}
       anchorEl={anchorEl ?? defaultAnchorEl}
-      className={classes.popper}
+      className={cx(controlledBubbleMenuClasses.root, classes.root, className)}
       // Put the portal children within the same DOM context as the editor. We
       // do this somewhat hackily using the parent of the editor's parent, which
       // gets us outside of any clipping containers used around the editor, like
@@ -185,7 +200,10 @@ export default function ControlledBubbleMenu({
             exit: 0,
           }}
         >
-          <Paper elevation={10} className={classes.paper}>
+          <Paper
+            elevation={10}
+            className={cx(controlledBubbleMenuClasses.paper, classes.paper)}
+          >
             {children}
           </Paper>
         </Fade>
