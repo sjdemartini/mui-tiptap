@@ -143,10 +143,6 @@ export default function TableBubbleMenu({
       // we add a top padding equal to what should give us enough room to avoid
       // overlapping the main menu bar.
       flipPadding={{ top: 35, left: 8, right: 8, bottom: -Infinity }}
-      PaperProps={{
-        elevation: 7,
-        ...controlledBubbleMenuProps.PaperProps,
-      }}
       {...controlledBubbleMenuProps}
     >
       {/* We debounce rendering of the controls to improve performance, since
