@@ -5,7 +5,7 @@ import RichTextEditorProvider from "./RichTextEditorProvider";
 
 export type RichTextReadOnlyProps = Partial<Except<EditorOptions, "editable">>;
 
-function EditorReadOnlyViewerInternal(props: RichTextReadOnlyProps) {
+function RichTextReadOnlyInternal(props: RichTextReadOnlyProps) {
   const editor = useEditor({
     ...props,
     editable: false,
@@ -39,5 +39,5 @@ export default function RichTextReadOnly(editorProps: RichTextReadOnlyProps) {
     return null;
   }
 
-  return <EditorReadOnlyViewerInternal {...editorProps} />;
+  return <RichTextReadOnlyInternal {...editorProps} />;
 }
