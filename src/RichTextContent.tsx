@@ -5,16 +5,22 @@ import type { CSSObject } from "tss-react";
 import { makeStyles } from "tss-react/mui";
 import LinkBubbleMenu from "./LinkBubbleMenu";
 import TableBubbleMenu from "./TableBubbleMenu";
-import classNames from "./classNames";
 import { useRichTextEditorContext } from "./context";
-import { getEditorStyles } from "./styles";
+import { getEditorStyles, getUtilityClasses } from "./styles";
+
+export type RichTextContentClasses = ReturnType<typeof useStyles>["classes"];
 
 export type RichTextContentProps = {
   /** Optional additional className to provide to the root element. */
   className?: string;
   /** Override or extend existing styles. */
-  classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
+  classes?: Partial<RichTextContentClasses>;
 };
+
+const richTextContentClasses: RichTextContentClasses = getUtilityClasses(
+  RichTextContent.name,
+  ["root", "readonly", "editable"]
+);
 
 const useStyles = makeStyles({ name: { RichTextContent } })((theme) => {
   return {
@@ -54,10 +60,12 @@ export default function RichTextContent({
   const editorClasses = useMemo(
     () =>
       cx(
-        classNames.RichTextContent,
+        richTextContentClasses.root,
         className,
         classes.root,
-        editor?.isEditable ? classes.editable : classes.readonly
+        editor?.isEditable
+          ? [richTextContentClasses.editable, classes.editable]
+          : [richTextContentClasses.readonly, classes.readonly]
       ),
     [className, classes, cx, editor?.isEditable]
   );

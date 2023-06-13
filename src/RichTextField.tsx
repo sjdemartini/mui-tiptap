@@ -1,11 +1,19 @@
 import { makeStyles } from "tss-react/mui";
-import MenuBar from "./MenuBar";
+import MenuBar, { type MenuBarProps } from "./MenuBar";
 import OutlinedField from "./OutlinedField";
-import RichTextContent from "./RichTextContent";
-import classNames from "./classNames";
+import RichTextContent, { type RichTextContentProps } from "./RichTextContent";
 import { useRichTextEditorContext } from "./context";
 import useDebouncedFocus from "./hooks/useDebouncedFocus";
+import { getUtilityClasses } from "./styles";
 import DebounceRender from "./utils/DebounceRender";
+
+// We only want to expose a set number of classes here. Some are used just for
+// internal targeting. Component utility classes or
+// MenuBarProps/RichTextContentProps should be used by end-users instead.
+export type RichTextFieldClasses = Pick<
+  ReturnType<typeof useStyles>["classes"],
+  "root" | "standard" | "outlined"
+>;
 
 export type RichTextFieldProps = {
   /** Which style to use for */
@@ -24,11 +32,6 @@ export type RichTextFieldProps = {
    */
   footer?: React.ReactNode;
   /**
-   * Whether to hide the editor menu bar. When toggling between true and false,
-   * uses a collapse animation.
-   */
-  hideMenuBar?: boolean;
-  /**
    * The controls content to show inside the menu bar. Typically will be set to
    * a <MenuControlsContainer> containing several MenuButton* components,
    * depending on what controls you want to include in the menu bar (and what
@@ -43,23 +46,26 @@ export type RichTextFieldProps = {
    * generally recommended. By default false.
    */
   disableDebounceRenderControls?: boolean;
-  /**
-   * If true, the menu bar will not "stick" inside the outlined editor as you
-   * scroll past it.
-   */
-  disableStickyMenuBar?: boolean;
-  /**
-   * The menu bar's sticky `top` offset, when `disableStickyMenuBar=false`.
-   * Useful if there's other fixed/sticky content above the editor (like an app
-   * navigation toolbar). By default 0.
-   */
-  stickyMenuBarOffset?: number;
   /** Override or extend existing styles. */
-  classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
+  classes?: Partial<RichTextFieldClasses>;
+  /**
+   * Override any props for the child MenuBar component (rendered if `controls`
+   * is provided).
+   */
+  MenuBarProps?: Partial<MenuBarProps>;
+  /**
+   * Override any props for the child RichTextContent component.
+   */
+  RichTextContentProps?: Partial<RichTextContentProps>;
 };
 
+const richTextFieldClasses: RichTextFieldClasses = getUtilityClasses(
+  RichTextField.name,
+  ["root", "standard", "outlined"]
+);
+
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-const useStyles = makeStyles<void, "menuBar" | "content">({
+const useStyles = makeStyles<void, "menuBar" | "menuBarContent" | "content">({
   name: { RichTextField },
   uniqId: "E2Alw3", // https://docs.tss-react.dev/nested-selectors#ssr
 })((theme, _params, classes) => {
@@ -74,7 +80,7 @@ const useStyles = makeStyles<void, "menuBar" | "content">({
         padding: theme.spacing(1.5, 0),
       },
 
-      [`& .${classes.menuBar}`]: {
+      [`& .${classes.menuBarContent}`]: {
         padding: theme.spacing(1, 0),
       },
     },
@@ -86,12 +92,13 @@ const useStyles = makeStyles<void, "menuBar" | "content">({
         padding: theme.spacing(1.5),
       },
 
-      [`& .${classes.menuBar}`]: {
+      [`& .${classes.menuBarContent}`]: {
         padding: theme.spacing(1, 1.5),
       },
     },
 
     menuBar: {},
+    menuBarContent: {},
     content: {},
   };
 });
@@ -108,9 +115,8 @@ export default function RichTextField({
   className,
   classes: overrideClasses = {},
   footer,
-  hideMenuBar = false,
-  disableStickyMenuBar = false,
-  stickyMenuBarOffset,
+  MenuBarProps,
+  RichTextContentProps,
 }: RichTextFieldProps) {
   const { classes, cx } = useStyles(undefined, {
     props: { classes: overrideClasses },
@@ -127,10 +133,8 @@ export default function RichTextField({
     <>
       {controls && (
         <MenuBar
-          className={classes.menuBar}
-          hide={hideMenuBar}
-          disableSticky={disableStickyMenuBar}
-          stickyOffset={stickyMenuBarOffset}
+          classes={{ root: classes.menuBar, content: classes.menuBarContent }}
+          {...MenuBarProps}
         >
           {disableDebounceRenderControls ? (
             controls
@@ -139,7 +143,9 @@ export default function RichTextField({
           )}
         </MenuBar>
       )}
-      <RichTextContent className={classes.content} />
+
+      <RichTextContent className={classes.content} {...RichTextContentProps} />
+
       {footer}
     </>
   );
@@ -149,10 +155,11 @@ export default function RichTextField({
       focused={!disabled && isOutlinedFieldFocused}
       disabled={disabled}
       className={cx(
-        classNames.RichTextField,
-        className,
+        richTextFieldClasses.root,
         classes.root,
-        classes.outlined
+        richTextFieldClasses.outlined,
+        classes.outlined,
+        className
       )}
     >
       {content}
@@ -160,10 +167,11 @@ export default function RichTextField({
   ) : (
     <div
       className={cx(
-        classNames.RichTextField,
-        className,
+        richTextFieldClasses.root,
         classes.root,
-        classes.standard
+        richTextFieldClasses.standard,
+        classes.standard,
+        className
       )}
     >
       {content}

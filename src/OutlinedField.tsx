@@ -1,14 +1,24 @@
 import type React from "react";
 import { makeStyles } from "tss-react/mui";
-import { Z_INDEXES } from "./styles";
+import { Z_INDEXES, getUtilityClasses } from "./styles";
 
-type Props = {
+export type OutlinedFieldClasses = ReturnType<typeof useStyles>["classes"];
+
+export type OutlinedFieldProps = {
   /** The content to render inside the outline. */
   children: React.ReactNode;
+  /** Class applied to the `root` element. */
   className?: string;
+  /** Override or extend existing styles. */
+  classes?: Partial<OutlinedFieldClasses>;
   focused?: boolean;
   disabled?: boolean;
 };
+
+const outlinedFieldClasses: OutlinedFieldClasses = getUtilityClasses(
+  OutlinedField.name,
+  ["root", "focused", "disabled", "notchedOutline"]
+);
 
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 const useStyles = makeStyles<void, "notchedOutline">({
@@ -69,21 +79,31 @@ export default function OutlinedField({
   children,
   focused,
   disabled,
+  classes: overrideClasses = {},
   className,
-}: Props) {
-  const { classes, cx } = useStyles();
+}: OutlinedFieldProps) {
+  const { classes, cx } = useStyles(undefined, {
+    props: { classes: overrideClasses },
+  });
 
   return (
     <div
       className={cx(
+        outlinedFieldClasses.root,
         classes.root,
-        focused && classes.focused,
-        disabled && classes.disabled,
+        focused && [outlinedFieldClasses.focused, classes.focused],
+        disabled && [outlinedFieldClasses.disabled, classes.disabled],
         className
       )}
     >
       {children}
-      <div className={classes.notchedOutline} aria-hidden />
+      <div
+        className={cx(
+          outlinedFieldClasses.notchedOutline,
+          classes.notchedOutline
+        )}
+        aria-hidden
+      />
     </div>
   );
 }
