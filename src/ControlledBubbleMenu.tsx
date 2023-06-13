@@ -1,4 +1,11 @@
-import { Fade, Paper, Popper, useTheme, type PopperProps } from "@mui/material";
+import {
+  Fade,
+  Paper,
+  Popper,
+  useTheme,
+  type PaperProps,
+  type PopperProps,
+} from "@mui/material";
 import { isNodeSelection, posToDOMRect, type Editor } from "@tiptap/core";
 import { useCallback } from "react";
 import { makeStyles } from "tss-react/mui";
@@ -45,6 +52,11 @@ export type ControlledBubbleMenuProps = {
   className?: string;
   /** Override or extend existing styles. */
   classes?: Partial<ControlledBubbleMenuClasses>;
+  /**
+   * Override the default props for the Paper containing the bubble menu
+   * content.
+   */
+  PaperProps?: Partial<PaperProps>;
 };
 
 const controlledBubbleMenuClasses: ControlledBubbleMenuClasses =
@@ -95,6 +107,7 @@ export default function ControlledBubbleMenu({
     "bottom-end",
   ],
   flipPadding = 8,
+  PaperProps,
 }: ControlledBubbleMenuProps) {
   const { classes, cx } = useStyles(undefined, {
     props: { classes: overrideClasses },
@@ -202,7 +215,12 @@ export default function ControlledBubbleMenu({
         >
           <Paper
             elevation={10}
-            className={cx(controlledBubbleMenuClasses.paper, classes.paper)}
+            {...PaperProps}
+            className={cx(
+              controlledBubbleMenuClasses.paper,
+              classes.paper,
+              PaperProps?.className
+            )}
           >
             {children}
           </Paper>
