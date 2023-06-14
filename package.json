@@ -41,7 +41,7 @@
   },
   "scripts": {
     "build": "pnpm clean && tsc --project tsconfig.build.json && tsc --project tsconfig.build-esm.json",
-    "clean": "rimraf dist coverage nyc_output",
+    "clean": "rimraf dist coverage",
     "example": "pnpm build && rimraf ./example/node_modules && pnpm --dir ./example install && pnpm --dir ./example run dev",
     "dev": "vite",
     "type:check": "tsc --noEmit",
@@ -180,7 +180,6 @@
     "eslint-plugin-tss-unused-classes": "^0.0.4",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.2",
-    "nyc": "^15.1.0",
     "prettier": "^2.8.8",
     "prettier-plugin-organize-imports": "^3.2.2",
     "prosemirror-commands": "1.5.0",
