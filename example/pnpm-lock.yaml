@@ -74,9 +74,6 @@ dependencies:
   '@tiptap/extension-list-item':
     specifier: 2.0.0-beta.209
     version: 2.0.0-beta.209(@tiptap/core@2.0.0-beta.209)
-  '@tiptap/extension-mention':
-    specifier: 2.0.0-beta.96
-    version: 2.0.0-beta.96(@tiptap/core@2.0.0-beta.209)
   '@tiptap/extension-ordered-list':
     specifier: 2.0.0-beta.27
     version: 2.0.0-beta.27(@tiptap/core@2.0.0-beta.209)
@@ -122,13 +119,10 @@ dependencies:
   '@tiptap/react':
     specifier: 2.0.0-beta.109
     version: 2.0.0-beta.109(@tiptap/core@2.0.0-beta.209)(prosemirror-state@1.4.2)(react-dom@18.2.0)(react@18.2.0)
-  '@tiptap/suggestion':
-    specifier: 2.0.0-beta.91
-    version: 2.0.0-beta.91(@tiptap/core@2.0.0-beta.209)
   mui-tiptap:
     specifier: file:../
     version: >-
-      file:..(@emotion/react@11.11.0)(@mui/icons-material@5.11.16)(@mui/material@5.12.3)(@tiptap/core@2.0.0-beta.209)(@tiptap/extension-blockquote@2.0.0-beta.26)(@tiptap/extension-bold@2.0.0-beta.26)(@tiptap/extension-bullet-list@2.0.0-beta.26)(@tiptap/extension-code-block@2.0.0-beta.37)(@tiptap/extension-code@2.0.0-beta.26)(@tiptap/extension-document@2.0.0-beta.15)(@tiptap/extension-dropcursor@2.0.0-beta.25)(@tiptap/extension-gapcursor@2.0.0-beta.34)(@tiptap/extension-hard-break@2.0.0-beta.30)(@tiptap/extension-heading@2.0.0-beta.26)(@tiptap/extension-history@2.0.0-beta.21)(@tiptap/extension-image@2.0.0-beta.27)(@tiptap/extension-italic@2.0.0-beta.26)(@tiptap/extension-link@2.0.0-beta.37)(@tiptap/extension-list-item@2.0.0-beta.209)(@tiptap/extension-mention@2.0.0-beta.96)(@tiptap/extension-ordered-list@2.0.0-beta.27)(@tiptap/extension-paragraph@2.0.0-beta.23)(@tiptap/extension-placeholder@2.0.0-beta.48)(@tiptap/extension-strike@2.0.0-beta.27)(@tiptap/extension-subscript@2.0.0-beta.10)(@tiptap/extension-superscript@2.0.0-beta.10)(@tiptap/extension-table-cell@2.0.0-beta.209)(@tiptap/extension-table-header@2.0.0-beta.209)(@tiptap/extension-table-row@2.0.0-beta.209)(@tiptap/extension-table@2.0.0-beta.209)(@tiptap/extension-task-item@2.0.0-beta.32)(@tiptap/extension-task-list@2.0.0-beta.26)(@tiptap/extension-text@2.0.0-beta.15)(@tiptap/prosemirror-tables@1.1.4)(@tiptap/react@2.0.0-beta.109)(@tiptap/suggestion@2.0.0-beta.91)(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.29.2)(react-dom@18.2.0)(react-icons@4.3.1)(react@18.2.0)
+      file:..(@emotion/react@11.11.0)(@mui/icons-material@5.11.16)(@mui/material@5.12.3)(@tiptap/core@2.0.0-beta.209)(@tiptap/extension-blockquote@2.0.0-beta.26)(@tiptap/extension-bold@2.0.0-beta.26)(@tiptap/extension-bullet-list@2.0.0-beta.26)(@tiptap/extension-code-block@2.0.0-beta.37)(@tiptap/extension-code@2.0.0-beta.26)(@tiptap/extension-document@2.0.0-beta.15)(@tiptap/extension-dropcursor@2.0.0-beta.25)(@tiptap/extension-gapcursor@2.0.0-beta.34)(@tiptap/extension-hard-break@2.0.0-beta.30)(@tiptap/extension-heading@2.0.0-beta.26)(@tiptap/extension-history@2.0.0-beta.21)(@tiptap/extension-image@2.0.0-beta.27)(@tiptap/extension-italic@2.0.0-beta.26)(@tiptap/extension-link@2.0.0-beta.37)(@tiptap/extension-list-item@2.0.0-beta.209)(@tiptap/extension-ordered-list@2.0.0-beta.27)(@tiptap/extension-paragraph@2.0.0-beta.23)(@tiptap/extension-placeholder@2.0.0-beta.48)(@tiptap/extension-strike@2.0.0-beta.27)(@tiptap/extension-subscript@2.0.0-beta.10)(@tiptap/extension-superscript@2.0.0-beta.10)(@tiptap/extension-table-cell@2.0.0-beta.209)(@tiptap/extension-table-header@2.0.0-beta.209)(@tiptap/extension-table-row@2.0.0-beta.209)(@tiptap/extension-table@2.0.0-beta.209)(@tiptap/extension-task-item@2.0.0-beta.32)(@tiptap/extension-task-list@2.0.0-beta.26)(@tiptap/extension-text@2.0.0-beta.15)(@tiptap/prosemirror-tables@1.1.4)(@tiptap/react@2.0.0-beta.109)(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.29.2)(react-dom@18.2.0)(react-icons@4.3.1)(react@18.2.0)
   prosemirror-commands:
     specifier: 1.5.0
     version: 1.5.0
@@ -1018,17 +1012,6 @@ packages:
       '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.29.2)
     dev: false
 
-  /@tiptap/extension-mention@2.0.0-beta.96(@tiptap/core@2.0.0-beta.209):
-    resolution: {integrity: sha512-dBlf4maaDX+b03wLDO0dG77uQblUljtUO9NJj1B4O64bmDiKmac5garkpg70ZwTU/+ESiqdB2Aytbtj7TzMSOA==}
-    peerDependencies:
-      '@tiptap/core': ^2.0.0-beta.1
-    dependencies:
-      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.29.2)
-      '@tiptap/suggestion': 2.0.0-beta.91(@tiptap/core@2.0.0-beta.209)
-      prosemirror-model: 1.18.3
-      prosemirror-state: 1.4.2
-    dev: false
-
   /@tiptap/extension-ordered-list@2.0.0-beta.27(@tiptap/core@2.0.0-beta.209):
     resolution: {integrity: sha512-apFDeignxdZb3cA3p1HJu0zw1JgJdBYUBz1r7f99qdNybYuk3I/1MPUvlOuOgvIrBB/wydoyVDP+v9F7QN3tfQ==}
     peerDependencies:
@@ -1176,17 +1159,6 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     transitivePeerDependencies:
       - prosemirror-state
-    dev: false
-
-  /@tiptap/suggestion@2.0.0-beta.91(@tiptap/core@2.0.0-beta.209):
-    resolution: {integrity: sha512-G3TGwEsDadDL9eqHBI6PI3wczneEQ/P3JFeAvsPuSLlAo4ub9hXjoQz5KWwblLIH1xEQ0TgCPzITsdiF/e3XdQ==}
-    peerDependencies:
-      '@tiptap/core': ^2.0.0-beta.1
-    dependencies:
-      '@tiptap/core': 2.0.0-beta.209(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.29.2)
-      prosemirror-model: 1.18.3
-      prosemirror-state: 1.4.2
-      prosemirror-view: 1.29.2
     dev: false
 
   /@types/parse-json@4.0.0:
@@ -1787,11 +1759,11 @@ packages:
     engines: {node: '>= 6'}
     dev: false
 
-  ? file:..(@emotion/react@11.11.0)(@mui/icons-material@5.11.16)(@mui/material@5.12.3)(@tiptap/core@2.0.0-beta.209)(@tiptap/extension-blockquote@2.0.0-beta.26)(@tiptap/extension-bold@2.0.0-beta.26)(@tiptap/extension-bullet-list@2.0.0-beta.26)(@tiptap/extension-code-block@2.0.0-beta.37)(@tiptap/extension-code@2.0.0-beta.26)(@tiptap/extension-document@2.0.0-beta.15)(@tiptap/extension-dropcursor@2.0.0-beta.25)(@tiptap/extension-gapcursor@2.0.0-beta.34)(@tiptap/extension-hard-break@2.0.0-beta.30)(@tiptap/extension-heading@2.0.0-beta.26)(@tiptap/extension-history@2.0.0-beta.21)(@tiptap/extension-image@2.0.0-beta.27)(@tiptap/extension-italic@2.0.0-beta.26)(@tiptap/extension-link@2.0.0-beta.37)(@tiptap/extension-list-item@2.0.0-beta.209)(@tiptap/extension-mention@2.0.0-beta.96)(@tiptap/extension-ordered-list@2.0.0-beta.27)(@tiptap/extension-paragraph@2.0.0-beta.23)(@tiptap/extension-placeholder@2.0.0-beta.48)(@tiptap/extension-strike@2.0.0-beta.27)(@tiptap/extension-subscript@2.0.0-beta.10)(@tiptap/extension-superscript@2.0.0-beta.10)(@tiptap/extension-table-cell@2.0.0-beta.209)(@tiptap/extension-table-header@2.0.0-beta.209)(@tiptap/extension-table-row@2.0.0-beta.209)(@tiptap/extension-table@2.0.0-beta.209)(@tiptap/extension-task-item@2.0.0-beta.32)(@tiptap/extension-task-list@2.0.0-beta.26)(@tiptap/extension-text@2.0.0-beta.15)(@tiptap/prosemirror-tables@1.1.4)(@tiptap/react@2.0.0-beta.109)(@tiptap/suggestion@2.0.0-beta.91)(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.29.2)(react-dom@18.2.0)(react-icons@4.3.1)(react@18.2.0)
+  ? file:..(@emotion/react@11.11.0)(@mui/icons-material@5.11.16)(@mui/material@5.12.3)(@tiptap/core@2.0.0-beta.209)(@tiptap/extension-blockquote@2.0.0-beta.26)(@tiptap/extension-bold@2.0.0-beta.26)(@tiptap/extension-bullet-list@2.0.0-beta.26)(@tiptap/extension-code-block@2.0.0-beta.37)(@tiptap/extension-code@2.0.0-beta.26)(@tiptap/extension-document@2.0.0-beta.15)(@tiptap/extension-dropcursor@2.0.0-beta.25)(@tiptap/extension-gapcursor@2.0.0-beta.34)(@tiptap/extension-hard-break@2.0.0-beta.30)(@tiptap/extension-heading@2.0.0-beta.26)(@tiptap/extension-history@2.0.0-beta.21)(@tiptap/extension-image@2.0.0-beta.27)(@tiptap/extension-italic@2.0.0-beta.26)(@tiptap/extension-link@2.0.0-beta.37)(@tiptap/extension-list-item@2.0.0-beta.209)(@tiptap/extension-ordered-list@2.0.0-beta.27)(@tiptap/extension-paragraph@2.0.0-beta.23)(@tiptap/extension-placeholder@2.0.0-beta.48)(@tiptap/extension-strike@2.0.0-beta.27)(@tiptap/extension-subscript@2.0.0-beta.10)(@tiptap/extension-superscript@2.0.0-beta.10)(@tiptap/extension-table-cell@2.0.0-beta.209)(@tiptap/extension-table-header@2.0.0-beta.209)(@tiptap/extension-table-row@2.0.0-beta.209)(@tiptap/extension-table@2.0.0-beta.209)(@tiptap/extension-task-item@2.0.0-beta.32)(@tiptap/extension-task-list@2.0.0-beta.26)(@tiptap/extension-text@2.0.0-beta.15)(@tiptap/prosemirror-tables@1.1.4)(@tiptap/react@2.0.0-beta.109)(prosemirror-commands@1.5.0)(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-schema-list@1.2.2)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.29.2)(react-dom@18.2.0)(react-icons@4.3.1)(react@18.2.0)
   : resolution: {directory: .., type: directory}
     id: file:..
     name: mui-tiptap
-    version: 1.0.0-alpha.4
+    version: 1.0.0-alpha.10
     engines: {pnpm: '>=8'}
     requiresBuild: true
     peerDependencies:
@@ -1814,7 +1786,6 @@ packages:
       '@tiptap/extension-italic': 2.0.0-beta.26
       '@tiptap/extension-link': 2.0.0-beta.37
       '@tiptap/extension-list-item': 2.0.0-beta.209
-      '@tiptap/extension-mention': 2.0.0-beta.96
       '@tiptap/extension-ordered-list': 2.0.0-beta.27
       '@tiptap/extension-paragraph': 2.0.0-beta.23
       '@tiptap/extension-placeholder': 2.0.0-beta.48
@@ -1830,7 +1801,6 @@ packages:
       '@tiptap/extension-text': 2.0.0-beta.15
       '@tiptap/prosemirror-tables': 1.1.4
       '@tiptap/react': 2.0.0-beta.109
-      '@tiptap/suggestion': 2.0.0-beta.91
       prosemirror-commands: ^1.5.0
       prosemirror-keymap: ^1.2.0
       prosemirror-model: ^1.18.3
@@ -1861,7 +1831,6 @@ packages:
       '@tiptap/extension-italic': 2.0.0-beta.26(@tiptap/core@2.0.0-beta.209)
       '@tiptap/extension-link': 2.0.0-beta.37(@tiptap/core@2.0.0-beta.209)
       '@tiptap/extension-list-item': 2.0.0-beta.209(@tiptap/core@2.0.0-beta.209)
-      '@tiptap/extension-mention': 2.0.0-beta.96(@tiptap/core@2.0.0-beta.209)
       '@tiptap/extension-ordered-list': 2.0.0-beta.27(@tiptap/core@2.0.0-beta.209)
       '@tiptap/extension-paragraph': 2.0.0-beta.23(@tiptap/core@2.0.0-beta.209)
       '@tiptap/extension-placeholder': 2.0.0-beta.48(@tiptap/core@2.0.0-beta.209)
@@ -1877,9 +1846,7 @@ packages:
       '@tiptap/extension-text': 2.0.0-beta.15(@tiptap/core@2.0.0-beta.209)
       '@tiptap/prosemirror-tables': 1.1.4(prosemirror-keymap@1.2.0)(prosemirror-model@1.18.3)(prosemirror-state@1.4.2)(prosemirror-transform@1.7.1)(prosemirror-view@1.29.2)
       '@tiptap/react': 2.0.0-beta.109(@tiptap/core@2.0.0-beta.209)(prosemirror-state@1.4.2)(react-dom@18.2.0)(react@18.2.0)
-      '@tiptap/suggestion': 2.0.0-beta.91(@tiptap/core@2.0.0-beta.209)
       encodeurl: 1.0.2
-      hoist-non-react-statics: 3.3.2
       lodash: 4.17.21
       prosemirror-commands: 1.5.0
       prosemirror-keymap: 1.2.0
