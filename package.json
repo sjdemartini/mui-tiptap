@@ -17,7 +17,6 @@
   "bugs": "https://github.com/sjdemartini/mui-tiptap/issues",
   "author": "Steven DeMartini <sjdemartini@users.noreply.github.com>",
   "repository": "github:sjdemartini/mui-tiptap",
-  "type": "module",
   "files": [
     "dist"
   ],
