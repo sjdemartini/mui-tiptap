@@ -8,7 +8,9 @@ import ControlledBubbleMenu, {
 import TableMenuControls from "./TableMenuControls";
 import { useRichTextEditorContext } from "./context";
 import { useDebouncedFocus } from "./hooks";
-import DebounceRender from "./utils/DebounceRender";
+import DebounceRender, {
+  type DebounceRenderProps,
+} from "./utils/DebounceRender";
 
 export type TableBubbleMenuProps = {
   /**
@@ -19,6 +21,11 @@ export type TableBubbleMenuProps = {
    * generally recommended. By default false.
    */
   disableDebounce?: boolean;
+  /**
+   * Override the props/options used with debounce rendering such as the wait
+   * interval, if `disableDebounce` is not true.
+   */
+  DebounceProps?: Except<DebounceRenderProps, "children">;
 } & Partial<Except<ControlledBubbleMenuProps, "open" | "editor" | "children">>;
 
 const useStyles = makeStyles({
@@ -32,6 +39,7 @@ const useStyles = makeStyles({
 
 export default function TableBubbleMenu({
   disableDebounce = false,
+  DebounceProps,
   ...controlledBubbleMenuProps
 }: TableBubbleMenuProps) {
   const editor = useRichTextEditorContext();
@@ -150,7 +158,11 @@ export default function TableBubbleMenu({
       editor `can` commands, and would otherwise be updating upon every editor
       interaction like caret movement and typing). See DebounceRender.tsx for
       more notes on this rationale and approach. */}
-      {disableDebounce ? controls : <DebounceRender>{controls}</DebounceRender>}
+      {disableDebounce ? (
+        controls
+      ) : (
+        <DebounceRender {...DebounceProps}>{controls}</DebounceRender>
+      )}
     </ControlledBubbleMenu>
   );
 }
