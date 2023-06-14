@@ -37,7 +37,9 @@ export type RichTextFieldProps = {
    * debounced, then upon every editor interaction (caret movement, character
    * typed, etc.), the entire controls content will re-render, which tends to be
    * very expensive and can bog down the editor performance, so debouncing is
-   * generally recommended. By default false.
+   * generally recommended. Controls are often expensive since they need to
+   * check a lot of editor state, with `editor.can()` commands and whatnot. By
+   * default false.
    */
   disableDebounceRenderControls?: boolean;
   /** Override or extend existing styles. */
