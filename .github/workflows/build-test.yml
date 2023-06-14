@@ -42,4 +42,6 @@ jobs:
         continue-on-error: true
 
       - name: Test
-        run: pnpm run test
+        # Run the tests and print out the coverage information. In the future,
+        # we could integrate with Codecov or something.
+        run: pnpm run test:coverage
