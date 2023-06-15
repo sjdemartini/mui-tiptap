@@ -58,7 +58,7 @@ export type RichTextEditorRef = {
  * editor field.
  *
  * Example:
- * <RichTextEditor ref={rteRef} content="<p>Hello world</p>" extensions=[...] />
+ * <RichTextEditor ref={rteRef} content="<p>Hello world</p>" extensions={[...]} />
  */
 const RichTextEditor = forwardRef<RichTextEditorRef, RichTextEditorProps>(
   function RichTextEditor(
