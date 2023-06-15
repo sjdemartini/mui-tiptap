@@ -1,5 +1,5 @@
 import { Extension, getAttributes } from "@tiptap/core";
-import { Plugin, PluginKey } from "prosemirror-state";
+import { Plugin, PluginKey } from "@tiptap/pm/state";
 
 declare module "@tiptap/core" {
   interface Commands<ReturnType> {
