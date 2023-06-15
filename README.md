@@ -49,17 +49,7 @@ or
 yarn add mui-tiptap
 ```
 
-There are peer dependencies on [`@mui/material`](https://www.npmjs.com/package/@mui/material) and [`@mui/icons-material`](https://www.npmjs.com/package/@mui/icons-material) (and their `@emotion/` peers), [`react-icons`](https://www.npmjs.com/package/react-icons), and [`@tiptap/`](https://tiptap.dev/installation/react) packages. If your project doesn’t already use those, you can install them with:
-
-```shell
-npm install @mui/material @mui/icons-material @emotion/react @emotion/styled react-icons @tiptap/react @tiptap/pm @tiptap/starter-kit
-```
-
-or
-
-```shell
-yarn add @mui/material @mui/icons-material @emotion/react @emotion/styled react-icons @tiptap/react @tiptap/pm @tiptap/starter-kit
-```
+There are peer dependencies on [`@mui/material`](https://www.npmjs.com/package/@mui/material) and [`@mui/icons-material`](https://www.npmjs.com/package/@mui/icons-material) (and their `@emotion/` peers), [`react-icons`](https://www.npmjs.com/package/react-icons), [`@tiptap/`](https://tiptap.dev/installation/react) packages, and underlying `prosemirror` packages. These should be installed automatically by default if you’re using npm 7+ or pnpm.
 
 ## Get started
 
