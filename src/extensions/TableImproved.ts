@@ -1,5 +1,5 @@
 import { Table } from "@tiptap/extension-table";
-import { columnResizing, tableEditing } from "@tiptap/prosemirror-tables";
+import { columnResizing, tableEditing } from "@tiptap/pm/tables";
 
 /**
  * Extend the standard Table extension, but ensures that columns maintain their
@@ -30,9 +30,8 @@ const TableImproved = Table.extend({
             columnResizing({
               handleWidth: this.options.handleWidth,
               cellMinWidth: this.options.cellMinWidth,
+              // @ts-expect-error incorrect type https://github.com/ueberdosis/tiptap/blob/b0198eb14b98db5ca691bd9bfe698ffaddbc4ded/packages/extension-table/src/table.ts#L253
               View: this.options.View,
-              // TODO: PR for @types/prosemirror-tables
-              // @ts-expect-error (incorrect type)
               lastColumnResizable: this.options.lastColumnResizable,
             }),
           ]
