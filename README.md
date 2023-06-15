@@ -27,7 +27,8 @@
 **Features:**
 
 - :toolbox: An all-in-one `RichTextEditor` component to get started immediately (no other components or hooks needed!), or individual modular components to customize to your needs
-- :sunglasses: Built-in styles for the full set of standard Tiptap extensions (text formatting, lists, tables, Google Docs-like collaboration cursors; you name it!)
+- :sunglasses: Built-in styles for Tiptap’s extensions (text formatting, lists, tables, Google Docs-like collaboration cursors; you name it!)
+- :arrow_forward: Composable and extendable menu buttons and controls for the standard Tiptap extensions
 - :framed_picture: `ResizableImage` extension for adding and resizing images directly in the editor
 - :anchor: `HeadingWithAnchor` extension for dynamic GitHub-like anchor links for every heading you add
 - :link: `LinkBubbleMenu` so adding and editing links is a breeze
