@@ -40,5 +40,4 @@ export {
   getImageBackgroundColorStyles,
   parseToNumPixels,
 } from "./styles";
-export { default as DebounceRender } from "./utils/DebounceRender";
-export { getModShortcutKey, isMac, isTouchDevice } from "./utils/platform";
+export * from "./utils";
