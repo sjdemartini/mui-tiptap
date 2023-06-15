@@ -69,7 +69,13 @@
       "warn",
       { "argsIgnorePattern": "^_" } // Ignore arguments that start with an underscore
     ],
-    "import/no-extraneous-dependencies": "error",
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": ["./src/demo/**", "./src/**/__tests__/**"],
+        "includeTypes": true
+      }
+    ],
     "import/no-mutable-exports": "error",
     "import/no-unused-modules": "error",
     // Note that no-duplicates prefer-inline doesn't yet handle duplicate type
