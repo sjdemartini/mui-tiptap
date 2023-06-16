@@ -96,7 +96,10 @@ const RichTextEditor = forwardRef<RichTextEditorRef, RichTextEditorProps>(
       if (!editor || editor.isDestroyed || editor.isEditable === editable) {
         return;
       }
-      editor.setEditable(editable);
+      // We use queueMicrotask to avoid any flushSync console errors as
+      // mentioned here (though setEditable shouldn't trigger them in practice)
+      // https://github.com/ueberdosis/tiptap/issues/3764#issuecomment-1546854730
+      queueMicrotask(() => editor.setEditable(editable));
     }, [editable, editor]);
 
     // Update content if/when it changes
@@ -110,7 +113,15 @@ const RichTextEditor = forwardRef<RichTextEditorRef, RichTextEditorProps>(
       ) {
         return;
       }
-      editor.commands.setContent(editorProps.content);
+      // We use queueMicrotask to avoid any flushSync console errors as
+      // mentioned here
+      // https://github.com/ueberdosis/tiptap/issues/3764#issuecomment-1546854730
+      queueMicrotask(() => {
+        // Validate that editorProps.content isn't undefined again to appease TS
+        if (editorProps.content !== undefined) {
+          editor.commands.setContent(editorProps.content);
+        }
+      });
     }, [editorProps.content, editor]);
 
     useEffect(() => {
