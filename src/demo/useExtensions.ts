@@ -10,7 +10,7 @@ import { Gapcursor } from "@tiptap/extension-gapcursor";
 import { HardBreak } from "@tiptap/extension-hard-break";
 import { History } from "@tiptap/extension-history";
 import { Italic } from "@tiptap/extension-italic";
-import LinkExtension from "@tiptap/extension-link";
+import { Link } from "@tiptap/extension-link";
 import { ListItem } from "@tiptap/extension-list-item";
 import { OrderedList } from "@tiptap/extension-ordered-list";
 import { Paragraph } from "@tiptap/extension-paragraph";
@@ -54,7 +54,7 @@ export type UseRecommendedExtensionsOptions = {
 // https://github.com/ueberdosis/tiptap/issues/2571,
 // https://github.com/ueberdosis/tiptap/issues/2572, and
 // https://github.com/ueberdosis/tiptap/issues/514
-const CustomLinkExtension = LinkExtension.extend({
+const CustomLinkExtension = Link.extend({
   inclusive: false,
 });
 
@@ -122,14 +122,15 @@ export default function useRecommendedExtensions({
       Italic,
       Strike,
       CustomLinkExtension.configure({
-        // autolink is generally useful for changing text into links if they appear to be URLs (like
-        // someone types in literally "example.com"), though it comes with the caveat that if you
-        // then *remove* the link from the text, and then add a space or newline directly after the
-        // text, autolink will turn the text back into a link again. Not ideal, but probably still
-        // overall worth having autolink enabled.
+        // autolink is generally useful for changing text into links if they
+        // appear to be URLs (like someone types in literally "example.com"),
+        // though it comes with the caveat that if you then *remove* the link
+        // from the text, and then add a space or newline directly after the
+        // text, autolink will turn the text back into a link again. Not ideal,
+        // but probably still overall worth having autolink enabled, and that's
+        // how a lot of other tools behave as well.
         autolink: true,
         linkOnPaste: true,
-        // We should set this to true when read-only
         openOnClick: false,
       }),
       LinkBubbleMenuHandler,
