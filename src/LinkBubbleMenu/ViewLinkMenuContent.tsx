@@ -34,7 +34,8 @@ export default function ViewLinkMenuContent({
     ? editor.state.doc.textBetween(linkRange.from, linkRange.to)
     : "";
 
-  const currentHref = editor.getAttributes("link").href as string;
+  const currentHref =
+    (editor.getAttributes("link").href as string | undefined) ?? "";
 
   // If the user presses escape, we should cancel
   useKeyDown("Escape", onCancel);

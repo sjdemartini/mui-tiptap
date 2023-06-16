@@ -132,13 +132,22 @@ const LinkBubbleMenuHandler = Extension.create<
   },
 
   onSelectionUpdate() {
-    // To ensure we maintain the proper bubble menu state, if someone is viewing
-    // an existing link but moves off of it (e.g. with their keyboard), we'll
-    // close the bubble menu. Note that we only do this for "view" (and not
-    // "edit"), since when adding a new link, there is not yet a link at the
-    // current position and the user's focus will be in the edit form anyway,
-    // where clicking out would already close the menu.
-    if (
+    // To ensure we maintain the proper bubble menu state, if someone is
+    // viewing/editing a link but moves off of it (e.g. with their keyboard
+    // arrow keys, or by clicking out, or by typing over the currently selected
+    // link), we'll close the bubble menu. Note that when in "view" mode (and
+    // not "edit") for an existing link, we only close if the state shows the
+    // user is not on an active link anymore, since the selection can be updated
+    // via `openLinkBubbleMenu` (and we don't want to immediately close it upon
+    // initial opening of the bubble menu). By contrast in "edit" mode, the
+    // user's focus should be in the edit form and selection shouldn't
+    // automatically update during opening or otherwise, so clicking out (i.e.
+    // changing selection) definitively indicates cancellation.
+    // onSelectionUpdate runs before handleClick, so we need to promptly close
+    // in that scenario.
+    if (this.storage.state === LinkMenuState.EDIT_LINK) {
+      this.editor.commands.closeLinkBubbleMenu();
+    } else if (
       this.storage.state === LinkMenuState.VIEW_LINK_DETAILS &&
       !this.editor.isActive("link")
     ) {
