@@ -80,4 +80,27 @@ function App() {
 }
 ```
 
+## Tips and suggestions
+
+### Defining your editor `extensions`
+
+- Put the `TableImproved` (or `Table`) extension first in the array.
+  - As [noted](https://github.com/ProseMirror/prosemirror-tables/blob/b6054a0316dc60cda0f7065e186cfacf6d93519c/src/index.ts#L78-L82) in the underlying `prosemirror-tables` package, the table editing plugin should have the lowest precedence, since it depends on key and mouse events but other plugins will likely need to take handle those first. For instance, if you want to indent or dedent a list item inside a table, you should be able to do that by pressing tab, and tab should only move between table cells if not within such a nested node.
+- Put the `Blockquote` extension after the `Bold` extension, so `Blockquote`’s keyboard shortcut takes precedence.
+  - Otherwise, the keyboard shortcut for `Blockquote` (Cmd+Shift+B) will mistakenly toggle the bold mark (due to its “overlapping” Cmd+b shortcut). (See related Tiptap issues [here](https://github.com/ueberdosis/tiptap/issues/4005) and [here](https://github.com/ueberdosis/tiptap/issues/4006).)
+- If you'd like `Subscript` and `Superscript` extensions to be mutually exclusive, so that text can't be both superscript and subscript simultaneously, use the `excludes` configuration parameter to exclude each other.
+
+  - As described in [this Tiptap issue](https://github.com/ueberdosis/tiptap/pull/1436#issuecomment-1031937768). For instance:
+
+    ```ts
+    const CustomSubscript = Subscript.extend({
+      excludes: "superscript",
+    });
+    const CustomSuperscript = Superscript.extend({
+      excludes: "subscript",
+    });
+    ```
+
+(See Tiptap's general notes on extension plugin precedence and ordering [here](https://github.com/ueberdosis/tiptap/issues/1547#issuecomment-890848888).)
+
 **🚧 More documentation coming soon!**
