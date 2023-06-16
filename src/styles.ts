@@ -369,15 +369,21 @@ export function getEditorStyles(theme: Theme): StyleRules {
       cursor: "col-resize",
     },
 
-    // When the editor has `editable` set to `false`, the table column resize
-    // tools should be hidden
+    // When the editor has `editable` set to `false`, we'll prevent the table
+    // column resize tools from showing up or being used
     '&[contenteditable="false"]': {
       "& .column-resize-handle": {
         display: "none",
       },
 
       "&.resize-cursor": {
-        display: "none",
+        cursor: "unset",
+        // To ensure that users cannot resize tables when the editor is supposed
+        // to be read-only, we have to disable pointer events for the editor
+        // whenever the resize-cursor class is added (i.e. when a user hovers
+        // over a column border that would otherwise allow for dragging and
+        // resizing when in editable mode)
+        pointerEvents: "none",
       },
     },
 
