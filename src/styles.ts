@@ -352,37 +352,41 @@ export function getEditorStyles(theme: Theme): StyleRules {
       pointerEvents: "none",
     },
 
-    "& .column-resize-handle": {
-      position: "absolute",
-      right: -2,
-      top: -1,
-      bottom: -2,
-      width: 4,
-      // This z-index proved necessary to ensure the handle sits above the background of
-      // any cell (header and non-header)
-      zIndex: Z_INDEXES.TABLE_ELEMENT,
-      backgroundColor: theme.palette.primary.light,
-      pointerEvents: "none",
+    // Only when the editor has `editable` set to `true` should the table column
+    // resize tools should be revealed and be usable
+    '&[contenteditable="true"]': {
+      "& .column-resize-handle": {
+        position: "absolute",
+        right: -2,
+        top: -1,
+        bottom: -2,
+        width: 4,
+        // This z-index proved necessary to ensure the handle sits above the
+        // background of any cell (header and non-header)
+        zIndex: Z_INDEXES.TABLE_ELEMENT,
+        backgroundColor: theme.palette.primary.light,
+        pointerEvents: "none",
+      },
+
+      "&.resize-cursor": {
+        cursor: "col-resize",
+      },
     },
 
-    "&.resize-cursor": {
-      cursor: "col-resize",
-    },
-
-    // When the editor has `editable` set to `false`, we'll prevent the table
-    // column resize tools from showing up or being used
     '&[contenteditable="false"]': {
       "& .column-resize-handle": {
         display: "none",
       },
 
       "&.resize-cursor": {
-        cursor: "unset",
         // To ensure that users cannot resize tables when the editor is supposed
-        // to be read-only, we have to disable pointer events for the editor
-        // whenever the resize-cursor class is added (i.e. when a user hovers
-        // over a column border that would otherwise allow for dragging and
-        // resizing when in editable mode)
+        // to be read-only, we have to disable pointer events for the entire
+        // editor whenever the resize-cursor class is added (i.e. when a user
+        // hovers over a column border that would otherwise allow for dragging
+        // and resizing when in editable mode). This is because the underlying
+        // prosemirror-tables `columnResizing` plugin doesn't know/care about
+        // `editable` state, and so adds the "resize-cursor" class and tries to
+        // listen for events regardless.
         pointerEvents: "none",
       },
     },
