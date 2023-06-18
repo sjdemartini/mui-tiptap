@@ -1,3 +1,4 @@
+/// <reference types="@tiptap/extension-italic" />
 import { FormatItalic } from "@mui/icons-material";
 import { useRichTextEditorContext } from "../context";
 import MenuButton from "./MenuButton";
