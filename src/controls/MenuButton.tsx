@@ -46,6 +46,10 @@ const useStyles = makeStyles({ name: { MenuButton } })({
   },
 });
 
+/**
+ * A general-purpose base component for showing an editor control for use in a
+ * menu.
+ */
 export default function MenuButton({
   tooltipLabel,
   tooltipShortcutKeys,
