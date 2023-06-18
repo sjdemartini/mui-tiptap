@@ -1,3 +1,4 @@
+/// <reference types="@tiptap/extension-code-block" />
 import { BiCodeBlock } from "react-icons/bi";
 import { useRichTextEditorContext } from "../context";
 import MenuButton from "./MenuButton";

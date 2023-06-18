@@ -1,3 +1,4 @@
+/// <reference types="@tiptap/extension-task-list" />
 import { Checklist } from "@mui/icons-material";
 import { useRichTextEditorContext } from "../context";
 import MenuButton from "./MenuButton";

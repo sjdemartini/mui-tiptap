@@ -1,3 +1,4 @@
+/// <reference types="@tiptap/extension-bold" />
 import { FormatBold } from "@mui/icons-material";
 import { useRichTextEditorContext } from "../context";
 import MenuButton from "./MenuButton";

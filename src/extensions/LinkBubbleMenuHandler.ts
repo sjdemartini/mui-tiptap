@@ -1,3 +1,4 @@
+/// <reference types="@tiptap/extension-link" />
 import { Extension, getAttributes } from "@tiptap/core";
 import { Plugin, PluginKey } from "@tiptap/pm/state";
 

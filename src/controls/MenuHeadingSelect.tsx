@@ -1,3 +1,4 @@
+/// <reference types="@tiptap/extension-paragraph" />
 import { MenuItem, Select, type SelectChangeEvent } from "@mui/material";
 import type { Heading, Level } from "@tiptap/extension-heading";
 import { useCallback, useMemo } from "react";
