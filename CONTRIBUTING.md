@@ -2,19 +2,17 @@
 
 _Pull requests, bug reports, and all other forms of contribution are welcomed and highly encouraged!_ :octocat:
 
-## :inbox_tray: How can I Contribute?
+## How can I contribute?
 
 ### GitHub issues
 
 If you encounter a problem with this library or if you have a new feature you'd like to see in this project, please create [a new issue](https://github.com/sjdemartini/mui-tiptap/issues/new/choose).
 
-### GitHub Pull requests
+### GitHub pull requests
 
-Please leverage the repository's own tools to make sure the code is aligned with our standards:
+Please leverage the repository's own tools to make sure the code is aligned with our standards. See the [Development setup](#development-setup) notes below. If you're using VSCode, it's easiest to use the recommended extensions (`.vscode/extensions.json`) to get integrated linting and autoformatting.
 
-1. Run all check commands before submitting the PR (`type:check`, `format:check`, `lint:check`, `test:coverage` and `spell:check`)
-2. Please commit your changes and run a `setup` command so you can actually check how would the template look like once cleaned up
-3. Always leverage the `cz` command to create a commit. We heavily rely on this for automatic releases.
+It's recommended to run all check commands before submitting the PR (`type:check`, `format:check`, `lint:check`, `spell:check`, `test:coverage`).
 
 ## Development setup
 

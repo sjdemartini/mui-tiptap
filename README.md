@@ -114,3 +114,7 @@ function App() {
 (See Tiptap's general notes on extension plugin precedence and ordering [here](https://github.com/ueberdosis/tiptap/issues/1547#issuecomment-890848888).)
 
 **🚧 More documentation coming soon!**
+
+## Contributing
+
+Get started [here](./CONTRIBUTING.md).
