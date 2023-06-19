@@ -115,6 +115,7 @@
     "@tiptap/extension-text": "2.0.0-beta.210",
     "@tiptap/pm": "^2.0.0-beta.210",
     "@tiptap/react": "2.0.0-beta.210",
+    "@tiptap/starter-kit": "2.0.0-beta.210",
     "@types/encodeurl": "^1.0.0",
     "@types/lodash": "^4.14.195",
     "@types/node": "^18.16.3",
