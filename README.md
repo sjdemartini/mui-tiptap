@@ -94,7 +94,7 @@ function App() {
 }
 ```
 
-Use the `renderControls` prop if you'd like to render buttons in a menu bar atop the editor (e.g., for toggling text styles, inserting a table, adding a link, and more). See [`src/demo/Editor.tsx`](./src/demo/Editor.tsx) for a more thorough example of this with `<RichTextEditor />`.
+Use its `renderControls` prop if you'd like to render buttons in a menu bar atop the editor (e.g., for toggling text styles, inserting a table, adding a link, and more). See [`src/demo/Editor.tsx`](./src/demo/Editor.tsx) for a more thorough example of this.
 
 ### Create and provide the `editor` yourself
 
@@ -107,17 +107,28 @@ The easiest is option is the `<RichTextField />` component, which is what `RichT
 ```tsx
 import { useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import { MenuButtonBold, MenuControlsContainer, RichTextEditorProvider, RichTextField } from "mui-tiptap";
+import {
+  MenuButtonBold,
+  MenuButtonItalic,
+  MenuControlsContainer,
+  MenuHeadingSelect,
+  RichTextEditorProvider,
+  RichTextField,
+} from "mui-tiptap";
 
 function App() {
-  const editor = useEditor({ extensions: [StarterKit] });
+  const editor = useEditor({
+    extensions: [StarterKit],
+    content: "<p>Hello <b>world</b>!</p>",
+  });
   return (
     <RichTextEditorProvider editor={editor}>
       <RichTextField
-        content="<p>Hello world</p>"
         controls={
           <MenuControlsContainer>
+            <MenuHeadingSelect />
             <MenuButtonBold />
+            <MenuButtonItalic />
             {/* Add more controls of your choosing here */}
           </MenuControlsContainer>
         }
@@ -127,7 +138,7 @@ function App() {
 }
 ```
 
-Or if you want full control over the UI, instead of `RichTextField`, you can build the editor area yourself and then just use the `<RichTextContent />` component where you want the editable rich text content to appear.
+Or if you want full control over the UI, instead of `RichTextField`, you can build the editor area yourself and then just use the `<RichTextContent />` component where you want the (styled) editable rich text content to appear. `RichTextContent` is the MUI-themed version of Tiptap's `EditorContent` component.
 
 ### Render read-only rich text content
 
