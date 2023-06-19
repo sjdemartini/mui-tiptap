@@ -63,7 +63,11 @@ yarn add @mui/material @mui/icons-material @emotion/react @emotion/styled react-
 
 ## Get started
 
-To use the all-in-one component:
+**🚧 More documentation coming soon!**
+
+### Use the all-in-one component
+
+The simplest way to render a rich text editor is to use the `<RichTextEditor />` component:
 
 ```tsx
 import { Button } from "@mui/material";
@@ -90,6 +94,51 @@ function App() {
 }
 ```
 
+Use the `renderControls` prop if you'd like to render buttons in a menu bar atop the editor (e.g., for toggling text styles, inserting a table, adding a link, and more). See [`src/demo/Editor.tsx`](./src/demo/Editor.tsx) for a more thorough example of this with `<RichTextEditor />`.
+
+### Create and provide the `editor` yourself
+
+If you need more customization, you can instead define your editor using Tiptap’s `useEditor` hook, and lay out your UI using a selection of `mui-tiptap` components (and/or your own components).
+
+Pass the `editor` to `mui-tiptap`’s `<RichTextEditorProvider>` component at the top of your component tree. From there, provide whatever children to the provider that fit your needs.
+
+The easiest is option is the `<RichTextField />` component, which is what `RichTextEditor` uses under the hood:
+
+```tsx
+import { useEditor } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
+import { MenuButtonBold, MenuControlsContainer, RichTextEditorProvider, RichTextField } from "mui-tiptap";
+
+function App() {
+  const editor = useEditor({ extensions: [StarterKit] });
+  return (
+    <RichTextEditorProvider editor={editor}>
+      <RichTextField
+        content="<p>Hello world</p>"
+        controls={
+          <MenuControlsContainer>
+            <MenuButtonBold />
+            {/* Add more controls of your choosing here */}
+          </MenuControlsContainer>
+        }
+      />
+    </RichTextEditorProvider>
+  );
+}
+```
+
+Or if you want full control over the UI, instead of `RichTextField`, you can build the editor area yourself and then just use the `<RichTextContent />` component where you want the editable rich text content to appear.
+
+### Render read-only rich text content
+
+Use the `<RichTextReadOnly />` component and just pass in your HTML or ProseMirror JSON, like:
+
+```tsx
+<RichTextReadOnly content="<p>Hello world</p>" extensions=[...] />
+```
+
+This component will skip creating the Tiptap `editor` if `content` is empty, which can help performance.
+
 ## Tips and suggestions
 
 ### Defining your editor `extensions`
@@ -112,8 +161,6 @@ function App() {
     ```
 
 (See Tiptap's general notes on extension plugin precedence and ordering [here](https://github.com/ueberdosis/tiptap/issues/1547#issuecomment-890848888).)
-
-**🚧 More documentation coming soon!**
 
 ## Contributing
 
