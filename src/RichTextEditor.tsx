@@ -33,7 +33,7 @@ export type RichTextEditorProps = Partial<EditorOptions> & {
    */
   RichTextFieldProps?: Except<RichTextFieldProps, "controls">;
   /**
-   * Optional content to render alongisde/after the inner RichTextField, where
+   * Optional content to render alongside/after the inner RichTextField, where
    * you can access the editor via the parameter to this render prop, or in a
    * child component via `useRichTextEditorContext()`. Useful for including
    * plugins like mui-tiptap's LinkBubbleMenu and TableBubbleMenu, or other
