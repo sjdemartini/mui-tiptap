@@ -1,8 +1,10 @@
 import { BiTable } from "react-icons/bi";
 import { useRichTextEditorContext } from "../context";
-import MenuButton from "./MenuButton";
+import MenuButton, { type MenuButtonProps } from "./MenuButton";
 
-export default function MenuButtonAddTable() {
+export type MenuButtonAddTableProps = Partial<MenuButtonProps>;
+
+export default function MenuButtonAddTable(props: MenuButtonAddTableProps) {
   const editor = useRichTextEditorContext();
   return (
     <MenuButton
@@ -16,6 +18,7 @@ export default function MenuButtonAddTable() {
           .insertTable({ rows: 3, cols: 3, withHeaderRow: true })
           .run()
       }
+      {...props}
     />
   );
 }

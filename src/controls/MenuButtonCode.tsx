@@ -1,9 +1,11 @@
 /// <reference types="@tiptap/extension-code" />
 import { Code } from "@mui/icons-material";
 import { useRichTextEditorContext } from "../context";
-import MenuButton from "./MenuButton";
+import MenuButton, { type MenuButtonProps } from "./MenuButton";
 
-export default function MenuButtonCode() {
+export type MenuButtonCodeProps = Partial<MenuButtonProps>;
+
+export default function MenuButtonCode(props: MenuButtonCodeProps) {
   const editor = useRichTextEditorContext();
   return (
     <MenuButton
@@ -13,6 +15,7 @@ export default function MenuButtonCode() {
       selected={editor?.isActive("code") ?? false}
       disabled={!editor?.isEditable || !editor.can().toggleCode()}
       onClick={() => editor?.chain().focus().toggleCode().run()}
+      {...props}
     />
   );
 }

@@ -1,9 +1,11 @@
 /// <reference types="@tiptap/extension-task-list" />
 import { Checklist } from "@mui/icons-material";
 import { useRichTextEditorContext } from "../context";
-import MenuButton from "./MenuButton";
+import MenuButton, { type MenuButtonProps } from "./MenuButton";
 
-export default function MenuButtonTaskList() {
+export type MenuButtonTaskListProps = Partial<MenuButtonProps>;
+
+export default function MenuButtonTaskList(props: MenuButtonTaskListProps) {
   const editor = useRichTextEditorContext();
   return (
     <MenuButton
@@ -13,6 +15,7 @@ export default function MenuButtonTaskList() {
       selected={editor?.isActive("taskList") ?? false}
       disabled={!editor?.isEditable || !editor.can().toggleTaskList()}
       onClick={() => editor?.chain().focus().toggleTaskList().run()}
+      {...props}
     />
   );
 }

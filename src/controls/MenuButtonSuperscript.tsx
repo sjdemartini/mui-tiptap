@@ -1,9 +1,13 @@
 /// <reference types="@tiptap/extension-superscript" />
 import { Superscript } from "@mui/icons-material";
 import { useRichTextEditorContext } from "../context";
-import MenuButton from "./MenuButton";
+import MenuButton, { type MenuButtonProps } from "./MenuButton";
 
-export default function MenuButtonSuperscript() {
+export type MenuButtonSuperscriptProps = Partial<MenuButtonProps>;
+
+export default function MenuButtonSuperscript(
+  props: MenuButtonSuperscriptProps
+) {
   const editor = useRichTextEditorContext();
   return (
     <MenuButton
@@ -13,6 +17,7 @@ export default function MenuButtonSuperscript() {
       selected={editor?.isActive("superscript") ?? false}
       disabled={!editor?.isEditable || !editor.can().toggleSuperscript()}
       onClick={() => editor?.chain().focus().toggleSuperscript().run()}
+      {...props}
     />
   );
 }

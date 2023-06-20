@@ -1,9 +1,11 @@
 /// <reference types="@tiptap/extension-subscript" />
 import { Subscript } from "@mui/icons-material";
 import { useRichTextEditorContext } from "../context";
-import MenuButton from "./MenuButton";
+import MenuButton, { type MenuButtonProps } from "./MenuButton";
 
-export default function MenuButtonSubscript() {
+export type MenuButtonSubscriptProps = Partial<MenuButtonProps>;
+
+export default function MenuButtonSubscript(props: MenuButtonSubscriptProps) {
   const editor = useRichTextEditorContext();
   return (
     <MenuButton
@@ -13,6 +15,7 @@ export default function MenuButtonSubscript() {
       selected={editor?.isActive("subscript") ?? false}
       disabled={!editor?.isEditable || !editor.can().toggleSubscript()}
       onClick={() => editor?.chain().focus().toggleSubscript().run()}
+      {...props}
     />
   );
 }

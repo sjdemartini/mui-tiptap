@@ -1,8 +1,12 @@
 import { FormatClear } from "@mui/icons-material";
 import { useRichTextEditorContext } from "../context";
-import MenuButton from "./MenuButton";
+import MenuButton, { type MenuButtonProps } from "./MenuButton";
 
-export default function MenuButtonRemoveFormatting() {
+export type MenuButtonRemoveFormattingProps = Partial<MenuButtonProps>;
+
+export default function MenuButtonRemoveFormatting(
+  props: MenuButtonRemoveFormattingProps
+) {
   const editor = useRichTextEditorContext();
   return (
     <MenuButton
@@ -10,6 +14,7 @@ export default function MenuButtonRemoveFormatting() {
       IconComponent={FormatClear}
       disabled={!editor?.isEditable || !editor.can().unsetAllMarks()}
       onClick={() => editor?.chain().focus().unsetAllMarks().run()}
+      {...props}
     />
   );
 }

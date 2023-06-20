@@ -1,21 +1,20 @@
 import { AddPhotoAlternate } from "@mui/icons-material";
 import type { ToggleButtonProps } from "@mui/material";
 import { useRichTextEditorContext } from "../context";
-import MenuButton from "./MenuButton";
+import MenuButton, { type MenuButtonProps } from "./MenuButton";
 
-export type MenuButtonAddImageProps = {
-  tooltipLabel?: string;
+export type MenuButtonAddImageProps = Partial<MenuButtonProps> & {
   onClick: NonNullable<ToggleButtonProps["onClick"]>;
 };
 
 export default function MenuButtonAddImage({
-  tooltipLabel = "Add an image",
-  onClick,
+  ...props
 }: MenuButtonAddImageProps) {
   const editor = useRichTextEditorContext();
+
   return (
     <MenuButton
-      tooltipLabel={tooltipLabel}
+      tooltipLabel="Add an image"
       IconComponent={AddPhotoAlternate}
       disabled={
         !editor?.isEditable ||
@@ -23,7 +22,7 @@ export default function MenuButtonAddImage({
         // added to the editor currently)
         !editor.can().setImage({ src: "http://example.com" })
       }
-      onClick={onClick}
+      {...props}
     />
   );
 }

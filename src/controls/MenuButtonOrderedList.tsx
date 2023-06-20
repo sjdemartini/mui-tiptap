@@ -1,9 +1,13 @@
 /// <reference types="@tiptap/extension-ordered-list" />
 import { FormatListNumbered } from "@mui/icons-material";
 import { useRichTextEditorContext } from "../context";
-import MenuButton from "./MenuButton";
+import MenuButton, { type MenuButtonProps } from "./MenuButton";
 
-export default function MenuButtonOrderedList() {
+export type MenuButtonOrderedListProps = Partial<MenuButtonProps>;
+
+export default function MenuButtonOrderedList(
+  props: MenuButtonOrderedListProps
+) {
   const editor = useRichTextEditorContext();
   return (
     <MenuButton
@@ -13,6 +17,7 @@ export default function MenuButtonOrderedList() {
       selected={editor?.isActive("orderedList") ?? false}
       disabled={!editor?.isEditable || !editor.can().toggleOrderedList()}
       onClick={() => editor?.chain().focus().toggleOrderedList().run()}
+      {...props}
     />
   );
 }

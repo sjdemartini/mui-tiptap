@@ -1,8 +1,10 @@
 import { Link } from "@mui/icons-material";
 import { useRichTextEditorContext } from "../context";
-import MenuButton from "./MenuButton";
+import MenuButton, { type MenuButtonProps } from "./MenuButton";
 
-export default function MenuButtonEditLink() {
+export type MenuButtonEditLinkProps = Partial<MenuButtonProps>;
+
+export default function MenuButtonEditLink(props: MenuButtonEditLinkProps) {
   const editor = useRichTextEditorContext();
   return (
     <MenuButton
@@ -12,6 +14,7 @@ export default function MenuButtonEditLink() {
       selected={editor?.isActive("link")}
       disabled={!editor?.isEditable}
       onClick={editor?.commands.openLinkBubbleMenu}
+      {...props}
     />
   );
 }
