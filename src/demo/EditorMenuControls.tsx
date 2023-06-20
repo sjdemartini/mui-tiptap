@@ -1,4 +1,6 @@
 import MenuDivider from "../MenuDivider";
+import { useRichTextEditorContext } from "../context";
+import MenuButtonAddImage from "../controls/MenuButtonAddImage";
 import MenuButtonAddTable from "../controls/MenuButtonAddTable";
 import MenuButtonBlockquote from "../controls/MenuButtonBlockquote";
 import MenuButtonBold from "../controls/MenuButtonBold";
@@ -20,6 +22,7 @@ import MenuHeadingSelect from "../controls/MenuHeadingSelect";
 import { isTouchDevice } from "../utils/platform";
 
 export default function EditorMenuControls() {
+  const editor = useRichTextEditorContext();
   return (
     <MenuControlsContainer>
       <MenuHeadingSelect />
@@ -67,6 +70,18 @@ export default function EditorMenuControls() {
       <MenuButtonCode />
 
       <MenuButtonCodeBlock />
+
+      <MenuDivider />
+
+      <MenuButtonAddImage
+        onClick={() => {
+          const url = window.prompt("Image URL");
+
+          if (url) {
+            editor?.chain().focus().setImage({ src: url }).run();
+          }
+        }}
+      />
 
       <MenuDivider />
 
