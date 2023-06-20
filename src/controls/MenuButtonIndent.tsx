@@ -1,8 +1,10 @@
 import { FormatIndentIncrease } from "@mui/icons-material";
 import { useRichTextEditorContext } from "../context";
-import MenuButton from "./MenuButton";
+import MenuButton, { type MenuButtonProps } from "./MenuButton";
 
-export default function MenuButtonIndent() {
+export type MenuButtonIndentProps = Partial<MenuButtonProps>;
+
+export default function MenuButtonIndent(props: MenuButtonIndentProps) {
   const editor = useRichTextEditorContext();
   return (
     <MenuButton
@@ -11,6 +13,7 @@ export default function MenuButtonIndent() {
       IconComponent={FormatIndentIncrease}
       disabled={!editor?.isEditable || !editor.can().sinkListItem("listItem")}
       onClick={() => editor?.chain().focus().sinkListItem("listItem").run()}
+      {...props}
     />
   );
 }

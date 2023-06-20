@@ -1,9 +1,11 @@
 /// <reference types="@tiptap/extension-bold" />
 import { FormatBold } from "@mui/icons-material";
 import { useRichTextEditorContext } from "../context";
-import MenuButton from "./MenuButton";
+import MenuButton, { type MenuButtonProps } from "./MenuButton";
 
-export default function MenuButtonBold() {
+export type MenuButtonBoldProps = Partial<MenuButtonProps>;
+
+export default function MenuButtonBold(props: MenuButtonBoldProps) {
   const editor = useRichTextEditorContext();
   return (
     <MenuButton
@@ -13,6 +15,7 @@ export default function MenuButtonBold() {
       selected={editor?.isActive("bold") ?? false}
       disabled={!editor?.isEditable || !editor.can().toggleBold()}
       onClick={() => editor?.chain().focus().toggleBold().run()}
+      {...props}
     />
   );
 }

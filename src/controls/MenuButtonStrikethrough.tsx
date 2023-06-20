@@ -1,9 +1,13 @@
 /// <reference types="@tiptap/extension-strike" />
 import { StrikethroughS } from "@mui/icons-material";
 import { useRichTextEditorContext } from "../context";
-import MenuButton from "./MenuButton";
+import MenuButton, { type MenuButtonProps } from "./MenuButton";
 
-export default function MenuButtonStrikethrough() {
+export type MenuButtonStrikethroughProps = Partial<MenuButtonProps>;
+
+export default function MenuButtonStrikethrough(
+  props: MenuButtonStrikethroughProps
+) {
   const editor = useRichTextEditorContext();
   return (
     <MenuButton
@@ -13,6 +17,7 @@ export default function MenuButtonStrikethrough() {
       selected={editor?.isActive("strike") ?? false}
       disabled={!editor?.isEditable || !editor.can().toggleStrike()}
       onClick={() => editor?.chain().focus().toggleStrike().run()}
+      {...props}
     />
   );
 }

@@ -1,9 +1,11 @@
 /// <reference types="@tiptap/extension-blockquote" />
 import { FormatQuote } from "@mui/icons-material";
 import { useRichTextEditorContext } from "../context";
-import MenuButton from "./MenuButton";
+import MenuButton, { type MenuButtonProps } from "./MenuButton";
 
-export default function MenuButtonBlockquote() {
+export type MenuButtonBlockquoteProps = Partial<MenuButtonProps>;
+
+export default function MenuButtonBlockquote(props: MenuButtonBlockquoteProps) {
   const editor = useRichTextEditorContext();
   return (
     <MenuButton
@@ -13,6 +15,7 @@ export default function MenuButtonBlockquote() {
       selected={editor?.isActive("blockquote") ?? false}
       disabled={!editor?.isEditable || !editor.can().toggleBlockquote()}
       onClick={() => editor?.chain().focus().toggleBlockquote().run()}
+      {...props}
     />
   );
 }

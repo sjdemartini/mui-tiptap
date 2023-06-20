@@ -1,9 +1,13 @@
 /// <reference types="@tiptap/extension-bullet-list" />
 import { FormatListBulleted } from "@mui/icons-material";
 import { useRichTextEditorContext } from "../context";
-import MenuButton from "./MenuButton";
+import MenuButton, { type MenuButtonProps } from "./MenuButton";
 
-export default function MenuButtonBulletedList() {
+export type MenuButtonBulletedListProps = Partial<MenuButtonProps>;
+
+export default function MenuButtonBulletedList(
+  props: MenuButtonBulletedListProps
+) {
   const editor = useRichTextEditorContext();
   return (
     <MenuButton
@@ -13,6 +17,7 @@ export default function MenuButtonBulletedList() {
       selected={editor?.isActive("bulletList") ?? false}
       disabled={!editor?.isEditable || !editor.can().toggleBulletList()}
       onClick={() => editor?.chain().focus().toggleBulletList().run()}
+      {...props}
     />
   );
 }

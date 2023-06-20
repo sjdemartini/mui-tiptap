@@ -1,9 +1,11 @@
 /// <reference types="@tiptap/extension-italic" />
 import { FormatItalic } from "@mui/icons-material";
 import { useRichTextEditorContext } from "../context";
-import MenuButton from "./MenuButton";
+import MenuButton, { type MenuButtonProps } from "./MenuButton";
 
-export default function MenuButtonItalic() {
+export type MenuButtonItalicProps = Partial<MenuButtonProps>;
+
+export default function MenuButtonItalic(props: MenuButtonItalicProps) {
   const editor = useRichTextEditorContext();
   return (
     <MenuButton
@@ -13,6 +15,7 @@ export default function MenuButtonItalic() {
       selected={editor?.isActive("italic") ?? false}
       disabled={!editor?.isEditable || !editor.can().toggleItalic()}
       onClick={() => editor?.chain().focus().toggleItalic().run()}
+      {...props}
     />
   );
 }
