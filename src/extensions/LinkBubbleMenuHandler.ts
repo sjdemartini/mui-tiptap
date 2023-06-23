@@ -1,4 +1,5 @@
 /// <reference types="@tiptap/extension-link" />
+import type { PopperProps } from "@mui/material";
 import { Extension, getAttributes } from "@tiptap/core";
 import { Plugin, PluginKey } from "@tiptap/pm/state";
 
@@ -9,8 +10,16 @@ declare module "@tiptap/core" {
        * Open/show the link bubble menu. Create a link if one doesn't exist at
        * the current cursor selection, or edit the existing link if there is
        * already a link at the current selection.
+       *
+       * If the anchorEl is provided, it's used to override the anchor point for
+       * positioning the bubble menu. Each call to `openLinkBubbleMenu` will
+       * reset the anchor based on the provided argument. If not provided, the
+       * bubble menu will be anchored to the location in the editor content
+       * where the link appears or will appear.
        */
-      openLinkBubbleMenu: () => ReturnType;
+      openLinkBubbleMenu: (options?: {
+        anchorEl?: PopperProps["anchorEl"];
+      }) => ReturnType;
       /**
        * Edit an existing link in the bubble menu, to be used when currently
        * viewing a link in the already-opened bubble menu.
@@ -30,6 +39,7 @@ export enum LinkMenuState {
 
 export type LinkBubbleMenuHandlerStorage = {
   state: LinkMenuState;
+  anchorEl?: PopperProps["anchorEl"];
 };
 
 const LinkBubbleMenuHandler = Extension.create<
@@ -41,13 +51,14 @@ const LinkBubbleMenuHandler = Extension.create<
   addStorage() {
     return {
       state: LinkMenuState.HIDDEN,
+      anchorEl: undefined,
     };
   },
 
   addCommands() {
     return {
       openLinkBubbleMenu:
-        () =>
+        ({ anchorEl } = {}) =>
         ({ editor, chain, dispatch }) => {
           const currentMenuState = this.storage.state;
 
@@ -84,6 +95,7 @@ const LinkBubbleMenuHandler = Extension.create<
             // this happens automatically for the Tiptap built-in commands
             // called with `chain()` above.
             this.storage.state = newMenuState;
+            this.storage.anchorEl = anchorEl;
           }
 
           return true;

@@ -1,6 +1,7 @@
 import { ToggleButton, type ToggleButtonProps } from "@mui/material";
+import type { RefObject } from "react";
 import { makeStyles } from "tss-react/mui";
-import type { SetOptional } from "type-fest";
+import type { Except, SetOptional } from "type-fest";
 import MenuButtonTooltip, {
   type MenuButtonTooltipProps,
 } from "./MenuButtonTooltip";
@@ -29,9 +30,11 @@ export type MenuButtonProps = {
   tooltipShortcutKeys?: MenuButtonTooltipProps["shortcutKeys"];
   /** The icon component to use for the button. Must accept a className. */
   IconComponent: React.ElementType<{ className: string }>;
-} & SetOptional<ToggleButtonProps, "value">;
+  /** Attaches a `ref` to the ToggleButton's root button element. */
+  buttonRef?: RefObject<HTMLButtonElement>;
+} & SetOptional<Except<ToggleButtonProps, "ref">, "value">;
 
-const useStyles = makeStyles({ name: { MenuButton } })({
+const useStyles = makeStyles({ name: "MenuButton" })({
   root: {
     // Use && for additional specificity, since MUI's conditional "disabled"
     // styles also set the border
@@ -54,6 +57,7 @@ export default function MenuButton({
   tooltipLabel,
   tooltipShortcutKeys,
   IconComponent,
+  buttonRef,
   ...toggleButtonProps
 }: MenuButtonProps) {
   const { classes } = useStyles();
@@ -63,7 +67,12 @@ export default function MenuButton({
         label={tooltipLabel}
         shortcutKeys={tooltipShortcutKeys}
       >
-        <ToggleButton size="small" value={tooltipLabel} {...toggleButtonProps}>
+        <ToggleButton
+          ref={buttonRef}
+          size="small"
+          value={tooltipLabel}
+          {...toggleButtonProps}
+        >
           <IconComponent className={classes.menuButtonIcon} />
         </ToggleButton>
       </MenuButtonTooltip>
