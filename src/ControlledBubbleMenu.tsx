@@ -33,6 +33,20 @@ export type ControlledBubbleMenuProps = {
    * (like the `ref` of a MUI <Dialog />), for instance, so that this bubble
    * menu can still appear on top of that, without needing to use messy z-index
    * overrides.
+   *
+   * Example:
+   *
+   * <Dialog open={open} ref={dialogRef}>
+   *   <RichTextEditor ...>
+   *     {() => (
+   *       <>
+   *         <MyControlledBubbleMenu container={dialogRef.current} />
+   *         <LinkBubbleMenu container={dialogRef.current} />
+   *         <TableBubbleMenu container={dialogRef.current} />
+   *       </>
+   *     )}
+   *   </RichTextEditor>
+   * </Dialog>
    */
   container?: PopperProps["container"];
   /**
