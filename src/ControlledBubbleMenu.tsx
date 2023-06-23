@@ -132,6 +132,7 @@ export default function ControlledBubbleMenu({
   disablePortal,
   placement = "top",
   fallbackPlacements = [
+    "top",
     "bottom",
     "top-start",
     "bottom-start",
