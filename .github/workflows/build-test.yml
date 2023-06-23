@@ -20,7 +20,7 @@ jobs:
       - run: pnpm install
 
       - name: Dependencies audit
-        run: pnpm audit --audit-level=moderate
+        run: pnpm audit --audit-level=high
 
       - name: Check for duplicate dependencies
         run: pnpm dedupe --check
