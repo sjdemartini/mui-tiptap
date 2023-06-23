@@ -1,7 +1,7 @@
 /// <reference types="@tiptap/extension-link" />
-import type { PopperProps } from "@mui/material";
 import { Extension, getAttributes } from "@tiptap/core";
 import { Plugin, PluginKey } from "@tiptap/pm/state";
+import type { LinkBubbleMenuProps } from "../LinkBubbleMenu";
 
 declare module "@tiptap/core" {
   interface Commands<ReturnType> {
@@ -11,15 +11,19 @@ declare module "@tiptap/core" {
        * the current cursor selection, or edit the existing link if there is
        * already a link at the current selection.
        *
-       * If the anchorEl is provided, it's used to override the anchor point for
-       * positioning the bubble menu. Each call to `openLinkBubbleMenu` will
-       * reset the anchor based on the provided argument. If not provided, the
-       * bubble menu will be anchored to the location in the editor content
-       * where the link appears or will appear.
+       * If the options are provided, they're used to override the bubble menu
+       * props, which can be useful for specific positioning needs. Each call to
+       * `openLinkBubbleMenu` will reset the options based on the provided
+       * argument, falling back to default behavior if not provided.
+       *
+       * For instance, if the anchorEl option is provided, it overrides the
+       * anchor point for positioning the bubble menu. (The default anchorEl for
+       * LinkBubbleMenu is to anchor to the location in the editor content where
+       * the link appears or will appear.)
        */
-      openLinkBubbleMenu: (options?: {
-        anchorEl?: PopperProps["anchorEl"];
-      }) => ReturnType;
+      openLinkBubbleMenu: (
+        options?: Partial<LinkBubbleMenuProps>
+      ) => ReturnType;
       /**
        * Edit an existing link in the bubble menu, to be used when currently
        * viewing a link in the already-opened bubble menu.
@@ -39,7 +43,7 @@ export enum LinkMenuState {
 
 export type LinkBubbleMenuHandlerStorage = {
   state: LinkMenuState;
-  anchorEl?: PopperProps["anchorEl"];
+  bubbleMenuOptions: Partial<LinkBubbleMenuProps> | undefined;
 };
 
 const LinkBubbleMenuHandler = Extension.create<
@@ -51,14 +55,14 @@ const LinkBubbleMenuHandler = Extension.create<
   addStorage() {
     return {
       state: LinkMenuState.HIDDEN,
-      anchorEl: undefined,
+      bubbleMenuOptions: undefined,
     };
   },
 
   addCommands() {
     return {
       openLinkBubbleMenu:
-        ({ anchorEl } = {}) =>
+        (bubbleMenuOptions = {}) =>
         ({ editor, chain, dispatch }) => {
           const currentMenuState = this.storage.state;
 
@@ -95,7 +99,7 @@ const LinkBubbleMenuHandler = Extension.create<
             // this happens automatically for the Tiptap built-in commands
             // called with `chain()` above.
             this.storage.state = newMenuState;
-            this.storage.anchorEl = anchorEl;
+            this.storage.bubbleMenuOptions = bubbleMenuOptions;
           }
 
           return true;

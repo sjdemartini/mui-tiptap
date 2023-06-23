@@ -17,9 +17,12 @@ export default function MenuButtonEditLink(props: MenuButtonEditLinkProps) {
       selected={editor?.isActive("link")}
       disabled={!editor?.isEditable}
       onClick={() =>
-        // Anchor the link bubble menu to the button, when clicking the button
-        // to open it
-        editor?.commands.openLinkBubbleMenu({ anchorEl: buttonRef.current })
+        // When clicking the button to open the bubble menu, we'll place the
+        // menu below the button
+        editor?.commands.openLinkBubbleMenu({
+          anchorEl: buttonRef.current,
+          placement: "bottom",
+        })
       }
       {...props}
     />

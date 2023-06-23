@@ -114,7 +114,7 @@ export default function LinkBubbleMenu({
     <ControlledBubbleMenu
       editor={editor}
       open={menuState !== LinkMenuState.HIDDEN}
-      anchorEl={handlerStorage.anchorEl}
+      {...handlerStorage.bubbleMenuOptions}
       {...controlledBubbleMenuProps}
     >
       <div className={classes.content}>{linkMenuContent}</div>
