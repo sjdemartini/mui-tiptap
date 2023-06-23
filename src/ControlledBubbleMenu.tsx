@@ -25,14 +25,21 @@ export type ControlledBubbleMenuProps = {
    */
   anchorEl?: PopperProps["anchorEl"];
   /**
-   * To override the HTML element container into which the bubble menu Popper
-   * portal children (DOM content) are appended. By default, uses the HTML
-   * element where the editor is rendered/bound, so the Popper DOM node is a
-   * sibling of the ProseMirror editor node. That default helps ensure that if,
-   * for instance, the editor appears within a modal, this bubble menu still
-   * appears on top of *that*.
+   * To override the HTML element into which the bubble menu Popper portal
+   * children (DOM content) are appended. Uses MUI's Popper default if not
+   * provided (the body of the top-level document object).
+   *
+   * Can be useful to override with a reference to a modal/dialog's element
+   * (like the `ref` of a MUI <Dialog />), for instance, so that this bubble
+   * menu can still appear on top of that, without needing to use messy z-index
+   * overrides.
    */
   container?: PopperProps["container"];
+  /**
+   * If true, the `children` will be under the DOM hierarchy of the parent
+   * component of the ControlledBubbleMenu.
+   */
+  disablePortal?: PopperProps["disablePortal"];
   /**
    * The placement to use for this bubble menu. By default "top". See
    * https://popper.js.org/docs/v2/constructors/#options (and
@@ -108,6 +115,7 @@ export default function ControlledBubbleMenu({
   children,
   anchorEl,
   container,
+  disablePortal,
   placement = "top",
   fallbackPlacements = [
     "bottom",
@@ -196,15 +204,8 @@ export default function ControlledBubbleMenu({
       ]}
       anchorEl={anchorEl ?? defaultAnchorEl}
       className={cx(controlledBubbleMenuClasses.root, classes.root, className)}
-      // Put the portal children within the same DOM context as the editor. This
-      // helps ensure that if, for instance, the editor appears within a modal,
-      // this bubble menu appears on top of *that*. (We can't merely set a
-      // z-index, since we don't want all bubble menus to appear on top of all
-      // modals and other high z-index elements; we just want bubble menus from
-      // editors within modals to appear on top of their modals.)
-      container={
-        typeof container === "undefined" ? editor.options.element : container
-      }
+      container={container}
+      disablePortal={disablePortal}
       transition
     >
       {({ TransitionProps }) => (
