@@ -32,6 +32,10 @@ export {
   type MenuButtonEditLinkProps,
 } from "./MenuButtonEditLink";
 export {
+  default as MenuButtonHorizontalRule,
+  type MenuButtonHorizontalRuleProps,
+} from "./MenuButtonHorizontalRule";
+export {
   default as MenuButtonIndent,
   type MenuButtonIndentProps,
 } from "./MenuButtonIndent";
@@ -43,6 +47,10 @@ export {
   default as MenuButtonOrderedList,
   type MenuButtonOrderedListProps,
 } from "./MenuButtonOrderedList";
+export {
+  default as MenuButtonRedo,
+  type MenuButtonRedoProps,
+} from "./MenuButtonRedo";
 export {
   default as MenuButtonRemoveFormatting,
   type MenuButtonRemoveFormattingProps,
@@ -67,6 +75,10 @@ export {
   default as MenuButtonTooltip,
   type MenuButtonTooltipProps,
 } from "./MenuButtonTooltip";
+export {
+  default as MenuButtonUndo,
+  type MenuButtonUndoProps,
+} from "./MenuButtonUndo";
 export {
   default as MenuButtonUnindent,
   type MenuButtonUnindentProps,
