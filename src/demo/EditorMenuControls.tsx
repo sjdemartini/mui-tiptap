@@ -8,6 +8,7 @@ import MenuButtonBulletedList from "../controls/MenuButtonBulletedList";
 import MenuButtonCode from "../controls/MenuButtonCode";
 import MenuButtonCodeBlock from "../controls/MenuButtonCodeBlock";
 import MenuButtonEditLink from "../controls/MenuButtonEditLink";
+import MenuButtonHorizontalRule from "../controls/MenuButtonHorizontalRule";
 import MenuButtonIndent from "../controls/MenuButtonIndent";
 import MenuButtonItalic from "../controls/MenuButtonItalic";
 import MenuButtonOrderedList from "../controls/MenuButtonOrderedList";
@@ -86,6 +87,8 @@ export default function EditorMenuControls() {
       />
 
       <MenuDivider />
+
+      <MenuButtonHorizontalRule />
 
       <MenuButtonAddTable />
 
