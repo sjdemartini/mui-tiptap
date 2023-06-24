@@ -11,11 +11,13 @@ import MenuButtonEditLink from "../controls/MenuButtonEditLink";
 import MenuButtonIndent from "../controls/MenuButtonIndent";
 import MenuButtonItalic from "../controls/MenuButtonItalic";
 import MenuButtonOrderedList from "../controls/MenuButtonOrderedList";
+import MenuButtonRedo from "../controls/MenuButtonRedo";
 import MenuButtonRemoveFormatting from "../controls/MenuButtonRemoveFormatting";
 import MenuButtonStrikethrough from "../controls/MenuButtonStrikethrough";
 import MenuButtonSubscript from "../controls/MenuButtonSubscript";
 import MenuButtonSuperscript from "../controls/MenuButtonSuperscript";
 import MenuButtonTaskList from "../controls/MenuButtonTaskList";
+import MenuButtonUndo from "../controls/MenuButtonUndo";
 import MenuButtonUnindent from "../controls/MenuButtonUnindent";
 import MenuControlsContainer from "../controls/MenuControlsContainer";
 import MenuHeadingSelect from "../controls/MenuHeadingSelect";
@@ -90,6 +92,11 @@ export default function EditorMenuControls() {
       <MenuDivider />
 
       <MenuButtonRemoveFormatting />
+
+      <MenuDivider />
+
+      <MenuButtonUndo />
+      <MenuButtonRedo />
     </MenuControlsContainer>
   );
 }
