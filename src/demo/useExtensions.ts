@@ -138,12 +138,7 @@ export default function useRecommendedExtensions({
 
       // Extensions
       Gapcursor,
-      HeadingWithAnchor.configure({
-        // People shouldn't typically need more than 3 levels of headings, so
-        // keep a more minimal set (than the default 6) to keep things simpler
-        // and less chaotic.
-        levels: [1, 2, 3],
-      }),
+      HeadingWithAnchor,
       HorizontalRule,
 
       ResizableImage,
