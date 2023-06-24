@@ -288,6 +288,17 @@ export function getEditorStyles(theme: Theme): StyleRules {
       },
     },
 
+    "& hr": {
+      borderWidth: 0,
+      borderTopWidth: "thin",
+      borderStyle: "solid",
+      borderColor: theme.palette.text.secondary,
+
+      "&.ProseMirror-selectednode": {
+        borderColor: theme.palette.primary.main,
+      },
+    },
+
     "& table": {
       borderCollapse: "collapse",
       tableLayout: "fixed",
