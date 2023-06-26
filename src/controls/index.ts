@@ -76,6 +76,10 @@ export {
   type MenuButtonTooltipProps,
 } from "./MenuButtonTooltip";
 export {
+  default as MenuButtonUnderline,
+  type MenuButtonUnderlineProps,
+} from "./MenuButtonUnderline";
+export {
   default as MenuButtonUndo,
   type MenuButtonUndoProps,
 } from "./MenuButtonUndo";
