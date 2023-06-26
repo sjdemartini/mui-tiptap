@@ -25,6 +25,7 @@ import { TableRow } from "@tiptap/extension-table-row";
 import { TaskItem } from "@tiptap/extension-task-item";
 import { TaskList } from "@tiptap/extension-task-list";
 import { Text } from "@tiptap/extension-text";
+import { Underline } from "@tiptap/extension-underline";
 import { useMemo } from "react";
 import HeadingWithAnchor from "../extensions/HeadingWithAnchor";
 import LinkBubbleMenuHandler from "../extensions/LinkBubbleMenuHandler";
@@ -121,6 +122,7 @@ export default function useRecommendedExtensions({
 
       Code,
       Italic,
+      Underline,
       Strike,
       CustomLinkExtension.configure({
         // autolink is generally useful for changing text into links if they

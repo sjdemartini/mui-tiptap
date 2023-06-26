@@ -18,6 +18,7 @@ import MenuButtonStrikethrough from "../controls/MenuButtonStrikethrough";
 import MenuButtonSubscript from "../controls/MenuButtonSubscript";
 import MenuButtonSuperscript from "../controls/MenuButtonSuperscript";
 import MenuButtonTaskList from "../controls/MenuButtonTaskList";
+import MenuButtonUnderline from "../controls/MenuButtonUnderline";
 import MenuButtonUndo from "../controls/MenuButtonUndo";
 import MenuButtonUnindent from "../controls/MenuButtonUnindent";
 import MenuControlsContainer from "../controls/MenuControlsContainer";
@@ -33,6 +34,8 @@ export default function EditorMenuControls() {
       <MenuButtonBold />
 
       <MenuButtonItalic />
+
+      <MenuButtonUnderline />
 
       <MenuButtonStrikethrough />
 
