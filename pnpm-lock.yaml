@@ -35,100 +35,100 @@ devDependencies:
     specifier: ^5.0.0
     version: 5.12.3(@emotion/react@11.11.0)(@emotion/styled@11.11.0)(@types/react@18.2.12)(react-dom@18.2.0)(react@18.2.0)
   '@tiptap/core':
-    specifier: 2.0.3
+    specifier: ^2.0.3
     version: 2.0.3(@tiptap/pm@2.0.3)
   '@tiptap/extension-blockquote':
-    specifier: 2.0.3
+    specifier: ^2.0.3
     version: 2.0.3(@tiptap/core@2.0.3)
   '@tiptap/extension-bold':
-    specifier: 2.0.3
+    specifier: ^2.0.3
     version: 2.0.3(@tiptap/core@2.0.3)
   '@tiptap/extension-bullet-list':
-    specifier: 2.0.3
+    specifier: ^2.0.3
     version: 2.0.3(@tiptap/core@2.0.3)
   '@tiptap/extension-code':
-    specifier: 2.0.3
+    specifier: ^2.0.3
     version: 2.0.3(@tiptap/core@2.0.3)
   '@tiptap/extension-code-block':
-    specifier: 2.0.3
+    specifier: ^2.0.3
     version: 2.0.3(@tiptap/core@2.0.3)(@tiptap/pm@2.0.3)
   '@tiptap/extension-collaboration':
-    specifier: 2.0.3
+    specifier: ^2.0.3
     version: 2.0.3(@tiptap/core@2.0.3)(@tiptap/pm@2.0.3)(y-prosemirror@1.0.20)
   '@tiptap/extension-collaboration-cursor':
-    specifier: 2.0.3
+    specifier: ^2.0.3
     version: 2.0.3(@tiptap/core@2.0.3)(y-prosemirror@1.0.20)
   '@tiptap/extension-document':
-    specifier: 2.0.3
+    specifier: ^2.0.3
     version: 2.0.3(@tiptap/core@2.0.3)
   '@tiptap/extension-dropcursor':
-    specifier: 2.0.3
+    specifier: ^2.0.3
     version: 2.0.3(@tiptap/core@2.0.3)(@tiptap/pm@2.0.3)
   '@tiptap/extension-gapcursor':
-    specifier: 2.0.3
+    specifier: ^2.0.3
     version: 2.0.3(@tiptap/core@2.0.3)(@tiptap/pm@2.0.3)
   '@tiptap/extension-hard-break':
-    specifier: 2.0.3
+    specifier: ^2.0.3
     version: 2.0.3(@tiptap/core@2.0.3)
   '@tiptap/extension-heading':
-    specifier: 2.0.3
+    specifier: ^2.0.3
     version: 2.0.3(@tiptap/core@2.0.3)
   '@tiptap/extension-history':
-    specifier: 2.0.3
+    specifier: ^2.0.3
     version: 2.0.3(@tiptap/core@2.0.3)(@tiptap/pm@2.0.3)
   '@tiptap/extension-horizontal-rule':
     specifier: ^2.0.3
     version: 2.0.3(@tiptap/core@2.0.3)(@tiptap/pm@2.0.3)
   '@tiptap/extension-image':
-    specifier: 2.0.3
+    specifier: ^2.0.3
     version: 2.0.3(@tiptap/core@2.0.3)
   '@tiptap/extension-italic':
-    specifier: 2.0.3
+    specifier: ^2.0.3
     version: 2.0.3(@tiptap/core@2.0.3)
   '@tiptap/extension-link':
-    specifier: 2.0.3
+    specifier: ^2.0.3
     version: 2.0.3(@tiptap/core@2.0.3)(@tiptap/pm@2.0.3)
   '@tiptap/extension-list-item':
-    specifier: 2.0.3
+    specifier: ^2.0.3
     version: 2.0.3(@tiptap/core@2.0.3)
   '@tiptap/extension-ordered-list':
-    specifier: 2.0.3
+    specifier: ^2.0.3
     version: 2.0.3(@tiptap/core@2.0.3)
   '@tiptap/extension-paragraph':
-    specifier: 2.0.3
+    specifier: ^2.0.3
     version: 2.0.3(@tiptap/core@2.0.3)
   '@tiptap/extension-placeholder':
-    specifier: 2.0.3
+    specifier: ^2.0.3
     version: 2.0.3(@tiptap/core@2.0.3)(@tiptap/pm@2.0.3)
   '@tiptap/extension-strike':
-    specifier: 2.0.3
+    specifier: ^2.0.3
     version: 2.0.3(@tiptap/core@2.0.3)
   '@tiptap/extension-subscript':
-    specifier: 2.0.3
+    specifier: ^2.0.3
     version: 2.0.3(@tiptap/core@2.0.3)
   '@tiptap/extension-superscript':
-    specifier: 2.0.3
+    specifier: ^2.0.3
     version: 2.0.3(@tiptap/core@2.0.3)
   '@tiptap/extension-table':
-    specifier: 2.0.3
+    specifier: ^2.0.3
     version: 2.0.3(@tiptap/core@2.0.3)(@tiptap/pm@2.0.3)
   '@tiptap/extension-table-cell':
-    specifier: 2.0.3
+    specifier: ^2.0.3
     version: 2.0.3(@tiptap/core@2.0.3)
   '@tiptap/extension-table-header':
-    specifier: 2.0.3
+    specifier: ^2.0.3
     version: 2.0.3(@tiptap/core@2.0.3)
   '@tiptap/extension-table-row':
-    specifier: 2.0.3
+    specifier: ^2.0.3
     version: 2.0.3(@tiptap/core@2.0.3)
   '@tiptap/extension-task-item':
-    specifier: 2.0.3
+    specifier: ^2.0.3
     version: 2.0.3(@tiptap/core@2.0.3)(@tiptap/pm@2.0.3)
   '@tiptap/extension-task-list':
-    specifier: 2.0.3
+    specifier: ^2.0.3
     version: 2.0.3(@tiptap/core@2.0.3)
   '@tiptap/extension-text':
-    specifier: 2.0.3
+    specifier: ^2.0.3
     version: 2.0.3(@tiptap/core@2.0.3)
   '@tiptap/extension-underline':
     specifier: ^2.0.3
@@ -137,10 +137,10 @@ devDependencies:
     specifier: ^2.0.3
     version: 2.0.3(@tiptap/core@2.0.3)
   '@tiptap/react':
-    specifier: 2.0.3
+    specifier: ^2.0.3
     version: 2.0.3(@tiptap/core@2.0.3)(@tiptap/pm@2.0.3)(react-dom@18.2.0)(react@18.2.0)
   '@tiptap/starter-kit':
-    specifier: 2.0.3
+    specifier: ^2.0.3
     version: 2.0.3(@tiptap/pm@2.0.3)
   '@types/encodeurl':
     specifier: ^1.0.0
