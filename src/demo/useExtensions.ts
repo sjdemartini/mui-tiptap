@@ -25,6 +25,7 @@ import { TableRow } from "@tiptap/extension-table-row";
 import { TaskItem } from "@tiptap/extension-task-item";
 import { TaskList } from "@tiptap/extension-task-list";
 import { Text } from "@tiptap/extension-text";
+import { TextAlign } from "@tiptap/extension-text-align";
 import { Underline } from "@tiptap/extension-underline";
 import { useMemo } from "react";
 import HeadingWithAnchor from "../extensions/HeadingWithAnchor";
@@ -141,6 +142,9 @@ export default function useRecommendedExtensions({
       // Extensions
       Gapcursor,
       HeadingWithAnchor,
+      TextAlign.configure({
+        types: ["heading", "paragraph"],
+      }),
       HorizontalRule,
 
       ResizableImage,
