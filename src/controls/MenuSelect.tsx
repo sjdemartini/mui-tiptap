@@ -4,7 +4,7 @@ import MenuButtonTooltip from "./MenuButtonTooltip";
 
 export type MenuSelectProps<T> = SelectProps<T> & {
   /** An optional tooltip to show when hovering over this Select. */
-  tooltipLabel?: string;
+  tooltipTitle?: string;
 };
 
 const useStyles = makeStyles({ name: { MenuSelect } })((theme) => {
@@ -45,7 +45,7 @@ const useStyles = makeStyles({ name: { MenuSelect } })((theme) => {
 
 /** A Select that is styled to work well with other menu bar controls. */
 export default function MenuSelect<T>({
-  tooltipLabel,
+  tooltipTitle,
   ...selectProps
 }: MenuSelectProps<T>) {
   const { classes, cx } = useStyles();
@@ -80,7 +80,7 @@ export default function MenuSelect<T>({
       }}
     />
   );
-  return tooltipLabel ? (
+  return tooltipTitle ? (
     <MenuButtonTooltip
       label="Align"
       contentWrapperClassName={classes.rootTooltipWrapper}

@@ -108,4 +108,8 @@ export {
   type MenuControlsContainerProps,
 } from "./MenuControlsContainer";
 export { default as MenuHeadingSelect } from "./MenuHeadingSelect";
-export { default as MenuSelectTextAlign } from "./MenuSelectTextAlign";
+export { default as MenuSelect, type MenuSelectProps } from "./MenuSelect";
+export {
+  default as MenuSelectTextAlign,
+  type MenuSelectTextAlignProps,
+} from "./MenuSelectTextAlign";
