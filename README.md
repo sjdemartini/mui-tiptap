@@ -111,7 +111,8 @@ import {
   MenuButtonBold,
   MenuButtonItalic,
   MenuControlsContainer,
-  MenuHeadingSelect,
+  MenuDivider,
+  MenuSelectHeading,
   RichTextEditorProvider,
   RichTextField,
 } from "mui-tiptap";
@@ -126,7 +127,8 @@ function App() {
       <RichTextField
         controls={
           <MenuControlsContainer>
-            <MenuHeadingSelect />
+            <MenuSelectHeading />
+            <MenuDivider />
             <MenuButtonBold />
             <MenuButtonItalic />
             {/* Add more controls of your choosing here */}

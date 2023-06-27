@@ -8,7 +8,7 @@ import { getEditorStyles } from "../styles";
 import MenuButtonTooltip from "./MenuButtonTooltip";
 import MenuSelect from "./MenuSelect";
 
-const useStyles = makeStyles({ name: { MenuHeadingSelect } })((theme) => {
+const useStyles = makeStyles({ name: { MenuSelectHeading } })((theme) => {
   const editorStyles = getEditorStyles(theme);
   return {
     selectInput: {
@@ -88,7 +88,7 @@ const LEVEL_TO_HEADING_OPTION_VALUE = {
   6: HEADING_OPTION_VALUES.Heading6,
 } as const;
 
-export default function MenuHeadingSelect() {
+export default function MenuSelectHeading() {
   const { classes, cx } = useStyles();
   const editor = useRichTextEditorContext();
 

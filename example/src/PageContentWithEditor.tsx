@@ -44,7 +44,7 @@ import {
   MenuButtonTaskList,
   MenuControlsContainer,
   MenuDivider,
-  MenuHeadingSelect,
+  MenuSelectHeading,
   ResizableImage,
   RichTextEditor,
   TableBubbleMenu,
@@ -151,7 +151,10 @@ export default function PageContentWithEditor() {
           extensions={extensions}
           renderControls={() => (
             <MenuControlsContainer>
-              <MenuHeadingSelect />
+              <MenuSelectHeading />
+
+              <MenuDivider />
+
               <MenuButtonBold />
               <MenuButtonItalic />
               <MenuButtonStrikethrough />
