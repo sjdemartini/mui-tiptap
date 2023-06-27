@@ -1,10 +1,6 @@
 import {
   MenuButtonAddImage,
   MenuButtonAddTable,
-  MenuButtonAlignCenter,
-  MenuButtonAlignJustify,
-  MenuButtonAlignLeft,
-  MenuButtonAlignRight,
   MenuButtonBlockquote,
   MenuButtonBold,
   MenuButtonBulletedList,
@@ -27,6 +23,7 @@ import {
   MenuControlsContainer,
   MenuDivider,
   MenuHeadingSelect,
+  MenuSelectTextAlign,
 } from "../";
 import { useRichTextEditorContext } from "../context";
 import { isTouchDevice } from "../utils/platform";
@@ -55,10 +52,7 @@ export default function EditorMenuControls() {
 
       <MenuDivider />
 
-      <MenuButtonAlignLeft />
-      <MenuButtonAlignCenter />
-      <MenuButtonAlignRight />
-      <MenuButtonAlignJustify />
+      <MenuSelectTextAlign />
 
       <MenuDivider />
 
