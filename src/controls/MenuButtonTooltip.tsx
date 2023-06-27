@@ -33,7 +33,7 @@ export type MenuButtonTooltipProps = {
   contentWrapperClassName?: string;
   /** The menu element for which we're showing a tooltip when hovering. */
   children: React.ReactNode;
-};
+} & Pick<TooltipProps, "open" | "onOpen" | "onClose">;
 
 const useStyles = makeStyles({ name: { MenuButtonTooltip } })((theme) => ({
   titleContainer: {
@@ -67,6 +67,7 @@ export default function MenuButtonTooltip({
   placement = "top",
   contentWrapperClassName,
   children,
+  ...otherTooltipProps
 }: MenuButtonTooltipProps) {
   const { classes } = useStyles();
   return (
@@ -88,6 +89,7 @@ export default function MenuButtonTooltip({
       }
       placement={placement}
       arrow
+      {...otherTooltipProps}
     >
       {/* Use a span around the children so we show a tooltip even if the
       element inside is disabled */}

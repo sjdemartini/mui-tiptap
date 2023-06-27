@@ -1,4 +1,5 @@
 import { Select, type SelectProps } from "@mui/material";
+import { useState } from "react";
 import { makeStyles } from "tss-react/mui";
 import MenuButtonTooltip from "./MenuButtonTooltip";
 
@@ -49,11 +50,29 @@ export default function MenuSelect<T>({
   ...selectProps
 }: MenuSelectProps<T>) {
   const { classes, cx } = useStyles();
+  // We use a controlled tooltip here because otherwise it seems the tooltip can
+  // get stuck open after selecting something (as it can re-trigger the
+  // Tooltip's onOpen upon clicking a MenuItem). We instead trigger it to
+  // open/close based on interaction specifically with the Select (not the usual
+  // Tooltip onOpen/onClose)
+  const [tooltipOpen, setTooltipOpen] = useState(false);
   const select = (
     <Select<T>
       margin="none"
       variant="outlined"
       size="small"
+      onMouseEnter={(...args) => {
+        setTooltipOpen(true);
+        selectProps.onMouseEnter?.(...args);
+      }}
+      onMouseLeave={(...args) => {
+        setTooltipOpen(false);
+        selectProps.onMouseLeave?.(...args);
+      }}
+      onClick={(...args) => {
+        setTooltipOpen(false);
+        selectProps.onClick?.(...args);
+      }}
       {...selectProps}
       inputProps={{
         ...selectProps.inputProps,
@@ -84,6 +103,7 @@ export default function MenuSelect<T>({
     <MenuButtonTooltip
       label="Align"
       contentWrapperClassName={classes.rootTooltipWrapper}
+      open={tooltipOpen}
     >
       {select}
     </MenuButtonTooltip>
