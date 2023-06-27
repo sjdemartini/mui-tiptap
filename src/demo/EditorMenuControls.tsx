@@ -34,6 +34,8 @@ export default function EditorMenuControls() {
     <MenuControlsContainer>
       <MenuHeadingSelect />
 
+      <MenuDivider />
+
       <MenuButtonBold />
 
       <MenuButtonItalic />
