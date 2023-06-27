@@ -22,7 +22,7 @@ import {
   MenuButtonUnindent,
   MenuControlsContainer,
   MenuDivider,
-  MenuHeadingSelect,
+  MenuSelectHeading,
   MenuSelectTextAlign,
 } from "../";
 import { useRichTextEditorContext } from "../context";
@@ -32,7 +32,7 @@ export default function EditorMenuControls() {
   const editor = useRichTextEditorContext();
   return (
     <MenuControlsContainer>
-      <MenuHeadingSelect />
+      <MenuSelectHeading />
 
       <MenuDivider />
 
