@@ -2,7 +2,7 @@ import FormatAlignCenterIcon from "@mui/icons-material/FormatAlignCenter";
 import FormatAlignJustifyIcon from "@mui/icons-material/FormatAlignJustify";
 import FormatAlignLeftIcon from "@mui/icons-material/FormatAlignLeft";
 import FormatAlignRightIcon from "@mui/icons-material/FormatAlignRight";
-import { MenuItem, Select, type SelectChangeEvent } from "@mui/material";
+import { MenuItem, type SelectChangeEvent } from "@mui/material";
 import { useCallback, useMemo } from "react";
 import { makeStyles } from "tss-react/mui";
 import { useRichTextEditorContext } from "../context";
@@ -14,45 +14,26 @@ import MenuButtonTooltip, {
 // without needing to list extension-text-align as a peer dependency.
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { TextAlignOptions } from "@tiptap/extension-text-align";
+import MenuSelect from "./MenuSelect";
 
-const useStyles = makeStyles({ name: { MenuSelectTextAlign } })((theme) => {
-  return {
-    rootTooltipWrapper: {
-      display: "inline-flex",
-    },
+const useStyles = makeStyles({ name: { MenuSelectTextAlign } })({
+  menuItem: {
+    paddingLeft: 0,
+    paddingRight: 0,
+  },
 
-    select: {
-      // Increase specificity to override MUI's styles
-      "&&&": {
-        paddingLeft: theme.spacing(1),
-        paddingRight: theme.spacing(3),
-      },
-    },
+  menuOption: {
+    // These styles ensure the item fills its MenuItem container, and the
+    // tooltip appears in the same place when hovering over the item generally
+    // (not just the text of the item)
+    display: "flex",
+    width: "100%",
+    justifyContent: "center",
+  },
 
-    selectDropdownIcon: {
-      // Move the caret icon closer to the right than default so the button is
-      // more compact
-      right: 1,
-    },
-
-    menuItem: {
-      paddingLeft: 0,
-      paddingRight: 0,
-    },
-
-    menuOption: {
-      // These styles ensure the item fills its MenuItem container, and the
-      // tooltip appears in the same place when hovering over the item generally
-      // (not just the text of the item)
-      display: "flex",
-      width: "100%",
-      justifyContent: "center",
-    },
-
-    menuButtonIcon: {
-      fontSize: "1.25rem",
-    },
-  };
+  menuButtonIcon: {
+    fontSize: "1.25rem",
+  },
 });
 
 const ALIGNMENT_OPTIONS: {
@@ -122,89 +103,59 @@ export default function MenuSelectTextAlign() {
     "";
 
   return (
-    <MenuButtonTooltip
-      label="Align"
-      contentWrapperClassName={classes.rootTooltipWrapper}
-    >
-      <Select<string>
-        margin="none"
-        variant="outlined"
-        size="small"
-        onChange={handleAlignmentSelect}
-        disabled={
-          !editor?.isEditable ||
-          !Array.from(enabledAlignments).some((alignment) =>
-            editor.can().setTextAlign(alignment)
-          )
+    <MenuSelect<string>
+      tooltipLabel="Align"
+      onChange={handleAlignmentSelect}
+      disabled={
+        !editor?.isEditable ||
+        !Array.from(enabledAlignments).some((alignment) =>
+          editor.can().setTextAlign(alignment)
+        )
+      }
+      aria-label="Text alignment"
+      value={selectedValue}
+      // Override the rendering of the selected value so that we don't show
+      // tooltips on hovering (like we do for the menu options)
+      renderValue={(selectedValue) => {
+        let content;
+        if (selectedValue === "left") {
+          content = <FormatAlignLeftIcon className={classes.menuButtonIcon} />;
+        } else if (selectedValue === "center") {
+          content = (
+            <FormatAlignCenterIcon className={classes.menuButtonIcon} />
+          );
+        } else if (selectedValue === "right") {
+          content = <FormatAlignRightIcon className={classes.menuButtonIcon} />;
+        } else if (selectedValue === "justify") {
+          content = (
+            <FormatAlignJustifyIcon className={classes.menuButtonIcon} />
+          );
+        } else {
+          content = selectedValue;
         }
-        aria-label="Text alignment"
-        value={selectedValue}
-        inputProps={{ sx: { py: "3px", fontSize: "0.9em" } }}
-        // Always show the dropdown options directly below the select input,
-        // aligned to left-most edge
-        MenuProps={{
-          anchorOrigin: {
-            vertical: "bottom",
-            horizontal: "left",
-          },
-          transformOrigin: {
-            vertical: "top",
-            horizontal: "left",
-          },
-        }}
-        classes={{
-          select: classes.select,
-          icon: classes.selectDropdownIcon,
-        }}
-        // Override the rendering of the selected value so that we don't show
-        // tooltips on hovering (like we do for the menu options)
-        renderValue={(selectedValue) => {
-          let content;
-          if (selectedValue === "left") {
-            content = (
-              <FormatAlignLeftIcon className={classes.menuButtonIcon} />
-            );
-          } else if (selectedValue === "center") {
-            content = (
-              <FormatAlignCenterIcon className={classes.menuButtonIcon} />
-            );
-          } else if (selectedValue === "right") {
-            content = (
-              <FormatAlignRightIcon className={classes.menuButtonIcon} />
-            );
-          } else if (selectedValue === "justify") {
-            content = (
-              <FormatAlignJustifyIcon className={classes.menuButtonIcon} />
-            );
-          } else {
-            content = selectedValue;
-          }
 
-          return <span className={classes.menuOption}>{content}</span>;
-        }}
-      >
-        {ALIGNMENT_OPTIONS.filter((alignmentOption) =>
-          enabledAlignments.has(alignmentOption.alignment)
-        ).map((alignmentOption) => (
-          <MenuItem
-            key={alignmentOption.alignment}
-            value={alignmentOption.alignment}
-            disabled={!editor?.can().setTextAlign(alignmentOption.alignment)}
-            className={classes.menuItem}
+        return <span className={classes.menuOption}>{content}</span>;
+      }}
+    >
+      {ALIGNMENT_OPTIONS.filter((alignmentOption) =>
+        enabledAlignments.has(alignmentOption.alignment)
+      ).map((alignmentOption) => (
+        <MenuItem
+          key={alignmentOption.alignment}
+          value={alignmentOption.alignment}
+          disabled={!editor?.can().setTextAlign(alignmentOption.alignment)}
+          className={classes.menuItem}
+        >
+          <MenuButtonTooltip
+            label={alignmentOption.label}
+            shortcutKeys={alignmentOption.shortcutKeys}
+            placement="right"
+            contentWrapperClassName={classes.menuOption}
           >
-            <MenuButtonTooltip
-              label={alignmentOption.label}
-              shortcutKeys={alignmentOption.shortcutKeys}
-              placement="right"
-              contentWrapperClassName={classes.menuOption}
-            >
-              <alignmentOption.IconComponent
-                className={classes.menuButtonIcon}
-              />
-            </MenuButtonTooltip>
-          </MenuItem>
-        ))}
-      </Select>
-    </MenuButtonTooltip>
+            <alignmentOption.IconComponent className={classes.menuButtonIcon} />
+          </MenuButtonTooltip>
+        </MenuItem>
+      ))}
+    </MenuSelect>
   );
 }

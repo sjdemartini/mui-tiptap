@@ -1,15 +1,23 @@
 /// <reference types="@tiptap/extension-paragraph" />
-import { MenuItem, Select, type SelectChangeEvent } from "@mui/material";
+import { MenuItem, type SelectChangeEvent } from "@mui/material";
 import type { Heading, Level } from "@tiptap/extension-heading";
 import { useCallback, useMemo } from "react";
 import { makeStyles } from "tss-react/mui";
 import { useRichTextEditorContext } from "../context";
 import { getEditorStyles } from "../styles";
 import MenuButtonTooltip from "./MenuButtonTooltip";
+import MenuSelect from "./MenuSelect";
 
 const useStyles = makeStyles({ name: { MenuHeadingSelect } })((theme) => {
   const editorStyles = getEditorStyles(theme);
   return {
+    selectInput: {
+      // We use a fixed width so that the Select element won't change sizes as
+      // the selected option changes (which would shift other elements in the
+      // menu bar)
+      width: 78,
+    },
+
     menuOption: {
       // These styles ensure the item fills its MenuItem container, and the
       // tooltip appears in the same place when hovering over the item generally
@@ -140,10 +148,7 @@ export default function MenuHeadingSelect() {
     // need it to support "" as a possible value in the `renderValue` function
     // below since we have `displayEmpty=true`, and the types don't properly
     // handle that scenario.
-    <Select<HeadingOptionValue | "">
-      margin="none"
-      variant="outlined"
-      size="small"
+    <MenuSelect<HeadingOptionValue | "">
       onChange={handleHeadingType}
       disabled={
         !editor?.isEditable ||
@@ -158,21 +163,8 @@ export default function MenuHeadingSelect() {
       }}
       aria-label="Heading type"
       value={selectedValue}
-      // We use a fixed width so that the Select element won't change sizes as
-      // the selected option changes (which would shift other elements in the
-      // menu bar)
-      inputProps={{ sx: { py: "3px", fontSize: "0.9em", width: 78 } }}
-      // Always show the dropdown options directly below the select input,
-      // aligned to left-most edge
-      MenuProps={{
-        anchorOrigin: {
-          vertical: "bottom",
-          horizontal: "left",
-        },
-        transformOrigin: {
-          vertical: "top",
-          horizontal: "left",
-        },
+      inputProps={{
+        className: classes.selectInput,
       }}
     >
       <MenuItem
@@ -308,6 +300,6 @@ export default function MenuHeadingSelect() {
           </MenuButtonTooltip>
         </MenuItem>
       )}
-    </Select>
+    </MenuSelect>
   );
 }
