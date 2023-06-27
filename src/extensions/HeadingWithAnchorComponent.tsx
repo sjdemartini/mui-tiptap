@@ -10,9 +10,11 @@ import slugify from "../utils/slugify";
 
 // Based on
 // https://github.com/ueberdosis/tiptap/blob/c9eb6a6299796450c7c1cfdc3552d76070c78c65/packages/extension-heading/src/heading.ts#L41-L48
-type HeadingNodeAttributes = {
+// We extend Record<string, unknown>, since we may inherit other global
+// attributes as well, aligned with ProseMirrorNode.attrs typing.
+interface HeadingNodeAttributes extends Record<string, unknown> {
   level: Level;
-};
+}
 
 interface HeadingNode extends ProseMirrorNode {
   attrs: HeadingNodeAttributes;
@@ -95,6 +97,12 @@ export default function HeadingWithAnchorComponent({
       id={headingId}
       {...extension.options.HTMLAttributes}
       className={classes.root}
+      // Handle @tiptap/extension-text-align. Ideally we'd be able to inherit
+      // this style from TextAlign's GlobalAttributes directly, but those are
+      // only applied via `renderHTML` and not the `NodeView` renderer
+      // (https://github.com/ueberdosis/tiptap/blob/6c34dec33ac39c9f037a0a72e4525f3fc6d422bf/packages/extension-text-align/src/text-align.ts#L43-L49),
+      // so we have to do this manually/redundantly here.
+      style={{ textAlign: node.attrs.textAlign }}
     >
       {/* Only render the clickable anchor element when in read-only mode (not editing) */}
       {!editor.isEditable && (
