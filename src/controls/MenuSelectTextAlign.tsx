@@ -16,6 +16,10 @@ import MenuButtonTooltip, {
 import type { TextAlignOptions } from "@tiptap/extension-text-align";
 import MenuSelect from "./MenuSelect";
 
+export type MenuSelectTextAlignProps = {
+  tooltipTitle?: string;
+};
+
 const useStyles = makeStyles({ name: { MenuSelectTextAlign } })({
   menuItem: {
     paddingLeft: 0,
@@ -68,7 +72,9 @@ const ALIGNMENT_OPTIONS: {
   },
 ];
 
-export default function MenuSelectTextAlign() {
+export default function MenuSelectTextAlign({
+  tooltipTitle,
+}: MenuSelectTextAlignProps) {
   const { classes } = useStyles();
   const editor = useRichTextEditorContext();
 
@@ -104,7 +110,7 @@ export default function MenuSelectTextAlign() {
 
   return (
     <MenuSelect<string>
-      tooltipLabel="Align"
+      tooltipTitle={tooltipTitle ?? "Align"}
       onChange={handleAlignmentSelect}
       disabled={
         !editor?.isEditable ||
