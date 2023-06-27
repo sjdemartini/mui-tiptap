@@ -1,28 +1,34 @@
-import MenuDivider from "../MenuDivider";
+import {
+  MenuButtonAddImage,
+  MenuButtonAddTable,
+  MenuButtonAlignCenter,
+  MenuButtonAlignJustify,
+  MenuButtonAlignLeft,
+  MenuButtonAlignRight,
+  MenuButtonBlockquote,
+  MenuButtonBold,
+  MenuButtonBulletedList,
+  MenuButtonCode,
+  MenuButtonCodeBlock,
+  MenuButtonEditLink,
+  MenuButtonHorizontalRule,
+  MenuButtonIndent,
+  MenuButtonItalic,
+  MenuButtonOrderedList,
+  MenuButtonRedo,
+  MenuButtonRemoveFormatting,
+  MenuButtonStrikethrough,
+  MenuButtonSubscript,
+  MenuButtonSuperscript,
+  MenuButtonTaskList,
+  MenuButtonUnderline,
+  MenuButtonUndo,
+  MenuButtonUnindent,
+  MenuControlsContainer,
+  MenuDivider,
+  MenuHeadingSelect,
+} from "../";
 import { useRichTextEditorContext } from "../context";
-import MenuButtonAddImage from "../controls/MenuButtonAddImage";
-import MenuButtonAddTable from "../controls/MenuButtonAddTable";
-import MenuButtonBlockquote from "../controls/MenuButtonBlockquote";
-import MenuButtonBold from "../controls/MenuButtonBold";
-import MenuButtonBulletedList from "../controls/MenuButtonBulletedList";
-import MenuButtonCode from "../controls/MenuButtonCode";
-import MenuButtonCodeBlock from "../controls/MenuButtonCodeBlock";
-import MenuButtonEditLink from "../controls/MenuButtonEditLink";
-import MenuButtonHorizontalRule from "../controls/MenuButtonHorizontalRule";
-import MenuButtonIndent from "../controls/MenuButtonIndent";
-import MenuButtonItalic from "../controls/MenuButtonItalic";
-import MenuButtonOrderedList from "../controls/MenuButtonOrderedList";
-import MenuButtonRedo from "../controls/MenuButtonRedo";
-import MenuButtonRemoveFormatting from "../controls/MenuButtonRemoveFormatting";
-import MenuButtonStrikethrough from "../controls/MenuButtonStrikethrough";
-import MenuButtonSubscript from "../controls/MenuButtonSubscript";
-import MenuButtonSuperscript from "../controls/MenuButtonSuperscript";
-import MenuButtonTaskList from "../controls/MenuButtonTaskList";
-import MenuButtonUnderline from "../controls/MenuButtonUnderline";
-import MenuButtonUndo from "../controls/MenuButtonUndo";
-import MenuButtonUnindent from "../controls/MenuButtonUnindent";
-import MenuControlsContainer from "../controls/MenuControlsContainer";
-import MenuHeadingSelect from "../controls/MenuHeadingSelect";
 import { isTouchDevice } from "../utils/platform";
 
 export default function EditorMenuControls() {
@@ -46,6 +52,13 @@ export default function EditorMenuControls() {
       <MenuDivider />
 
       <MenuButtonEditLink />
+
+      <MenuDivider />
+
+      <MenuButtonAlignLeft />
+      <MenuButtonAlignCenter />
+      <MenuButtonAlignRight />
+      <MenuButtonAlignJustify />
 
       <MenuDivider />
 

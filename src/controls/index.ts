@@ -8,6 +8,22 @@ export {
   type MenuButtonAddTableProps,
 } from "./MenuButtonAddTable";
 export {
+  default as MenuButtonAlignCenter,
+  type MenuButtonAlignCenterProps,
+} from "./MenuButtonAlignCenter";
+export {
+  default as MenuButtonAlignJustify,
+  type MenuButtonAlignJustifyProps,
+} from "./MenuButtonAlignJustify";
+export {
+  default as MenuButtonAlignLeft,
+  type MenuButtonAlignLeftProps,
+} from "./MenuButtonAlignLeft";
+export {
+  default as MenuButtonAlignRight,
+  type MenuButtonAlignRightProps,
+} from "./MenuButtonAlignRight";
+export {
   default as MenuButtonBlockquote,
   type MenuButtonBlockquoteProps,
 } from "./MenuButtonBlockquote";
