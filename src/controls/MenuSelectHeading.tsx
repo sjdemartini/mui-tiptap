@@ -15,7 +15,7 @@ const useStyles = makeStyles({ name: { MenuSelectHeading } })((theme) => {
       // We use a fixed width so that the Select element won't change sizes as
       // the selected option changes (which would shift other elements in the
       // menu bar)
-      width: 68,
+      width: 77,
     },
 
     menuOption: {
