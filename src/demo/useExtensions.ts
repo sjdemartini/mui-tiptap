@@ -143,7 +143,7 @@ export default function useRecommendedExtensions({
       Gapcursor,
       HeadingWithAnchor,
       TextAlign.configure({
-        types: ["heading", "paragraph"],
+        types: ["heading", "paragraph", "image"],
       }),
       HorizontalRule,
 
