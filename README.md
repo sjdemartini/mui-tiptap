@@ -21,6 +21,10 @@
   </a>
 </p>
 
+<p align="center">
+  <b><a href="https://codesandbox.io/p/sandbox/mui-tiptap-demo-3zl2l6">CodeSandbox live demo</a></b>
+</p>
+
 - :sparkles: Styled based on your own MUI theme (colors, fonts, light vs dark mode, etc.)
 - :hammer_and_wrench: Built on powerful Tiptap and ProseMirror foundations (extensible, real-time collaborative editing, cross-platform support, etc.)
 
