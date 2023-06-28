@@ -94,16 +94,31 @@ function Resizer({ onResize }: ResizerProps) {
   );
 }
 
-const useStyles = makeStyles({ name: { ResizableImageComponent } })({
-  imageContainer: {
-    // Use inline-block so that the container is only as big as the inner
-    // img
-    display: "inline-block",
-    // Use relative position so that the resizer is positioned relative to
-    // the img dimensions (via their common container)
-    position: "relative",
-  },
-});
+const useStyles = makeStyles({ name: { ResizableImageComponent } })(
+  (theme) => ({
+    imageContainer: {
+      // Use inline-block so that the container is only as big as the inner
+      // img
+      display: "inline-block",
+      // Use relative position so that the resizer is positioned relative to
+      // the img dimensions (via their common container)
+      position: "relative",
+    },
+
+    image: {
+      // We need display:block in order for the container element to be
+      // sized properly (no extra space below the image)
+      display: "block",
+    },
+
+    imageSelected: {
+      // This "selected" state outline style is copied from our standard editor
+      // styles (which are kept there as well so they appear even if not using our
+      // custom resizable image).
+      outline: `3px solid ${theme.palette.primary.main}`,
+    },
+  })
+);
 
 function ResizableImageComponent({
   editor,
@@ -111,10 +126,8 @@ function ResizableImageComponent({
   selected,
   updateAttributes,
 }: Props) {
-  const { classes } = useStyles();
+  const { classes, cx } = useStyles();
   const { attrs } = node;
-
-  const theme = useTheme();
 
   const imageRef = useRef<HTMLImageElement | null>(null);
 
@@ -198,28 +211,21 @@ function ResizableImageComponent({
             // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
             title: attrs.title || undefined,
           }}
+          className={cx(
+            classes.image,
+            // For consistency with the standard Image extension selection
+            // class/UI (but only when editable):
+            isSelectedAndEditable && "ProseMirror-selectednode",
+            // We'll only show the outline when the editor content is editable
+            isSelectedAndEditable && classes.imageSelected
+          )}
           style={{
-            // We need display:block in order for the container element to be
-            // sized properly (no extra space below the image)
-            display: "block",
             // If no width has been specified, we use auto max-width
             maxWidth: attrs.width ? undefined : "auto",
             // Always specify the aspect-ratio if it's been defined, to improve
             // initial render (so auto-height works before the image loads)
             aspectRatio: attrs.aspectRatio ?? undefined,
-            // This "selected" state outline style is copied from our standard
-            // editor styles (which are kept there as well so they appear even if
-            // not using our custom resizable image). We'll only show this when
-            // the editor content is editable, though.
-            outline: isSelectedAndEditable
-              ? `3px solid ${theme.palette.primary.main}`
-              : undefined,
           }}
-          // For consistency with the standard Image extension selection class/UI (but
-          // only when editable)
-          className={
-            isSelectedAndEditable ? "ProseMirror-selectednode" : undefined
-          }
           // To make this image act as the drag handle for moving it within the
           // document, add the data-drag-handle used by Tiptap
           // (https://tiptap.dev/guide/node-views/react#dragging)
