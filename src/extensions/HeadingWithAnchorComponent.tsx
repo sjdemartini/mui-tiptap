@@ -6,6 +6,9 @@ import type { Node as ProseMirrorNode } from "@tiptap/pm/model";
 import { NodeViewContent, NodeViewWrapper } from "@tiptap/react";
 import { useMemo } from "react";
 import { makeStyles } from "tss-react/mui";
+import useDebouncedFunction from "../hooks/useDebouncedFunction";
+import useEditorOnEditableUpdate from "../hooks/useEditorOnEditableUpdate";
+import useForceUpdate from "../hooks/useForceUpdate";
 import slugify from "../utils/slugify";
 
 // Based on
@@ -69,6 +72,24 @@ export default function HeadingWithAnchorComponent({
   node,
   extension,
 }: Props) {
+  // As described here https://github.com/ueberdosis/tiptap/issues/3775, updates
+  // to editor isEditable do not trigger re-rendering of node views. Even editor
+  // state changes external to a given ReactNodeView component will not trigger
+  // re-render (which is probably a good thing most of the time, in terms of
+  // performance). As such, we have to listen for editor.isEditable changes and
+  // force a re-render when that happens, since we depend on isEditable here to
+  // determine whether to show the anchor button. This is similar to what Tiptap
+  // does for its own bubble menu plugin updateHandler
+  // (https://github.com/ueberdosis/tiptap/blob/e8cef0404b5039ec2657536976b8b31931afd337/packages/extension-bubble-menu/src/bubble-menu-plugin.ts#L158-L188).
+  const forceUpdate = useForceUpdate();
+  const forceUpdateDebounced = useDebouncedFunction(forceUpdate, 250, {
+    maxWait: 1000,
+  });
+  useEditorOnEditableUpdate({
+    editor: editor,
+    callback: forceUpdateDebounced,
+  });
+
   const { classes } = useStyles();
   // Some of the logic here is based on the renderHTML definition from the
   // original Heading Node
