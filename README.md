@@ -23,10 +23,6 @@
   </a>
 </p>
 
-<p align="center">
-  <b><a href="https://codesandbox.io/p/sandbox/mui-tiptap-demo-3zl2l6">CodeSandbox live demo</a></b>
-</p>
-
 - :sparkles: Styled based on your own MUI theme (colors, fonts, light vs dark mode, etc.)
 - :hammer_and_wrench: Built on powerful Tiptap and ProseMirror foundations (extensible, real-time collaborative editing, cross-platform support, etc.)
 
@@ -42,6 +38,12 @@
 - :pencil: `TableBubbleMenu` for interactively editing your rich text tables
 - :building_construction: General-purpose `ControlledBubbleMenu` for building your own custom menus, [solving some shortcomings](https://github.com/ueberdosis/tiptap/issues/2305#issuecomment-1020665146) of the Tiptap `BubbleMenu`
 - And more!
+
+## Demo
+
+Try it yourself in this **[CodeSandbox live demo](https://codesandbox.io/p/sandbox/mui-tiptap-demo-3zl2l6)**!
+
+![mui-tiptap demo](https://github.com/sjdemartini/mui-tiptap/assets/1647130/a7d49a90-5730-4692-a83a-479a98018fb2)
 
 ## Installation
 
