@@ -32,12 +32,20 @@ const useStyles = makeStyles<void, "link">({
   uniqId: "kNc4LD", // https://docs.tss-react.dev/nested-selectors#ssr
 })((theme, _params, classes) => ({
   root: {
-    position: "relative",
     // Reference the "link" class defined below so that when the header is
     // hovered over, we make the anchor link visible.
     [`&:hover .${classes.link}`]: {
       opacity: 100,
     },
+  },
+
+  container: {
+    // Use inline-block so that the container is only as big as the inner
+    // heading content
+    display: "inline-block",
+    // Use relative position so that the link is positioned relative to
+    // the inner heading content position (via this common container)
+    position: "relative",
   },
 
   link: {
@@ -82,6 +90,7 @@ export type HeadingWithAnchorComponentClasses = ReturnType<
 const headingWithAnchorComponentClasses: HeadingWithAnchorComponentClasses =
   getUtilityClasses(HeadingWithAnchorComponent.name, [
     "root",
+    "container",
     "link",
     "linkIcon",
   ]);
@@ -126,20 +135,33 @@ export default function HeadingWithAnchorComponent({
       // so we have to do this manually/redundantly here.
       style={{ textAlign: node.attrs.textAlign }}
     >
-      <a
-        href={`#${headingId}`}
-        contentEditable={false}
-        className={cx(headingWithAnchorComponentClasses.link, classes.link)}
+      {/* We need a separate inner container here in order to (1) have the node
+      view wrapper take up the full width of its parent div created by
+      ReactNodeViewRender (so we can utilize text-align for its children
+      elements), and (2) position the anchor link/icon relative to the *aligned*
+      position of the inner text content, by having this inner container match
+      the dimensions and location of the its content. */}
+      <span
+        className={cx(
+          headingWithAnchorComponentClasses.container,
+          classes.container
+        )}
       >
-        <LinkIcon
-          className={cx(
-            headingWithAnchorComponentClasses.linkIcon,
-            classes.linkIcon
-          )}
-        />
-      </a>
-      {/* This is the editable content of the header: */}
-      <NodeViewContent as="span" />
+        <a
+          href={`#${headingId}`}
+          contentEditable={false}
+          className={cx(headingWithAnchorComponentClasses.link, classes.link)}
+        >
+          <LinkIcon
+            className={cx(
+              headingWithAnchorComponentClasses.linkIcon,
+              classes.linkIcon
+            )}
+          />
+        </a>
+        {/* This is the editable content of the header: */}
+        <NodeViewContent as="span" />
+      </span>
     </NodeViewWrapper>
   );
 }
