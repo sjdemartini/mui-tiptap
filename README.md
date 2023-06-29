@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <b>mui-tiptap</b>: A customizable <a href="https://mui.com/material-ui/getting-started/overview/">Material-UI (MUI)</a> styled WYSIWYG rich text editor, using <a href="https://tiptap.dev/">Tiptap</a>.
+  <b>mui-tiptap</b>: A customizable <a href="https://mui.com/material-ui/getting-started/overview/">Material UI</a> styled WYSIWYG rich text editor, using <a href="https://tiptap.dev/">Tiptap</a>.
 </p>
 
 <p align="center">
