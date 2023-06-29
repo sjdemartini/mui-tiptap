@@ -32,6 +32,9 @@ export default function App() {
       createTheme({
         palette: {
           mode: paletteMode,
+          secondary: {
+            main: "#42B81A",
+          },
         },
       }),
     [paletteMode]
