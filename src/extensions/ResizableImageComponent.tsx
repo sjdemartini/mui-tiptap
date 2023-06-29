@@ -1,10 +1,10 @@
-import { useTheme } from "@mui/material";
 import type { NodeViewProps } from "@tiptap/core";
 import type { Node as ProseMirrorNode } from "@tiptap/pm/model";
 import { NodeViewWrapper } from "@tiptap/react";
 import throttle from "lodash/throttle";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef } from "react";
 import { makeStyles } from "tss-react/mui";
+import { ResizableImageResizer } from "./ResizableImageResizer";
 
 // Based on
 // https://github.com/ueberdosis/tiptap/blob/ab4a0e2507b4b92c46d293a0bb06bb00a04af6e0/packages/extension-image/src/image.ts#L47-L59
@@ -29,70 +29,7 @@ interface Props extends NodeViewProps {
   node: ResizableImageNode;
 }
 
-type ResizerProps = {
-  onResize: (event: MouseEvent) => void;
-};
-
 const IMAGE_MINIMUM_WIDTH_PIXELS = 15;
-
-function Resizer({ onResize }: ResizerProps) {
-  const [mouseDown, setMouseDown] = useState(false);
-  const theme = useTheme();
-
-  useEffect(() => {
-    const handleMouseMove = (event: MouseEvent) => {
-      onResize(event);
-    };
-
-    if (mouseDown) {
-      // If the user is currently holding down the resize handle, we'll have mouse
-      // movements fire the onResize callback (since the user would be "dragging" the
-      // handle)
-      window.addEventListener("mousemove", handleMouseMove);
-    }
-
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-    };
-  }, [mouseDown, onResize]);
-
-  useEffect(() => {
-    const handleMouseUp = () => setMouseDown(false);
-
-    window.addEventListener("mouseup", handleMouseUp);
-
-    return () => {
-      window.removeEventListener("mouseup", handleMouseUp);
-    };
-  }, []);
-
-  const handleMouseDown = useCallback((_event: React.MouseEvent) => {
-    setMouseDown(true);
-  }, []);
-
-  return (
-    // There isn't a great role to use here (perhaps role="separator" is the
-    // closest, as described here https://stackoverflow.com/a/43022983/4543977,
-    // but we don't do keyboard-based resizing so it doesn't make sense to have
-    // it keyboard focusable)
-    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-    <div
-      aria-label="resize image"
-      style={{
-        position: "absolute",
-        // The `outline` styles of the selected image add 3px to the edges, so we'll
-        // position this offset by 3px outside to the bottom right
-        bottom: -3,
-        right: -3,
-        width: 12,
-        height: 12,
-        background: theme.palette.primary.main,
-        cursor: "nwse-resize",
-      }}
-      onMouseDown={handleMouseDown}
-    />
-  );
-}
 
 const useStyles = makeStyles({ name: { ResizableImageComponent } })(
   (theme) => ({
@@ -117,21 +54,28 @@ const useStyles = makeStyles({ name: { ResizableImageComponent } })(
       // custom resizable image).
       outline: `3px solid ${theme.palette.primary.main}`,
     },
+
+    resizer: {
+      // As described here https://github.com/ueberdosis/tiptap/issues/3775,
+      // updates to editor isEditable do not trigger re-rendering of node views.
+      // Even editor state changes external to a given ReactNodeView component
+      // will not trigger re-render (which is probably a good thing most of the
+      // time, in terms of performance). As such, we always render the resizer
+      // component with React (and so in the DOM), but hide it with CSS when the
+      // editor is not editable. This also means its mouse event listeners will
+      // also not fire, as intended.
+      '.ProseMirror[contenteditable="false"] &': {
+        display: "none",
+      },
+    },
   })
 );
 
-function ResizableImageComponent({
-  editor,
-  node,
-  selected,
-  updateAttributes,
-}: Props) {
+function ResizableImageComponent({ node, selected, updateAttributes }: Props) {
   const { classes, cx } = useStyles();
   const { attrs } = node;
 
   const imageRef = useRef<HTMLImageElement | null>(null);
-
-  const isSelectedAndEditable = selected && editor.isEditable;
 
   const handleResize = useMemo(
     () =>
@@ -214,10 +158,10 @@ function ResizableImageComponent({
           className={cx(
             classes.image,
             // For consistency with the standard Image extension selection
-            // class/UI (but only when editable):
-            isSelectedAndEditable && "ProseMirror-selectednode",
-            // We'll only show the outline when the editor content is editable
-            isSelectedAndEditable && classes.imageSelected
+            // class/UI:
+            selected && "ProseMirror-selectednode",
+            // We'll only show the outline when the editor content is selected
+            selected && classes.imageSelected
           )}
           style={{
             // If no width has been specified, we use auto max-width
@@ -251,7 +195,12 @@ function ResizableImageComponent({
           }}
         />
 
-        {isSelectedAndEditable && <Resizer onResize={handleResize} />}
+        {selected && (
+          <ResizableImageResizer
+            onResize={handleResize}
+            className={classes.resizer}
+          />
+        )}
       </div>
     </NodeViewWrapper>
   );
