@@ -6,9 +6,7 @@ import type { Node as ProseMirrorNode } from "@tiptap/pm/model";
 import { NodeViewContent, NodeViewWrapper } from "@tiptap/react";
 import { useMemo } from "react";
 import { makeStyles } from "tss-react/mui";
-import useDebouncedFunction from "../hooks/useDebouncedFunction";
-import useEditorOnEditableUpdate from "../hooks/useEditorOnEditableUpdate";
-import useForceUpdate from "../hooks/useForceUpdate";
+import { getUtilityClasses } from "../styles";
 import slugify from "../utils/slugify";
 
 // Based on
@@ -54,9 +52,19 @@ const useStyles = makeStyles<void, "link">({
     [theme.breakpoints.down("sm")]: {
       left: -18,
     },
+
+    // As described here https://github.com/ueberdosis/tiptap/issues/3775,
+    // updates to editor isEditable do not trigger re-rendering of node views.
+    // Even editor state changes external to a given ReactNodeView component
+    // will not trigger re-render (which is probably a good thing most of the
+    // time, in terms of performance). As such, we always render the link in the
+    // DOM, but hide it with CSS when the editor is editable.
+    '.ProseMirror[contenteditable="true"] &': {
+      display: "none",
+    },
   },
 
-  icon: {
+  linkIcon: {
     // Looks better to have at an angle, similar to the GitHub icon
     transform: "rotate(-45deg)",
 
@@ -67,30 +75,23 @@ const useStyles = makeStyles<void, "link">({
   },
 }));
 
+export type HeadingWithAnchorComponentClasses = ReturnType<
+  typeof useStyles
+>["classes"];
+
+const headingWithAnchorComponentClasses: HeadingWithAnchorComponentClasses =
+  getUtilityClasses(HeadingWithAnchorComponent.name, [
+    "root",
+    "link",
+    "linkIcon",
+  ]);
+
 export default function HeadingWithAnchorComponent({
   editor,
   node,
   extension,
 }: Props) {
-  // As described here https://github.com/ueberdosis/tiptap/issues/3775, updates
-  // to editor isEditable do not trigger re-rendering of node views. Even editor
-  // state changes external to a given ReactNodeView component will not trigger
-  // re-render (which is probably a good thing most of the time, in terms of
-  // performance). As such, we have to listen for editor.isEditable changes and
-  // force a re-render when that happens, since we depend on isEditable here to
-  // determine whether to show the anchor button. This is similar to what Tiptap
-  // does for its own bubble menu plugin updateHandler
-  // (https://github.com/ueberdosis/tiptap/blob/e8cef0404b5039ec2657536976b8b31931afd337/packages/extension-bubble-menu/src/bubble-menu-plugin.ts#L158-L188).
-  const forceUpdate = useForceUpdate();
-  const forceUpdateDebounced = useDebouncedFunction(forceUpdate, 250, {
-    maxWait: 1000,
-  });
-  useEditorOnEditableUpdate({
-    editor: editor,
-    callback: forceUpdateDebounced,
-  });
-
-  const { classes } = useStyles();
+  const { classes, cx } = useStyles();
   // Some of the logic here is based on the renderHTML definition from the
   // original Heading Node
   // (https://github.com/ueberdosis/tiptap/blob/c9eb6a6299796450c7c1cfdc3552d76070c78c65/packages/extension-heading/src/heading.ts#L58-L65)
@@ -117,7 +118,7 @@ export default function HeadingWithAnchorComponent({
       as={HeadingTag}
       id={headingId}
       {...extension.options.HTMLAttributes}
-      className={classes.root}
+      className={cx(headingWithAnchorComponentClasses.root, classes.root)}
       // Handle @tiptap/extension-text-align. Ideally we'd be able to inherit
       // this style from TextAlign's GlobalAttributes directly, but those are
       // only applied via `renderHTML` and not the `NodeView` renderer
@@ -125,17 +126,19 @@ export default function HeadingWithAnchorComponent({
       // so we have to do this manually/redundantly here.
       style={{ textAlign: node.attrs.textAlign }}
     >
-      {/* Only render the clickable anchor element when in read-only mode (not editing) */}
-      {!editor.isEditable && (
-        <a
-          href={`#${headingId}`}
-          contentEditable={false}
-          className={classes.link}
-        >
-          <LinkIcon className={classes.icon} />
-        </a>
-      )}
-      {/* This is the editable content of the header */}
+      <a
+        href={`#${headingId}`}
+        contentEditable={false}
+        className={cx(headingWithAnchorComponentClasses.link, classes.link)}
+      >
+        <LinkIcon
+          className={cx(
+            headingWithAnchorComponentClasses.linkIcon,
+            classes.linkIcon
+          )}
+        />
+      </a>
+      {/* This is the editable content of the header: */}
       <NodeViewContent as="span" />
     </NodeViewWrapper>
   );
