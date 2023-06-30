@@ -1,6 +1,6 @@
 import { makeStyles } from "tss-react/mui";
+import FieldContainer from "./FieldContainer";
 import MenuBar, { type MenuBarProps } from "./MenuBar";
-import OutlinedField from "./OutlinedField";
 import RichTextContent, { type RichTextContentProps } from "./RichTextContent";
 import { useRichTextEditorContext } from "./context";
 import useDebouncedFocus from "./hooks/useDebouncedFocus";
@@ -10,7 +10,11 @@ import DebounceRender from "./utils/DebounceRender";
 export type RichTextFieldClasses = ReturnType<typeof useStyles>["classes"];
 
 export type RichTextFieldProps = {
-  /** Which style to use for */
+  /**
+   * Which style to use for the field. "outlined" shows a border around the controls,
+   * editor, and footer, which updates depending on hover/focus states, like MUI's
+   * OutlinedInput. "standard" does not include any outer border.
+   */
   variant?: "outlined" | "standard";
   /** Class applied to the root element. */
   className?: string;
@@ -119,14 +123,25 @@ export default function RichTextField({
   });
   const editor = useRichTextEditorContext();
 
-  // Because the user interactions with the editor menu bar buttons unfocus the
-  // editor (since it's not part of the editor content), we'll debounce our
-  // visual focused state of the OutlinedField so that it doesn't "flash" when
-  // that happens
-  const isOutlinedFieldFocused = useDebouncedFocus({ editor });
+  // Because the user interactions with the editor menu bar buttons unfocus the editor
+  // (since it's not part of the editor content), we'll debounce our visual focused
+  // state so that the (outlined) field focus styles don't "flash" whenever that happens
+  const isFieldFocused = useDebouncedFocus({ editor });
 
-  const content = (
-    <>
+  return (
+    <FieldContainer
+      variant={variant}
+      focused={!disabled && isFieldFocused}
+      disabled={disabled}
+      className={cx(
+        richTextFieldClasses.root,
+        classes.root,
+        variant === "outlined"
+          ? [richTextFieldClasses.outlined, classes.outlined]
+          : [richTextFieldClasses.standard, classes.standard],
+        className
+      )}
+    >
       {controls && (
         <MenuBar
           {...MenuBarProps}
@@ -162,34 +177,6 @@ export default function RichTextField({
       />
 
       {footer}
-    </>
-  );
-
-  return variant === "outlined" ? (
-    <OutlinedField
-      focused={!disabled && isOutlinedFieldFocused}
-      disabled={disabled}
-      className={cx(
-        richTextFieldClasses.root,
-        classes.root,
-        richTextFieldClasses.outlined,
-        classes.outlined,
-        className
-      )}
-    >
-      {content}
-    </OutlinedField>
-  ) : (
-    <div
-      className={cx(
-        richTextFieldClasses.root,
-        classes.root,
-        richTextFieldClasses.standard,
-        classes.standard,
-        className
-      )}
-    >
-      {content}
-    </div>
+    </FieldContainer>
   );
 }
