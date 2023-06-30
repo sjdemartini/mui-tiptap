@@ -94,7 +94,7 @@ const useStyles = makeStyles<void, "focused" | "disabled" | "notchedOutline">({
  * `children`.
  */
 export default function FieldContainer({
-  variant,
+  variant = "outlined",
   children,
   focused,
   disabled,
