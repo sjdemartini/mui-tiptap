@@ -27,7 +27,7 @@ const fieldContainerClasses: FieldContainerClasses = getUtilityClasses(
 );
 
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-const useStyles = makeStyles<void, "notchedOutline">({
+const useStyles = makeStyles<void, "focused" | "disabled" | "notchedOutline">({
   name: { FieldContainer },
   uniqId: "Os7ZPW", // https://docs.tss-react.dev/nested-selectors#ssr
 })((theme, _params, classes) => {
@@ -38,6 +38,8 @@ const useStyles = makeStyles<void, "notchedOutline">({
   return {
     root: {},
 
+    // Class/styles applied to the root element if the component is using the
+    // "outlined" variant
     outlined: {
       borderRadius: theme.shape.borderRadius,
       padding: 1, //
@@ -46,28 +48,28 @@ const useStyles = makeStyles<void, "notchedOutline">({
       [`&:hover .${classes.notchedOutline}`]: {
         borderColor: theme.palette.text.primary,
       },
-    },
 
-    standard: {},
-
-    // Styles applied to the root element if the component is focused (if the
-    // `focused` prop is true).
-    focused: {
-      // Use && to trump &:hover above
-      [`&& .${classes.notchedOutline}`]: {
+      [`&.${classes.focused} .${classes.notchedOutline}`]: {
         borderColor: theme.palette.primary.main,
         borderWidth: 2,
       },
-    },
 
-    // Styles applied to the root element if the component is disabled (if the
-    // `disabled` prop is true)
-    disabled: {
-      // Use && to trump &:hover above
-      [`&& .${classes.notchedOutline}`]: {
+      [`&.${classes.disabled} .${classes.notchedOutline}`]: {
         borderColor: theme.palette.action.disabled,
       },
     },
+
+    // Class/styles applied to the root element if the component is using the
+    // "standard" variant
+    standard: {},
+
+    // Class/styles applied to the root element if the component is focused (if the
+    // `focused` prop is true)
+    focused: {},
+
+    // Styles applied to the root element if the component is disabled (if the
+    // `disabled` prop is true)
+    disabled: {},
 
     notchedOutline: {
       position: "absolute",
@@ -108,11 +110,14 @@ export default function FieldContainer({
       className={cx(
         fieldContainerClasses.root,
         classes.root,
-        focused && [fieldContainerClasses.focused, classes.focused],
-        disabled && [fieldContainerClasses.disabled, classes.disabled],
         variant === "outlined"
           ? [fieldContainerClasses.outlined, classes.outlined]
           : [fieldContainerClasses.standard, classes.standard],
+        // Note that we want focused and disabled styles of equal specificity to
+        // trump default root/outlined/standard styles, so they should be defined
+        // in this order
+        focused && [fieldContainerClasses.focused, classes.focused],
+        disabled && [fieldContainerClasses.disabled, classes.disabled],
         className
       )}
     >
