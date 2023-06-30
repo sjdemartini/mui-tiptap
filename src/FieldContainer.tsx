@@ -2,27 +2,33 @@ import type React from "react";
 import { makeStyles } from "tss-react/mui";
 import { Z_INDEXES, getUtilityClasses } from "./styles";
 
-export type OutlinedFieldClasses = ReturnType<typeof useStyles>["classes"];
+export type FieldContainerClasses = ReturnType<typeof useStyles>["classes"];
 
-export type OutlinedFieldProps = {
-  /** The content to render inside the outline. */
+export type FieldContainerProps = {
+  /**
+   * Which style to use for the field. "outlined" shows a border around the children,
+   * which updates its appearance depending on hover/focus states, like MUI's
+   * OutlinedInput. "standard" does not include any outer border.
+   */
+  variant?: "outlined" | "standard";
+  /** The content to render inside the container. */
   children: React.ReactNode;
   /** Class applied to the `root` element. */
   className?: string;
   /** Override or extend existing styles. */
-  classes?: Partial<OutlinedFieldClasses>;
+  classes?: Partial<FieldContainerClasses>;
   focused?: boolean;
   disabled?: boolean;
 };
 
-const outlinedFieldClasses: OutlinedFieldClasses = getUtilityClasses(
-  OutlinedField.name,
-  ["root", "focused", "disabled", "notchedOutline"]
+const fieldContainerClasses: FieldContainerClasses = getUtilityClasses(
+  FieldContainer.name,
+  ["root", "outlined", "standard", "focused", "disabled", "notchedOutline"]
 );
 
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 const useStyles = makeStyles<void, "notchedOutline">({
-  name: { OutlinedField },
+  name: { FieldContainer },
   uniqId: "Os7ZPW", // https://docs.tss-react.dev/nested-selectors#ssr
 })((theme, _params, classes) => {
   // Based on the concept behind and styles of OutlinedInput and NotchedOutline
@@ -30,7 +36,9 @@ const useStyles = makeStyles<void, "notchedOutline">({
   // https://github.com/mui-org/material-ui/blob/a4972c5931e637611f6421ed2a5cc3f78207cbb2/packages/material-ui/src/OutlinedInput/OutlinedInput.js#L9-L37
   // https://github.com/mui/material-ui/blob/a4972c5931e637611f6421ed2a5cc3f78207cbb2/packages/material-ui/src/OutlinedInput/NotchedOutline.js
   return {
-    root: {
+    root: {},
+
+    outlined: {
       borderRadius: theme.shape.borderRadius,
       padding: 1, //
       position: "relative",
@@ -40,7 +48,10 @@ const useStyles = makeStyles<void, "notchedOutline">({
       },
     },
 
-    // Styles applied to the root element if the component is focused.
+    standard: {},
+
+    // Styles applied to the root element if the component is focused (if the
+    // `focused` prop is true).
     focused: {
       // Use && to trump &:hover above
       [`&& .${classes.notchedOutline}`]: {
@@ -49,7 +60,8 @@ const useStyles = makeStyles<void, "notchedOutline">({
       },
     },
 
-    // Styles applied to the root element if the component is disabled.
+    // Styles applied to the root element if the component is disabled (if the
+    // `disabled` prop is true)
     disabled: {
       // Use && to trump &:hover above
       [`&& .${classes.notchedOutline}`]: {
@@ -74,14 +86,19 @@ const useStyles = makeStyles<void, "notchedOutline">({
   };
 });
 
-/** A component used to show an outline around a given field/input child. */
-export default function OutlinedField({
+/**
+ * Renders an element with classes and styles that correspond to the state and
+ * style-variant of a user-input field, the content of which should be passed in as
+ * `children`.
+ */
+export default function FieldContainer({
+  variant,
   children,
   focused,
   disabled,
   classes: overrideClasses = {},
   className,
-}: OutlinedFieldProps) {
+}: FieldContainerProps) {
   const { classes, cx } = useStyles(undefined, {
     props: { classes: overrideClasses },
   });
@@ -89,21 +106,27 @@ export default function OutlinedField({
   return (
     <div
       className={cx(
-        outlinedFieldClasses.root,
+        fieldContainerClasses.root,
         classes.root,
-        focused && [outlinedFieldClasses.focused, classes.focused],
-        disabled && [outlinedFieldClasses.disabled, classes.disabled],
+        focused && [fieldContainerClasses.focused, classes.focused],
+        disabled && [fieldContainerClasses.disabled, classes.disabled],
+        variant === "outlined"
+          ? [fieldContainerClasses.outlined, classes.outlined]
+          : [fieldContainerClasses.standard, classes.standard],
         className
       )}
     >
       {children}
-      <div
-        className={cx(
-          outlinedFieldClasses.notchedOutline,
-          classes.notchedOutline
-        )}
-        aria-hidden
-      />
+
+      {variant === "outlined" && (
+        <div
+          className={cx(
+            fieldContainerClasses.notchedOutline,
+            classes.notchedOutline
+          )}
+          aria-hidden
+        />
+      )}
     </div>
   );
 }

@@ -16,7 +16,7 @@ export type UseDebouncedFocusOptions = {
  * menu bar buttons.
  *
  * This is useful for showing the focus state visually, as with the `focused`
- * prop of <OutlinedField />.
+ * prop of <FieldContainer />.
  */
 export default function useDebouncedFocus({
   editor,
