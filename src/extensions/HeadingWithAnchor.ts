@@ -20,6 +20,15 @@ export type HeadingWithAnchorOptions = HeadingOptions & {
   scrollToAnchorOnMount: boolean;
 };
 
+/**
+ * A modified version of Tiptap’s `Heading` extension
+ * (https://tiptap.dev/api/nodes/heading), with dynamic GitHub-like anchor links
+ * for every heading you add. An anchor link button appears to the left of each
+ * heading when you hovering over it, when the `editor` has `editable` set to
+ * `false`. This allows users to share links and jump to specific headings
+ * within your rendered editor content. It can also accommodate building a table
+ * of contents or outline more easily.
+ */
 const HeadingWithAnchor = Heading.extend<HeadingWithAnchorOptions>({
   addOptions() {
     return {

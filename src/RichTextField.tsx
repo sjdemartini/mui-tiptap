@@ -104,8 +104,13 @@ const useStyles = makeStyles<void, "menuBar" | "menuBarContent" | "content">({
 });
 
 /**
- * A version of the MUI Tiptap editor including the content and menu bar, with
- * an interface like the material-ui TextField with the "outlined" variant.
+ * Renders the Tiptap rich text editor content and a controls menu bar.
+ *
+ * With the "outlined" variant, renders a bordered UI similar to the Material UI
+ * `TextField`. The "standard" variant is borderless.
+ *
+ * Must be a child of the RichTextEditorProvider so that the `editor` context is
+ * available.
  */
 export default function RichTextField({
   variant = "outlined",

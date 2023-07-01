@@ -37,6 +37,14 @@ const useStyles = makeStyles({
   },
 }));
 
+/**
+ * Renders a bubble menu to manipulate the contents of a Table (add or delete
+ * columns or rows, merge cells, etc.), when the user's caret/selection is
+ * inside a Table.
+ *
+ * For use with mui-tiptap's `TableImproved` extension or Tiptap's
+ * `@tiptap/extension-table` extension.
+ */
 export default function TableBubbleMenu({
   disableDebounce = false,
   DebounceProps,

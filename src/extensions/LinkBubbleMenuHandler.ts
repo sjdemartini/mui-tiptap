@@ -46,6 +46,11 @@ export type LinkBubbleMenuHandlerStorage = {
   bubbleMenuOptions: Partial<LinkBubbleMenuProps> | undefined;
 };
 
+/**
+ * To be used in conjunction with the `LinkBubbleMenu` component, as this
+ * extension provides editor commands to control the state of the link bubble
+ * menu.
+ */
 const LinkBubbleMenuHandler = Extension.create<
   undefined,
   LinkBubbleMenuHandlerStorage

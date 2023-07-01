@@ -20,6 +20,12 @@ export type ResizableImageOptions = ImageOptions & {
   isAllowedImgSrc(src: string | null): boolean;
 };
 
+/**
+ * A modified version of Tiptap’s `Image` extension
+ * (https://tiptap.dev/api/nodes/image), which adds the ability to resize images
+ * directly in the editor. A drag handle appears in the bottom right when
+ * clicking on an image, so users can interactively change the size.
+ */
 const ResizableImage = Image.extend<ResizableImageOptions>({
   addOptions() {
     return {

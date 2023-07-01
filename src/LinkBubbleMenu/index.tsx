@@ -22,8 +22,16 @@ const useStyles = makeStyles({ name: { LinkBubbleMenu } })((theme) => ({
 }));
 
 /**
- * A hook for providing a menu for viewing, creating, or editing a link in a
- * Tiptap editor. To be rendered when using the LinkBubbleMenuHandler extension.
+ * A component that renders a bubble menu when viewing, creating, or editing a
+ * link. Requires the LinkBubbleMenuHandler extension.
+ *
+ * Pairs well with the `<MenuButtonEditLink />` component.
+ *
+ * Render the `LinkBubbleMenu` in the same context as your `RichTextField` or
+ * `RichTextContent` (the bubble menu itself will be positioned appropriately no
+ * matter where you put it in your React tree). Or if you're using
+ * `RichTextEditor`, this component should be included via the `children`
+ * render-prop.
  */
 export default function LinkBubbleMenu({
   ...controlledBubbleMenuProps
