@@ -3,7 +3,8 @@ import { columnResizing, tableEditing } from "@tiptap/pm/tables";
 
 /**
  * Extend the standard Table extension, but ensures that columns maintain their
- * previously set widths even when `editable=false`.
+ * previously set widths even when `editable=false`, and irrespective of the
+ * initial `editable` state when the `editor` is created.
  */
 const TableImproved = Table.extend({
   // This function is taken directly from

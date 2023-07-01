@@ -21,6 +21,10 @@ type TableMenuControlsProps = {
   className?: string;
 };
 
+/**
+ * Renders all of the controls for manipulating a table in a Tiptap editor
+ * (add or delete columns or rows, merge cells, etc.).
+ */
 export default function TableMenuControls({
   className,
 }: TableMenuControlsProps) {
