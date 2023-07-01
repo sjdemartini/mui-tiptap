@@ -15,6 +15,7 @@
     "prepatch",
     "prosemirror",
     "selectednode",
+    "strikethrough",
     "Tiptap"
   ],
   "flagWords": [],
