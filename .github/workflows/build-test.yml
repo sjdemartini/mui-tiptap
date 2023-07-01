@@ -41,6 +41,14 @@ jobs:
         # words used that are outside the standard dictionary.
         continue-on-error: true
 
+      - name: Validate markdown links
+        # Since most of our documentation is in README.md, notably with lots of
+        # internal anchor links, validate that they're formed properly. As the
+        # README and documentation is updated, we want to ensure that links
+        # remain correct. (This also checks external links, though that's a
+        # secondary concern.)
+        run: pnpm run md-link:check
+
       - name: Test
         # Run the tests and print out the coverage information. In the future,
         # we could integrate with Codecov or something.
