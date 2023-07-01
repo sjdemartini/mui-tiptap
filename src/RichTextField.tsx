@@ -107,7 +107,7 @@ const useStyles = makeStyles<void, "menuBar" | "menuBarContent" | "content">({
  * Renders the Tiptap rich text editor content and a controls menu bar.
  *
  * With the "outlined" variant, renders a bordered UI similar to the Material UI
- * `TextField`. The "standard" variant is borderless.
+ * `TextField`. The "standard" variant does not have an outline/border.
  *
  * Must be a child of the RichTextEditorProvider so that the `editor` context is
  * available.
