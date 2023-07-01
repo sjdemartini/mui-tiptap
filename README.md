@@ -39,6 +39,29 @@
 - :building_construction: General-purpose `ControlledBubbleMenu` for building your own custom menus, [solving some shortcomings](https://github.com/ueberdosis/tiptap/issues/2305#issuecomment-1020665146) of the Tiptap `BubbleMenu`
 - And more!
 
+<details>
+<summary><b>README Table of Contents</b></summary>
+
+- [Demo](#demo)
+- [Installation](#installation)
+- [Get started](#get-started)
+  - [Use the all-in-one component](#use-the-all-in-one-component)
+  - [Create and provide the `editor` yourself](#create-and-provide-the-editor-yourself)
+  - [Render read-only rich text content](#render-read-only-rich-text-content)
+- [Extensions and components](#extensions-and-components)
+  - [Extensions](#extensions)
+    - [`HeadingWithAnchor`](#headingwithanchor)
+    - [`LinkBubbleMenuHandler`](#linkbubblemenuhandler)
+    - [`ResizableImage`](#resizableimage)
+    - [`TableImproved`](#tableimproved)
+  - [Components](#components)
+    - [Controls components](#controls-components)
+- [Tips and suggestions](#tips-and-suggestions)
+  - [Defining your editor `extensions`](#defining-your-editor-extensions)
+- [Contributing](#contributing)
+
+</details>
+
 ## Demo
 
 Try it yourself in this **[CodeSandbox live demo](https://codesandbox.io/p/sandbox/mui-tiptap-demo-3zl2l6)**!
@@ -170,7 +193,7 @@ A modified version of [Tiptap’s `Heading` extension](https://tiptap.dev/api/no
 
 To be used in conjunction with the [`LinkBubbleMenu` component](#components), as this extension provides editor commands to control the state of the link bubble menu.
 
-##### Commands
+##### Commands <!-- omit from toc -->
 
 - `openLinkBubbleMenu()`: Open/show the link bubble menu. Create a link if one doesn't exist at the current cursor selection, or edit the existing link if there is already a link at the current selection.
 - `editLinkInBubbleMenu()`: Edit an existing link in the bubble menu, to be used when currently viewing a link in the already-opened bubble menu.
