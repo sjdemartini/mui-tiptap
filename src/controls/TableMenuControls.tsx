@@ -11,12 +11,12 @@ import {
   RiMergeCellsHorizontal,
   RiSplitCellsHorizontal,
 } from "react-icons/ri";
-import MenuDivider from "./MenuDivider";
-import { useRichTextEditorContext } from "./context";
-import MenuButton from "./controls/MenuButton";
-import MenuControlsContainer from "./controls/MenuControlsContainer";
+import MenuDivider from "../MenuDivider";
+import { useRichTextEditorContext } from "../context";
+import MenuButton from "./MenuButton";
+import MenuControlsContainer from "./MenuControlsContainer";
 
-type TableMenuControlsProps = {
+export type TableMenuControlsProps = {
   /** Class applied to the root controls container element. */
   className?: string;
 };

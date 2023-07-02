@@ -5,8 +5,8 @@ import type { Except } from "type-fest";
 import ControlledBubbleMenu, {
   type ControlledBubbleMenuProps,
 } from "./ControlledBubbleMenu";
-import TableMenuControls from "./TableMenuControls";
 import { useRichTextEditorContext } from "./context";
+import TableMenuControls from "./controls/TableMenuControls";
 import { useDebouncedFocus } from "./hooks";
 import DebounceRender, {
   type DebounceRenderProps,
@@ -44,6 +44,15 @@ const useStyles = makeStyles({
  *
  * For use with mui-tiptap's `TableImproved` extension or Tiptap's
  * `@tiptap/extension-table` extension.
+ *
+ * If you're using `RichTextEditor`, include this component via
+ * `RichTextEditor`’s `children` render-prop. Otherwise, include the
+ * `TableBubbleMenu` as a child of the component where you call `useEditor` and
+ * render your `RichTextField` or `RichTextContent`. (The bubble menu itself
+ * will be positioned appropriately no matter where you put it in your React
+ * tree, as long as it is re-rendered whenever the Tiptap `editor` forces an
+ * update, which will happen if it's a child of the component using
+ * `useEditor`).
  */
 export default function TableBubbleMenu({
   disableDebounce = false,
