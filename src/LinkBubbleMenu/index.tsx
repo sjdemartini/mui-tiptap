@@ -27,11 +27,14 @@ const useStyles = makeStyles({ name: { LinkBubbleMenu } })((theme) => ({
  *
  * Pairs well with the `<MenuButtonEditLink />` component.
  *
- * Render the `LinkBubbleMenu` in the same context as your `RichTextField` or
- * `RichTextContent` (the bubble menu itself will be positioned appropriately no
- * matter where you put it in your React tree). Or if you're using
- * `RichTextEditor`, this component should be included via the `children`
- * render-prop.
+ * If you're using `RichTextEditor`, include this component via
+ * `RichTextEditor`’s `children` render-prop. Otherwise, include the
+ * `LinkBubbleMenu` as a child of the component where you call `useEditor` and
+ * render your `RichTextField` or `RichTextContent`. (The bubble menu itself
+ * will be positioned appropriately no matter where you put it in your React
+ * tree, as long as it is re-rendered whenever the Tiptap `editor` forces an
+ * update, which will happen if it's a child of the component using
+ * `useEditor`).
  */
 export default function LinkBubbleMenu({
   ...controlledBubbleMenuProps

@@ -113,3 +113,7 @@ export {
   default as MenuSelectTextAlign,
   type MenuSelectTextAlignProps,
 } from "./MenuSelectTextAlign";
+export {
+  default as TableMenuControls,
+  type TableMenuControlsProps,
+} from "./TableMenuControls";
