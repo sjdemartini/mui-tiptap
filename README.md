@@ -49,7 +49,7 @@
   - [Create and provide the `editor` yourself](#create-and-provide-the-editor-yourself)
   - [Render read-only rich text content](#render-read-only-rich-text-content)
 - [Extensions and components](#extensions-and-components)
-  - [Extensions](#extensions)
+  - [Tiptap extensions](#tiptap-extensions)
     - [`HeadingWithAnchor`](#headingwithanchor)
     - [`LinkBubbleMenuHandler`](#linkbubblemenuhandler)
     - [`ResizableImage`](#resizableimage)
@@ -111,19 +111,29 @@ function App() {
     <div>
       <RichTextEditor
         ref={rteRef}
+        extensions={[StarterKit]} // Or any Tiptap extensions you wish!
         content="<p>Hello world</p>"
-        extensions={[StarterKit]} // Or any extensions you wish!
+        // Optionally include `renderControls` for a menu-bar atop the editor
+        renderControls={() => (
+          <MenuControlsContainer>
+            <MenuSelectHeading />
+            <MenuDivider />
+            <MenuButtonBold />
+            <MenuButtonItalic />
+            {/* Add more controls of your choosing here */}
+          </MenuControlsContainer>
+        )}
       />
 
       <Button onClick={() => console.log(rteRef.current?.editor?.getHTML())}>
-        Show HTML
+        Log HTML
       </Button>
     </div>
   );
 }
 ```
 
-Use its `renderControls` prop if you'd like to render buttons in a menu bar atop the editor (e.g., for toggling text styles, inserting a table, adding a link, and more). See [`src/demo/Editor.tsx`](./src/demo/Editor.tsx) for a more thorough example of this.
+Check out [Extensions and components](#extensions-and-components) below to learn about extra Tiptap extensions and components (like more to include in `renderControls`) that you can use. See [`src/demo/Editor.tsx`](./src/demo/Editor.tsx) for a more thorough example of using `<RichTextEditor />`.
 
 ### Create and provide the `editor` yourself
 
@@ -176,18 +186,18 @@ Or if you want full control over the UI, instead of `RichTextField`, you can bui
 Use the `<RichTextReadOnly />` component and just pass in your HTML or ProseMirror JSON, like:
 
 ```tsx
-<RichTextReadOnly content="<p>Hello world</p>" extensions=[...] />
+<RichTextReadOnly content="<p>Hello world</p>" extensions={[StarterKit]} />
 ```
 
 This component will skip creating the Tiptap `editor` if `content` is empty, which can help performance.
 
 ## Extensions and components
 
-### Extensions
+### Tiptap extensions
 
 #### `HeadingWithAnchor`
 
-A modified version of [Tiptap’s `Heading` extension](https://tiptap.dev/api/nodes/heading), with dynamic GitHub-like anchor links for every heading you add. An anchor link button appear to the left of each heading when hovering over it, when the `editor` has `editable` set to `false`. This allows users to share links and jump to specific headings within your rendered editor content.
+A modified version of [Tiptap’s `Heading` extension](https://tiptap.dev/api/nodes/heading), with dynamic GitHub-like anchor links for every heading you add. An anchor link button will appear to the left of a heading when hovering over it, when the `editor` has `editable` set to `false`. This allows users to share links and jump to specific headings within your rendered editor content.
 
 #### `LinkBubbleMenuHandler`
 

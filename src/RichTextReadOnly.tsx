@@ -30,7 +30,7 @@ function RichTextReadOnlyInternal(props: RichTextReadOnlyProps) {
  * a separate useEditor invocation.
  *
  * Example:
- * <RichTextReadOnly content="<p>Hello world</p>" extensions=[...] />
+ * <RichTextReadOnly content="<p>Hello world</p>" extensions={[StarterKit]} />
  */
 export default function RichTextReadOnly(editorProps: RichTextReadOnlyProps) {
   if (!editorProps.content) {
