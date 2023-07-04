@@ -119,6 +119,9 @@ dependencies:
   '@tiptap/react':
     specifier: 2.0.3
     version: 2.0.3(@tiptap/core@2.0.3)(@tiptap/pm@2.0.3)(react-dom@18.2.0)(react@18.2.0)
+  '@tiptap/starter-kit':
+    specifier: ^2.0.3
+    version: 2.0.3(@tiptap/pm@2.0.3)
   mui-tiptap:
     specifier: file:../
     version: file:..(@emotion/react@11.11.0)(@mui/icons-material@5.11.16)(@mui/material@5.12.3)(@tiptap/core@2.0.3)(@tiptap/extension-heading@2.0.3)(@tiptap/extension-image@2.0.3)(@tiptap/extension-link@2.0.3)(@tiptap/extension-table@2.0.3)(@tiptap/pm@2.0.3)(@tiptap/react@2.0.3)(react-dom@18.2.0)(react-icons@4.3.1)(react@18.2.0)
@@ -1264,6 +1267,16 @@ packages:
       '@tiptap/pm': 2.0.3(@tiptap/core@2.0.3)
     dev: false
 
+  /@tiptap/extension-horizontal-rule@2.0.3(@tiptap/core@2.0.3)(@tiptap/pm@2.0.3):
+    resolution: {integrity: sha512-SZRUSh07b/M0kJHNKnfBwBMWrZBEm/E2LrK1NbluwT3DBhE+gvwiEdBxgB32zKHNxaDEXUJwUIPNC3JSbKvPUA==}
+    peerDependencies:
+      '@tiptap/core': ^2.0.0
+      '@tiptap/pm': ^2.0.0
+    dependencies:
+      '@tiptap/core': 2.0.3(@tiptap/pm@2.0.3)
+      '@tiptap/pm': 2.0.3(@tiptap/core@2.0.3)
+    dev: false
+
   /@tiptap/extension-image@2.0.3(@tiptap/core@2.0.3):
     resolution: {integrity: sha512-hS9ZJwz0md07EHsC+o4NuuJkhCZsZn7TuRz/2CvRSj2fWFIz+40CyNAHf/2J0qNugG9ommXaemetsADeEZP9ag==}
     peerDependencies:
@@ -1451,6 +1464,32 @@ packages:
       '@tiptap/pm': 2.0.3(@tiptap/core@2.0.3)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
+  /@tiptap/starter-kit@2.0.3(@tiptap/pm@2.0.3):
+    resolution: {integrity: sha512-t4WG4w93zTpL2VxhVyJJvl3kdLF001ZrhpOuEiZqEMBMUMbM56Uiigv1CnUQpTFrjDAh3IM8hkqzAh20TYw2iQ==}
+    dependencies:
+      '@tiptap/core': 2.0.3(@tiptap/pm@2.0.3)
+      '@tiptap/extension-blockquote': 2.0.3(@tiptap/core@2.0.3)
+      '@tiptap/extension-bold': 2.0.3(@tiptap/core@2.0.3)
+      '@tiptap/extension-bullet-list': 2.0.3(@tiptap/core@2.0.3)
+      '@tiptap/extension-code': 2.0.3(@tiptap/core@2.0.3)
+      '@tiptap/extension-code-block': 2.0.3(@tiptap/core@2.0.3)(@tiptap/pm@2.0.3)
+      '@tiptap/extension-document': 2.0.3(@tiptap/core@2.0.3)
+      '@tiptap/extension-dropcursor': 2.0.3(@tiptap/core@2.0.3)(@tiptap/pm@2.0.3)
+      '@tiptap/extension-gapcursor': 2.0.3(@tiptap/core@2.0.3)(@tiptap/pm@2.0.3)
+      '@tiptap/extension-hard-break': 2.0.3(@tiptap/core@2.0.3)
+      '@tiptap/extension-heading': 2.0.3(@tiptap/core@2.0.3)
+      '@tiptap/extension-history': 2.0.3(@tiptap/core@2.0.3)(@tiptap/pm@2.0.3)
+      '@tiptap/extension-horizontal-rule': 2.0.3(@tiptap/core@2.0.3)(@tiptap/pm@2.0.3)
+      '@tiptap/extension-italic': 2.0.3(@tiptap/core@2.0.3)
+      '@tiptap/extension-list-item': 2.0.3(@tiptap/core@2.0.3)
+      '@tiptap/extension-ordered-list': 2.0.3(@tiptap/core@2.0.3)
+      '@tiptap/extension-paragraph': 2.0.3(@tiptap/core@2.0.3)
+      '@tiptap/extension-strike': 2.0.3(@tiptap/core@2.0.3)
+      '@tiptap/extension-text': 2.0.3(@tiptap/core@2.0.3)
+    transitivePeerDependencies:
+      - '@tiptap/pm'
     dev: false
 
   /@types/object.omit@3.0.0:
@@ -2321,7 +2360,7 @@ packages:
     resolution: {directory: .., type: directory}
     id: file:..
     name: mui-tiptap
-    version: 1.0.0-beta.4
+    version: 1.0.0-beta.8
     engines: {pnpm: '>=8'}
     requiresBuild: true
     peerDependencies:

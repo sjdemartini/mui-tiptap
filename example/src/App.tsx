@@ -2,17 +2,18 @@ import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import {
   AppBar,
+  Box,
   CssBaseline,
   IconButton,
-  PaletteMode,
   ThemeProvider,
   Toolbar,
   Typography,
   createTheme,
   useMediaQuery,
+  type PaletteMode,
 } from "@mui/material";
 import { useCallback, useMemo, useState } from "react";
-import PageContentWithEditor from "./PageContentWithEditor";
+import PageContentWithEditorSimple from "./PageContentWithEditorSimple";
 
 export default function App() {
   const systemSettingsPrefersDarkMode = useMediaQuery(
@@ -57,7 +58,9 @@ export default function App() {
           </Toolbar>
         </AppBar>
 
-        <PageContentWithEditor />
+        <Box sx={{ maxWidth: 1200, my: 3, mx: "auto", px: 2 }}>
+          <PageContentWithEditorSimple />
+        </Box>
       </div>
     </ThemeProvider>
   );

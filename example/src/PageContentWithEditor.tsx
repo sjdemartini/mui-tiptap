@@ -1,4 +1,4 @@
-import { Box, Button, Divider } from "@mui/material";
+import { Button, Divider } from "@mui/material";
 import { Blockquote } from "@tiptap/extension-blockquote";
 import { Bold } from "@tiptap/extension-bold";
 import { BulletList } from "@tiptap/extension-bullet-list";
@@ -142,7 +142,7 @@ export default function PageContentWithEditor() {
   const [htmlResult, setHtmlResult] = useState("");
 
   return (
-    <Box sx={{ maxWidth: 1200, my: 3, mx: "auto", px: 2 }}>
+    <>
       Try the editor below!
       <div style={{ marginTop: 10 }}>
         <RichTextEditor
@@ -210,6 +210,6 @@ export default function PageContentWithEditor() {
           <code>{htmlResult}</code>
         </pre>
       )}
-    </Box>
+    </>
   );
 }
