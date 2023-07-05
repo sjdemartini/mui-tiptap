@@ -2360,7 +2360,7 @@ packages:
     resolution: {directory: .., type: directory}
     id: file:..
     name: mui-tiptap
-    version: 1.0.0-beta.8
+    version: 1.0.0-beta.9
     engines: {pnpm: '>=8'}
     requiresBuild: true
     peerDependencies:

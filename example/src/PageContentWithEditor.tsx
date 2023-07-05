@@ -1,4 +1,4 @@
-import { Button, Divider } from "@mui/material";
+import { Box, Button, Divider } from "@mui/material";
 import { Blockquote } from "@tiptap/extension-blockquote";
 import { Bold } from "@tiptap/extension-bold";
 import { BulletList } from "@tiptap/extension-bullet-list";
@@ -143,63 +143,64 @@ export default function PageContentWithEditor() {
 
   return (
     <>
-      Try the editor below!
-      <div style={{ marginTop: 10 }}>
-        <RichTextEditor
-          ref={rteRef}
-          content={exampleContent}
-          extensions={extensions}
-          renderControls={() => (
-            <MenuControlsContainer>
-              <MenuSelectHeading />
+      <Box mb={2}>Try the editor below!</Box>
 
-              <MenuDivider />
+      <RichTextEditor
+        ref={rteRef}
+        content={exampleContent}
+        extensions={extensions}
+        renderControls={() => (
+          <MenuControlsContainer>
+            <MenuSelectHeading />
 
-              <MenuButtonBold />
-              <MenuButtonItalic />
-              <MenuButtonStrikethrough />
-              <MenuButtonSubscript />
-              <MenuButtonSuperscript />
+            <MenuDivider />
 
-              <MenuDivider />
+            <MenuButtonBold />
+            <MenuButtonItalic />
+            <MenuButtonStrikethrough />
+            <MenuButtonSubscript />
+            <MenuButtonSuperscript />
 
-              <MenuButtonEditLink />
+            <MenuDivider />
 
-              <MenuDivider />
+            <MenuButtonEditLink />
 
-              <MenuButtonOrderedList />
-              <MenuButtonBulletedList />
-              <MenuButtonTaskList />
+            <MenuDivider />
 
-              <MenuDivider />
+            <MenuButtonOrderedList />
+            <MenuButtonBulletedList />
+            <MenuButtonTaskList />
 
-              <MenuButtonBlockquote />
+            <MenuDivider />
 
-              <MenuDivider />
+            <MenuButtonBlockquote />
 
-              <MenuButtonCode />
+            <MenuDivider />
 
-              <MenuButtonCodeBlock />
+            <MenuButtonCode />
 
-              <MenuDivider />
+            <MenuButtonCodeBlock />
 
-              <MenuButtonAddTable />
+            <MenuDivider />
 
-              <MenuDivider />
+            <MenuButtonAddTable />
 
-              <MenuButtonRemoveFormatting />
-            </MenuControlsContainer>
-          )}
-        >
-          {() => (
-            <>
-              <LinkBubbleMenu />
-              <TableBubbleMenu />
-            </>
-          )}
-        </RichTextEditor>
-      </div>
+            <MenuDivider />
+
+            <MenuButtonRemoveFormatting />
+          </MenuControlsContainer>
+        )}
+      >
+        {() => (
+          <>
+            <LinkBubbleMenu />
+            <TableBubbleMenu />
+          </>
+        )}
+      </RichTextEditor>
+
       <Divider sx={{ mt: 5, mb: 2 }} />
+
       <Button
         onClick={() => setHtmlResult(rteRef.current?.editor?.getHTML() ?? "")}
       >

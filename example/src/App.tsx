@@ -13,7 +13,7 @@ import {
   type PaletteMode,
 } from "@mui/material";
 import { useCallback, useMemo, useState } from "react";
-import PageContentWithEditorSimple from "./PageContentWithEditorSimple";
+import PageContentWithEditor from "./PageContentWithEditor";
 
 export default function App() {
   const systemSettingsPrefersDarkMode = useMediaQuery(
@@ -59,7 +59,7 @@ export default function App() {
         </AppBar>
 
         <Box sx={{ maxWidth: 1200, my: 3, mx: "auto", px: 2 }}>
-          <PageContentWithEditorSimple />
+          <PageContentWithEditor />
         </Box>
       </div>
     </ThemeProvider>
