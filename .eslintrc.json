@@ -97,7 +97,10 @@
         "additionalHooks": "(useUpdateEffect)"
       }
     ],
-    "react-refresh/only-export-components": "warn",
+    "react-refresh/only-export-components": [
+      "warn",
+      { "allowConstantExport": true }
+    ],
     "tss-unused-classes/unused-classes": "warn"
   }
 }
