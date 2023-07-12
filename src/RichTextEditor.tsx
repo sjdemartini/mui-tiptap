@@ -6,11 +6,12 @@ import {
   useRef,
   type DependencyList,
 } from "react";
-import type { Except } from "type-fest";
+import type { Except, SetRequired } from "type-fest";
 import RichTextEditorProvider from "./RichTextEditorProvider";
 import RichTextField, { type RichTextFieldProps } from "./RichTextField";
 
-export type RichTextEditorProps = Partial<EditorOptions> & {
+export interface RichTextEditorProps
+  extends SetRequired<Partial<EditorOptions>, "extensions"> {
   /**
    * Render the controls content to show inside the menu bar atop the editor
    * content. Typically you will want to render a <MenuControlsContainer>
@@ -47,7 +48,7 @@ export type RichTextEditorProps = Partial<EditorOptions> & {
   editorDependencies?: DependencyList;
   /** Class applied to the root element. */
   className?: string;
-};
+}
 
 export type RichTextEditorRef = {
   editor: Editor | null;
