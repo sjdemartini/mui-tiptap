@@ -183,7 +183,7 @@ Or if you want full control over the UI, instead of `RichTextField`, you can bui
 
 ### Render read-only rich text content
 
-Use the `<RichTextReadOnly />` component and just pass in your HTML or ProseMirror JSON, like:
+Use the `<RichTextReadOnly />` component and just pass in your HTML or ProseMirror JSON and your configured Tiptap extensions, like:
 
 ```tsx
 <RichTextReadOnly content="<p>Hello world</p>" extensions={[StarterKit]} />
