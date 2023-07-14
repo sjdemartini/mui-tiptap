@@ -17,6 +17,10 @@ import type { TextAlignOptions } from "@tiptap/extension-text-align";
 import MenuSelect from "./MenuSelect";
 
 export type MenuSelectTextAlignProps = {
+  /**
+   * The tooltip title used when hovering over the select element itself. By
+   * default "Align".
+   */
   tooltipTitle?: string;
 };
 

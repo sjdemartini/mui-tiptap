@@ -8,6 +8,15 @@ import { getEditorStyles } from "../styles";
 import MenuButtonTooltip from "./MenuButtonTooltip";
 import MenuSelect from "./MenuSelect";
 
+export type MenuSelectHeadingProps = {
+  /**
+   * Set a tooltip title used when hovering over the select element itself. By
+   * default, no tooltip is used for the main select element. (Tooltips are
+   * shown per-option in the dropdown.)
+   */
+  tooltipTitle?: string;
+};
+
 const useStyles = makeStyles({ name: { MenuSelectHeading } })((theme) => {
   const editorStyles = getEditorStyles(theme);
   return {
@@ -88,7 +97,9 @@ const LEVEL_TO_HEADING_OPTION_VALUE = {
   6: HEADING_OPTION_VALUES.Heading6,
 } as const;
 
-export default function MenuSelectHeading() {
+export default function MenuSelectHeading({
+  tooltipTitle,
+}: MenuSelectHeadingProps) {
   const { classes, cx } = useStyles();
   const editor = useRichTextEditorContext();
 
@@ -149,6 +160,7 @@ export default function MenuSelectHeading() {
     // below since we have `displayEmpty=true`, and the types don't properly
     // handle that scenario.
     <MenuSelect<HeadingOptionValue | "">
+      tooltipTitle={tooltipTitle}
       onChange={handleHeadingType}
       disabled={
         !editor?.isEditable ||
