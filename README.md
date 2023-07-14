@@ -51,6 +51,7 @@
 - [Extensions and components](#extensions-and-components)
   - [Tiptap extensions](#tiptap-extensions)
     - [`HeadingWithAnchor`](#headingwithanchor)
+    - [`FontSize`](#fontsize)
     - [`LinkBubbleMenuHandler`](#linkbubblemenuhandler)
     - [`ResizableImage`](#resizableimage)
     - [`TableImproved`](#tableimproved)
@@ -83,13 +84,13 @@ yarn add mui-tiptap
 There are peer dependencies on [`@mui/material`](https://www.npmjs.com/package/@mui/material) and [`@mui/icons-material`](https://www.npmjs.com/package/@mui/icons-material) (and their `@emotion/` peers), [`react-icons`](https://www.npmjs.com/package/react-icons), and [`@tiptap/`](https://tiptap.dev/installation/react) packages. These should be installed automatically by default if you’re using npm 7+ or pnpm. Otherwise, if your project doesn’t already use those, you can install them with:
 
 ```shell
-npm install @mui/material @mui/icons-material @emotion/react @emotion/styled react-icons @tiptap/react @tiptap/extension-heading @tiptap/extension-image @tiptap/extension-link @tiptap/extension-table @tiptap/pm @tiptap/core
+npm install @mui/material @mui/icons-material @emotion/react @emotion/styled react-icons @tiptap/react @tiptap/extension-heading @tiptap/extension-image @tiptap/extension-link @tiptap/extension-table @tiptap/extension-text-style @tiptap/pm @tiptap/core
 ```
 
 or
 
 ```shell
-yarn add @mui/material @mui/icons-material @emotion/react @emotion/styled react-icons @tiptap/react @tiptap/extension-heading @tiptap/extension-image @tiptap/extension-link @tiptap/extension-table @tiptap/pm @tiptap/core
+yarn add @mui/material @mui/icons-material @emotion/react @emotion/styled react-icons @tiptap/react @tiptap/extension-heading @tiptap/extension-image @tiptap/extension-link @tiptap/extension-table @tiptap/extension-text-style @tiptap/pm @tiptap/core
 ```
 
 ## Get started
@@ -198,6 +199,15 @@ This component will skip creating the Tiptap `editor` if `content` is empty, whi
 #### `HeadingWithAnchor`
 
 A modified version of [Tiptap’s `Heading` extension](https://tiptap.dev/api/nodes/heading), with dynamic GitHub-like anchor links for every heading you add. An anchor link button will appear to the left of a heading when hovering over it, when the `editor` has `editable` set to `false`. This allows users to share links and jump to specific headings within your rendered editor content.
+
+#### `FontSize`
+
+Controls text font size. This extension requires the Tiptap [TextStyle](https://tiptap.dev/api/marks/text-style) mark to be included in your `extensions` as well.
+
+##### Commands <!-- omit from toc -->
+
+- `setFontSize()`: Set the text font size (using a valid CSS `font-size` property string). ex: `"12px"` or `"2em"`
+- `unsetFontSize()`: Remove any previously set font size, reverting to the default size for the given mark.
 
 #### `LinkBubbleMenuHandler`
 
