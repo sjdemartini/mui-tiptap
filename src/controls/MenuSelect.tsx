@@ -101,7 +101,7 @@ export default function MenuSelect<T>({
   );
   return tooltipTitle ? (
     <MenuButtonTooltip
-      label="Align"
+      label={tooltipTitle}
       contentWrapperClassName={classes.rootTooltipWrapper}
       open={tooltipOpen}
     >
