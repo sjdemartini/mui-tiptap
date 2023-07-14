@@ -31,12 +31,13 @@
 - :toolbox: An all-in-one `RichTextEditor` component to get started immediately (no other components or hooks needed!), or individual modular components to customize to your needs
 - :sunglasses: Built-in styles for Tiptap’s extensions (text formatting, lists, tables, Google Docs-like collaboration cursors; you name it!)
 - :arrow_forward: Composable and extendable menu buttons and controls for the standard Tiptap extensions
-- :framed_picture: `ResizableImage` extension for adding and resizing images directly in the editor
-- :anchor: `HeadingWithAnchor` extension for dynamic GitHub-like anchor links for every heading you add
-- :link: `LinkBubbleMenu` so adding and editing links is a breeze
-- :white_square_button: `TableImproved` extension that [fixes](https://github.com/ueberdosis/tiptap/issues/2041) [problems](https://github.com/ueberdosis/tiptap/issues/2301) in the underlying Tiptap `Table` extension
-- :pencil: `TableBubbleMenu` for interactively editing your rich text tables
-- :building_construction: General-purpose `ControlledBubbleMenu` for building your own custom menus, [solving some shortcomings](https://github.com/ueberdosis/tiptap/issues/2305#issuecomment-1020665146) of the Tiptap `BubbleMenu`
+- :framed_picture: [`ResizableImage` extension](#resizableimage) for adding and resizing images directly in the editor
+- :anchor: [`HeadingWithAnchor` extension](#headingwithanchor) for dynamic GitHub-like anchor links for every heading you add
+- :link: [`LinkBubbleMenu`](#components) so adding and editing links is a breeze
+- :1234: [`FontSize` extension](#fontsize) for controlling text sizes
+- :white_square_button: [`TableImproved` extension](#tableimproved) that [fixes](https://github.com/ueberdosis/tiptap/issues/2041) [problems](https://github.com/ueberdosis/tiptap/issues/2301) in the underlying Tiptap `Table` extension
+- :pencil: [`TableBubbleMenu`](#components) for interactively editing your rich text tables
+- :building_construction: [General-purpose `ControlledBubbleMenu`](#components) for building your own custom menus, [solving some shortcomings](https://github.com/ueberdosis/tiptap/issues/2305#issuecomment-1020665146) of the Tiptap `BubbleMenu`
 - And more!
 
 <details>
@@ -202,11 +203,13 @@ A modified version of [Tiptap’s `Heading` extension](https://tiptap.dev/api/no
 
 #### `FontSize`
 
-Controls text font size. This extension requires the Tiptap [TextStyle](https://tiptap.dev/api/marks/text-style) mark to be included in your `extensions` as well.
+Sets text font size. This extension requires the Tiptap [TextStyle](https://tiptap.dev/api/marks/text-style) mark to be included in your `extensions` as well.
+
+Can be controlled with the [`MenuSelectFontSize` component](#controls-components).
 
 ##### Commands <!-- omit from toc -->
 
-- `setFontSize()`: Set the text font size (using a valid CSS `font-size` property string). ex: `"12px"` or `"2em"`
+- `setFontSize()`: Set the text font size (using [a valid CSS `font-size` property](https://developer.mozilla.org/en-US/docs/Web/CSS/font-size)). ex: `"12px"`, `"2em"`, `"small"`
 - `unsetFontSize()`: Remove any previously set font size, reverting to the default size for the given mark.
 
 #### `LinkBubbleMenuHandler`
@@ -261,6 +264,7 @@ You can override all props for these components (e.g. to change the icon, toolti
 | [`@tiptap/extension-bullet-list`](https://tiptap.dev/api/nodes/bullet-list)                                                        | `MenuButtonBulletedList`                                                                                                                                                                                  |
 | [`@tiptap/extension-code`](https://tiptap.dev/api/marks/code)                                                                      | `MenuButtonCode`                                                                                                                                                                                          |
 | [`@tiptap/extension-code-block`](https://tiptap.dev/api/nodes/code-block)                                                          | `MenuButtonCodeBlock`                                                                                                                                                                                     |
+| mui-tiptap’s [`FontSize`](#fontsize)                                                                                               | `MenuSelectFontSize` (override size options with `sizeOptions` prop)                                                                                                                                      |
 | mui-tiptap’s [`HeadingWithAnchor`](#headingwithanchor)<br />or [`@tiptap/extension-heading`](https://tiptap.dev/api/nodes/heading) | `MenuSelectHeading`                                                                                                                                                                                       |
 | [`@tiptap/extension-history`](https://tiptap.dev/api/extensions/history)                                                           | `MenuButtonRedo`, `MenuButtonUndo`                                                                                                                                                                        |
 | [`@tiptap/extension-horizontal-rule`](https://tiptap.dev/api/nodes/horizontal-rule)                                                | `MenuButtonHorizontalRule`                                                                                                                                                                                |

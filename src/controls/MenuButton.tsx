@@ -34,6 +34,8 @@ export type MenuButtonProps = {
   buttonRef?: RefObject<HTMLButtonElement>;
 } & SetOptional<Except<ToggleButtonProps, "ref">, "value">;
 
+export const MENU_BUTTON_FONT_SIZE_DEFAULT = "1.25rem";
+
 const useStyles = makeStyles({ name: "MenuButton" })({
   root: {
     // Use && for additional specificity, since MUI's conditional "disabled"
@@ -45,7 +47,7 @@ const useStyles = makeStyles({ name: "MenuButton" })({
   },
 
   menuButtonIcon: {
-    fontSize: "1.25rem",
+    fontSize: MENU_BUTTON_FONT_SIZE_DEFAULT,
   },
 });
 

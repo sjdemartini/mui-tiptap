@@ -109,6 +109,10 @@ export {
 } from "./MenuControlsContainer";
 export { default as MenuSelect, type MenuSelectProps } from "./MenuSelect";
 export {
+  default as MenuSelectFontSize,
+  type MenuSelectFontSizeProps,
+} from "./MenuSelectFontSize";
+export {
   default as MenuSelectHeading,
   type MenuSelectHeadingProps,
 } from "./MenuSelectHeading";
