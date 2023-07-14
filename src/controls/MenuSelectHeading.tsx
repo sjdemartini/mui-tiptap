@@ -3,19 +3,16 @@ import { MenuItem, type SelectChangeEvent } from "@mui/material";
 import type { Heading, Level } from "@tiptap/extension-heading";
 import { useCallback, useMemo } from "react";
 import { makeStyles } from "tss-react/mui";
+import type { Except } from "type-fest";
 import { useRichTextEditorContext } from "../context";
 import { getEditorStyles } from "../styles";
 import MenuButtonTooltip from "./MenuButtonTooltip";
-import MenuSelect from "./MenuSelect";
+import MenuSelect, { type MenuSelectProps } from "./MenuSelect";
 
-export type MenuSelectHeadingProps = {
-  /**
-   * Set a tooltip title used when hovering over the select element itself. By
-   * default, no tooltip is used for the main select element. (Tooltips are
-   * shown per-option in the dropdown.)
-   */
-  tooltipTitle?: string;
-};
+export type MenuSelectHeadingProps = Except<
+  MenuSelectProps<HeadingOptionValue | "">,
+  "value" | "children"
+>;
 
 const useStyles = makeStyles({ name: { MenuSelectHeading } })((theme) => {
   const editorStyles = getEditorStyles(theme);
@@ -77,7 +74,7 @@ const HEADING_OPTION_VALUES = {
   Heading6: "Heading 6",
 } as const;
 
-type HeadingOptionValue =
+export type HeadingOptionValue =
   (typeof HEADING_OPTION_VALUES)[keyof typeof HEADING_OPTION_VALUES];
 
 const HEADING_OPTION_VALUE_TO_LEVEL = {
@@ -98,7 +95,7 @@ const LEVEL_TO_HEADING_OPTION_VALUE = {
 } as const;
 
 export default function MenuSelectHeading({
-  tooltipTitle,
+  ...menuSelectProps
 }: MenuSelectHeadingProps) {
   const { classes, cx } = useStyles();
   const editor = useRichTextEditorContext();
@@ -160,7 +157,6 @@ export default function MenuSelectHeading({
     // below since we have `displayEmpty=true`, and the types don't properly
     // handle that scenario.
     <MenuSelect<HeadingOptionValue | "">
-      tooltipTitle={tooltipTitle}
       onChange={handleHeadingType}
       disabled={
         !editor?.isEditable ||
@@ -174,9 +170,14 @@ export default function MenuSelectHeading({
         return selected;
       }}
       aria-label="Heading type"
+      {...menuSelectProps}
       value={selectedValue}
       inputProps={{
-        className: classes.selectInput,
+        ...menuSelectProps.inputProps,
+        className: cx(
+          classes.selectInput,
+          menuSelectProps.inputProps?.className
+        ),
       }}
     >
       <MenuItem
