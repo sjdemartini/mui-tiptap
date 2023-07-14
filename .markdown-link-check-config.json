@@ -1,0 +1,9 @@
+{
+  "ignorePatterns": [
+    {
+      "pattern": "^https://tiptap.dev/"
+    }
+  ],
+  "timeout": "10s",
+  "retryOn429": true
+}
