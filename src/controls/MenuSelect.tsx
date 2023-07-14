@@ -61,6 +61,7 @@ export default function MenuSelect<T>({
       margin="none"
       variant="outlined"
       size="small"
+      {...selectProps}
       onMouseEnter={(...args) => {
         setTooltipOpen(true);
         selectProps.onMouseEnter?.(...args);
@@ -73,7 +74,6 @@ export default function MenuSelect<T>({
         setTooltipOpen(false);
         selectProps.onClick?.(...args);
       }}
-      {...selectProps}
       inputProps={{
         ...selectProps.inputProps,
         className: cx(classes.input, selectProps.inputProps?.className),
