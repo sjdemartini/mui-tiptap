@@ -1,4 +1,9 @@
 export {
+  default as FontSize,
+  type FontSizeAttrs,
+  type FontSizeOptions,
+} from "./FontSize";
+export {
   default as HeadingWithAnchor,
   scrollToCurrentHeadingAnchor,
   type HeadingWithAnchorOptions,
