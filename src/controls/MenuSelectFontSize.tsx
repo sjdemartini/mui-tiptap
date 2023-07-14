@@ -2,14 +2,16 @@ import { FormatSize } from "@mui/icons-material";
 import { MenuItem } from "@mui/material";
 import type { Editor } from "@tiptap/core";
 import { makeStyles } from "tss-react/mui";
+import type { Except } from "type-fest";
 import { useRichTextEditorContext } from "../context";
 import type { FontSizeAttrs } from "../extensions/FontSize";
 import { MENU_BUTTON_FONT_SIZE_DEFAULT } from "./MenuButton";
-import MenuSelect from "./MenuSelect";
+import MenuSelect, { type MenuSelectProps } from "./MenuSelect";
 
 export type FontSizeSelectOption = { name: string; value: string };
 
-export type MenuSelectFontSizeProps = {
+export interface MenuSelectFontSizeProps
+  extends Except<MenuSelectProps<string>, "value" | "children"> {
   /**
    * Override the list of the size option strings shown in the dropdown.
    *
@@ -20,7 +22,19 @@ export type MenuSelectFontSizeProps = {
    * the fontSize using the original "12px" value).
    */
   sizeOptions?: string[];
-};
+  /**
+   * Override the content shown for the Select's MenuItem that allows a user to
+   * unset the font-size of the selected text. If not provided, uses "Default"
+   * as the displayed text. To hide this select option entirely, set
+   * `hideUnsetOption` to true.
+   */
+  unsetOptionContent?: React.ReactNode;
+  /**
+   * If true, hides the additional first select option to "unset" the font-size
+   * back to its default. By default false.
+   */
+  hideUnsetOption?: boolean;
+}
 
 const useStyles = makeStyles({ name: { MenuSelectFontSize } })({
   selectInput: {
@@ -73,16 +87,19 @@ function stripPxFromValue(value: string): string {
 /** A font-size selector for use with the mui-tiptap FontSize extension.  */
 export default function MenuSelectFontSize({
   sizeOptions = DEFAULT_FONT_SIZE_SELECT_OPTIONS,
+  hideUnsetOption = false,
+  unsetOptionContent = "Default",
+  ...menuSelectProps
 }: MenuSelectFontSizeProps) {
-  const { classes } = useStyles();
+  const { classes, cx } = useStyles();
   const editor = useRichTextEditorContext();
 
   const currentAttrs: TextStyleAttrs | undefined =
     editor?.getAttributes("textStyle");
   const currentFontSize = currentAttrs?.fontSize;
+
   return (
     <MenuSelect<string>
-      tooltipTitle="Font size"
       onChange={(event) => {
         const value = event.target.value;
         if (value) {
@@ -95,10 +112,6 @@ export default function MenuSelectFontSize({
         // Pass an arbitrary value to can().setFontSize() just to check `can()`
         !editor?.isEditable || !editor.can().setFontSize("12px")
       }
-      // We don't want to pass any non-string falsy values here, always falling
-      // back to ""
-      // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-      value={currentFontSize || ""}
       renderValue={(value) => {
         if (!value) {
           // If a specific font size isn't set, show an icon to indicate what
@@ -111,12 +124,24 @@ export default function MenuSelectFontSize({
       }}
       displayEmpty
       aria-label="Font size"
+      {...menuSelectProps}
+      tooltipTitle={menuSelectProps.tooltipTitle ?? "Font size"}
+      // We don't want to pass any non-string falsy values here, always falling
+      // back to ""
+      // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+      value={currentFontSize || ""}
       inputProps={{
-        className: classes.selectInput,
+        ...menuSelectProps.inputProps,
+        className: cx(
+          classes.selectInput,
+          menuSelectProps.inputProps?.className
+        ),
       }}
     >
-      {/* Allow users to unset the font size */}
-      <MenuItem value="">Default</MenuItem>
+      {!hideUnsetOption && (
+        // Allow users to unset the font size
+        <MenuItem value="">{unsetOptionContent}</MenuItem>
+      )}
 
       {(sizeOptions ?? []).map((sizeOption) => (
         <MenuItem key={sizeOption} value={sizeOption}>
