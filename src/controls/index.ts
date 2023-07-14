@@ -114,6 +114,7 @@ export {
 } from "./MenuSelectFontSize";
 export {
   default as MenuSelectHeading,
+  type HeadingOptionValue,
   type MenuSelectHeadingProps,
 } from "./MenuSelectHeading";
 export {
