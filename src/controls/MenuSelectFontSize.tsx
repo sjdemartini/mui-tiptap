@@ -34,6 +34,11 @@ export interface MenuSelectFontSizeProps
    * back to its default. By default false.
    */
   hideUnsetOption?: boolean;
+  /**
+   * What to render in the Select when no font-size is currently set for the
+   * selected text. By default, uses the FormatSize MUI icon.
+   */
+  emptyValue?: React.ReactNode;
 }
 
 const useStyles = makeStyles({ name: { MenuSelectFontSize } })({
@@ -89,6 +94,7 @@ export default function MenuSelectFontSize({
   sizeOptions = DEFAULT_FONT_SIZE_SELECT_OPTIONS,
   hideUnsetOption = false,
   unsetOptionContent = "Default",
+  emptyValue,
   ...menuSelectProps
 }: MenuSelectFontSizeProps) {
   const { classes, cx } = useStyles();
@@ -118,7 +124,7 @@ export default function MenuSelectFontSize({
           // this does, so it's visually similar to other menu button controls,
           // more intuitive, and more meaningful and compact than some other
           // placeholder value here
-          return <FormatSize className={classes.fontSizeIcon} />;
+          return emptyValue ?? <FormatSize className={classes.fontSizeIcon} />;
         }
         return stripPxFromValue(value);
       }}
