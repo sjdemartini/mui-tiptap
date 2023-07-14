@@ -17,7 +17,9 @@ declare module "@tiptap/core" {
   interface Commands<ReturnType> {
     fontSize: {
       /**
-       * Set the text font size. ex: "12px" or "2em"
+       * Set the text font size. ex: "12px", "2em", or "small". Must be a valid
+       * CSS font-size
+       * (https://developer.mozilla.org/en-US/docs/Web/CSS/font-size).
        */
       setFontSize: (fontSize: string) => ReturnType;
       /**

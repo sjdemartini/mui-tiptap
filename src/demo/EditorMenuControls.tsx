@@ -26,6 +26,7 @@ import {
   MenuSelectTextAlign,
 } from "../";
 import { useRichTextEditorContext } from "../context";
+import MenuSelectFontSize from "../controls/MenuSelectFontSize";
 import { isTouchDevice } from "../utils/platform";
 
 export default function EditorMenuControls() {
@@ -33,6 +34,10 @@ export default function EditorMenuControls() {
   return (
     <MenuControlsContainer>
       <MenuSelectHeading />
+
+      <MenuDivider />
+
+      <MenuSelectFontSize />
 
       <MenuDivider />
 

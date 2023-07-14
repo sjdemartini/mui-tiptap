@@ -26,12 +26,16 @@ import { TaskItem } from "@tiptap/extension-task-item";
 import { TaskList } from "@tiptap/extension-task-list";
 import { Text } from "@tiptap/extension-text";
 import { TextAlign } from "@tiptap/extension-text-align";
+import { TextStyle } from "@tiptap/extension-text-style";
 import { Underline } from "@tiptap/extension-underline";
 import { useMemo } from "react";
-import HeadingWithAnchor from "../extensions/HeadingWithAnchor";
-import LinkBubbleMenuHandler from "../extensions/LinkBubbleMenuHandler";
-import ResizableImage from "../extensions/ResizableImage";
-import TableImproved from "../extensions/TableImproved";
+import {
+  FontSize,
+  HeadingWithAnchor,
+  LinkBubbleMenuHandler,
+  ResizableImage,
+  TableImproved,
+} from "../";
 
 export type UseRecommendedExtensionsOptions = {
   /** Placeholder hint to show in the text input area before a user types a message. */
@@ -145,6 +149,8 @@ export default function useRecommendedExtensions({
       TextAlign.configure({
         types: ["heading", "paragraph", "image"],
       }),
+      TextStyle,
+      FontSize,
       HorizontalRule,
 
       ResizableImage,
