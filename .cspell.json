@@ -7,6 +7,7 @@
     "esbuild",
     "gapcursor",
     "keymap",
+    "queueMicrotask",
     "mui-tiptap",
     "mui",
     "octocat",

@@ -37,7 +37,7 @@
 - :1234: [`FontSize` extension](#fontsize) for controlling text sizes
 - :white_square_button: [`TableImproved` extension](#tableimproved) that [fixes](https://github.com/ueberdosis/tiptap/issues/2041) [problems](https://github.com/ueberdosis/tiptap/issues/2301) in the underlying Tiptap `Table` extension
 - :pencil: [`TableBubbleMenu`](#components) for interactively editing your rich text tables
-- :building_construction: [General-purpose `ControlledBubbleMenu`](#components) for building your own custom menus, [solving some shortcomings](https://github.com/ueberdosis/tiptap/issues/2305#issuecomment-1020665146) of the Tiptap `BubbleMenu`
+- :building_construction: General-purpose [`ControlledBubbleMenu`](#components) for building your own custom menus, [solving some shortcomings](https://github.com/ueberdosis/tiptap/issues/2305#issuecomment-1020665146) of the Tiptap `BubbleMenu`
 - And more!
 
 <details>
@@ -370,7 +370,7 @@ useEffect(() => {
         .run();
     });
   }
-}, [content, editor, editor?.isEditable]);
+}, [content, editor, editor?.isEditable, editor?.isFocused]);
 ```
 
 You could also alternatively pass `content` as an editor dependency via `<RichTextEditor … editorDependencies={[content]} />` (or equivalently include it in your `useEditor` dependency array), and this will force-recreate the entire editor upon changes to the value. This is a much less efficient option, and it can cause a visual “flash” as the editor is rebuilt.
