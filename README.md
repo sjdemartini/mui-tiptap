@@ -49,7 +49,7 @@
   - [Use the all-in-one component](#use-the-all-in-one-component)
   - [Create and provide the `editor` yourself](#create-and-provide-the-editor-yourself)
   - [Render read-only rich text content](#render-read-only-rich-text-content)
-- [Extensions and components](#extensions-and-components)
+- [mui-tiptap extensions and components](#mui-tiptap-extensions-and-components)
   - [Tiptap extensions](#tiptap-extensions)
     - [`HeadingWithAnchor`](#headingwithanchor)
     - [`FontSize`](#fontsize)
@@ -62,6 +62,7 @@
   - [Choosing your editor `extensions`](#choosing-your-editor-extensions)
     - [Extension precedence and ordering](#extension-precedence-and-ordering)
     - [Other extension tips](#other-extension-tips)
+  - [Re-rendering `RichTextEditor` when `content` changes](#re-rendering-richtexteditor-when-content-changes)
 - [Contributing](#contributing)
 
 </details>
@@ -100,7 +101,7 @@ yarn add @mui/material @mui/icons-material @emotion/react @emotion/styled react-
 
 ### Use the all-in-one component
 
-The simplest way to render a rich text editor is to use the `<RichTextEditor />` component:
+The simplest way to render a rich text editor is to use the `RichTextEditor` component:
 
 ```tsx
 import { Button } from "@mui/material";
@@ -116,8 +117,8 @@ function App() {
       <RichTextEditor
         ref={rteRef}
         extensions={[StarterKit]} // Or any Tiptap extensions you wish!
-        content="<p>Hello world</p>"
-        // Optionally include `renderControls` for a menu-bar atop the editor
+        content="<p>Hello world</p>" // Initial content for the editor
+        // Optionally include `renderControls` for a menu-bar atop the editor:
         renderControls={() => (
           <MenuControlsContainer>
             <MenuSelectHeading />
@@ -137,15 +138,15 @@ function App() {
 }
 ```
 
-Check out [Extensions and components](#extensions-and-components) below to learn about extra Tiptap extensions and components (like more to include in `renderControls`) that you can use. See [`src/demo/Editor.tsx`](./src/demo/Editor.tsx) for a more thorough example of using `<RichTextEditor />`.
+Check out [mui-tiptap extensions and components](#mui-tiptap-extensions-and-components) below to learn about extra Tiptap extensions and components (like more to include in `renderControls`) that you can use. See [`src/demo/Editor.tsx`](./src/demo/Editor.tsx) for a more thorough example of using `RichTextEditor`.
 
 ### Create and provide the `editor` yourself
 
 If you need more customization, you can instead define your editor using Tiptap’s `useEditor` hook, and lay out your UI using a selection of `mui-tiptap` components (and/or your own components).
 
-Pass the `editor` to `mui-tiptap`’s `<RichTextEditorProvider>` component at the top of your component tree. From there, provide whatever children to the provider that fit your needs.
+Pass the `editor` to `mui-tiptap`’s `RichTextEditorProvider` component at the top of your component tree. From there, render whatever children within the provider that fit your needs.
 
-The easiest is option is the `<RichTextField />` component, which is what `RichTextEditor` uses under the hood:
+The easiest is option is the `RichTextField` component, which is what `RichTextEditor` uses under the hood:
 
 ```tsx
 import { useEditor } from "@tiptap/react";
@@ -187,15 +188,18 @@ Or if you want full control over the UI, instead of `RichTextField`, you can bui
 
 ### Render read-only rich text content
 
-Use the `<RichTextReadOnly />` component and just pass in your HTML or ProseMirror JSON and your configured Tiptap extensions, like:
+Use the `RichTextReadOnly` component and just pass in your HTML or ProseMirror JSON and your configured Tiptap extensions, like:
 
 ```tsx
 <RichTextReadOnly content="<p>Hello world</p>" extensions={[StarterKit]} />
 ```
 
-This component will skip creating the Tiptap `editor` if `content` is empty, which can help performance.
+Alternatively, you can set the `RichTextEditor` `editable` prop (or `useEditor` `editable` option) to `false` for a more configurable read-only option. Use `RichTextReadOnly` when:
 
-## Extensions and components
+- You just want to efficiently render editor HTML/JSON content directly, without any outlined field styling, controls setup, extra listener logic, access to the `editor` object, etc. (This component also skips creating the Tiptap `editor` if `content` is empty, which can help performance.)
+- You want a convenient way to render content that updates as the `content` prop changes. (`RichTextEditor` by contrast does not re-render automatically on `content` changes, as [described below](#re-rendering-richtexteditor-when-content-changes).)
+
+## mui-tiptap extensions and components
 
 ### Tiptap extensions
 
@@ -333,11 +337,51 @@ Extensions that need to be higher precedence (for their keyboard shortcuts, etc.
     });
     ```
 
-- If you’d prefer to be able to style your `Code` marks (e.g., make them bold, add links, change font size), you should extend the extension and override the `excludes` field, since by default it uses `"_"` to [make it mutually exclusive from all other marks](https://tiptap.dev/api/schema#excludes). For instance, to allow you to apply `Code` with any other inline mark, use `excludes: ""`, or to make it work with all except italics, use:
+- If you’d prefer to be able to style your inline [`Code`](https://tiptap.dev/api/marks/code) marks (e.g., make them bold, add links, change font size), you should extend the extension and override the `excludes` field, since by default it uses `"_"` to [make it mutually exclusive from all other marks](https://tiptap.dev/api/schema#excludes). For instance, to allow you to apply `Code` with any other inline mark, use `excludes: ""`, or to make it work with all except italics, use:
 
   ```ts
   Code.extend({ excludes: "italic" });
   ```
+
+### Re-rendering `RichTextEditor` when `content` changes
+
+By default, `RichTextEditor` uses `content` the same way that Tiptap’s `useEditor` does: it sets the initial content for the editor, and subsequent changes to the `content` variable will _not_ change what content is rendered. (Only the user’s editor interaction will.) This can avoid annoyances like overwriting the content while a user is actively typing or editing.
+
+It is not efficient to use `RichTextEditor`/`useEditor` as a fully [“controlled” component](https://react.dev/learn/sharing-state-between-components#controlled-and-uncontrolled-components) where you change `content` on each call to the editor’s `onUpdate`, due to the fact that editor content must be serialized to get the HTML string (`getHTML()`) or ProseMirror JSON (`getJSON()`) (see [Tiptap docs](https://tiptap.dev/guide/output#export) and [this discussion](https://github.com/sjdemartini/mui-tiptap/issues/91#issuecomment-1629911609)).
+
+But if you need this behavior in certain situations, like you have changed the `content` external to the component and the user’s editor interaction, you can do something like the following in order to update the content via hook:
+
+```ts
+useEffect(() => {
+  // Use queueMicrotask per https://github.com/ueberdosis/tiptap/issues/3764#issuecomment-1546854730
+  queueMicrotask(() => {
+    editor?.commands.setContent(content);
+  });
+}, [content, editor]);
+```
+
+Or if you wanted to try to preserve the user’s current selection/caret, and only update when the editor is read-only or unfocused (to try to avoid losing any in-progress changes the user is making):
+
+```ts
+useEffect(() => {
+  if (!editor || editor.isDestroyed) {
+    return;
+  }
+  if (!editor.isFocused || !editor.isEditable) {
+    const currentSelection = editor.state.selection;
+    // Use queueMicrotask per https://github.com/ueberdosis/tiptap/issues/3764#issuecomment-1546854730
+    queueMicrotask(() => {
+      editor
+        ?.chain()
+        .setContent(content)
+        .setTextSelection(currentSelection)
+        .run();
+    });
+  }
+}, [content, editor, editor?.isEditable, editor?.isFocused]);
+```
+
+You could also alternatively pass `content` as an editor dependency via `<RichTextEditor … editorDependencies={[content]} />` (or equivalently include it in your `useEditor` dependency array), and this will force-recreate the entire editor upon changes to the value. This is a much less efficient option, and it can cause a visual “flash” as the editor is rebuilt.
 
 ## Contributing
 
