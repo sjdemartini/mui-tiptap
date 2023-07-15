@@ -3,7 +3,6 @@ import {
   forwardRef,
   useEffect,
   useImperativeHandle,
-  useRef,
   type DependencyList,
 } from "react";
 import type { Except, SetRequired } from "type-fest";
@@ -38,7 +37,9 @@ export interface RichTextEditorProps
    * you can access the editor via the parameter to this render prop, or in a
    * child component via `useRichTextEditorContext()`. Useful for including
    * plugins like mui-tiptap's LinkBubbleMenu and TableBubbleMenu, or other
-   * custom components (e.g. a menu that utilizes Tiptap's FloatingMenu).
+   * custom components (e.g. a menu that utilizes Tiptap's FloatingMenu). (This
+   * is a render prop rather than just a ReactNode for the same reason as
+   * `renderControls`; see above.)
    */
   children?: (editor: Editor | null) => React.ReactNode;
   /**
@@ -58,6 +59,12 @@ export type RichTextEditorRef = {
  * An all-in-one component to directly render a MUI-styled Tiptap rich text
  * editor field.
  *
+ * NOTE: changes to `content` will not trigger re-rendering of the component.
+ * i.e., by default the `content` prop is essentially "initial content". To
+ * change content after rendering, you can use a hook and call
+ * `rteRef.current?.editor?.setContent(newContent)`. See README "Re-rendering
+ * `RichTextEditor` when `content` changes" for more details.
+ *
  * Example:
  * <RichTextEditor ref={rteRef} content="<p>Hello world</p>" extensions={[...]} />
  */
@@ -75,10 +82,6 @@ const RichTextEditor = forwardRef<RichTextEditorRef, RichTextEditorProps>(
     }: RichTextEditorProps,
     ref
   ) {
-    // TODO(Steven DeMartini): We should perhaps wrap the `onUpdate`, `onBlur`,
-    // etc. callbacks in refs that we pass in here, so that changes to those
-    // props will take effect. Note though that this is handled in tiptap 2.0.0
-    // itself thanks to https://github.com/ueberdosis/tiptap/pull/3811
     const editor = useEditor(
       {
         editable: editable,
@@ -102,32 +105,6 @@ const RichTextEditor = forwardRef<RichTextEditorRef, RichTextEditorProps>(
       // https://github.com/ueberdosis/tiptap/issues/3764#issuecomment-1546854730
       queueMicrotask(() => editor.setEditable(editable));
     }, [editable, editor]);
-
-    // Update content if/when it changes
-    const previousContent = useRef(editorProps.content);
-    useEffect(() => {
-      if (
-        !editor ||
-        editor.isDestroyed ||
-        editorProps.content === undefined ||
-        editorProps.content === previousContent.current
-      ) {
-        return;
-      }
-      // We use queueMicrotask to avoid any flushSync console errors as
-      // mentioned here
-      // https://github.com/ueberdosis/tiptap/issues/3764#issuecomment-1546854730
-      queueMicrotask(() => {
-        // Validate that editorProps.content isn't undefined again to appease TS
-        if (editorProps.content !== undefined) {
-          editor.commands.setContent(editorProps.content);
-        }
-      });
-    }, [editorProps.content, editor]);
-
-    useEffect(() => {
-      previousContent.current = editorProps.content;
-    }, [editorProps.content]);
 
     return (
       <RichTextEditorProvider editor={editor}>
