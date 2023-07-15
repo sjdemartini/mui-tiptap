@@ -349,39 +349,33 @@ By default, `RichTextEditor` uses `content` the same way that Tiptap’s `useEdi
 
 It is not efficient to use `RichTextEditor`/`useEditor` as a fully [“controlled” component](https://react.dev/learn/sharing-state-between-components#controlled-and-uncontrolled-components) where you change `content` on each call to the editor’s `onUpdate`, due to the fact that editor content must be serialized to get the HTML string (`getHTML()`) or ProseMirror JSON (`getJSON()`) (see [Tiptap docs](https://tiptap.dev/guide/output#export) and [this discussion](https://github.com/sjdemartini/mui-tiptap/issues/91#issuecomment-1629911609)).
 
-But if you need this behavior in certain situations, like you have changed the `content` external to the component and the user’s editor interaction, you can do something like the following in order to update the content via hook:
+But if you need this behavior in certain situations, like you have changed the `content` external to the component and separate from the user’s editor interaction, you can call `editor.commands.setContent(content)` ([docs](https://tiptap.dev/api/commands/set-content)) within a hook to update the editor document.
+
+For instance, you could use something like the following, which (1) only calls `setContent` when the editor is either read-only or unfocused (aiming to avoid losing any in-progress changes the user is making, though keep in mind that changes to `isFocused` itself do not cause re-rendering and so won't re-run the effect), and (2) tries to preserve the user’s current selection/caret:
 
 ```ts
-useEffect(() => {
-  // Use queueMicrotask per https://github.com/ueberdosis/tiptap/issues/3764#issuecomment-1546854730
-  queueMicrotask(() => {
-    editor?.commands.setContent(content);
-  });
-}, [content, editor]);
-```
-
-Or if you wanted to try to preserve the user’s current selection/caret, and only update when the editor is read-only or unfocused (to try to avoid losing any in-progress changes the user is making):
-
-```ts
+const editor = rteRef.current?.editor;
 useEffect(() => {
   if (!editor || editor.isDestroyed) {
     return;
   }
   if (!editor.isFocused || !editor.isEditable) {
-    const currentSelection = editor.state.selection;
     // Use queueMicrotask per https://github.com/ueberdosis/tiptap/issues/3764#issuecomment-1546854730
     queueMicrotask(() => {
+      const currentSelection = editor.state.selection;
       editor
-        ?.chain()
+        .chain()
         .setContent(content)
         .setTextSelection(currentSelection)
         .run();
     });
   }
-}, [content, editor, editor?.isEditable, editor?.isFocused]);
+}, [content, editor, editor?.isEditable]);
 ```
 
 You could also alternatively pass `content` as an editor dependency via `<RichTextEditor … editorDependencies={[content]} />` (or equivalently include it in your `useEditor` dependency array), and this will force-recreate the entire editor upon changes to the value. This is a much less efficient option, and it can cause a visual “flash” as the editor is rebuilt.
+
+Note that if these content updates are coming from changes other users are making (e.g. saved to a database), it may be better to use [collaborative editing](https://tiptap.dev/guide/collaborative-editing) functionality with Yjs, and not rely on `content` at all.
 
 ## Contributing
 
