@@ -1,4 +1,5 @@
 import { useEditor, type EditorOptions } from "@tiptap/react";
+import { useEffect, useRef } from "react";
 import type { Except, SetRequired } from "type-fest";
 import RichTextContent from "./RichTextContent";
 import RichTextEditorProvider from "./RichTextEditorProvider";
@@ -13,6 +14,32 @@ function RichTextReadOnlyInternal(props: RichTextReadOnlyProps) {
     ...props,
     editable: false,
   });
+
+  // Update content if/when it changes
+  const previousContent = useRef(props.content);
+  useEffect(() => {
+    if (
+      !editor ||
+      editor.isDestroyed ||
+      props.content === undefined ||
+      props.content === previousContent.current
+    ) {
+      return;
+    }
+    // We use queueMicrotask to avoid any flushSync console errors as
+    // mentioned here
+    // https://github.com/ueberdosis/tiptap/issues/3764#issuecomment-1546854730
+    queueMicrotask(() => {
+      // Validate that props.content isn't undefined again to appease TS
+      if (props.content !== undefined) {
+        editor.commands.setContent(props.content);
+      }
+    });
+  }, [props.content, editor]);
+
+  useEffect(() => {
+    previousContent.current = props.content;
+  }, [props.content]);
 
   return (
     <RichTextEditorProvider editor={editor}>

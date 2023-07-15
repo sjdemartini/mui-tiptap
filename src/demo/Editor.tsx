@@ -3,6 +3,7 @@ import { Box, Button, Stack, Typography } from "@mui/material";
 import { useRef, useState } from "react";
 import LinkBubbleMenu from "../LinkBubbleMenu";
 import RichTextEditor, { type RichTextEditorRef } from "../RichTextEditor";
+import RichTextReadOnly from "../RichTextReadOnly";
 import TableBubbleMenu from "../TableBubbleMenu";
 import MenuButton from "../controls/MenuButton";
 import EditorMenuControls from "./EditorMenuControls";
@@ -117,9 +118,22 @@ export default function Editor() {
       </Typography>
 
       {submittedContent ? (
-        <pre style={{ marginTop: 10, overflow: "auto", maxWidth: "100%" }}>
-          <code>{submittedContent}</code>
-        </pre>
+        <>
+          <pre style={{ marginTop: 10, overflow: "auto", maxWidth: "100%" }}>
+            <code>{submittedContent}</code>
+          </pre>
+
+          <Box mt={3}>
+            <Typography variant="overline" sx={{ mb: 2 }}>
+              Read-only saved snapshot:
+            </Typography>
+
+            <RichTextReadOnly
+              content={submittedContent}
+              extensions={extensions}
+            />
+          </Box>
+        </>
       ) : (
         <>
           Press “Save” above to show the HTML markup for the editor content.
