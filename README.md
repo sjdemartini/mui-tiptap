@@ -59,7 +59,9 @@
   - [Components](#components)
     - [Controls components](#controls-components)
 - [Tips and suggestions](#tips-and-suggestions)
-  - [Defining your editor `extensions`](#defining-your-editor-extensions)
+  - [Choosing your editor `extensions`](#choosing-your-editor-extensions)
+    - [Extension precedence and ordering](#extension-precedence-and-ordering)
+    - [Other extension tips](#other-extension-tips)
 - [Contributing](#contributing)
 
 </details>
@@ -302,9 +304,11 @@ Typically you will define your controls (for `RichTextEditor`’s `renderControl
 
 ## Tips and suggestions
 
-### Defining your editor `extensions`
+### Choosing your editor `extensions`
 
-[Browse Tiptap extensions](https://tiptap.dev/extensions).
+Browse [the official Tiptap extensions](https://tiptap.dev/extensions), and check out [`mui-tiptap`’s additional extensions](#tiptap-extensions). The easiest way to get started is to install and use Tiptap’s [`StarterKit` extension](https://tiptap.dev/api/extensions/starter-kit), which bundles several common Tiptap extensions.
+
+#### Extension precedence and ordering
 
 Extensions that need to be higher precedence (for their keyboard shortcuts, etc.) should come **later** in your extensions array. (See Tiptap's general notes on extension plugin precedence and ordering [here](https://github.com/ueberdosis/tiptap/issues/1547#issuecomment-890848888).) For example:
 
@@ -314,9 +318,9 @@ Extensions that need to be higher precedence (for their keyboard shortcuts, etc.
   - Otherwise, the keyboard shortcut for `Blockquote` (Cmd+Shift+B) will mistakenly toggle the bold mark (due to its “overlapping” Cmd+b shortcut). (See related Tiptap issues [here](https://github.com/ueberdosis/tiptap/issues/4005) and [here](https://github.com/ueberdosis/tiptap/issues/4006).)
 - Put the `Mention` extension after list-related extensions (`TaskList`, `TaskItem`, `BulletList`, `OrderedList`, `ListItem`, etc.) so that pressing "Enter" on a mention suggestion will select it, rather than create a new list item (when trying to @mention something within an existing list item).
 
-Other extension tips:
+#### Other extension tips
 
-- If you'd like `Subscript` and `Superscript` extensions to be mutually exclusive, so that text can't be both superscript and subscript simultaneously, use the `excludes` configuration parameter to exclude each other.
+- If you’d like [`Subscript`](https://tiptap.dev/api/marks/subscript) and [`Superscript`](https://tiptap.dev/api/marks/superscript) extensions to be mutually exclusive, so that text can't be both superscript and subscript simultaneously, use the `excludes` configuration parameter to exclude each other.
 
   - As described in [this Tiptap issue](https://github.com/ueberdosis/tiptap/pull/1436#issuecomment-1031937768). For instance:
 
@@ -328,6 +332,12 @@ Other extension tips:
       excludes: "subscript",
     });
     ```
+
+- If you’d prefer to be able to style your `Code` marks (e.g., make them bold, add links, change font size), you should extend the extension and override the `excludes` field, since by default it uses `"_"` to [make it mutually exclusive from all other marks](https://tiptap.dev/api/schema#excludes). For instance, to allow you to apply `Code` with any other inline mark, use `excludes: ""`, or to make it work with all except italics, use:
+
+  ```ts
+  Code.extend({ excludes: "italic" });
+  ```
 
 ## Contributing
 
