@@ -1,5 +1,5 @@
+/// <reference types="@tiptap/extension-text-style" />
 import { Extension } from "@tiptap/core";
-import "@tiptap/extension-text-style";
 
 export type FontSizeAttrs = {
   fontSize?: string | null;

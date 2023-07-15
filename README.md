@@ -85,13 +85,13 @@ yarn add mui-tiptap
 There are peer dependencies on [`@mui/material`](https://www.npmjs.com/package/@mui/material) and [`@mui/icons-material`](https://www.npmjs.com/package/@mui/icons-material) (and their `@emotion/` peers), [`react-icons`](https://www.npmjs.com/package/react-icons), and [`@tiptap/`](https://tiptap.dev/installation/react) packages. These should be installed automatically by default if you’re using npm 7+ or pnpm. Otherwise, if your project doesn’t already use those, you can install them with:
 
 ```shell
-npm install @mui/material @mui/icons-material @emotion/react @emotion/styled react-icons @tiptap/react @tiptap/extension-heading @tiptap/extension-image @tiptap/extension-link @tiptap/extension-table @tiptap/extension-text-style @tiptap/pm @tiptap/core
+npm install @mui/material @mui/icons-material @emotion/react @emotion/styled react-icons @tiptap/react @tiptap/extension-heading @tiptap/extension-image @tiptap/extension-link @tiptap/extension-table @tiptap/pm @tiptap/core
 ```
 
 or
 
 ```shell
-yarn add @mui/material @mui/icons-material @emotion/react @emotion/styled react-icons @tiptap/react @tiptap/extension-heading @tiptap/extension-image @tiptap/extension-link @tiptap/extension-table @tiptap/extension-text-style @tiptap/pm @tiptap/core
+yarn add @mui/material @mui/icons-material @emotion/react @emotion/styled react-icons @tiptap/react @tiptap/extension-heading @tiptap/extension-image @tiptap/extension-link @tiptap/extension-table @tiptap/pm @tiptap/core
 ```
 
 ## Get started
@@ -203,7 +203,7 @@ A modified version of [Tiptap’s `Heading` extension](https://tiptap.dev/api/no
 
 #### `FontSize`
 
-Sets text font size. This extension requires the Tiptap [TextStyle](https://tiptap.dev/api/marks/text-style) mark to be included in your `extensions` as well.
+Sets text font size. This extension requires the [`@tiptap/extension-text-style`](https://tiptap.dev/api/marks/text-style) package to be installed and its `TextStyle` mark to be included in your `extensions`.
 
 Can be controlled with the [`MenuSelectFontSize` component](#controls-components).
 
