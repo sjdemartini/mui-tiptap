@@ -1,11 +1,14 @@
 import { Lock, LockOpen, TextFields } from "@mui/icons-material";
 import { Box, Button, Stack, Typography } from "@mui/material";
 import { useRef, useState } from "react";
-import LinkBubbleMenu from "../LinkBubbleMenu";
-import RichTextEditor, { type RichTextEditorRef } from "../RichTextEditor";
-import RichTextReadOnly from "../RichTextReadOnly";
-import TableBubbleMenu from "../TableBubbleMenu";
-import MenuButton from "../controls/MenuButton";
+import {
+  LinkBubbleMenu,
+  MenuButton,
+  RichTextEditor,
+  RichTextReadOnly,
+  TableBubbleMenu,
+  type RichTextEditorRef,
+} from "../";
 import EditorMenuControls from "./EditorMenuControls";
 import useExtensions from "./useExtensions";
 
