@@ -14,15 +14,44 @@ import MenuButtonTooltip, {
 // without needing to list extension-text-align as a peer dependency.
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { TextAlignOptions } from "@tiptap/extension-text-align";
-import MenuSelect from "./MenuSelect";
+import type { Except } from "type-fest";
+import MenuSelect, { type MenuSelectProps } from "./MenuSelect";
 
-export type MenuSelectTextAlignProps = {
+export type TextAlignSelectOption = {
   /**
-   * The tooltip title used when hovering over the select element itself. By
-   * default "Align".
+   * Which textAlign value this option enables. Ex: "left", "right",
+   * "center", "justify".
    */
-  tooltipTitle?: string;
+  alignment: string;
+  /**
+   * What icon to show for this option in the select option dropdown.
+   */
+  IconComponent: React.ElementType<{
+    className: string;
+  }>;
+  /**
+   * What tooltip label to show (if any) when hovering over this option.
+   */
+  label?: string;
+  /**
+   * What keyboard shortcut keys can be used to enable this text-alignment.
+   * Example: ["mod", "Shift", "L"] is the default shortcut for left-align.
+   */
+  shortcutKeys?: MenuButtonTooltipProps["shortcutKeys"];
 };
+
+export interface MenuSelectTextAlignProps
+  extends Except<MenuSelectProps<string>, "children"> {
+  /**
+   * Override the options shown for text alignment. Use this to change the
+   * label, icon, tooltip, and shortcut keys shown for each option, and/or the
+   * order in which the options appear. Note that of the options provided here
+   * (or if this prop is omitted and the default set of options is used), this
+   * component will omit an option if it's not enabled in the TextAlign
+   * extension's `alignments` option.
+   */
+  alignmentOptions?: TextAlignSelectOption[];
+}
 
 const useStyles = makeStyles({ name: { MenuSelectTextAlign } })({
   menuItem: {
@@ -44,12 +73,7 @@ const useStyles = makeStyles({ name: { MenuSelectTextAlign } })({
   },
 });
 
-const ALIGNMENT_OPTIONS: {
-  alignment: string;
-  label: string;
-  shortcutKeys: MenuButtonTooltipProps["shortcutKeys"];
-  IconComponent: React.ElementType<{ className: string }>;
-}[] = [
+const DEFAULT_ALIGNMENT_OPTIONS: TextAlignSelectOption[] = [
   {
     alignment: "left",
     label: "Left",
@@ -77,7 +101,8 @@ const ALIGNMENT_OPTIONS: {
 ];
 
 export default function MenuSelectTextAlign({
-  tooltipTitle,
+  alignmentOptions = DEFAULT_ALIGNMENT_OPTIONS,
+  ...menuSelectProps
 }: MenuSelectTextAlignProps) {
   const { classes } = useStyles();
   const editor = useRichTextEditorContext();
@@ -114,7 +139,6 @@ export default function MenuSelectTextAlign({
 
   return (
     <MenuSelect<string>
-      tooltipTitle={tooltipTitle ?? "Align"}
       onChange={handleAlignmentSelect}
       disabled={
         !editor?.isEditable ||
@@ -122,50 +146,52 @@ export default function MenuSelectTextAlign({
           editor.can().setTextAlign(alignment)
         )
       }
-      aria-label="Text alignment"
-      value={selectedValue}
       // Override the rendering of the selected value so that we don't show
       // tooltips on hovering (like we do for the menu options)
-      renderValue={(selectedValue) => {
-        let content;
-        if (selectedValue === "left") {
-          content = <FormatAlignLeftIcon className={classes.menuButtonIcon} />;
-        } else if (selectedValue === "center") {
-          content = (
-            <FormatAlignCenterIcon className={classes.menuButtonIcon} />
-          );
-        } else if (selectedValue === "right") {
-          content = <FormatAlignRightIcon className={classes.menuButtonIcon} />;
-        } else if (selectedValue === "justify") {
-          content = (
-            <FormatAlignJustifyIcon className={classes.menuButtonIcon} />
-          );
-        } else {
-          content = selectedValue;
-        }
-
-        return <span className={classes.menuOption}>{content}</span>;
+      renderValue={(value) => {
+        const alignmentOptionForValue = alignmentOptions.find(
+          (option) => option.alignment === value
+        );
+        return (
+          <span className={classes.menuOption}>
+            {alignmentOptionForValue ? (
+              <alignmentOptionForValue.IconComponent
+                className={classes.menuButtonIcon}
+              />
+            ) : (
+              value
+            )}
+          </span>
+        );
       }}
+      aria-label="Text alignment"
+      tooltipTitle="Align"
+      value={selectedValue}
+      {...menuSelectProps}
     >
-      {ALIGNMENT_OPTIONS.filter((alignmentOption) =>
-        enabledAlignments.has(alignmentOption.alignment)
-      ).map((alignmentOption) => (
-        <MenuItem
-          key={alignmentOption.alignment}
-          value={alignmentOption.alignment}
-          disabled={!editor?.can().setTextAlign(alignmentOption.alignment)}
-          className={classes.menuItem}
-        >
-          <MenuButtonTooltip
-            label={alignmentOption.label}
-            shortcutKeys={alignmentOption.shortcutKeys}
-            placement="right"
-            contentWrapperClassName={classes.menuOption}
+      {alignmentOptions
+        .filter((alignmentOption) =>
+          enabledAlignments.has(alignmentOption.alignment)
+        )
+        .map((alignmentOption) => (
+          <MenuItem
+            key={alignmentOption.alignment}
+            value={alignmentOption.alignment}
+            disabled={!editor?.can().setTextAlign(alignmentOption.alignment)}
+            className={classes.menuItem}
           >
-            <alignmentOption.IconComponent className={classes.menuButtonIcon} />
-          </MenuButtonTooltip>
-        </MenuItem>
-      ))}
+            <MenuButtonTooltip
+              label={alignmentOption.label ?? ""}
+              shortcutKeys={alignmentOption.shortcutKeys}
+              placement="right"
+              contentWrapperClassName={classes.menuOption}
+            >
+              <alignmentOption.IconComponent
+                className={classes.menuButtonIcon}
+              />
+            </MenuButtonTooltip>
+          </MenuItem>
+        ))}
     </MenuSelect>
   );
 }

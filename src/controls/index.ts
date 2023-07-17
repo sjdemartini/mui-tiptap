@@ -120,6 +120,7 @@ export {
 export {
   default as MenuSelectTextAlign,
   type MenuSelectTextAlignProps,
+  type TextAlignSelectOption,
 } from "./MenuSelectTextAlign";
 export {
   default as TableMenuControls,
