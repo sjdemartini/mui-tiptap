@@ -1,4 +1,3 @@
-/// <reference types="@tiptap/extension-link" />
 import { Extension, getAttributes } from "@tiptap/core";
 import { Plugin, PluginKey } from "@tiptap/pm/state";
 import type { LinkBubbleMenuProps } from "../LinkBubbleMenu";
@@ -50,6 +49,10 @@ export type LinkBubbleMenuHandlerStorage = {
  * To be used in conjunction with the `LinkBubbleMenu` component, as this
  * extension provides editor commands to control the state of the link bubble
  * menu.
+ *
+ * The Tiptap Link extension (@tiptap/extension-link) should also be installed
+ * and included in your extensions when using LinkBubbleMenuHandler:
+ * https://tiptap.dev/api/marks/link.
  */
 const LinkBubbleMenuHandler = Extension.create<
   undefined,

@@ -37,7 +37,7 @@ import {
   TableImproved,
 } from "../";
 
-export type UseRecommendedExtensionsOptions = {
+export type UseExtensionsOptions = {
   /** Placeholder hint to show in the text input area before a user types a message. */
   placeholder?: string;
 };
@@ -80,13 +80,14 @@ const CustomSuperscript = Superscript.extend({
  * A hook for providing a default set of useful extensions for the MUI-Tiptap
  * editor.
  */
-export default function useRecommendedExtensions({
+export default function useExtensions({
   placeholder,
-}: UseRecommendedExtensionsOptions = {}): EditorOptions["extensions"] {
+}: UseExtensionsOptions = {}): EditorOptions["extensions"] {
   return useMemo(() => {
     return [
-      // We use some but not all of the extensions from
-      // https://tiptap.dev/api/extensions/starter-kit, plus a few additional ones
+      // We incorporate all of the functionality that's part of
+      // https://tiptap.dev/api/extensions/starter-kit, plus a few additional
+      // extensions, including mui-tiptap's
 
       // Note that the Table extension must come before other nodes that also have "tab"
       // shortcut keys so that when using the tab key within a table on a node that also
