@@ -6,7 +6,9 @@ import ControlledBubbleMenu, {
   type ControlledBubbleMenuProps,
 } from "./ControlledBubbleMenu";
 import { useRichTextEditorContext } from "./context";
-import TableMenuControls from "./controls/TableMenuControls";
+import TableMenuControls, {
+  type TableMenuControlsProps,
+} from "./controls/TableMenuControls";
 import { useDebouncedFocus } from "./hooks";
 import DebounceRender, {
   type DebounceRenderProps,
@@ -26,6 +28,11 @@ export type TableBubbleMenuProps = {
    * interval, if `disableDebounce` is not true.
    */
   DebounceProps?: Except<DebounceRenderProps, "children">;
+  /**
+   * Override the default labels for any of the menu buttons. If any is omitted,
+   * it falls back to the default mui-tiptap label for that label.
+   */
+  labels?: TableMenuControlsProps["labels"];
 } & Partial<Except<ControlledBubbleMenuProps, "open" | "editor" | "children">>;
 
 const useStyles = makeStyles({
@@ -57,6 +64,7 @@ const useStyles = makeStyles({
 export default function TableBubbleMenu({
   disableDebounce = false,
   DebounceProps,
+  labels,
   ...controlledBubbleMenuProps
 }: TableBubbleMenuProps) {
   const editor = useRichTextEditorContext();
@@ -131,7 +139,9 @@ export default function TableBubbleMenu({
     return null;
   }
 
-  const controls = <TableMenuControls className={classes.controls} />;
+  const controls = (
+    <TableMenuControls className={classes.controls} labels={labels} />
+  );
 
   return (
     <ControlledBubbleMenu

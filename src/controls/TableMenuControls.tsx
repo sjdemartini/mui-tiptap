@@ -19,6 +19,24 @@ import MenuControlsContainer from "./MenuControlsContainer";
 export type TableMenuControlsProps = {
   /** Class applied to the root controls container element. */
   className?: string;
+  /**
+   * Override the default labels for any of the menu buttons. For any value that
+   * is omitted in this object, it falls back to the default content.
+   */
+  labels?: {
+    insertColumnBefore?: string;
+    insertColumnAfter?: string;
+    deleteColumn?: string;
+    insertRowAbove?: string;
+    insertRowBelow?: string;
+    deleteRow?: string;
+    mergeCells?: string;
+    splitCell?: string;
+    toggleHeaderRow?: string;
+    toggleHeaderColumn?: string;
+    toggleHeaderCell?: string;
+    deleteTable?: string;
+  };
 };
 
 /**
@@ -27,26 +45,27 @@ export type TableMenuControlsProps = {
  */
 export default function TableMenuControls({
   className,
+  labels,
 }: TableMenuControlsProps) {
   const editor = useRichTextEditorContext();
   return (
     <MenuControlsContainer className={className}>
       <MenuButton
-        tooltipLabel="Insert column before"
+        tooltipLabel={labels?.insertColumnBefore ?? "Insert column before"}
         IconComponent={RiInsertColumnLeft}
         onClick={() => editor?.chain().focus().addColumnBefore().run()}
         disabled={!editor?.can().addColumnBefore()}
       />
 
       <MenuButton
-        tooltipLabel="Insert column after"
+        tooltipLabel={labels?.insertColumnAfter ?? "Insert column after"}
         IconComponent={RiInsertColumnRight}
         onClick={() => editor?.chain().focus().addColumnAfter().run()}
         disabled={!editor?.can().addColumnAfter()}
       />
 
       <MenuButton
-        tooltipLabel="Delete column"
+        tooltipLabel={labels?.deleteColumn ?? "Delete column"}
         IconComponent={RiDeleteColumn}
         onClick={() => editor?.chain().focus().deleteColumn().run()}
         disabled={!editor?.can().deleteColumn()}
@@ -55,21 +74,21 @@ export default function TableMenuControls({
       <MenuDivider />
 
       <MenuButton
-        tooltipLabel="Insert row above"
+        tooltipLabel={labels?.insertRowAbove ?? "Insert row above"}
         IconComponent={RiInsertRowTop}
         onClick={() => editor?.chain().focus().addRowBefore().run()}
         disabled={!editor?.can().addRowBefore()}
       />
 
       <MenuButton
-        tooltipLabel="Insert row below"
+        tooltipLabel={labels?.insertRowBelow ?? "Insert row below"}
         IconComponent={RiInsertRowBottom}
         onClick={() => editor?.chain().focus().addRowAfter().run()}
         disabled={!editor?.can().addRowAfter()}
       />
 
       <MenuButton
-        tooltipLabel="Delete row"
+        tooltipLabel={labels?.deleteRow ?? "Delete row"}
         IconComponent={RiDeleteRow}
         onClick={() => editor?.chain().focus().deleteRow().run()}
         disabled={!editor?.can().deleteRow()}
@@ -78,14 +97,14 @@ export default function TableMenuControls({
       <MenuDivider />
 
       <MenuButton
-        tooltipLabel="Merge cells"
+        tooltipLabel={labels?.mergeCells ?? "Merge cells"}
         IconComponent={RiMergeCellsHorizontal}
         onClick={() => editor?.chain().focus().mergeCells().run()}
         disabled={!editor?.can().mergeCells()}
       />
 
       <MenuButton
-        tooltipLabel="Split cell"
+        tooltipLabel={labels?.splitCell ?? "Split cell"}
         IconComponent={RiSplitCellsHorizontal}
         onClick={() => editor?.chain().focus().splitCell().run()}
         disabled={!editor?.can().splitCell()}
@@ -94,21 +113,21 @@ export default function TableMenuControls({
       <MenuDivider />
 
       <MenuButton
-        tooltipLabel="Toggle header row"
+        tooltipLabel={labels?.toggleHeaderRow ?? "Toggle header row"}
         IconComponent={RiLayoutRowFill}
         onClick={() => editor?.chain().focus().toggleHeaderRow().run()}
         disabled={!editor?.can().toggleHeaderRow()}
       />
 
       <MenuButton
-        tooltipLabel="Toggle header column"
+        tooltipLabel={labels?.toggleHeaderColumn ?? "Toggle header column"}
         IconComponent={RiLayoutColumnFill}
         onClick={() => editor?.chain().focus().toggleHeaderColumn().run()}
         disabled={!editor?.can().toggleHeaderColumn()}
       />
 
       <MenuButton
-        tooltipLabel="Toggle header cell"
+        tooltipLabel={labels?.toggleHeaderCell ?? "Toggle header cell"}
         IconComponent={FormatColorFill}
         onClick={() => editor?.chain().focus().toggleHeaderCell().run()}
         disabled={!editor?.can().toggleHeaderCell()}
@@ -118,7 +137,7 @@ export default function TableMenuControls({
       <MenuDivider />
 
       <MenuButton
-        tooltipLabel="Delete table"
+        tooltipLabel={labels?.deleteTable ?? "Delete table"}
         IconComponent={GridOff}
         onClick={() => editor?.chain().focus().deleteTable().run()}
         disabled={!editor?.can().deleteTable()}
