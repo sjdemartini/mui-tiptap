@@ -29,8 +29,8 @@ To instead test a "built" version of this package which is installed into an "ex
 When a new version should be cut since some new changes have landed on the `main` branch, do the following to publish it:
 
 1. Go to the `main` branch and pull in the latest changes.
-2. Run `npm version <major | minor | patch | premajor | preminor | prepatch | prerelease>`, depending on what's appropriate per semver conventions for the latest changes .
+2. Run `npm version <major | minor | patch | premajor | preminor | prepatch | prerelease>`, depending on what's appropriate per semver conventions for the latest changes.
    - This will create a commit that updates the `version` in `package.json`, and add a git tag for that new commit.
-3. Push the commit and tags (ex: `git push --tags`)
+3. Push the commit and tags (ex: `git push origin main` and `git push --tags`)
 4. The `release.yml` GitHub Actions workflow will run and should publish to npm upon completion.
 5. Once the new version has been successfully published to npm, create a "Release" in GitHub for to the newly pushed tag, per the steps [here](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository#creating-a-release), which can auto-generate release notes that can be edited and cleaned up for clarity and succinctness.
