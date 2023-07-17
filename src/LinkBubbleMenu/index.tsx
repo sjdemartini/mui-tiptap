@@ -1,3 +1,4 @@
+/// <reference types="@tiptap/extension-link" />
 import { makeStyles } from "tss-react/mui";
 import type { Except } from "type-fest";
 import ControlledBubbleMenu, {
@@ -23,7 +24,9 @@ const useStyles = makeStyles({ name: { LinkBubbleMenu } })((theme) => ({
 
 /**
  * A component that renders a bubble menu when viewing, creating, or editing a
- * link. Requires the LinkBubbleMenuHandler extension.
+ * link. Requires the mui-tiptap LinkBubbleMenuHandler extension and Tiptap's
+ * Link extension (@tiptap/extension-link, https://tiptap.dev/api/marks/link) to
+ * both be included in your editor `extensions` array.
  *
  * Pairs well with the `<MenuButtonEditLink />` component.
  *

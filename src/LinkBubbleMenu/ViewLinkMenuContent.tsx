@@ -18,7 +18,7 @@ const useStyles = makeStyles({ name: { ViewLinkMenuContent } })({
   },
 });
 
-/** Shown when a user is viewing the details of an existing a Link for Tiptap. */
+/** Shown when a user is viewing the details of an existing Link for Tiptap. */
 export default function ViewLinkMenuContent({
   editor,
   onCancel,
