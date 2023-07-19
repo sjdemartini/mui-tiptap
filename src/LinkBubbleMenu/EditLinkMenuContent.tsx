@@ -1,17 +1,43 @@
 import { Button, DialogActions, TextField, Typography } from "@mui/material";
 import { getMarkRange, getMarkType, type Editor } from "@tiptap/core";
 import encodeurl from "encodeurl";
-import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
 import useKeyDown from "../hooks/useKeyDown";
 
-type Props = {
+export type EditLinkMenuContentProps = {
   editor: Editor;
   onCancel: () => void;
   onSave: ({ text, link }: { text: string; link: string }) => void;
+  /** Override default text content/labels used within the component. */
+  labels?: {
+    /** Menu title shown when adding a new link. */
+    editLinkAddTitle?: ReactNode;
+    /** Menu title shown when editing an existing link. */
+    editLinkEditTitle?: ReactNode;
+    /** Label for the input text field to edit the text content of a link. */
+    editLinkTextInputLabel?: ReactNode;
+    /** Label for the input text field to edit the href (URL) of a link. */
+    editLinkHrefInputLabel?: ReactNode;
+    /** Content shown in the button used to cancel editing/adding a link. */
+    editLinkCancelButtonLabel?: ReactNode;
+    /** Content shown in the button used to save when editing/adding a link. */
+    editLinkSaveButtonLabel?: ReactNode;
+  };
 };
 
 /** Shown when a user is adding/editing a Link for Tiptap. */
-function EditLinkMenuContent({ editor, onCancel, onSave }: Props) {
+export default function EditLinkMenuContent({
+  editor,
+  onCancel,
+  onSave,
+  labels,
+}: EditLinkMenuContentProps) {
   const existingHref = editor.isActive("link")
     ? (editor.getAttributes("link").href as string)
     : "";
@@ -41,7 +67,9 @@ function EditLinkMenuContent({ editor, onCancel, onSave }: Props) {
   // If there's already a link where the user has clicked, they're "editing",
   // otherwise the menu has been brought up to add a new link
   const isNewLink = !existingHref;
-  const editMenuTitle = isNewLink ? "Add link" : "Edit link";
+  const addLinkTitle = labels?.editLinkAddTitle ?? "Add link";
+  const editLinkTitle = labels?.editLinkEditTitle ?? "Edit link";
+  const editMenuTitle = isNewLink ? addLinkTitle : editLinkTitle;
 
   // When bringing up the Popper of the `ControlledBubbleMenu` and using
   // autoFocus on the TextField elements, it is causing a scroll jump as
@@ -121,7 +149,7 @@ function EditLinkMenuContent({ editor, onCancel, onSave }: Props) {
         value={textValue}
         disabled={isSubmitting}
         onChange={(event) => setTextValue(event.target.value)}
-        label="Text"
+        label={labels?.editLinkTextInputLabel ?? "Text"}
         margin="normal"
         size="small"
         fullWidth
@@ -133,7 +161,7 @@ function EditLinkMenuContent({ editor, onCancel, onSave }: Props) {
         value={hrefValue}
         onChange={(event) => setHrefValue(event.target.value)}
         disabled={isSubmitting}
-        label="Link"
+        label={labels?.editLinkHrefInputLabel ?? "Link"}
         margin="dense"
         size="small"
         type="url"
@@ -152,8 +180,9 @@ function EditLinkMenuContent({ editor, onCancel, onSave }: Props) {
 
       <DialogActions sx={{ px: 0 }}>
         <Button onClick={onCancel} variant="outlined" size="small">
-          Cancel
+          {labels?.editLinkCancelButtonLabel ?? "Cancel"}
         </Button>
+
         <Button
           type="submit"
           color="primary"
@@ -161,11 +190,9 @@ function EditLinkMenuContent({ editor, onCancel, onSave }: Props) {
           size="small"
           disabled={isSubmitting}
         >
-          Save
+          {labels?.editLinkSaveButtonLabel ?? "Save"}
         </Button>
       </DialogActions>
     </form>
   );
 }
-
-export default EditLinkMenuContent;

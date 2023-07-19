@@ -1,15 +1,23 @@
 import { Button, DialogActions, Link } from "@mui/material";
 import { getMarkRange, getMarkType, type Editor } from "@tiptap/core";
 import truncate from "lodash/truncate";
+import type { ReactNode } from "react";
 import { makeStyles } from "tss-react/mui";
 import useKeyDown from "../hooks/useKeyDown";
 import truncateMiddle from "../utils/truncateMiddle";
 
-type Props = {
+export type ViewLinkMenuContentProps = {
   editor: Editor;
   onCancel: () => void;
   onEdit: () => void;
   onRemove: () => void;
+  /** Override default text content/labels used within the component. */
+  labels?: {
+    /** Content shown in the button used to start editing the link. */
+    viewLinkEditButtonLabel?: ReactNode;
+    /** Content shown in the button used to remove the link. */
+    viewLinkRemoveButtonLabel?: ReactNode;
+  };
 };
 
 const useStyles = makeStyles({ name: { ViewLinkMenuContent } })({
@@ -24,7 +32,8 @@ export default function ViewLinkMenuContent({
   onCancel,
   onEdit,
   onRemove,
-}: Props) {
+  labels,
+}: ViewLinkMenuContentProps) {
   const { classes } = useStyles();
   const linkRange = getMarkRange(
     editor.state.selection.$to,
@@ -64,7 +73,7 @@ export default function ViewLinkMenuContent({
           variant="outlined"
           size="small"
         >
-          Edit
+          {labels?.viewLinkEditButtonLabel ?? "Edit"}
         </Button>
         <Button
           onClick={onRemove}
@@ -72,7 +81,7 @@ export default function ViewLinkMenuContent({
           variant="outlined"
           size="small"
         >
-          Remove
+          {labels?.viewLinkRemoveButtonLabel ?? "Remove"}
         </Button>
       </DialogActions>
     </>
