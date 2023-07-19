@@ -9,12 +9,24 @@ import {
   LinkMenuState,
   type LinkBubbleMenuHandlerStorage,
 } from "../extensions/LinkBubbleMenuHandler";
-import EditLinkMenuContent from "./EditLinkMenuContent";
-import ViewLinkMenuContent from "./ViewLinkMenuContent";
+import EditLinkMenuContent, {
+  type EditLinkMenuContentProps,
+} from "./EditLinkMenuContent";
+import ViewLinkMenuContent, {
+  type ViewLinkMenuContentProps,
+} from "./ViewLinkMenuContent";
 
-export type LinkBubbleMenuProps = Partial<
-  Except<ControlledBubbleMenuProps, "open" | "editor" | "children">
->;
+export interface LinkBubbleMenuProps
+  extends Partial<
+    Except<ControlledBubbleMenuProps, "open" | "editor" | "children">
+  > {
+  /**
+   * Override the default text content/labels in this interface. For any value
+   * that is omitted in this object, it falls back to the default content.
+   */
+  labels?: ViewLinkMenuContentProps["labels"] &
+    EditLinkMenuContentProps["labels"];
+}
 
 const useStyles = makeStyles({ name: { LinkBubbleMenu } })((theme) => ({
   content: {
@@ -40,6 +52,7 @@ const useStyles = makeStyles({ name: { LinkBubbleMenu } })((theme) => ({
  * `useEditor`).
  */
 export default function LinkBubbleMenu({
+  labels,
   ...controlledBubbleMenuProps
 }: LinkBubbleMenuProps) {
   const { classes } = useStyles();
@@ -77,6 +90,7 @@ export default function LinkBubbleMenu({
             .focus()
             .run();
         }}
+        labels={labels}
       />
     );
   } else if (menuState === LinkMenuState.EDIT_LINK) {
@@ -120,6 +134,7 @@ export default function LinkBubbleMenu({
 
           editor.commands.closeLinkBubbleMenu();
         }}
+        labels={labels}
       />
     );
   }
