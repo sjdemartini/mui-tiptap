@@ -311,13 +311,17 @@ Typically you will define your controls (for `RichTextEditor`’s `renderControl
 
 All of the menu buttons, select components, and bubble menus allow you to override their default labels and content via props. Examples below.
 
-#### Buttons <!-- omit from toc -->
+<details>
+<summary><b>Buttons</b></summary>
 
 ```tsx
 <MenuButtonBold tooltipLabel="Toggle bold" />
 ```
 
-#### Selects <!-- omit from toc -->
+</details>
+
+<details>
+<summary><b>Selects</b></summary>
 
 ```tsx
 <MenuSelectFontSize aria-label="Font sizes" tooltipTitle="Change font size" />
@@ -361,7 +365,10 @@ All of the menu buttons, select components, and bubble menus allow you to overri
 />
 ```
 
-#### Bubble menus <!-- omit from toc -->
+</details>
+
+<details>
+<summary><b>Bubble menus</b></summary>
 
 ```tsx
 <LinkBubbleMenu
@@ -388,6 +395,8 @@ All of the menu buttons, select components, and bubble menus allow you to overri
   }}
 />
 ```
+
+</details>
 
 ## Tips and suggestions
 
