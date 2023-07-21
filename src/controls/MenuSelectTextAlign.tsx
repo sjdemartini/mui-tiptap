@@ -164,7 +164,7 @@ export default function MenuSelectTextAlign({
           </span>
         );
       }}
-      aria-label="Text alignment"
+      aria-label="Text alignments"
       tooltipTitle="Align"
       value={selectedValue}
       {...menuSelectProps}

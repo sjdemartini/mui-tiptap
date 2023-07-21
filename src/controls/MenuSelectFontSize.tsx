@@ -129,9 +129,9 @@ export default function MenuSelectFontSize({
         return stripPxFromValue(value);
       }}
       displayEmpty
-      aria-label="Font size"
+      aria-label="Font sizes"
+      tooltipTitle="Font size"
       {...menuSelectProps}
-      tooltipTitle={menuSelectProps.tooltipTitle ?? "Font size"}
       // We don't want to pass any non-string falsy values here, always falling
       // back to ""
       // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
