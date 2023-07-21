@@ -133,6 +133,10 @@ export default function EditLinkMenuContent({
       onSubmit={(event) => {
         // Don't submit the form with a standard full-page request
         event.preventDefault();
+        // Don't let this event propagate upwards in the React tree, to prevent
+        // submitting any form the rich text editor is wrapped in
+        // (https://github.com/sjdemartini/mui-tiptap/issues/105)
+        event.stopPropagation();
 
         setIsSubmitting(true);
         const text = textRef.current?.value ?? "";
