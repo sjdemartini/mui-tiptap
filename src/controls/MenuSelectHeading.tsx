@@ -1,7 +1,7 @@
 /// <reference types="@tiptap/extension-paragraph" />
 import { MenuItem, type SelectChangeEvent } from "@mui/material";
 import type { Heading, Level } from "@tiptap/extension-heading";
-import { useCallback, useMemo } from "react";
+import { useCallback, useMemo, type ReactNode } from "react";
 import { makeStyles } from "tss-react/mui";
 import type { Except } from "type-fest";
 import { useRichTextEditorContext } from "../context";
@@ -9,10 +9,35 @@ import { getEditorStyles } from "../styles";
 import MenuButtonTooltip from "./MenuButtonTooltip";
 import MenuSelect, { type MenuSelectProps } from "./MenuSelect";
 
-export type MenuSelectHeadingProps = Except<
-  MenuSelectProps<HeadingOptionValue | "">,
-  "value" | "children"
->;
+export interface MenuSelectHeadingProps
+  extends Except<
+    MenuSelectProps<HeadingOptionValue | "">,
+    "value" | "children"
+  > {
+  /**
+   * Override the default labels for the select options. For any value that
+   * is omitted in this object, it falls back to the default content.
+   */
+  labels?: {
+    /** Label shown for the "Paragraph" (non-heading) option. */
+    paragraph?: ReactNode;
+    /** Label shown for the level 1 heading (h1) option. */
+    heading1?: ReactNode;
+    /** Label shown for the level 2 heading (h2) option. */
+    heading2?: ReactNode;
+    /** Label shown for the level 3 heading (h3) option. */
+    heading3?: ReactNode;
+    /** Label shown for the level 4 heading (h4) option. */
+    heading4?: ReactNode;
+    /** Label shown for the level 5 heading (h5) option. */
+    heading5?: ReactNode;
+    /** Label shown for the level 6 heading (h6) option. */
+    heading6?: ReactNode;
+    /**
+     * Label shown when the user is currently on a non-paragraph, non-heading . */
+    emptyValue?: ReactNode;
+  };
+}
 
 const useStyles = makeStyles({ name: { MenuSelectHeading } })((theme) => {
   const editorStyles = getEditorStyles(theme);
@@ -95,6 +120,7 @@ const LEVEL_TO_HEADING_OPTION_VALUE = {
 } as const;
 
 export default function MenuSelectHeading({
+  labels,
   ...menuSelectProps
 }: MenuSelectHeadingProps) {
   const { classes, cx } = useStyles();
@@ -164,12 +190,28 @@ export default function MenuSelectHeading({
       }
       displayEmpty
       renderValue={(selected) => {
+        let result: ReactNode | undefined;
         if (selected === "") {
-          return <em>Change to…</em>;
+          result = labels?.emptyValue ?? <em>Change to…</em>;
+        } else if (selected === HEADING_OPTION_VALUES.Paragraph) {
+          result = labels?.paragraph;
+        } else if (selected === HEADING_OPTION_VALUES.Heading1) {
+          result = labels?.heading1;
+        } else if (selected === HEADING_OPTION_VALUES.Heading2) {
+          result = labels?.heading2;
+        } else if (selected === HEADING_OPTION_VALUES.Heading3) {
+          result = labels?.heading3;
+        } else if (selected === HEADING_OPTION_VALUES.Heading4) {
+          result = labels?.heading4;
+        } else if (selected === HEADING_OPTION_VALUES.Heading5) {
+          result = labels?.heading5;
+          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        } else if (selected === HEADING_OPTION_VALUES.Heading6) {
+          result = labels?.heading6;
         }
-        return selected;
+        return result ?? selected;
       }}
-      aria-label="Heading type"
+      aria-label="Text headings"
       {...menuSelectProps}
       value={selectedValue}
       inputProps={{
@@ -190,7 +232,7 @@ export default function MenuSelectHeading({
           placement="right"
           contentWrapperClassName={classes.menuOption}
         >
-          Paragraph
+          {labels?.paragraph ?? HEADING_OPTION_VALUES.Paragraph}
         </MenuButtonTooltip>
       </MenuItem>
 
@@ -209,7 +251,7 @@ export default function MenuSelectHeading({
               classes.headingOption1
             )}
           >
-            {HEADING_OPTION_VALUES.Heading1}
+            {labels?.heading1 ?? HEADING_OPTION_VALUES.Heading1}
           </MenuButtonTooltip>
         </MenuItem>
       )}
@@ -229,7 +271,7 @@ export default function MenuSelectHeading({
               classes.headingOption2
             )}
           >
-            {HEADING_OPTION_VALUES.Heading2}
+            {labels?.heading2 ?? HEADING_OPTION_VALUES.Heading2}
           </MenuButtonTooltip>
         </MenuItem>
       )}
@@ -249,7 +291,7 @@ export default function MenuSelectHeading({
               classes.headingOption3
             )}
           >
-            {HEADING_OPTION_VALUES.Heading3}
+            {labels?.heading3 ?? HEADING_OPTION_VALUES.Heading3}
           </MenuButtonTooltip>
         </MenuItem>
       )}
@@ -269,7 +311,7 @@ export default function MenuSelectHeading({
               classes.headingOption4
             )}
           >
-            {HEADING_OPTION_VALUES.Heading4}
+            {labels?.heading4 ?? HEADING_OPTION_VALUES.Heading4}
           </MenuButtonTooltip>
         </MenuItem>
       )}
@@ -289,7 +331,7 @@ export default function MenuSelectHeading({
               classes.headingOption5
             )}
           >
-            {HEADING_OPTION_VALUES.Heading5}
+            {labels?.heading5 ?? HEADING_OPTION_VALUES.Heading5}
           </MenuButtonTooltip>
         </MenuItem>
       )}
@@ -309,7 +351,7 @@ export default function MenuSelectHeading({
               classes.headingOption6
             )}
           >
-            {HEADING_OPTION_VALUES.Heading6}
+            {labels?.heading6 ?? HEADING_OPTION_VALUES.Heading6}
           </MenuButtonTooltip>
         </MenuItem>
       )}
