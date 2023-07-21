@@ -61,11 +61,14 @@ export function ResizableImageResizer({
   return (
     // There isn't a great role to use here (perhaps role="separator" is the
     // closest, as described here https://stackoverflow.com/a/43022983/4543977,
-    // but we don't do keyboard-based resizing so it doesn't make sense to have
-    // it keyboard focusable)
+    // but we don't do keyboard-based resizing at this time so it doesn't make
+    // sense to have it keyboard focusable)
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <div
-      aria-label="resize image"
+      // TODO(Steven DeMartini): Add keyboard support and better accessibility
+      // here, and allow users to override the aria-label when that happens to
+      // support localization.
+      // aria-label="resize image"
       className={cx(classes.root, className)}
       onMouseDown={handleMouseDown}
     />
