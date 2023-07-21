@@ -58,6 +58,7 @@
     - [`TableImproved`](#tableimproved)
   - [Components](#components)
     - [Controls components](#controls-components)
+- [Localization](#localization)
 - [Tips and suggestions](#tips-and-suggestions)
   - [Choosing your editor `extensions`](#choosing-your-editor-extensions)
     - [Extension precedence and ordering](#extension-precedence-and-ordering)
@@ -304,6 +305,88 @@ Typically you will define your controls (for `RichTextEditor`’s `renderControl
   <MenuButtonItalic />
   {/* Add more controls of your choosing here */}
 </MenuControlsContainer>
+```
+
+## Localization
+
+All of the menu buttons, select components, and bubble menus allow you to override their default labels and content via props. Examples below.
+
+#### Buttons <!-- omit from toc -->
+
+```tsx
+<MenuButtonBold tooltipLabel="Toggle bold" />
+```
+
+#### Selects <!-- omit from toc -->
+
+```tsx
+<MenuSelectFontSize aria-label="Font sizes" tooltipTitle="Change font size" />
+```
+
+```tsx
+<MenuSelectHeading
+  aria-label="Heading types"
+  tooltipTitle="Change heading type"
+  labels={{
+    emptyValue: "Text...",
+    paragraph: "Normal text",
+    heading1: "H1",
+    heading2: "H2",
+    heading3: "H3",
+    heading4: "H4",
+    heading5: "H5",
+    heading6: "H6",
+  }}
+/>
+```
+
+```tsx
+<MenuSelectTextAlign
+  aria-label="Text alignments"
+  tooltipTitle="Change text alignment"
+  alignmentOptions={[
+    {
+      alignment: "left",
+      label: "Text-align left",
+      shortcutKeys: ["mod", "Shift", "L"],
+      IconComponent: MyCustomLeftAlignIcon,
+    },
+    {
+      alignment: "right",
+      label: "Text-align right",
+      shortcutKeys: ["mod", "Shift", "R"],
+      IconComponent: MyCustomRightAlignIcon,
+    },
+  ]}
+/>
+```
+
+#### Bubble menus <!-- omit from toc -->
+
+```tsx
+<LinkBubbleMenu
+  labels={{
+    viewLinkEditButtonLabel: "Edit link",
+    viewLinkRemoveButtonLabel: "Remove link",
+    editLinkAddTitle: "Add new link",
+    editLinkEditTitle: "Update this link",
+    editLinkCancelButtonLabel: "Cancel changes",
+    editLinkTextInputLabel: "Text content",
+    editLinkHrefInputLabel: "URL",
+    editLinkSaveButtonLabel: "Save changes",
+  }}
+/>
+```
+
+```tsx
+<TableBubbleMenu
+  labels={{
+    insertColumnBefore: "Add a new column before this",
+    insertColumnAfter: "Add a new column after this",
+    deleteColumn: "Remove current column",
+    // And several more. Check props type definition for details!
+  }}
+/>
 ```
 
 ## Tips and suggestions
