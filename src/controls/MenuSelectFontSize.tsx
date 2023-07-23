@@ -8,8 +8,6 @@ import type { FontSizeAttrs } from "../extensions/FontSize";
 import { MENU_BUTTON_FONT_SIZE_DEFAULT } from "./MenuButton";
 import MenuSelect, { type MenuSelectProps } from "./MenuSelect";
 
-export type FontSizeSelectOption = { name: string; value: string };
-
 export interface MenuSelectFontSizeProps
   extends Except<MenuSelectProps<string>, "value" | "children"> {
   /**
