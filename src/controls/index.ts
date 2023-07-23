@@ -109,6 +109,11 @@ export {
 } from "./MenuControlsContainer";
 export { default as MenuSelect, type MenuSelectProps } from "./MenuSelect";
 export {
+  default as MenuSelectFontFamily,
+  type FontFamilySelectOption,
+  type MenuSelectFontFamilyProps,
+} from "./MenuSelectFontFamily";
+export {
   default as MenuSelectFontSize,
   type MenuSelectFontSizeProps,
 } from "./MenuSelectFontSize";

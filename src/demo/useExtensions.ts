@@ -6,6 +6,7 @@ import { Code } from "@tiptap/extension-code";
 import { CodeBlock } from "@tiptap/extension-code-block";
 import { Document } from "@tiptap/extension-document";
 import { Dropcursor } from "@tiptap/extension-dropcursor";
+import { FontFamily } from "@tiptap/extension-font-family";
 import { Gapcursor } from "@tiptap/extension-gapcursor";
 import { HardBreak } from "@tiptap/extension-hard-break";
 import { History } from "@tiptap/extension-history";
@@ -151,6 +152,7 @@ export default function useExtensions({
         types: ["heading", "paragraph", "image"],
       }),
       TextStyle,
+      FontFamily,
       FontSize,
       HorizontalRule,
 
