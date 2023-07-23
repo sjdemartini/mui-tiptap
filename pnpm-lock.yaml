@@ -64,6 +64,9 @@ devDependencies:
   '@tiptap/extension-dropcursor':
     specifier: ^2.0.3
     version: 2.0.3(@tiptap/core@2.0.3)(@tiptap/pm@2.0.3)
+  '@tiptap/extension-font-family':
+    specifier: ^2.0.4
+    version: 2.0.4(@tiptap/core@2.0.3)(@tiptap/extension-text-style@2.0.3)
   '@tiptap/extension-gapcursor':
     specifier: ^2.0.3
     version: 2.0.3(@tiptap/core@2.0.3)(@tiptap/pm@2.0.3)
@@ -1724,6 +1727,16 @@ packages:
       '@tiptap/core': 2.0.3(@tiptap/pm@2.0.3)
       '@tiptap/pm': 2.0.3(@tiptap/core@2.0.3)
       tippy.js: 6.3.7
+    dev: true
+
+  /@tiptap/extension-font-family@2.0.4(@tiptap/core@2.0.3)(@tiptap/extension-text-style@2.0.3):
+    resolution: {integrity: sha512-0PncEkzLcTxjjSy9gaahX71IxhBxcXLCOxFTnRF56apysiAIARdWIrep2zMH+3qcV8/9uFfXu5Q5R/pSZfwLIA==}
+    peerDependencies:
+      '@tiptap/core': ^2.0.0
+      '@tiptap/extension-text-style': ^2.0.0
+    dependencies:
+      '@tiptap/core': 2.0.3(@tiptap/pm@2.0.3)
+      '@tiptap/extension-text-style': 2.0.3(@tiptap/core@2.0.3)
     dev: true
 
   /@tiptap/extension-gapcursor@2.0.3(@tiptap/core@2.0.3)(@tiptap/pm@2.0.3):

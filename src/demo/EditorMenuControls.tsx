@@ -28,11 +28,32 @@ import {
   isTouchDevice,
   useRichTextEditorContext,
 } from "../";
+import MenuSelectFontFamily from "../controls/MenuSelectFontFamily";
 
 export default function EditorMenuControls() {
   const editor = useRichTextEditorContext();
   return (
     <MenuControlsContainer>
+      <MenuSelectFontFamily
+        options={[
+          { label: "Comic Sans", value: "Comic Sans MS, Comic Sans" },
+          { label: "Cursive", value: "cursive" },
+          { label: "Monospace", value: "monospace" },
+          { label: "Serif", value: "serif" },
+          { label: "Roboto", value: "" },
+        ]}
+        // Display our default font "Roboto" as the rendered label when no font
+        // is currently set
+        emptyLabel="Roboto"
+        // We provide a custom "Roboto" option above where the value is "" and
+        // will unset the font-family (and we place that alphabetically amongst
+        // the options), so we don't need a separate "Default" unsetting option
+        // shown
+        hideUnsetOption
+      />
+
+      <MenuDivider />
+
       <MenuSelectHeading />
 
       <MenuDivider />
