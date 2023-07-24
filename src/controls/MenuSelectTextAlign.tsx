@@ -50,6 +50,11 @@ export interface MenuSelectTextAlignProps
    * component will omit an option if it's not enabled in the TextAlign
    * extension's `alignments` option.
    */
+  options?: TextAlignSelectOption[];
+  // We use the more generic `options` prop name for consistency in prop naming
+  // across various `MenuSelect*` components, rather than having a unique prop
+  // name for each one.
+  /** @deprecated Use `options` prop instead. */
   alignmentOptions?: TextAlignSelectOption[];
 }
 
@@ -101,9 +106,12 @@ const DEFAULT_ALIGNMENT_OPTIONS: TextAlignSelectOption[] = [
 ];
 
 export default function MenuSelectTextAlign({
-  alignmentOptions = DEFAULT_ALIGNMENT_OPTIONS,
+  options = DEFAULT_ALIGNMENT_OPTIONS,
+  alignmentOptions,
   ...menuSelectProps
 }: MenuSelectTextAlignProps) {
+  // Handle the deprecated name for the options prop if present
+  options = alignmentOptions ?? options;
   const { classes } = useStyles();
   const editor = useRichTextEditorContext();
 
@@ -149,7 +157,7 @@ export default function MenuSelectTextAlign({
       // Override the rendering of the selected value so that we don't show
       // tooltips on hovering (like we do for the menu options)
       renderValue={(value) => {
-        const alignmentOptionForValue = alignmentOptions.find(
+        const alignmentOptionForValue = options.find(
           (option) => option.alignment === value
         );
         return (
@@ -169,7 +177,7 @@ export default function MenuSelectTextAlign({
       value={selectedValue}
       {...menuSelectProps}
     >
-      {alignmentOptions
+      {options
         .filter((alignmentOption) =>
           enabledAlignments.has(alignmentOption.alignment)
         )

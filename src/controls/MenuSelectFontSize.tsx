@@ -1,6 +1,7 @@
 import { FormatSize } from "@mui/icons-material";
 import { MenuItem } from "@mui/material";
 import type { Editor } from "@tiptap/core";
+import type { ReactNode } from "react";
 import { makeStyles } from "tss-react/mui";
 import type { Except } from "type-fest";
 import { useRichTextEditorContext } from "../context";
@@ -8,25 +9,49 @@ import type { FontSizeAttrs } from "../extensions/FontSize";
 import { MENU_BUTTON_FONT_SIZE_DEFAULT } from "./MenuButton";
 import MenuSelect, { type MenuSelectProps } from "./MenuSelect";
 
+type FontSizeSelectOptionObject = {
+  /**
+   * The underlying `font-size` CSS value string, which can be any valid CSS
+   * font-size (https://developer.mozilla.org/en-US/docs/Web/CSS/font-size); ex:
+   * "12px", "2rem", "small".
+   *
+   * If a custom `label` is not provided for an option, a value that include
+   * pixels like "12px" will be displayed in this component as just "12" for
+   * simplicity (but it will still properly set the fontSize using the original
+   * "12px" value).
+   */
+  value: string;
+  /**
+   * A customized user-facing label to show for this font-size value. If not
+   * provided, uses the `value` as the option label (with any "px" removed).
+   */
+  label?: ReactNode;
+};
+
+/**
+ * A size option shown in the select dropdown. If given as a string, that string
+ * is used both as the CSS `font-size` value and the user-facing `label`
+ * (equivalent to using an object with just the `value` set as that string).
+ */
+export type FontSizeSelectOption = string | FontSizeSelectOptionObject;
+
 export interface MenuSelectFontSizeProps
   extends Except<MenuSelectProps<string>, "value" | "children"> {
   /**
    * Override the list of the size option strings shown in the dropdown.
-   *
-   * Values in this array can be any valid CSS font-size
-   * (https://developer.mozilla.org/en-US/docs/Web/CSS/font-size); ex: "12px",
-   * "2rem", "small". Values that include pixels like "12px" will be displayed
-   * in this component as just "12" for simplicity (but will still properly set
-   * the fontSize using the original "12px" value).
    */
+  options?: FontSizeSelectOption[];
+  /** @deprecated Use `options` prop instead. */
   sizeOptions?: string[];
   /**
-   * Override the content shown for the Select's MenuItem that allows a user to
-   * unset the font-size of the selected text. If not provided, uses "Default"
-   * as the displayed text. To hide this select option entirely, set
+   * Override the label content shown for the Select's MenuItem that allows a
+   * user to unset the font-size of the selected text. If not provided, uses
+   * "Default" as the displayed text. To hide this select option entirely, set
    * `hideUnsetOption` to true.
    */
-  unsetOptionContent?: React.ReactNode;
+  unsetOptionLabel?: ReactNode;
+  /** @deprecated Use `unsetOptionLabel` prop instead. */
+  unsetOptionContent?: ReactNode;
   /**
    * If true, hides the additional first select option to "unset" the font-size
    * back to its default. By default false.
@@ -57,24 +82,23 @@ const useStyles = makeStyles({ name: { MenuSelectFontSize } })({
   },
 });
 
-const DEFAULT_FONT_SIZE_SELECT_OPTIONS: MenuSelectFontSizeProps["sizeOptions"] =
-  [
-    "8px",
-    "9px",
-    "10px",
-    "11px",
-    "12px",
-    "14px",
-    "16px",
-    "18px",
-    "24px",
-    "30px",
-    "36px",
-    "48px",
-    "60px",
-    "72px",
-    "96px",
-  ];
+const DEFAULT_FONT_SIZE_SELECT_OPTIONS: MenuSelectFontSizeProps["options"] = [
+  "8px",
+  "9px",
+  "10px",
+  "11px",
+  "12px",
+  "14px",
+  "16px",
+  "18px",
+  "24px",
+  "30px",
+  "36px",
+  "48px",
+  "60px",
+  "72px",
+  "96px",
+];
 
 // We can return any textStyle attributes when calling
 // `getAttributes("textStyle")`, but may return font-size attributes here, so
@@ -89,14 +113,23 @@ function stripPxFromValue(value: string): string {
 
 /** A font-size selector for use with the mui-tiptap FontSize extension.  */
 export default function MenuSelectFontSize({
-  sizeOptions = DEFAULT_FONT_SIZE_SELECT_OPTIONS,
+  options = DEFAULT_FONT_SIZE_SELECT_OPTIONS,
+  sizeOptions,
   hideUnsetOption = false,
-  unsetOptionContent = "Default",
+  unsetOptionLabel = "Default",
+  unsetOptionContent,
   emptyValue,
   ...menuSelectProps
 }: MenuSelectFontSizeProps) {
   const { classes, cx } = useStyles();
   const editor = useRichTextEditorContext();
+
+  // Handle deprecated legacy names for some props:
+  unsetOptionLabel = unsetOptionContent ?? unsetOptionLabel;
+  options = sizeOptions ?? options;
+  const optionObjects: FontSizeSelectOptionObject[] = (options ?? []).map(
+    (option) => (typeof option === "string" ? { value: option } : option)
+  );
 
   const currentAttrs: TextStyleAttrs | undefined =
     editor?.getAttributes("textStyle");
@@ -144,12 +177,12 @@ export default function MenuSelectFontSize({
     >
       {!hideUnsetOption && (
         // Allow users to unset the font size
-        <MenuItem value="">{unsetOptionContent}</MenuItem>
+        <MenuItem value="">{unsetOptionLabel}</MenuItem>
       )}
 
-      {(sizeOptions ?? []).map((sizeOption) => (
-        <MenuItem key={sizeOption} value={sizeOption}>
-          {stripPxFromValue(sizeOption)}
+      {optionObjects.map((option) => (
+        <MenuItem key={option.value} value={option.value}>
+          {option.label ?? stripPxFromValue(option.value)}
         </MenuItem>
       ))}
     </MenuSelect>
