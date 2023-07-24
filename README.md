@@ -272,7 +272,7 @@ You can override all props for these components (e.g. to change the icon, toolti
 | [`@tiptap/extension-code`](https://tiptap.dev/api/marks/code)                                                                      | `MenuButtonCode`                                                                                                                                                                                          |
 | [`@tiptap/extension-code-block`](https://tiptap.dev/api/nodes/code-block)                                                          | `MenuButtonCodeBlock`                                                                                                                                                                                     |
 | [`@tiptap/extension-font-family`](https://tiptap.dev/api/extensions/font-family)                                                   | `MenuSelectFontFamily` (use the `options` prop to specify which font families can be selected, like `[{ label: "Monospace", value: "monospace" }, ...]` )                                                 |
-| mui-tiptap’s [`FontSize`](#fontsize)                                                                                               | `MenuSelectFontSize` (override size options with `sizeOptions` prop)                                                                                                                                      |
+| mui-tiptap’s [`FontSize`](#fontsize)                                                                                               | `MenuSelectFontSize` (use the `options` prop to override the default size options)                                                                                                                        |
 | mui-tiptap’s [`HeadingWithAnchor`](#headingwithanchor)<br />or [`@tiptap/extension-heading`](https://tiptap.dev/api/nodes/heading) | `MenuSelectHeading`                                                                                                                                                                                       |
 | [`@tiptap/extension-history`](https://tiptap.dev/api/extensions/history)                                                           | `MenuButtonRedo`, `MenuButtonUndo`                                                                                                                                                                        |
 | [`@tiptap/extension-horizontal-rule`](https://tiptap.dev/api/nodes/horizontal-rule)                                                | `MenuButtonHorizontalRule`                                                                                                                                                                                |
@@ -349,7 +349,7 @@ All of the menu buttons, select components, and bubble menus allow you to overri
 <MenuSelectTextAlign
   aria-label="Text alignments"
   tooltipTitle="Change text alignment"
-  alignmentOptions={[
+  options={[
     {
       alignment: "left",
       label: "Text-align left",
