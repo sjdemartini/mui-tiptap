@@ -72,7 +72,11 @@
     "import/no-extraneous-dependencies": [
       "error",
       {
-        "devDependencies": ["./src/demo/**", "./src/**/__tests__/**"],
+        "devDependencies": [
+          "./src/demo/**",
+          "./src/**/__tests__/**",
+          "vite.config.ts"
+        ],
         "includeTypes": true
       }
     ],
