@@ -15,6 +15,7 @@ import MenuButtonTooltip, {
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { TextAlignOptions } from "@tiptap/extension-text-align";
 import type { Except } from "type-fest";
+import { MENU_BUTTON_FONT_SIZE_DEFAULT } from "./MenuButton";
 import MenuSelect, { type MenuSelectProps } from "./MenuSelect";
 
 export type TextAlignSelectOption = {
@@ -84,7 +85,7 @@ const useStyles = makeStyles({ name: { MenuSelectTextAlign } })({
   },
 
   menuButtonIcon: {
-    fontSize: "1.25rem",
+    fontSize: MENU_BUTTON_FONT_SIZE_DEFAULT,
   },
 });
 
