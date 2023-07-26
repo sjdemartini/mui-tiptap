@@ -28,6 +28,12 @@ jobs:
       - name: Build
         run: pnpm run build
 
+      - name: Type check
+        # Though this largely happens as part of `pnpm run build`, there are
+        # some files that are not part of the publishable build but which we'd
+        # also like to type-check.
+        run: pnpm run type:check
+
       - name: Format check
         run: pnpm run format:check
 
