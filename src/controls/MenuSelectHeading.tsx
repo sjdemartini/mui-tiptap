@@ -34,8 +34,13 @@ export interface MenuSelectHeadingProps
     /** Label shown for the level 6 heading (h6) option. */
     heading6?: ReactNode;
     /**
-     * Label shown when the user is currently on a non-paragraph, non-heading . */
-    emptyValue?: ReactNode;
+     * Label shown when the user is currently on a non-paragraph, non-heading.
+     * By default shows "Change to…" in italics, since choosing a new option
+     * will change the node type to one of the given heading/paragraph types.
+     */
+    empty?: ReactNode;
+    /** @deprecated Use `empty` field instead. */
+    emptyValue?: React.ReactNode;
   };
 }
 
@@ -192,7 +197,9 @@ export default function MenuSelectHeading({
       renderValue={(selected) => {
         let result: ReactNode | undefined;
         if (selected === "") {
-          result = labels?.emptyValue ?? <em>Change to…</em>;
+          // Handle the deprecated `emptyValue` label name, falling back to the
+          // newer `labels.empty`, and finally our default empty label
+          result = labels?.emptyValue ?? labels?.empty ?? <em>Change to…</em>;
         } else if (selected === HEADING_OPTION_VALUES.Paragraph) {
           result = labels?.paragraph;
         } else if (selected === HEADING_OPTION_VALUES.Heading1) {

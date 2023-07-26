@@ -44,10 +44,10 @@ export interface MenuSelectFontSizeProps
   /** @deprecated Use `options` prop instead. */
   sizeOptions?: string[];
   /**
-   * Override the label content shown for the Select's MenuItem that allows a
-   * user to unset the font-size of the selected text. If not provided, uses
-   * "Default" as the displayed text. To hide this select option entirely, set
-   * `hideUnsetOption` to true.
+   * Override the label content shown for the Select's MenuItem option that
+   * allows a user to unset the font-size of the selected text. If not provided,
+   * uses "Default" as the displayed text. To hide this select option entirely,
+   * set `hideUnsetOption` to true.
    */
   unsetOptionLabel?: ReactNode;
   /** @deprecated Use `unsetOptionLabel` prop instead. */
@@ -61,6 +61,8 @@ export interface MenuSelectFontSizeProps
    * What to render in the Select when no font-size is currently set for the
    * selected text. By default, uses the FormatSize MUI icon.
    */
+  emptyLabel?: React.ReactNode;
+  /** @deprecated Use `emptyLabel` prop instead. */
   emptyValue?: React.ReactNode;
 }
 
@@ -118,6 +120,7 @@ export default function MenuSelectFontSize({
   hideUnsetOption = false,
   unsetOptionLabel = "Default",
   unsetOptionContent,
+  emptyLabel,
   emptyValue,
   ...menuSelectProps
 }: MenuSelectFontSizeProps) {
@@ -125,6 +128,7 @@ export default function MenuSelectFontSize({
   const editor = useRichTextEditorContext();
 
   // Handle deprecated legacy names for some props:
+  emptyLabel = emptyValue ?? emptyLabel;
   unsetOptionLabel = unsetOptionContent ?? unsetOptionLabel;
   options = sizeOptions ?? options;
   const optionObjects: FontSizeSelectOptionObject[] = (options ?? []).map(
@@ -155,7 +159,7 @@ export default function MenuSelectFontSize({
           // this does, so it's visually similar to other menu button controls,
           // more intuitive, and more meaningful and compact than some other
           // placeholder value here
-          return emptyValue ?? <FormatSize className={classes.fontSizeIcon} />;
+          return emptyLabel ?? <FormatSize className={classes.fontSizeIcon} />;
         }
         return stripPxFromValue(value);
       }}

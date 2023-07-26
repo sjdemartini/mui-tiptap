@@ -333,7 +333,7 @@ All of the menu buttons, select components, and bubble menus allow you to overri
   aria-label="Heading types"
   tooltipTitle="Change heading type"
   labels={{
-    emptyValue: "Text...",
+    empty: "Change to…",
     paragraph: "Normal text",
     heading1: "H1",
     heading2: "H2",
