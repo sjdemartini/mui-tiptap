@@ -12,6 +12,8 @@ A clear and concise description of what the bug is.
 
 ### To Reproduce
 
+Please include a CodeSandbox demo of the problem if possible. (You can fork [this CodeSandbox](https://codesandbox.io/p/sandbox/mui-tiptap-demo-3zl2l6).)
+
 Steps to reproduce the behavior:
 
 1.
