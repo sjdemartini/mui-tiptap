@@ -22,7 +22,7 @@ export type TextAlignSelectOption = {
    * Which textAlign value this option enables. Ex: "left", "right",
    * "center", "justify".
    */
-  alignment: string;
+  value: string;
   /**
    * What icon to show for this option in the select option dropdown.
    */
@@ -55,7 +55,17 @@ export interface MenuSelectTextAlignProps
   // across various `MenuSelect*` components, rather than having a unique prop
   // name for each one.
   /** @deprecated Use `options` prop instead. */
-  alignmentOptions?: TextAlignSelectOption[];
+  alignmentOptions?: {
+    /**
+     * `alignment` has been renamed `value` in the new preferred `options` prop.
+     */
+    alignment: string;
+    IconComponent: React.ElementType<{
+      className: string;
+    }>;
+    label?: string;
+    shortcutKeys?: MenuButtonTooltipProps["shortcutKeys"];
+  }[];
 }
 
 const useStyles = makeStyles({ name: { MenuSelectTextAlign } })({
@@ -80,25 +90,25 @@ const useStyles = makeStyles({ name: { MenuSelectTextAlign } })({
 
 const DEFAULT_ALIGNMENT_OPTIONS: TextAlignSelectOption[] = [
   {
-    alignment: "left",
+    value: "left",
     label: "Left",
     shortcutKeys: ["mod", "Shift", "L"],
     IconComponent: FormatAlignLeftIcon,
   },
   {
-    alignment: "center",
+    value: "center",
     label: "Center",
     shortcutKeys: ["mod", "Shift", "E"],
     IconComponent: FormatAlignCenterIcon,
   },
   {
-    alignment: "right",
+    value: "right",
     label: "Right",
     shortcutKeys: ["mod", "Shift", "R"],
     IconComponent: FormatAlignRightIcon,
   },
   {
-    alignment: "justify",
+    value: "justify",
     label: "Justify",
     shortcutKeys: ["mod", "Shift", "J"],
     IconComponent: FormatAlignJustifyIcon,
@@ -110,10 +120,15 @@ export default function MenuSelectTextAlign({
   alignmentOptions,
   ...menuSelectProps
 }: MenuSelectTextAlignProps) {
-  // Handle the deprecated name for the options prop if present
-  options = alignmentOptions ?? options;
   const { classes } = useStyles();
   const editor = useRichTextEditorContext();
+
+  // Handle the deprecated name for the `options` prop if present
+  options =
+    alignmentOptions?.map((option) => ({
+      ...option,
+      value: option.alignment,
+    })) ?? options;
 
   const handleAlignmentSelect: (event: SelectChangeEvent) => void = useCallback(
     (event) => {
@@ -158,7 +173,7 @@ export default function MenuSelectTextAlign({
       // tooltips on hovering (like we do for the menu options)
       renderValue={(value) => {
         const alignmentOptionForValue = options.find(
-          (option) => option.alignment === value
+          (option) => option.value === value
         );
         return (
           <span className={classes.menuOption}>
@@ -179,13 +194,13 @@ export default function MenuSelectTextAlign({
     >
       {options
         .filter((alignmentOption) =>
-          enabledAlignments.has(alignmentOption.alignment)
+          enabledAlignments.has(alignmentOption.value)
         )
         .map((alignmentOption) => (
           <MenuItem
-            key={alignmentOption.alignment}
-            value={alignmentOption.alignment}
-            disabled={!editor?.can().setTextAlign(alignmentOption.alignment)}
+            key={alignmentOption.value}
+            value={alignmentOption.value}
+            disabled={!editor?.can().setTextAlign(alignmentOption.value)}
             className={classes.menuItem}
           >
             <MenuButtonTooltip

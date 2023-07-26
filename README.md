@@ -351,13 +351,13 @@ All of the menu buttons, select components, and bubble menus allow you to overri
   tooltipTitle="Change text alignment"
   options={[
     {
-      alignment: "left",
+      value: "left",
       label: "Text-align left",
       shortcutKeys: ["mod", "Shift", "L"],
       IconComponent: MyCustomLeftAlignIcon,
     },
     {
-      alignment: "right",
+      value: "right",
       label: "Text-align right",
       shortcutKeys: ["mod", "Shift", "R"],
       IconComponent: MyCustomRightAlignIcon,

@@ -9,7 +9,7 @@ import type { FontSizeAttrs } from "../extensions/FontSize";
 import { MENU_BUTTON_FONT_SIZE_DEFAULT } from "./MenuButton";
 import MenuSelect, { type MenuSelectProps } from "./MenuSelect";
 
-type FontSizeSelectOptionObject = {
+export type FontSizeSelectOptionObject = {
   /**
    * The underlying `font-size` CSS value string, which can be any valid CSS
    * font-size (https://developer.mozilla.org/en-US/docs/Web/CSS/font-size); ex:
