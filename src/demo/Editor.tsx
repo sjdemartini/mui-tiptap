@@ -48,6 +48,10 @@ export default function Editor() {
           editable={isEditable}
           renderControls={() => <EditorMenuControls />}
           RichTextFieldProps={{
+            // The "outlined" variant is the default (shown here only as
+            // example), but can be changed to "standard" to remove the outlined
+            // field border from the editor
+            variant: "outlined",
             MenuBarProps: {
               hide: !showMenuBar,
             },
