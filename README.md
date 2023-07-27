@@ -325,7 +325,24 @@ All of the menu buttons, select components, and bubble menus allow you to overri
 <summary><b>Selects</b></summary>
 
 ```tsx
-<MenuSelectFontSize aria-label="Font sizes" tooltipTitle="Change font size" />
+<MenuSelectFontFamily
+  options={[
+    { label: "Monospace", value: "monospace" },
+    { label: "Serif", value: "serif" },
+  ]}
+  aria-label="Font families"
+  emptyLabel="Font family"
+  tooltipTitle="Change font family"
+  unsetOptionLabel="Reset"
+/>
+```
+
+```tsx
+<MenuSelectFontSize
+  aria-label="Font sizes"
+  tooltipTitle="Change font size"
+  unsetOptionLabel="Reset"
+/>
 ```
 
 ```tsx
