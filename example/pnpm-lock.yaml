@@ -196,7 +196,7 @@ packages:
       debug: 4.3.4
       gensync: 1.0.0-beta.2
       json5: 2.2.3
-      semver: 6.3.0
+      semver: 6.3.1
     transitivePeerDependencies:
       - supports-color
     dev: false
@@ -222,7 +222,7 @@ packages:
       '@babel/helper-validator-option': 7.22.5
       browserslist: 4.21.8
       lru-cache: 5.1.1
-      semver: 6.3.0
+      semver: 6.3.1
     dev: false
 
   /@babel/helper-environment-visitor@7.22.5:
@@ -2216,8 +2216,8 @@ packages:
       loose-envify: 1.4.0
     dev: false
 
-  /semver@6.3.0:
-    resolution: {integrity: sha512-b39TBaTSfV6yBrapU89p5fKekE2m/NwnDocOVruQFS1/veMgdzuPcnOM34M6CwxW8jH/lxEa5rBoDeUwu5HHTw==}
+  /semver@6.3.1:
+    resolution: {integrity: sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==}
     hasBin: true
     dev: false
 
@@ -2360,7 +2360,7 @@ packages:
     resolution: {directory: .., type: directory}
     id: file:..
     name: mui-tiptap
-    version: 1.1.0
+    version: 1.2.0
     engines: {pnpm: '>=8'}
     requiresBuild: true
     peerDependencies:
