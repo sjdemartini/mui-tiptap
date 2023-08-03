@@ -22,13 +22,13 @@ import {
   MenuButtonUnindent,
   MenuControlsContainer,
   MenuDivider,
+  MenuSelectFontFamily,
   MenuSelectFontSize,
   MenuSelectHeading,
   MenuSelectTextAlign,
   isTouchDevice,
   useRichTextEditorContext,
 } from "../";
-import MenuSelectFontFamily from "../controls/MenuSelectFontFamily";
 
 export default function EditorMenuControls() {
   const editor = useRichTextEditorContext();
