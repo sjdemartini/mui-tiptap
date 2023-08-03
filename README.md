@@ -37,7 +37,7 @@
 - :1234: [`FontSize` extension](#fontsize) for controlling text sizes
 - :white_square_button: [`TableImproved` extension](#tableimproved) that [fixes](https://github.com/ueberdosis/tiptap/issues/2041) [problems](https://github.com/ueberdosis/tiptap/issues/2301) in the underlying Tiptap `Table` extension
 - :pencil: [`TableBubbleMenu`](#components) for interactively editing your rich text tables
-- :building_construction: General-purpose [`ControlledBubbleMenu`](#components) for building your own custom menus, [solving some shortcomings](https://github.com/ueberdosis/tiptap/issues/2305#issuecomment-1020665146) of the Tiptap `BubbleMenu`
+- :speech_balloon: General-purpose [`ControlledBubbleMenu`](#components) for building your own custom menus, [solving some shortcomings](https://github.com/ueberdosis/tiptap/issues/2305#issuecomment-1020665146) of the Tiptap `BubbleMenu`
 - And more!
 
 <details>
