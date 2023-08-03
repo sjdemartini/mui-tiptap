@@ -37,7 +37,7 @@
 - :1234: [`FontSize` extension](#fontsize) for controlling text sizes
 - :white_square_button: [`TableImproved` extension](#tableimproved) that [fixes](https://github.com/ueberdosis/tiptap/issues/2041) [problems](https://github.com/ueberdosis/tiptap/issues/2301) in the underlying Tiptap `Table` extension
 - :pencil: [`TableBubbleMenu`](#components) for interactively editing your rich text tables
-- :building_construction: General-purpose [`ControlledBubbleMenu`](#components) for building your own custom menus, [solving some shortcomings](https://github.com/ueberdosis/tiptap/issues/2305#issuecomment-1020665146) of the Tiptap `BubbleMenu`
+- :speech_balloon: General-purpose [`ControlledBubbleMenu`](#components) for building your own custom menus, [solving some shortcomings](https://github.com/ueberdosis/tiptap/issues/2305#issuecomment-1020665146) of the Tiptap `BubbleMenu`
 - And more!
 
 <details>
@@ -427,7 +427,7 @@ Browse [the official Tiptap extensions](https://tiptap.dev/extensions), and chec
 Extensions that need to be higher precedence (for their keyboard shortcuts, etc.) should come **later** in your extensions array. (See Tiptap's general notes on extension plugin precedence and ordering [here](https://github.com/ueberdosis/tiptap/issues/1547#issuecomment-890848888).) For example:
 
 - Put the `TableImproved` (or `Table`) extension first in the array.
-  - As [noted](https://github.com/ProseMirror/prosemirror-tables/blob/b6054a0316dc60cda0f7065e186cfacf6d93519c/src/index.ts#L78-L82) in the underlying `prosemirror-tables` package, the table editing plugin should have the lowest precedence, since it depends on key and mouse events but other plugins will likely need to take handle those first. For instance, if you want to indent or dedent a list item inside a table, you should be able to do that by pressing tab, and tab should only move between table cells if not within such a nested node.
+  - As [noted](https://github.com/ProseMirror/prosemirror-tables/blob/b6054a0316dc60cda0f7065e186cfacf6d93519c/src/index.ts#L78-L82) in the underlying `prosemirror-tables` package, the table editing plugin should have the lowest precedence, since it depends on key and mouse events but other plugins will likely need to handle those first. For instance, if you want to indent or dedent a list item inside a table, you should be able to do that by pressing tab, and tab should only move between table cells if not within such a nested node.
 - Put the `Blockquote` extension after the `Bold` extension, so `Blockquote`’s keyboard shortcut takes precedence.
   - Otherwise, the keyboard shortcut for `Blockquote` (Cmd+Shift+B) will mistakenly toggle the bold mark (due to its “overlapping” Cmd+b shortcut). (See related Tiptap issues [here](https://github.com/ueberdosis/tiptap/issues/4005) and [here](https://github.com/ueberdosis/tiptap/issues/4006).)
 - Put the `Mention` extension after list-related extensions (`TaskList`, `TaskItem`, `BulletList`, `OrderedList`, `ListItem`, etc.) so that pressing "Enter" on a mention suggestion will select it, rather than create a new list item (when trying to @mention something within an existing list item).
