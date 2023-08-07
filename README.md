@@ -86,16 +86,16 @@ or
 yarn add mui-tiptap
 ```
 
-There are peer dependencies on [`@mui/material`](https://www.npmjs.com/package/@mui/material) and [`@mui/icons-material`](https://www.npmjs.com/package/@mui/icons-material) (and their `@emotion/` peers), [`react-icons`](https://www.npmjs.com/package/react-icons), and [`@tiptap/`](https://tiptap.dev/installation/react) packages. These should be installed automatically by default if you’re using npm 7+ or pnpm. Otherwise, if your project doesn’t already use those, you can install them with:
+There are peer dependencies on [`@mui/material`](https://www.npmjs.com/package/@mui/material) and [`@mui/icons-material`](https://www.npmjs.com/package/@mui/icons-material) (and their `@emotion/` peers), and [`@tiptap/`](https://tiptap.dev/installation/react) packages. These should be installed automatically by default if you’re using npm 7+ or pnpm. Otherwise, if your project doesn’t already use those, you can install them with:
 
 ```shell
-npm install @mui/material @mui/icons-material @emotion/react @emotion/styled react-icons @tiptap/react @tiptap/extension-heading @tiptap/extension-image @tiptap/extension-table @tiptap/pm @tiptap/core
+npm install @mui/material @mui/icons-material @emotion/react @emotion/styled @tiptap/react @tiptap/extension-heading @tiptap/extension-image @tiptap/extension-table @tiptap/pm @tiptap/core
 ```
 
 or
 
 ```shell
-yarn add @mui/material @mui/icons-material @emotion/react @emotion/styled react-icons @tiptap/react @tiptap/extension-heading @tiptap/extension-image @tiptap/extension-table @tiptap/pm @tiptap/core
+yarn add @mui/material @mui/icons-material @emotion/react @emotion/styled @tiptap/react @tiptap/extension-heading @tiptap/extension-image @tiptap/extension-table @tiptap/pm @tiptap/core
 ```
 
 ## Get started
