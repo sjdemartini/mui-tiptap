@@ -1,5 +1,5 @@
-import { BiTable } from "react-icons/bi";
 import { useRichTextEditorContext } from "../context";
+import { Table } from "../icons";
 import MenuButton, { type MenuButtonProps } from "./MenuButton";
 
 export type MenuButtonAddTableProps = Partial<MenuButtonProps>;
@@ -9,7 +9,7 @@ export default function MenuButtonAddTable(props: MenuButtonAddTableProps) {
   return (
     <MenuButton
       tooltipLabel="Insert table"
-      IconComponent={BiTable}
+      IconComponent={Table}
       disabled={!editor?.isEditable || !editor.can().insertTable()}
       onClick={() =>
         editor
