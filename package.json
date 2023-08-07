@@ -28,6 +28,11 @@
       "types": "./dist/index.d.ts",
       "require": "./dist/index.js",
       "import": "./dist/esm/index.js"
+    },
+    "./icons": {
+      "types": "./dist/icons/index.d.ts",
+      "require": "./dist/icons/index.js",
+      "import": "./dist/esm/icons/index.js"
     }
   },
   "license": "MIT",
