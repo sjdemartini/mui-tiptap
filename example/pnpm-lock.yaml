@@ -124,16 +124,13 @@ dependencies:
     version: 2.0.3(@tiptap/pm@2.0.3)
   mui-tiptap:
     specifier: file:../
-    version: file:..(@emotion/react@11.11.0)(@mui/icons-material@5.11.16)(@mui/material@5.12.3)(@tiptap/core@2.0.3)(@tiptap/extension-heading@2.0.3)(@tiptap/extension-image@2.0.3)(@tiptap/extension-table@2.0.3)(@tiptap/pm@2.0.3)(@tiptap/react@2.0.3)(react-dom@18.2.0)(react-icons@4.3.1)(react@18.2.0)
+    version: file:..(@emotion/react@11.11.0)(@mui/icons-material@5.11.16)(@mui/material@5.12.3)(@tiptap/core@2.0.3)(@tiptap/extension-heading@2.0.3)(@tiptap/extension-image@2.0.3)(@tiptap/extension-table@2.0.3)(@tiptap/pm@2.0.3)(@tiptap/react@2.0.3)(react-dom@18.2.0)(react@18.2.0)
   react:
     specifier: ^18.2.0
     version: 18.2.0
   react-dom:
     specifier: ^18.2.0
     version: 18.2.0(react@18.2.0)
-  react-icons:
-    specifier: ^4.3.1
-    version: 4.3.1(react@18.2.0)
 
 devDependencies:
   '@types/react':
@@ -2143,14 +2140,6 @@ packages:
       scheduler: 0.23.0
     dev: false
 
-  /react-icons@4.3.1(react@18.2.0):
-    resolution: {integrity: sha512-cB10MXLTs3gVuXimblAdI71jrJx8njrJZmNMEMC+sQu5B/BIOmlsAjskdqpn81y8UBVEGuHODd7/ci5DvoSzTQ==}
-    peerDependencies:
-      react: '*'
-    dependencies:
-      react: 18.2.0
-    dev: false
-
   /react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
     dev: false
@@ -2356,7 +2345,7 @@ packages:
     engines: {node: '>= 6'}
     dev: false
 
-  file:..(@emotion/react@11.11.0)(@mui/icons-material@5.11.16)(@mui/material@5.12.3)(@tiptap/core@2.0.3)(@tiptap/extension-heading@2.0.3)(@tiptap/extension-image@2.0.3)(@tiptap/extension-table@2.0.3)(@tiptap/pm@2.0.3)(@tiptap/react@2.0.3)(react-dom@18.2.0)(react-icons@4.3.1)(react@18.2.0):
+  file:..(@emotion/react@11.11.0)(@mui/icons-material@5.11.16)(@mui/material@5.12.3)(@tiptap/core@2.0.3)(@tiptap/extension-heading@2.0.3)(@tiptap/extension-image@2.0.3)(@tiptap/extension-table@2.0.3)(@tiptap/pm@2.0.3)(@tiptap/react@2.0.3)(react-dom@18.2.0)(react@18.2.0):
     resolution: {directory: .., type: directory}
     id: file:..
     name: mui-tiptap
@@ -2375,7 +2364,6 @@ packages:
       '@tiptap/react': ^2.0.0-beta.210
       react: ^16.8.0 || ^17.0.2 || ^18.0.0
       react-dom: ^16.8.0 || ^17.0.2 || ^18.0.0
-      react-icons: ^4.3.1
     dependencies:
       '@emotion/react': 11.11.0(@types/react@18.0.28)(react@18.2.0)
       '@mui/icons-material': 5.11.16(@mui/material@5.12.3)(@types/react@18.0.28)(react@18.2.0)
@@ -2390,7 +2378,6 @@ packages:
       lodash: 4.17.21
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      react-icons: 4.3.1(react@18.2.0)
       tss-react: 4.8.6(@emotion/react@11.11.0)(react@18.2.0)
       type-fest: 3.12.0
     transitivePeerDependencies:
