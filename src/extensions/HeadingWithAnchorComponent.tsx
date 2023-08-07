@@ -1,6 +1,9 @@
 import { Link as LinkIcon } from "@mui/icons-material";
-import type { NodeViewProps } from "@tiptap/core";
-import { getText, getTextSerializersFromSchema } from "@tiptap/core";
+import {
+  getText,
+  getTextSerializersFromSchema,
+  type NodeViewProps,
+} from "@tiptap/core";
 import type { Heading, Level } from "@tiptap/extension-heading";
 import type { Node as ProseMirrorNode } from "@tiptap/pm/model";
 import { NodeViewContent, NodeViewWrapper } from "@tiptap/react";
