@@ -1,18 +1,18 @@
 import { FormatColorFill, GridOff } from "@mui/icons-material";
-import {
-  RiDeleteColumn,
-  RiDeleteRow,
-  RiInsertColumnLeft,
-  RiInsertColumnRight,
-  RiInsertRowBottom,
-  RiInsertRowTop,
-  RiLayoutColumnFill,
-  RiLayoutRowFill,
-  RiMergeCellsHorizontal,
-  RiSplitCellsHorizontal,
-} from "react-icons/ri";
 import MenuDivider from "../MenuDivider";
 import { useRichTextEditorContext } from "../context";
+import {
+  DeleteColumn,
+  DeleteRow,
+  InsertColumnLeft,
+  InsertColumnRight,
+  InsertRowBottom,
+  InsertRowTop,
+  LayoutColumnFill,
+  LayoutRowFill,
+  MergeCellsHorizontal,
+  SplitCellsHorizontal,
+} from "../icons";
 import MenuButton from "./MenuButton";
 import MenuControlsContainer from "./MenuControlsContainer";
 
@@ -52,21 +52,21 @@ export default function TableMenuControls({
     <MenuControlsContainer className={className}>
       <MenuButton
         tooltipLabel={labels?.insertColumnBefore ?? "Insert column before"}
-        IconComponent={RiInsertColumnLeft}
+        IconComponent={InsertColumnLeft}
         onClick={() => editor?.chain().focus().addColumnBefore().run()}
         disabled={!editor?.can().addColumnBefore()}
       />
 
       <MenuButton
         tooltipLabel={labels?.insertColumnAfter ?? "Insert column after"}
-        IconComponent={RiInsertColumnRight}
+        IconComponent={InsertColumnRight}
         onClick={() => editor?.chain().focus().addColumnAfter().run()}
         disabled={!editor?.can().addColumnAfter()}
       />
 
       <MenuButton
         tooltipLabel={labels?.deleteColumn ?? "Delete column"}
-        IconComponent={RiDeleteColumn}
+        IconComponent={DeleteColumn}
         onClick={() => editor?.chain().focus().deleteColumn().run()}
         disabled={!editor?.can().deleteColumn()}
       />
@@ -75,21 +75,21 @@ export default function TableMenuControls({
 
       <MenuButton
         tooltipLabel={labels?.insertRowAbove ?? "Insert row above"}
-        IconComponent={RiInsertRowTop}
+        IconComponent={InsertRowTop}
         onClick={() => editor?.chain().focus().addRowBefore().run()}
         disabled={!editor?.can().addRowBefore()}
       />
 
       <MenuButton
         tooltipLabel={labels?.insertRowBelow ?? "Insert row below"}
-        IconComponent={RiInsertRowBottom}
+        IconComponent={InsertRowBottom}
         onClick={() => editor?.chain().focus().addRowAfter().run()}
         disabled={!editor?.can().addRowAfter()}
       />
 
       <MenuButton
         tooltipLabel={labels?.deleteRow ?? "Delete row"}
-        IconComponent={RiDeleteRow}
+        IconComponent={DeleteRow}
         onClick={() => editor?.chain().focus().deleteRow().run()}
         disabled={!editor?.can().deleteRow()}
       />
@@ -98,14 +98,14 @@ export default function TableMenuControls({
 
       <MenuButton
         tooltipLabel={labels?.mergeCells ?? "Merge cells"}
-        IconComponent={RiMergeCellsHorizontal}
+        IconComponent={MergeCellsHorizontal}
         onClick={() => editor?.chain().focus().mergeCells().run()}
         disabled={!editor?.can().mergeCells()}
       />
 
       <MenuButton
         tooltipLabel={labels?.splitCell ?? "Split cell"}
-        IconComponent={RiSplitCellsHorizontal}
+        IconComponent={SplitCellsHorizontal}
         onClick={() => editor?.chain().focus().splitCell().run()}
         disabled={!editor?.can().splitCell()}
       />
@@ -114,14 +114,14 @@ export default function TableMenuControls({
 
       <MenuButton
         tooltipLabel={labels?.toggleHeaderRow ?? "Toggle header row"}
-        IconComponent={RiLayoutRowFill}
+        IconComponent={LayoutRowFill}
         onClick={() => editor?.chain().focus().toggleHeaderRow().run()}
         disabled={!editor?.can().toggleHeaderRow()}
       />
 
       <MenuButton
         tooltipLabel={labels?.toggleHeaderColumn ?? "Toggle header column"}
-        IconComponent={RiLayoutColumnFill}
+        IconComponent={LayoutColumnFill}
         onClick={() => editor?.chain().focus().toggleHeaderColumn().run()}
         disabled={!editor?.can().toggleHeaderColumn()}
       />
