@@ -59,8 +59,9 @@ export interface MenuSelectFontSizeProps
    */
   hideUnsetOption?: boolean;
   /**
-   * What to render in the Select when no font-size is currently set for the
-   * selected text. By default, uses the FormatSize MUI icon.
+   * What to render in the Select when either no font-size is currently set for
+   * the selected text, or when multiple different values are set. By default,
+   * uses the FormatSize MUI icon.
    */
   emptyLabel?: React.ReactNode;
   /** @deprecated Use `emptyLabel` prop instead. */
@@ -114,6 +115,13 @@ function stripPxFromValue(value: string): string {
   return value.replace("px", "");
 }
 
+// Use this as a sentinel value so we can handle the case that the user's
+// selection includes multiple different font sizes. There won't be a visible
+// "option" in the Select for this value, and this will allow the user to set
+// the current font size to "Default" or to any of the multiple values, and have
+// it take effect. See more comments around `currentFontSize` below.
+const MULTIPLE_SIZES_SELECTED_VALUE = "MULTIPLE";
+
 /** A font-size selector for use with the mui-tiptap FontSize extension.  */
 export default function MenuSelectFontSize({
   options = DEFAULT_FONT_SIZE_SELECT_OPTIONS,
@@ -136,26 +144,52 @@ export default function MenuSelectFontSize({
     (option) => (typeof option === "string" ? { value: option } : option)
   );
 
-  // Determine if all of the selected content shares the same set font size. If
-  // not, treat the font-size as unset, so that the user can select a common
-  // font size for the full selection (and so we don't erroneously display just
-  // the first of the selected marks' font sizes). This is similar to what
-  // Google Docs does, for instance, showing the font size input as blank when
-  // there are multiple values. If all of the selected content has a textStyle
-  // assigned (`isActive("textStyle")`), we get the textStyle attributes for
-  // each of the marks in the selection. If not every selected node/mark has
-  // textStyle assigned, then we can treat the "current font size" as unset.
-  const allCurrentTextStyleAttrs: TextStyleAttrs[] = editor?.isActive(
-    "textStyle"
-  )
+  // Determine if all of the selected content shares the same set font size.
+  // Scenarios:
+  // 1) If there is exactly one font size amongst the selected content and all
+  //    of the selected content has the font size set, we'll show that as the
+  //    current Selected value (as a user would expect).
+  // 2) If there are multiple sizes used in the selected content or some
+  //    selected content has font size set and other content does not, we'll
+  //    assign the Select's `value` to a sentinel variable so that users can
+  //    unset the sizes or can change to any given size.
+  // 3) Otherwise (no font size is set in any selected content), we'll show the
+  //    unsetOption as selected.
+  const allCurrentTextStyleAttrs: TextStyleAttrs[] = editor
     ? getAttributesForEachSelected(editor.state, "textStyle")
     : [];
-  const currentFontSizes = allCurrentTextStyleAttrs.map(
-    (attrs) => attrs.fontSize
+  const isTextStyleAppliedToEntireSelection = !!editor?.isActive("textStyle");
+  const currentFontSizes: string[] = allCurrentTextStyleAttrs.map(
+    (attrs) => attrs.fontSize ?? "" // Treat any null/missing font-size as ""
   );
-  const numCurrentFontSizes = new Set(currentFontSizes).size;
-  const currentFontSize =
-    numCurrentFontSizes === 1 ? currentFontSizes[0] : undefined;
+  if (!isTextStyleAppliedToEntireSelection) {
+    // If there is some selected content that does not have textStyle, we can
+    // treat it the same as a selected textStyle mark with fontSize set to null
+    // or ""
+    currentFontSizes.push("");
+  }
+  const numUniqueCurrentFontSizes = new Set(currentFontSizes).size;
+
+  let currentFontSize;
+  if (numUniqueCurrentFontSizes === 1) {
+    // There's exactly one font size selected, so show that
+    currentFontSize = currentFontSizes[0];
+  } else if (numUniqueCurrentFontSizes > 1) {
+    // There are multiple font sizes (either explicitly, or because some of the
+    // selection has a font size set and some does not). This is similar to what
+    // Microsoft Word and Google Docs do, for instance, showing the font size
+    // input as blank when there are multiple values. If we simply set
+    // currentFontSize as "" here, then the "unset option" would show as
+    // selected, which would prevent the user from unsetting the font sizes
+    // for the selected content (since Select onChange does not fire when the
+    // currently selected option is chosen again).
+    currentFontSize = MULTIPLE_SIZES_SELECTED_VALUE;
+  } else {
+    // Show as unset (empty), since there are no font sizes in any of the
+    // selected content. This will show the "unset option" with the
+    // unsetOptionLabel as selected, if `hideUnsetOption` is false.
+    currentFontSize = "";
+  }
 
   return (
     <MenuSelect<string>
@@ -172,7 +206,7 @@ export default function MenuSelectFontSize({
         !editor?.isEditable || !editor.can().setFontSize("12px")
       }
       renderValue={(value) => {
-        if (!value) {
+        if (!value || value === MULTIPLE_SIZES_SELECTED_VALUE) {
           // If a specific font size isn't set, show an icon to indicate what
           // this does, so it's visually similar to other menu button controls,
           // more intuitive, and more meaningful and compact than some other
@@ -187,7 +221,6 @@ export default function MenuSelectFontSize({
       {...menuSelectProps}
       // We don't want to pass any non-string falsy values here, always falling
       // back to ""
-      // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
       value={currentFontSize || ""}
       inputProps={{
         ...menuSelectProps.inputProps,
@@ -201,6 +234,14 @@ export default function MenuSelectFontSize({
         // Allow users to unset the font size
         <MenuItem value="">{unsetOptionLabel}</MenuItem>
       )}
+
+      {/* Including a "hidden" option for "multiple selected" (we don't want a
+      user to be able to select this) allows us to avoid "you have provided an
+      out-of-range value" errors */}
+      <MenuItem
+        style={{ display: "none" }}
+        value={MULTIPLE_SIZES_SELECTED_VALUE}
+      />
 
       {optionObjects.map((option) => (
         <MenuItem key={option.value} value={option.value}>
