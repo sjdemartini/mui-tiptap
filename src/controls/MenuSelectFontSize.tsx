@@ -6,6 +6,7 @@ import { makeStyles } from "tss-react/mui";
 import type { Except } from "type-fest";
 import { useRichTextEditorContext } from "../context";
 import type { FontSizeAttrs } from "../extensions/FontSize";
+import { getAttributesForEachSelected } from "../utils/getAttributesForEachSelected";
 import { MENU_BUTTON_FONT_SIZE_DEFAULT } from "./MenuButton";
 import MenuSelect, { type MenuSelectProps } from "./MenuSelect";
 
@@ -135,9 +136,26 @@ export default function MenuSelectFontSize({
     (option) => (typeof option === "string" ? { value: option } : option)
   );
 
-  const currentAttrs: TextStyleAttrs | undefined =
-    editor?.getAttributes("textStyle");
-  const currentFontSize = currentAttrs?.fontSize;
+  // Determine if all of the selected content shares the same set font size. If
+  // not, treat the font-size as unset, so that the user can select a common
+  // font size for the full selection (and so we don't erroneously display just
+  // the first of the selected marks' font sizes). This is similar to what
+  // Google Docs does, for instance, showing the font size input as blank when
+  // there are multiple values. If all of the selected content has a textStyle
+  // assigned (`isActive("textStyle")`), we get the textStyle attributes for
+  // each of the marks in the selection. If not every selected node/mark has
+  // textStyle assigned, then we can treat the "current font size" as unset.
+  const allCurrentTextStyleAttrs: TextStyleAttrs[] = editor?.isActive(
+    "textStyle"
+  )
+    ? getAttributesForEachSelected(editor.state, "textStyle")
+    : [];
+  const currentFontSizes = allCurrentTextStyleAttrs.map(
+    (attrs) => attrs.fontSize
+  );
+  const numCurrentFontSizes = new Set(currentFontSizes).size;
+  const currentFontSize =
+    numCurrentFontSizes === 1 ? currentFontSizes[0] : undefined;
 
   return (
     <MenuSelect<string>
