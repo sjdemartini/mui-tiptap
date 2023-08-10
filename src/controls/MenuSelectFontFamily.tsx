@@ -113,7 +113,9 @@ export default function MenuSelectFontFamily({
 
       {options.map((fontFamilyOption) => (
         <MenuItem key={fontFamilyOption.value} value={fontFamilyOption.value}>
-          {fontFamilyOption.label ?? fontFamilyOption.value}
+          <span style={{ fontFamily: fontFamilyOption.value }}>
+            {fontFamilyOption.label ?? fontFamilyOption.value}
+          </span>
         </MenuItem>
       ))}
     </MenuSelect>
