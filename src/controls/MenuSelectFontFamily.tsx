@@ -2,6 +2,7 @@
 import { MenuItem } from "@mui/material";
 import type { Editor } from "@tiptap/core";
 import type { ReactNode } from "react";
+import { makeStyles } from "tss-react/mui";
 import type { Except } from "type-fest";
 import { useRichTextEditorContext } from "../context";
 import MenuSelect, { type MenuSelectProps } from "./MenuSelect";
@@ -55,6 +56,14 @@ export interface MenuSelectFontFamilyProps
   emptyLabel?: React.ReactNode;
 }
 
+const useStyles = makeStyles({ name: { MenuSelectFontFamily } })({
+  selectInput: {
+    // We use a fixed width so that the Select element won't change sizes as
+    // the selected option changes
+    width: 55,
+  },
+});
+
 // We can return any textStyle attributes when calling
 // `getAttributes("textStyle")`, but may return the font-family attribute here,
 // so add typing for that. Based on
@@ -71,6 +80,7 @@ export default function MenuSelectFontFamily({
   emptyLabel = "Font",
   ...menuSelectProps
 }: MenuSelectFontFamilyProps) {
+  const { classes, cx } = useStyles();
   const editor = useRichTextEditorContext();
 
   const currentAttrs: TextStyleAttrs | undefined =
@@ -105,6 +115,13 @@ export default function MenuSelectFontFamily({
       // back to ""
       // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
       value={currentFontFamily || ""}
+      inputProps={{
+        ...menuSelectProps.inputProps,
+        className: cx(
+          classes.selectInput,
+          menuSelectProps.inputProps?.className
+        ),
+      }}
     >
       {!hideUnsetOption && (
         // Allow users to unset the font-family
