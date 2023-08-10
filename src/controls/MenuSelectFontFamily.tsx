@@ -50,7 +50,7 @@ export interface MenuSelectFontFamilyProps
   hideUnsetOption?: boolean;
   /**
    * What to render in the Select when no font-family is currently set for the
-   * selected text. By default shows "Font family".
+   * selected text. By default shows "Font".
    */
   emptyLabel?: React.ReactNode;
 }
@@ -68,7 +68,7 @@ export default function MenuSelectFontFamily({
   options,
   hideUnsetOption = false,
   unsetOptionLabel = "Default",
-  emptyLabel = "Font family",
+  emptyLabel = "Font",
   ...menuSelectProps
 }: MenuSelectFontFamilyProps) {
   const editor = useRichTextEditorContext();
@@ -99,7 +99,7 @@ export default function MenuSelectFontFamily({
       }}
       displayEmpty
       aria-label="Font families"
-      tooltipTitle="Font family"
+      tooltipTitle="Font"
       {...menuSelectProps}
       // We don't want to pass any non-string falsy values here, always falling
       // back to ""
