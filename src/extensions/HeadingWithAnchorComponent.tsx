@@ -16,7 +16,7 @@ import slugify from "../utils/slugify";
 // https://github.com/ueberdosis/tiptap/blob/c9eb6a6299796450c7c1cfdc3552d76070c78c65/packages/extension-heading/src/heading.ts#L41-L48
 // We extend Record<string, unknown>, since we may inherit other global
 // attributes as well, aligned with ProseMirrorNode.attrs typing.
-interface HeadingNodeAttributes extends Record<string, unknown> {
+export interface HeadingNodeAttributes extends Record<string, unknown> {
   level: Level;
 }
 

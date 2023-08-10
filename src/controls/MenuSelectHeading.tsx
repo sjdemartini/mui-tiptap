@@ -6,6 +6,7 @@ import { makeStyles } from "tss-react/mui";
 import type { Except } from "type-fest";
 import { useRichTextEditorContext } from "../context";
 import { getEditorStyles } from "../styles";
+import { getAttributesForEachSelected } from "../utils/getAttributesForEachSelected";
 import MenuButtonTooltip from "./MenuButtonTooltip";
 import MenuSelect, { type MenuSelectProps } from "./MenuSelect";
 
@@ -39,7 +40,7 @@ export interface MenuSelectHeadingProps
      * will change the node type to one of the given heading/paragraph types.
      */
     empty?: ReactNode;
-    /** @deprecated Use `empty` field instead. */
+    /** @deprecated Use `labels.empty` instead. */
     emptyValue?: React.ReactNode;
   };
 }
@@ -158,7 +159,21 @@ export default function MenuSelectHeading({
   if (editor?.isActive("paragraph")) {
     selectedValue = HEADING_OPTION_VALUES.Paragraph;
   } else if (editor?.isActive("heading")) {
-    const level = editor.getAttributes("heading").level as number | undefined;
+    const currentNodeHeadingAttributes = getAttributesForEachSelected(
+      editor.state,
+      "heading"
+    );
+    const currentNodeLevels = currentNodeHeadingAttributes.map(
+      (attrs) => attrs.level as number | undefined
+    );
+    const numCurrentNodeLevels = new Set(currentNodeLevels).size;
+    // We only want to show a selected level value if all of the selected nodes
+    // have the same level. (That way a user can properly change the level when
+    // selecting across two separate headings, and so we don't mistakenly just
+    // show the first of the selected nodes' levels and not allow changing all
+    // selected to that heading level. See
+    // https://github.com/ueberdosis/tiptap/issues/3481.)
+    const level = numCurrentNodeLevels === 1 ? currentNodeLevels[0] : undefined;
     if (level && level in LEVEL_TO_HEADING_OPTION_VALUE) {
       selectedValue =
         LEVEL_TO_HEADING_OPTION_VALUE[
