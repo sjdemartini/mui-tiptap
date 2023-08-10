@@ -40,16 +40,7 @@ export default function EditorMenuControls() {
           { label: "Cursive", value: "cursive" },
           { label: "Monospace", value: "monospace" },
           { label: "Serif", value: "serif" },
-          { label: "Roboto", value: "" },
         ]}
-        // Display our default font "Roboto" as the rendered label when no font
-        // is currently set
-        emptyLabel="Roboto"
-        // We provide a custom "Roboto" option above where the value is "" and
-        // will unset the font-family (and we place that alphabetically amongst
-        // the options), so we don't need a separate "Default" unsetting option
-        // shown
-        hideUnsetOption
       />
 
       <MenuDivider />
