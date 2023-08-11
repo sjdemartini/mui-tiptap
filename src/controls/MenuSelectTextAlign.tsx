@@ -67,9 +67,24 @@ export interface MenuSelectTextAlignProps
     label?: string;
     shortcutKeys?: MenuButtonTooltipProps["shortcutKeys"];
   }[];
+  /**
+   * What to render in the Select when the highlighted content is currently
+   * using multiple different text-alignments (so no one icon applies). By
+   * default renders as blank (similar to Microsoft Word and Google Docs do for
+   * font size, for instance).
+   */
+  emptyLabel?: React.ReactNode;
 }
 
 const useStyles = makeStyles({ name: { MenuSelectTextAlign } })({
+  selectInput: {
+    // We use a fixed width equal to the size of the menu button icon so that
+    // the Select element won't change sizes even if we show the "blank"
+    // interface when the selected content contains multiple different text
+    // alignments.
+    width: MENU_BUTTON_FONT_SIZE_DEFAULT,
+  },
+
   menuItem: {
     paddingLeft: 0,
     paddingRight: 0,
@@ -118,10 +133,11 @@ const DEFAULT_ALIGNMENT_OPTIONS: TextAlignSelectOption[] = [
 
 export default function MenuSelectTextAlign({
   options = DEFAULT_ALIGNMENT_OPTIONS,
+  emptyLabel = "",
   alignmentOptions,
   ...menuSelectProps
 }: MenuSelectTextAlignProps) {
-  const { classes } = useStyles();
+  const { classes, cx } = useStyles();
   const editor = useRichTextEditorContext();
 
   // Handle the deprecated name for the `options` prop if present
@@ -152,14 +168,16 @@ export default function MenuSelectTextAlign({
       return new Set(textAlignExtensionOptions?.alignments);
     }, [textAlignExtensionOptions]);
 
+  // Only set the Select `value` as non-empty if all alignments are the same
+  // (which we'll know if `isActive({ textAlign: alignment })` returns true).
+  // This allows the user to change all current selected nodes' alignments to
+  // any alignment, including the default alignment. If we instead set the
+  // `value` as the default for instance, attempting to change multiple node's
+  // alignments to that default would not work (not triggering "onChange").
   const selectedValue =
     Array.from(enabledAlignments).find((alignment) =>
       editor?.isActive({ textAlign: alignment })
-    ) ??
-    textAlignExtensionOptions?.defaultAlignment ??
-    // Fall back to empty string, though this shouldn't happen if the TextAlign
-    // extension is used in a standard way
-    "";
+    ) ?? "";
 
   return (
     <MenuSelect<string>
@@ -173,25 +191,35 @@ export default function MenuSelectTextAlign({
       // Override the rendering of the selected value so that we don't show
       // tooltips on hovering (like we do for the menu options)
       renderValue={(value) => {
-        const alignmentOptionForValue = options.find(
-          (option) => option.value === value
-        );
-        return (
-          <span className={classes.menuOption}>
-            {alignmentOptionForValue ? (
-              <alignmentOptionForValue.IconComponent
-                className={classes.menuButtonIcon}
-              />
-            ) : (
-              value
-            )}
-          </span>
-        );
+        let content;
+        if (value) {
+          const alignmentOptionForValue = options.find(
+            (option) => option.value === value
+          );
+          content = alignmentOptionForValue ? (
+            <alignmentOptionForValue.IconComponent
+              className={classes.menuButtonIcon}
+            />
+          ) : (
+            value
+          );
+        } else {
+          content = emptyLabel;
+        }
+        return <span className={classes.menuOption}>{content}</span>;
       }}
       aria-label="Text alignments"
       tooltipTitle="Align"
       value={selectedValue}
+      displayEmpty
       {...menuSelectProps}
+      inputProps={{
+        ...menuSelectProps.inputProps,
+        className: cx(
+          classes.selectInput,
+          menuSelectProps.inputProps?.className
+        ),
+      }}
     >
       {options
         .filter((alignmentOption) =>
