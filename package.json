@@ -43,6 +43,7 @@
   "publishConfig": {
     "access": "public"
   },
+  "sideEffects": false,
   "scripts": {
     "build": "pnpm clean && tsc --project tsconfig.build.json && tsc --project tsconfig.build-esm.json",
     "clean": "rimraf dist coverage",
