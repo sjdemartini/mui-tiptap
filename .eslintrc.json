@@ -93,6 +93,19 @@
         "allow": ["warn", "error"]
       }
     ],
+    "no-restricted-imports": "off",
+    "@typescript-eslint/no-restricted-imports": [
+      "error",
+      {
+        "paths": [
+          {
+            "name": "lodash",
+            "message": "Please use specific module imports like \"lodash/foo\" instead of \"lodash\".",
+            "allowTypeImports": true
+          }
+        ]
+      }
+    ],
     "react/function-component-definition": "warn",
     "react/jsx-no-useless-fragment": ["warn", { "allowExpressions": true }],
     "react-hooks/exhaustive-deps": [
