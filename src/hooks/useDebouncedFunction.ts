@@ -1,4 +1,5 @@
-import { debounce, type DebouncedFunc, type DebounceSettings } from "lodash";
+import type { DebouncedFunc, DebounceSettings } from "lodash";
+import debounce from "lodash/debounce";
 import { useEffect, useMemo, useRef } from "react";
 
 /* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-argument */
