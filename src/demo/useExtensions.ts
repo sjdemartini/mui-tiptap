@@ -14,6 +14,7 @@ import { HorizontalRule } from "@tiptap/extension-horizontal-rule";
 import { Italic } from "@tiptap/extension-italic";
 import { Link } from "@tiptap/extension-link";
 import { ListItem } from "@tiptap/extension-list-item";
+import { Mention } from "@tiptap/extension-mention";
 import { OrderedList } from "@tiptap/extension-ordered-list";
 import { Paragraph } from "@tiptap/extension-paragraph";
 import { Placeholder } from "@tiptap/extension-placeholder";
@@ -37,6 +38,7 @@ import {
   ResizableImage,
   TableImproved,
 } from "../";
+import { mentionSuggestionOptions } from "./mentionSuggestionOptions";
 
 export type UseExtensionsOptions = {
   /** Placeholder hint to show in the text input area before a user types a message. */
@@ -164,6 +166,10 @@ export default function useExtensions({
       TaskList,
       TaskItem.configure({
         nested: true,
+      }),
+
+      Mention.configure({
+        suggestion: mentionSuggestionOptions,
       }),
 
       Placeholder.configure({
