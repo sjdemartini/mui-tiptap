@@ -22,19 +22,6 @@ export const Z_INDEXES = {
   BUBBLE_MENU: 3,
 } as const;
 
-/**
- * Return the number of pixels given a CSS pixel value. Ex: "16px" -> 16.
- *
- * Useful in Material-UI v5, since `theme.spacing()` returns a pixel string,
- * rather than a number.
- *
- * Inspired by this code within MUI:
- * https://github.com/mui-org/material-ui/blob/1884e7dd111a9d8336497c2e6667ad24f338dddd/packages/mui-lab/src/Masonry/Masonry.js#L15-L17
- */
-export function parseToNumPixels(value: string): number {
-  return Number(value.replace("px", ""));
-}
-
 export function getEditorStyles(theme: Theme): StyleRules {
   // Check whether the user has enabled responsive typography
   // (https://mui.com/material-ui/customization/typography/#responsive-font-sizes)
@@ -498,24 +485,6 @@ export function getEditorStyles(theme: Theme): StyleRules {
     },
   };
 }
-
-// Paper components in dark mode in MUI v5 use a background-image to set the background "color"
-// depending on the elevation of the Paper. As such, choosing `palette.background.paper` in dark
-// mode will *not* match the paper background color if using elevation (the default). This is the
-// color that matches the background-image's color when the total elevation is 1 (the Paper is on
-// top of only the default background, with elevation=1), which is useful if we need "sticky" header
-// placement in a scrolling container. See this issue
-// https://github.com/mui/material-ui/issues/30468
-export const DARK_MODE_PAPER_BACKGROUND_COLOR_ELEVATION_1 = "#1e1e1e";
-// And similarly for elevation 2:
-export const DARK_MODE_PAPER_BACKGROUND_COLOR_ELEVATION_2 = "#232323";
-// An alternative to the above would be to copy the linear-gradient function for the
-// background image that Paper uses, similar to what's suggested here
-// https://github.com/mui/material-ui/issues/30468#issuecomment-1172034069 (and
-// `getOverlayAlpha` *is* actually exported but just does not have TS definitions), and
-// set the `background-image` to that linear gradient and `background-color` to
-// theme.palette.background.paper, and get the same look as Paper. But it's a bit messy
-// at the moment since it requires an untyped import and redefinition of the gradient.
 
 /**
  * Get the background color styles to use for user-provided images being previewed.
