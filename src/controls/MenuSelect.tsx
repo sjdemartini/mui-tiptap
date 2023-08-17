@@ -26,7 +26,7 @@ const useStyles = makeStyles({ name: { MenuSelect } })((theme) => {
         // the same color as the default ToggleButton icon and the Select
         // dropdown arrow icon
         // https://github.com/mui/material-ui/blob/2cb9664b16d5a862a3796add7c8e3b088b47acb5/packages/mui-material/src/ToggleButton/ToggleButton.js#L60,
-        // https://github.com/mui/material-ui/blob/0b7beb93c9015da6e35c2a31510f679126cf0de1/packages/mui-material/src/NativeSelect/NativeSelectInput.js#L96,
+        // https://github.com/mui/material-ui/blob/0b7beb93c9015da6e35c2a31510f679126cf0de1/packages/mui-material/src/NativeSelect/NativeSelectInput.js#L96
         color: theme.palette.action.active,
       },
     },
