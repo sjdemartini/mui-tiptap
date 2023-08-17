@@ -2,7 +2,10 @@ export {
   default as ControlledBubbleMenu,
   type ControlledBubbleMenuProps,
 } from "./ControlledBubbleMenu";
-export { default as LinkBubbleMenu } from "./LinkBubbleMenu";
+export {
+  default as LinkBubbleMenu,
+  type LinkBubbleMenuProps,
+} from "./LinkBubbleMenu";
 export { default as MenuBar, type MenuBarProps } from "./MenuBar";
 export { default as MenuDivider } from "./MenuDivider";
 export {
@@ -26,7 +29,10 @@ export {
   default as RichTextReadOnly,
   type RichTextReadOnlyProps,
 } from "./RichTextReadOnly";
-export { default as TableBubbleMenu } from "./TableBubbleMenu";
+export {
+  default as TableBubbleMenu,
+  type TableBubbleMenuProps,
+} from "./TableBubbleMenu";
 export { RichTextEditorContext, useRichTextEditorContext } from "./context";
 export * from "./controls";
 export * from "./extensions";
