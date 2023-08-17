@@ -1,6 +1,6 @@
 {
   "name": "mui-tiptap",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "description": "A Material-UI (MUI) styled WYSIWYG rich text editor, using Tiptap",
   "keywords": [
     "mui",
