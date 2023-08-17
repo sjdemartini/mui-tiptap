@@ -76,7 +76,7 @@ export interface MenuSelectTextAlignProps
   emptyLabel?: React.ReactNode;
 }
 
-const useStyles = makeStyles({ name: { MenuSelectTextAlign } })({
+const useStyles = makeStyles({ name: { MenuSelectTextAlign } })((theme) => ({
   selectInput: {
     // We use a fixed width equal to the size of the menu button icon so that
     // the Select element won't change sizes even if we show the "blank"
@@ -101,8 +101,13 @@ const useStyles = makeStyles({ name: { MenuSelectTextAlign } })({
 
   menuButtonIcon: {
     fontSize: MENU_BUTTON_FONT_SIZE_DEFAULT,
+    // For consistency with toggle button default icon color and the Select
+    // dropdown arrow icon color
+    // https://github.com/mui/material-ui/blob/2cb9664b16d5a862a3796add7c8e3b088b47acb5/packages/mui-material/src/ToggleButton/ToggleButton.js#L60,
+    // https://github.com/mui/material-ui/blob/0b7beb93c9015da6e35c2a31510f679126cf0de1/packages/mui-material/src/NativeSelect/NativeSelectInput.js#L96
+    color: theme.palette.action.active,
   },
-});
+}));
 
 const DEFAULT_ALIGNMENT_OPTIONS: TextAlignSelectOption[] = [
   {
