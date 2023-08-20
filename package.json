@@ -66,6 +66,7 @@
   "dependencies": {
     "encodeurl": "^1.0.2",
     "lodash": "^4.17.21",
+    "react-colorful": "^5.6.1",
     "tss-react": "^4.8.3",
     "type-fest": "^3.12.0"
   },
