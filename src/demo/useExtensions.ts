@@ -4,11 +4,13 @@ import { Bold } from "@tiptap/extension-bold";
 import { BulletList } from "@tiptap/extension-bullet-list";
 import { Code } from "@tiptap/extension-code";
 import { CodeBlock } from "@tiptap/extension-code-block";
+import { Color } from "@tiptap/extension-color";
 import { Document } from "@tiptap/extension-document";
 import { Dropcursor } from "@tiptap/extension-dropcursor";
 import { FontFamily } from "@tiptap/extension-font-family";
 import { Gapcursor } from "@tiptap/extension-gapcursor";
 import { HardBreak } from "@tiptap/extension-hard-break";
+import { Highlight } from "@tiptap/extension-highlight";
 import { History } from "@tiptap/extension-history";
 import { HorizontalRule } from "@tiptap/extension-horizontal-rule";
 import { Italic } from "@tiptap/extension-italic";
@@ -154,8 +156,10 @@ export default function useExtensions({
         types: ["heading", "paragraph", "image"],
       }),
       TextStyle,
+      Color,
       FontFamily,
       FontSize,
+      Highlight.configure({ multicolor: true }),
       HorizontalRule,
 
       ResizableImage,

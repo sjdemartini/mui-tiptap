@@ -60,7 +60,7 @@ export default function App() {
         </Toolbar>
       </AppBar>
 
-      <Box sx={{ p: 3, maxWidth: 1200, margin: "0 auto" }}>
+      <Box sx={{ p: 3, maxWidth: 1207, margin: "0 auto" }}>
         <Editor />
       </Box>
     </ThemeProvider>

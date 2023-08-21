@@ -1,3 +1,4 @@
+import { useTheme } from "@mui/material";
 import {
   MenuButtonAddImage,
   MenuButtonAddTable,
@@ -7,6 +8,7 @@ import {
   MenuButtonCode,
   MenuButtonCodeBlock,
   MenuButtonEditLink,
+  MenuButtonHighlightColor,
   MenuButtonHorizontalRule,
   MenuButtonIndent,
   MenuButtonItalic,
@@ -17,6 +19,7 @@ import {
   MenuButtonSubscript,
   MenuButtonSuperscript,
   MenuButtonTaskList,
+  MenuButtonTextColor,
   MenuButtonUnderline,
   MenuButtonUndo,
   MenuButtonUnindent,
@@ -32,6 +35,7 @@ import {
 
 export default function EditorMenuControls() {
   const editor = useRichTextEditorContext();
+  const theme = useTheme();
   return (
     <MenuControlsContainer>
       <MenuSelectFontFamily
@@ -64,6 +68,35 @@ export default function EditorMenuControls() {
       <MenuButtonSubscript />
 
       <MenuButtonSuperscript />
+
+      <MenuDivider />
+
+      <MenuButtonTextColor
+        defaultTextColor={theme.palette.text.primary}
+        swatchColors={[
+          "#000000", // Black
+          "#ffffff", // White
+          "#888888", // Grey
+          "#ff0000", // Red
+          "#ff9900", // Orange
+          "#ffff00", // Yellow
+          "#00d000", // Green
+          "#0000ff", // Blue
+        ]}
+      />
+
+      <MenuButtonHighlightColor
+        swatchColors={[
+          "#595959", // Dark grey
+          "#dddddd", // Light grey
+          "#ffa6a6", // Light red
+          "#ffd699", // Light orange
+          "#ffff00", // Yellow (should match browser default `mark` like when using Cmd+Shift+H)
+          "#99cc99", // Light green
+          "#90c6ff", // Light blue
+          "#8085e9", // Light purple
+        ]}
+      />
 
       <MenuDivider />
 
