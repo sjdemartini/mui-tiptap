@@ -48,6 +48,14 @@ export {
   type MenuButtonEditLinkProps,
 } from "./MenuButtonEditLink";
 export {
+  default as MenuButtonHighlightColor,
+  type MenuButtonHighlightColorProps,
+} from "./MenuButtonHighlightColor";
+export {
+  default as MenuButtonHighlightToggle,
+  type MenuButtonHighlightToggleProps,
+} from "./MenuButtonHighlightToggle";
+export {
   default as MenuButtonHorizontalRule,
   type MenuButtonHorizontalRuleProps,
 } from "./MenuButtonHorizontalRule";
@@ -87,6 +95,10 @@ export {
   default as MenuButtonTaskList,
   type MenuButtonTaskListProps,
 } from "./MenuButtonTaskList";
+export {
+  default as MenuButtonTextColor,
+  type MenuButtonTextColorProps,
+} from "./MenuButtonTextColor";
 export {
   default as MenuButtonTooltip,
   type MenuButtonTooltipProps,
