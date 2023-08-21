@@ -36,7 +36,7 @@ export type MenuButtonProps = {
 
 export const MENU_BUTTON_FONT_SIZE_DEFAULT = "1.25rem";
 
-const useStyles = makeStyles({ name: "MenuButton" })({
+const useStyles = makeStyles({ name: { MenuButton } })({
   root: {
     // Use && for additional specificity, since MUI's conditional "disabled"
     // styles also set the border
