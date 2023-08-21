@@ -11,7 +11,7 @@ import {
 import { useEffect, useState, type ReactNode } from "react";
 import { makeStyles } from "tss-react/mui";
 import { MenuButton, Z_INDEXES, type MenuButtonProps } from "..";
-import ColorPicker from "./ColorPicker";
+import ColorPicker, { type SwatchColorOption } from "./ColorPicker";
 
 // TODO(Steven DeMartini): Allow users to provide prop overrides for the
 // ColorPicker component.
@@ -25,7 +25,7 @@ export interface MenuButtonColorPickerProps extends MenuButtonProps {
    * Provide default list of colors (must be valid CSS color strings) which
    * are used to form buttons for color swatches.
    */
-  swatchColors?: string[];
+  swatchColors?: SwatchColorOption[];
   /**
    * Unique HTML ID for the color picker popper that will be shown when clicking
    * this button (used for aria-describedby for accessibility).
@@ -67,7 +67,7 @@ interface ColorPickerPopperBodyProps {
    * Override the default list of colors (must be valid CSS color strings) which are
    * used to form buttons for color swatches.
    */
-  swatchColors?: string[];
+  swatchColors?: SwatchColorOption[];
   labels?: MenuButtonColorPickerProps["labels"];
 }
 
@@ -220,6 +220,8 @@ export default function MenuButtonColorPicker({
         {...menuButtonProps}
       />
 
+      {/* TODO(Steven DeMartini): Add a way to indicate if a given swatch is the
+      currently selected color (e.g. showing a checkmark like Google Docs does) */}
       <ColorPickerPopper
         id={popperId}
         open={!!anchorEl}

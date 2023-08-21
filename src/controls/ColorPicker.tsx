@@ -7,6 +7,28 @@ import ColorSwatchButton from "./ColorSwatchButton";
 
 export type ColorChangeSource = "gradient" | "text" | "swatch";
 
+export type SwatchColorOptionObject = {
+  /**
+   * The underlying CSS color value string, which can be any valid CSS
+   * color, though ideally should be parseable with your `colorToHex` function;
+   * ex: "#9fc5e8", "rgb(159, 197, 232)".
+   */
+  value?: string;
+  /**
+   * A customized label to include as an aria-label for this color when used as
+   * a swatch button. If not provided, uses the `value` as the option's label.
+   */
+  label?: string;
+};
+
+/**
+ * A color to use as a swatch button for the color picker.
+ *
+ * Must be either a CSS color string (ex: "#9fc5e8" or "rgb(159, 197, 232)") or
+ * a SwatchColorOptionObject which provides an optional additional label.
+ */
+export type SwatchColorOption = string | SwatchColorOptionObject;
+
 export type ColorPickerProps = {
   /** Color value string (must be a valid CSS color), or empty string if unset. */
   value: string;
@@ -49,15 +71,14 @@ export type ColorPickerProps = {
    */
   colorToHex?: (color: string) => string | null;
   /**
-   * A list of colors (must be valid CSS color strings) which are used to form buttons
-   * for color swatches, which allow the user to choose from this preset selection of
-   * colors, instead of the saturation/hue/alpha gradient color picker or text
-   * interfaces.
+   * A list of colors which are used to form buttons for color swatches, which
+   * allow the user to choose from this preset selection of colors, instead of
+   * the saturation/hue/alpha gradient color picker or text interfaces.
    */
-  swatchColors?: string[];
+  swatchColors?: SwatchColorOption[];
   /**
-   * If true, disables the "alpha" slider option in the color picker, which controls
-   * transparency.
+   * If true, disables the "alpha" slider option in the color picker, which
+   * controls transparency.
    */
   disableAlpha?: boolean;
 };
@@ -106,6 +127,12 @@ export default function ColorPicker({
     }
   }, [value]);
 
+  const swatchColorObjects: SwatchColorOptionObject[] = (
+    swatchColors ?? []
+  ).map((swatchColor) =>
+    typeof swatchColor === "string" ? { value: swatchColor } : swatchColor
+  );
+
   return (
     <>
       {/* Fall back to black with the HexColorPickers if there isn't a (valid)
@@ -145,13 +172,14 @@ export default function ColorPicker({
         fullWidth
       />
 
-      {swatchColors && swatchColors.length > 0 && (
+      {swatchColorObjects.length > 0 && (
         <div className={classes.swatchContainer}>
-          {swatchColors.map((swatchColor) => (
+          {swatchColorObjects.map((swatchColor) => (
             <ColorSwatchButton
-              key={swatchColor}
-              color={swatchColor}
-              onClick={() => onChange(swatchColor, "swatch")}
+              key={swatchColor.value}
+              value={swatchColor.value}
+              label={swatchColor.label}
+              onClick={() => onChange(swatchColor.value ?? "", "swatch")}
             />
           ))}
         </div>

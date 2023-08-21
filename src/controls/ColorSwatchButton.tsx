@@ -10,24 +10,30 @@ interface Props extends ComponentPropsWithoutRef<"button"> {
    * What color is shown with this swatch. If not provided, shows a checkerboard
    * pattern, typically used as "not set" or "transparent".
    */
-  color?: string;
+  value?: string;
+  /**
+   * An optional human-friendly name for this color, used as an aria-label for
+   * the button.
+   */
+  label?: string;
   /** If given, sets the padding between the color and the border of the swatch. */
   padding?: string | number;
 }
 
 const ColorSwatchButton = forwardRef<ElementRef<"button">, Props>(
-  ({ color, padding, ...buttonProps }, ref) => {
+  ({ value: colorValue, label, padding, ...buttonProps }, ref) => {
     const { classes, cx } = useStyles();
     return (
       <button
         ref={ref}
         type="button"
-        style={{ backgroundColor: color, padding }}
-        aria-label={color}
+        style={{ backgroundColor: colorValue, padding }}
+        aria-label={label ?? colorValue}
+        value={colorValue}
         {...buttonProps}
         className={cx(
           classes.root,
-          !color && classes.colorNotSet,
+          !colorValue && classes.colorNotSet,
           buttonProps.className
         )}
       />
