@@ -7,7 +7,7 @@ export {
   type LinkBubbleMenuProps,
 } from "./LinkBubbleMenu";
 export { default as MenuBar, type MenuBarProps } from "./MenuBar";
-export { default as MenuDivider } from "./MenuDivider";
+export { default as MenuDivider, type MenuDividerProps } from "./MenuDivider";
 export {
   default as RichTextContent,
   type RichTextContentProps,
