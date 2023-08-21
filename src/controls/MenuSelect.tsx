@@ -1,4 +1,10 @@
-import { Select, selectClasses, type SelectProps } from "@mui/material";
+import {
+  Select,
+  outlinedInputClasses,
+  selectClasses,
+  svgIconClasses,
+  type SelectProps,
+} from "@mui/material";
 import { useState } from "react";
 import { makeStyles } from "tss-react/mui";
 import MenuButtonTooltip from "./MenuButtonTooltip";
@@ -17,11 +23,12 @@ const useStyles = makeStyles({ name: { MenuSelect } })((theme) => {
     selectRoot: {
       // Don't show the default outline when not hovering or focused, for better
       // style consistency with the MenuButtons
-      "&:not(:hover):not(.Mui-focused) .MuiOutlinedInput-notchedOutline": {
-        borderWidth: 0,
-      },
+      [`&:not(:hover):not(.${outlinedInputClasses.focused}) .${outlinedInputClasses.notchedOutline}`]:
+        {
+          borderWidth: 0,
+        },
 
-      "& .MuiSvgIcon-root": {
+      [`& .${svgIconClasses.root}`]: {
         // Ensure that if an icon is used as the `renderValue` result, it uses
         // the same color as the default ToggleButton icon and the Select
         // dropdown arrow icon
@@ -30,7 +37,7 @@ const useStyles = makeStyles({ name: { MenuSelect } })((theme) => {
         color: theme.palette.action.active,
       },
 
-      [`&.${selectClasses.disabled} .MuiSvgIcon-root`]: {
+      [`&.${selectClasses.disabled} .${svgIconClasses.root}`]: {
         // Matching
         // https://github.com/mui/material-ui/blob/2cb9664b16d5a862a3796add7c8e3b088b47acb5/packages/mui-material/src/ToggleButton/ToggleButton.js#L65
         color: theme.palette.action.disabled,

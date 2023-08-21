@@ -1,4 +1,8 @@
-import { ToggleButton, type ToggleButtonProps } from "@mui/material";
+import {
+  ToggleButton,
+  toggleButtonClasses,
+  type ToggleButtonProps,
+} from "@mui/material";
 import type { RefObject } from "react";
 import { makeStyles } from "tss-react/mui";
 import type { Except, SetOptional } from "type-fest";
@@ -40,7 +44,7 @@ const useStyles = makeStyles({ name: { MenuButton } })({
   root: {
     // Use && for additional specificity, since MUI's conditional "disabled"
     // styles also set the border
-    "&& .MuiToggleButton-root": {
+    [`&& .${toggleButtonClasses.root}`]: {
       border: "none",
       padding: 5,
     },
