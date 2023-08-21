@@ -2,12 +2,12 @@ import { TextField } from "@mui/material";
 import { useEffect, useRef } from "react";
 import { HexAlphaColorPicker, HexColorPicker } from "react-colorful";
 import { makeStyles } from "tss-react/mui";
-import { colorToHex } from "../utils/color";
+import { colorToHex as colorToHexDefault } from "../utils/color";
 import ColorSwatchButton from "./ColorSwatchButton";
 
-type ColorChangeSource = "gradient" | "text" | "swatch";
+export type ColorChangeSource = "gradient" | "text" | "swatch";
 
-type Props = {
+export type ColorPickerProps = {
   /** Color value string (must be a valid CSS color), or empty string if unset. */
   value: string;
   /**
@@ -16,6 +16,38 @@ type Props = {
    * "text" input, or a "swatch".
    */
   onChange: (color: string, source: ColorChangeSource) => void;
+  /**
+   * Override the default implementation for converting a given CSS color string
+   * to a string in hex format (e.g. "#ff0000"). Should return null if the given
+   * color cannot be parsed as valid.
+   *
+   * By default uses a wrapped version of @mui/material's `rgbToHex` function,
+   * which supports input strings in these formats: hex like #000 and #00000000,
+   * rgb(), rgba(), hsl(), hsla(), and color(). See
+   * https://github.com/mui/material-ui/blob/e00a4d857fb2ea1b181afc35d0fd1ffc5631f0fe/packages/mui-system/src/colorManipulator.js#L54
+   *
+   * Third party libraries could be used here to offer more full-featured
+   * parsing (e.g. handling CSS color name keywords, cmyk, etc.), such as colord
+   * (https://www.npmjs.com/package/colord) and tinycolor2
+   * (https://www.npmjs.com/package/@ctrl/tinycolor), which have a relatively
+   * small footprint. They are not used directly by mui-tiptap to keep
+   * dependencies as lean as possible.
+   *
+   * For instance using `colord`, this could be implemented as:
+   *
+   *   function(color) {
+   *     const colordObject = colord(color);
+   *     return colordObject.isValid() ? colordObject.toHex() : null;
+   *   }
+   *
+   * Or with tinycolor2:
+   *
+   *   function(color) {
+   *     const tinyColor = new TinyColor(color);
+   *     return tinyColor.isValid ? tinyColor.toHexShortString() : null;
+   *   }
+   */
+  colorToHex?: (color: string) => string | null;
   /**
    * A list of colors (must be valid CSS color strings) which are used to form buttons
    * for color swatches, which allow the user to choose from this preset selection of
@@ -58,8 +90,9 @@ export default function ColorPicker({
   value,
   onChange,
   swatchColors,
+  colorToHex = colorToHexDefault,
   disableAlpha = false,
-}: Props) {
+}: ColorPickerProps) {
   const { classes } = useStyles();
 
   const inputRef = useRef<HTMLInputElement | null>(null);
