@@ -74,27 +74,28 @@ export default function EditorMenuControls() {
       <MenuButtonTextColor
         defaultTextColor={theme.palette.text.primary}
         swatchColors={[
-          "#000000", // Black
-          "#ffffff", // White
-          "#888888", // Grey
-          "#ff0000", // Red
-          "#ff9900", // Orange
-          "#ffff00", // Yellow
-          "#00d000", // Green
-          "#0000ff", // Blue
+          { value: "#000000", label: "Black" },
+          { value: "#ffffff", label: "White" },
+          { value: "#888888", label: "Grey" },
+          { value: "#ff0000", label: "Red" },
+          { value: "#ff9900", label: "Orange" },
+          { value: "#ffff00", label: "Yellow" },
+          { value: "#00d000", label: "Green" },
+          { value: "#0000ff", label: "Blue" },
         ]}
       />
 
       <MenuButtonHighlightColor
         swatchColors={[
-          "#595959", // Dark grey
-          "#dddddd", // Light grey
-          "#ffa6a6", // Light red
-          "#ffd699", // Light orange
-          "#ffff00", // Yellow (should match browser default `mark` like when using Cmd+Shift+H)
-          "#99cc99", // Light green
-          "#90c6ff", // Light blue
-          "#8085e9", // Light purple
+          { value: "#595959", label: "Dark grey" },
+          { value: "#dddddd", label: "Light grey" },
+          { value: "#ffa6a6", label: "Light red" },
+          { value: "#ffd699", label: "Light orange" },
+          // Plain yellow matches the browser default `mark` like when using Cmd+Shift+H
+          { value: "#ffff00", label: "Yellow" },
+          { value: "#99cc99", label: "Light green" },
+          { value: "#90c6ff", label: "Light blue" },
+          { value: "#8085e9", label: "Light purple" },
         ]}
       />
 
