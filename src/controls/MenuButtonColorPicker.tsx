@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { useEffect, useState, type ReactNode } from "react";
 import { makeStyles } from "tss-react/mui";
+import type { Except } from "type-fest";
 import { MenuButton, Z_INDEXES, type MenuButtonProps } from "..";
 import {
   ColorPicker,
@@ -17,7 +18,10 @@ import {
   type SwatchColorOption,
 } from "./ColorPicker";
 
-export interface MenuButtonColorPickerProps extends MenuButtonProps {
+export interface MenuButtonColorPickerProps
+  // Omit the default "color" and "value" button props so that they can't be
+  // confused for the `colorValue` prop
+  extends Except<MenuButtonProps, "color" | "value"> {
   /** The current CSS color string value. */
   colorValue: string | undefined;
   /** Callback when the color changes. */
