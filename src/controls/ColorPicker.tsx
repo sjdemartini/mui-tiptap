@@ -81,6 +81,14 @@ export type ColorPickerProps = {
    * controls transparency.
    */
   disableAlpha?: boolean;
+  /** Override the default labels for any of the content. */
+  labels?: {
+    /**
+     * The placeholder shown in the text field entry for color. By default:
+     * 'Ex: "#7cb5ec"'
+     */
+    textFieldPlaceholder?: string;
+  };
 };
 
 const useStyles = makeStyles({ name: { ColorPicker } })((theme) => ({
@@ -105,7 +113,7 @@ const useStyles = makeStyles({ name: { ColorPicker } })((theme) => ({
 
 /**
  * Component for the user to choose a color from a gradient-based hue/saturation
- * (and optionall alpha) color-picker or from the given swatch colors.
+ * (and optionally alpha) color-picker or from the given swatch colors.
  */
 export default function ColorPicker({
   value,
@@ -113,8 +121,10 @@ export default function ColorPicker({
   swatchColors,
   colorToHex = colorToHexDefault,
   disableAlpha = false,
+  labels = {},
 }: ColorPickerProps) {
   const { classes } = useStyles();
+  const { textFieldPlaceholder = 'Ex: "#7cb5ec"' } = labels;
 
   const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -153,9 +163,7 @@ export default function ColorPicker({
       )}
 
       <TextField
-        // TODO(Steven DeMartini): Allow users to override this placeholder for
-        // localization/customization purposes
-        placeholder={'Ex: "#7cb5ec"'}
+        placeholder={textFieldPlaceholder}
         variant="outlined"
         size="small"
         defaultValue={value || ""}
