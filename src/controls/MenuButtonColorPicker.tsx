@@ -11,10 +11,11 @@ import {
 import { useEffect, useState, type ReactNode } from "react";
 import { makeStyles } from "tss-react/mui";
 import { MenuButton, Z_INDEXES, type MenuButtonProps } from "..";
-import ColorPicker, { type SwatchColorOption } from "./ColorPicker";
-
-// TODO(Steven DeMartini): Allow users to provide prop overrides for the
-// ColorPicker component.
+import {
+  ColorPicker,
+  type ColorPickerProps,
+  type SwatchColorOption,
+} from "./ColorPicker";
 
 export interface MenuButtonColorPickerProps extends MenuButtonProps {
   /** The current CSS color string value. */
@@ -26,6 +27,12 @@ export interface MenuButtonColorPickerProps extends MenuButtonProps {
    * are used to form buttons for color swatches.
    */
   swatchColors?: SwatchColorOption[];
+  /**
+   * Override the props for the popper that houses the color picker interface.
+   */
+  PopperProps?: Partial<PopperProps>;
+  /** Override the props for the color picker. */
+  ColorPickerProps?: Partial<ColorPickerProps>;
   /**
    * Unique HTML ID for the color picker popper that will be shown when clicking
    * this button (used for aria-describedby for accessibility).
@@ -61,22 +68,20 @@ export interface MenuButtonColorPickerProps extends MenuButtonProps {
   };
 }
 
-interface ColorPickerPopperBodyProps {
+export interface ColorPickerPopperBodyProps
+  extends Pick<
+    MenuButtonColorPickerProps,
+    "swatchColors" | "labels" | "ColorPickerProps"
+  > {
   /** The current color value. Must be a valid CSS color string. */
   value: string;
   /** Callback when the user is saving/changing the current color. */
   onSave: (newColor: string) => void;
   /** Callback when the user is canceling updates to the current color. */
   onCancel: () => void;
-  /**
-   * Override the default list of colors (must be valid CSS color strings) which are
-   * used to form buttons for color swatches.
-   */
-  swatchColors?: SwatchColorOption[];
-  labels?: MenuButtonColorPickerProps["labels"];
 }
 
-interface ColorPickerPopperProps
+export interface ColorPickerPopperProps
   extends PopperProps,
     ColorPickerPopperBodyProps {}
 
@@ -84,12 +89,13 @@ interface ColorPickerPopperProps
 // component is unmounted whenever the outer Popper is not open, so we don't
 // have to worry about resetting the state ourselves when the user cancels, for
 // instance.
-function ColorPickerPopperBody({
+export function ColorPickerPopperBody({
   value,
   onCancel,
   onSave,
   swatchColors,
   labels = {},
+  ColorPickerProps,
 }: ColorPickerPopperBodyProps) {
   const {
     removeColorButton = "None",
@@ -117,6 +123,7 @@ function ColorPickerPopperBody({
           setLocalColor(newColor);
         }}
         labels={labels}
+        {...ColorPickerProps}
       />
 
       <Stack direction="row" justifyContent="space-between" sx={{ mt: 1 }}>
@@ -158,11 +165,12 @@ const useStyles = makeStyles({ name: { ColorPickerPopper } })({
   },
 });
 
-function ColorPickerPopper({
+export function ColorPickerPopper({
   value,
   onSave,
   onCancel,
   swatchColors,
+  ColorPickerProps,
   labels,
   ...popperProps
 }: ColorPickerPopperProps) {
@@ -193,6 +201,7 @@ function ColorPickerPopper({
                   onSave={onSave}
                   onCancel={onCancel}
                   swatchColors={swatchColors}
+                  ColorPickerProps={ColorPickerProps}
                   labels={labels}
                 />
               </Paper>
@@ -204,12 +213,14 @@ function ColorPickerPopper({
   );
 }
 
-export default function MenuButtonColorPicker({
+export function MenuButtonColorPicker({
   colorValue,
   onColorValueChange,
   swatchColors,
   labels,
   popperId,
+  PopperProps,
+  ColorPickerProps,
   ...menuButtonProps
 }: MenuButtonColorPickerProps) {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
@@ -226,8 +237,6 @@ export default function MenuButtonColorPicker({
         {...menuButtonProps}
       />
 
-      {/* TODO(Steven DeMartini): Add a way to indicate if a given swatch is the
-      currently selected color (e.g. showing a checkmark like Google Docs does) */}
       <ColorPickerPopper
         id={popperId}
         open={!!anchorEl}
@@ -239,7 +248,9 @@ export default function MenuButtonColorPicker({
         }}
         onCancel={handleClose}
         swatchColors={swatchColors}
+        ColorPickerProps={ColorPickerProps}
         labels={labels}
+        {...PopperProps}
       />
     </>
   );
