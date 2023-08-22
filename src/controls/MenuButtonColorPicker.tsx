@@ -19,13 +19,14 @@ import {
 } from "./ColorPicker";
 
 export interface MenuButtonColorPickerProps
-  // Omit the default "color" and "value" button props so that they can't be
-  // confused for the `colorValue` prop
-  extends Except<MenuButtonProps, "color" | "value"> {
+  // Omit the default `color`, `value`, and `onChange` toggle button props so
+  // that "color" can't be confused for the `value` prop, and so that we can use
+  // our own types for `value` and `onChange`.
+  extends Except<MenuButtonProps, "color" | "value" | "onChange"> {
   /** The current CSS color string value. */
-  colorValue: string | undefined;
+  value: string | undefined;
   /** Callback when the color changes. */
-  onColorValueChange: (newColor: string) => void;
+  onChange: (newColor: string) => void;
   /**
    * Provide default list of colors (must be valid CSS color strings) which
    * are used to form buttons for color swatches.
@@ -109,8 +110,11 @@ export function ColorPickerPopperBody({
   } = labels;
 
   // Because color can change rapidly as the user drags the color in the
-  // ColorPicker gradient, we'll wait until "Save" to call onColorChange, and
-  // we'll store an internal localColor until then.
+  // ColorPicker gradient, we'll wait until "Save" to call the onSave prop, and
+  // we'll store an internal localColor until then. (This could alternatively be
+  // implemented such that we "save" directly whenever a swatch preset is
+  // clicked, by looking at the `source` from `ColorPicker.onChange`, but it may
+  // be useful to tweak a color from a swatch before saving.)
   const [localColor, setLocalColor] = useState<string>(value);
   // Update our internal value whenever the `color` prop changes (since this is
   // a controlled component)
@@ -160,6 +164,7 @@ export function ColorPickerPopperBody({
     </>
   );
 }
+
 const useStyles = makeStyles({ name: { ColorPickerPopper } })({
   root: {
     zIndex: Z_INDEXES.BUBBLE_MENU,
@@ -218,8 +223,8 @@ export function ColorPickerPopper({
 }
 
 export function MenuButtonColorPicker({
-  colorValue,
-  onColorValueChange,
+  value: colorValue,
+  onChange,
   swatchColors,
   labels,
   popperId,
@@ -247,7 +252,7 @@ export function MenuButtonColorPicker({
         anchorEl={anchorEl}
         value={colorValue ?? ""}
         onSave={(newColor) => {
-          onColorValueChange(newColor);
+          onChange(newColor);
           handleClose();
         }}
         onCancel={handleClose}

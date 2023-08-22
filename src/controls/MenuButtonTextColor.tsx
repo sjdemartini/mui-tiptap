@@ -44,8 +44,8 @@ export default function MenuButtonTextColor({
       tooltipLabel={tooltipLabel}
       // If the color is unset, we fall back to the default color
       // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-      colorValue={currentTextColor || defaultTextColor}
-      onColorValueChange={(newColor) => {
+      value={currentTextColor || defaultTextColor}
+      onChange={(newColor) => {
         editor?.chain().focus().setColor(newColor).run();
       }}
       labels={{ removeColorButton: "Reset", ...menuButtonProps.labels }}
