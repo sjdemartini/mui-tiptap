@@ -297,7 +297,7 @@ You can override all props for these components (e.g. to change the icon, toolti
 
 - `MenuButtonColorPicker`: a button which can be used to bring up a mui-tiptap `ColorPicker`, letting the user select a color. Used by `MenuButtonTextColor` and `MenuButtonHighlightColor`, the props of which extend `MenuButtonColorPicker`. Important props:
   - `swatchColors`: Array of color options to show as "preset" color buttons.
-  - `colorValue`/`onColorValueChange`: Current color and its change callback. This is a controlled component, so these props must be provided, unless you're using `MenuButtonTextColor` or `MenuButtonHighlightColor`, which handle that logic.
+  - `value`/`onChange`: Current color (CSS string) and its change callback. This is a controlled component, so these props must be provided, unless you're using `MenuButtonTextColor` or `MenuButtonHighlightColor`, which handle that logic.
   - `popperId`: Unique HTML ID for the color picker popper that will be shown when clicking this button (used for `aria-describedby` for accessibility).
   - `PopperProps`: Override the props for the popper that houses the color picker.
   - `ColorPickerProps`: Override the props for mui-tiptap [`ColorPicker`](#components), such as `colorToHex` to customize the color-parsing logic.
