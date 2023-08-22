@@ -53,6 +53,11 @@ export interface MenuButtonColorPickerProps extends MenuButtonProps {
      * "OK".
      */
     saveButton?: ReactNode;
+    /**
+     * The placeholder shown in the text field entry for color. By default:
+     * 'Ex: "#7cb5ec"'
+     */
+    textFieldPlaceholder?: string;
   };
 }
 
@@ -111,6 +116,7 @@ function ColorPickerPopperBody({
         onChange={(newColor) => {
           setLocalColor(newColor);
         }}
+        labels={labels}
       />
 
       <Stack direction="row" justifyContent="space-between" sx={{ mt: 1 }}>
