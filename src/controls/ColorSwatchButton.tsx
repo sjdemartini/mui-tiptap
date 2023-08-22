@@ -5,7 +5,8 @@ import {
 } from "react";
 import { makeStyles } from "tss-react/mui";
 
-interface Props extends ComponentPropsWithoutRef<"button"> {
+export interface ColorSwatchButtonProps
+  extends ComponentPropsWithoutRef<"button"> {
   /**
    * What color is shown with this swatch. If not provided, shows a checkerboard
    * pattern, typically used as "not set" or "transparent".
@@ -20,26 +21,27 @@ interface Props extends ComponentPropsWithoutRef<"button"> {
   padding?: string | number;
 }
 
-const ColorSwatchButton = forwardRef<ElementRef<"button">, Props>(
-  ({ value: colorValue, label, padding, ...buttonProps }, ref) => {
-    const { classes, cx } = useStyles();
-    return (
-      <button
-        ref={ref}
-        type="button"
-        style={{ backgroundColor: colorValue, padding }}
-        aria-label={label ?? colorValue}
-        value={colorValue}
-        {...buttonProps}
-        className={cx(
-          classes.root,
-          !colorValue && classes.colorNotSet,
-          buttonProps.className
-        )}
-      />
-    );
-  }
-);
+export const ColorSwatchButton = forwardRef<
+  ElementRef<"button">,
+  ColorSwatchButtonProps
+>(({ value: colorValue, label, padding, ...buttonProps }, ref) => {
+  const { classes, cx } = useStyles();
+  return (
+    <button
+      ref={ref}
+      type="button"
+      style={{ backgroundColor: colorValue, padding }}
+      aria-label={label ?? colorValue}
+      value={colorValue}
+      {...buttonProps}
+      className={cx(
+        classes.root,
+        !colorValue && classes.colorNotSet,
+        buttonProps.className
+      )}
+    />
+  );
+});
 
 const useStyles = makeStyles({ name: { ColorSwatchButton } })((theme) => ({
   root: {
@@ -71,5 +73,3 @@ const useStyles = makeStyles({ name: { ColorSwatchButton } })((theme) => ({
 }));
 
 ColorSwatchButton.displayName = "ColorSwatchButton";
-
-export default ColorSwatchButton;

@@ -1,3 +1,5 @@
+export * from "./ColorPicker";
+export * from "./ColorSwatchButton";
 export { default as MenuButton, type MenuButtonProps } from "./MenuButton";
 export {
   default as MenuButtonAddImage,
@@ -43,6 +45,7 @@ export {
   default as MenuButtonCodeBlock,
   type MenuButtonCodeBlockProps,
 } from "./MenuButtonCodeBlock";
+export * from "./MenuButtonColorPicker";
 export {
   default as MenuButtonEditLink,
   type MenuButtonEditLinkProps,

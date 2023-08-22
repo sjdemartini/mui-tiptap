@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 import { HexAlphaColorPicker, HexColorPicker } from "react-colorful";
 import { makeStyles } from "tss-react/mui";
 import { colorToHex as colorToHexDefault } from "../utils/color";
-import ColorSwatchButton from "./ColorSwatchButton";
+import { ColorSwatchButton } from "./ColorSwatchButton";
 
 export type ColorChangeSource = "gradient" | "text" | "swatch";
 
@@ -115,7 +115,7 @@ const useStyles = makeStyles({ name: { ColorPicker } })((theme) => ({
  * Component for the user to choose a color from a gradient-based hue/saturation
  * (and optionally alpha) color-picker or from the given swatch colors.
  */
-export default function ColorPicker({
+export function ColorPicker({
   value,
   onChange,
   swatchColors,
@@ -180,6 +180,8 @@ export default function ColorPicker({
         fullWidth
       />
 
+      {/* TODO(Steven DeMartini): Add a way to indicate if a given swatch is the
+      currently selected color (e.g. showing a checkmark like Google Docs does) */}
       {swatchColorObjects.length > 0 && (
         <div className={classes.swatchContainer}>
           {swatchColorObjects.map((swatchColor) => (
