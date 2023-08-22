@@ -43,6 +43,15 @@ export type ColorPickerProps = {
    * to a string in hex format (e.g. "#ff0000"). Should return null if the given
    * color cannot be parsed as valid.
    *
+   * Needed to ensure that the hue/saturation/alpha color picker can interpret
+   * the given color `value` (regardless of its format), and also used to
+   * parse/handle the user's text input.
+   *
+   * Examples:
+   *   "rgb(169, 79, 211)" -> "#a94fd3"
+   *   "#a94fd3" -> "#a94fd3"
+   *   "not a color" -> null
+   *
    * By default uses a wrapped version of @mui/material's `rgbToHex` function,
    * which supports input strings in these formats: hex like #000 and #00000000,
    * rgb(), rgba(), hsl(), hsla(), and color(). See
