@@ -24,6 +24,10 @@ export interface ColorSwatchButtonProps
   padding?: string | number;
 }
 
+/**
+ * Renders a button in the given color `value`, useful for showing and allowing
+ * selecting a color preset.
+ */
 export const ColorSwatchButton = forwardRef<
   ElementRef<"button">,
   ColorSwatchButtonProps
