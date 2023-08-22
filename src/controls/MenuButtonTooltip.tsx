@@ -73,19 +73,23 @@ export default function MenuButtonTooltip({
   return (
     <Tooltip
       title={
-        <div className={classes.titleContainer}>
-          <div className={classes.label}>{label}</div>
+        label || (shortcutKeys && shortcutKeys.length > 0) ? (
+          <div className={classes.titleContainer}>
+            <div className={classes.label}>{label}</div>
 
-          {shortcutKeys && shortcutKeys.length > 0 && (
-            <Typography variant="body2" component="div">
-              {shortcutKeys.map((shortcutKey, index) => (
-                <span className={classes.shortcutKey} key={index}>
-                  {shortcutKey === "mod" ? getModShortcutKey() : shortcutKey}
-                </span>
-              ))}
-            </Typography>
-          )}
-        </div>
+            {shortcutKeys && shortcutKeys.length > 0 && (
+              <Typography variant="body2" component="div">
+                {shortcutKeys.map((shortcutKey, index) => (
+                  <span className={classes.shortcutKey} key={index}>
+                    {shortcutKey === "mod" ? getModShortcutKey() : shortcutKey}
+                  </span>
+                ))}
+              </Typography>
+            )}
+          </div>
+        ) : (
+          ""
+        )
       }
       placement={placement}
       arrow
