@@ -4,9 +4,12 @@ import {
   type ElementRef,
 } from "react";
 import { makeStyles } from "tss-react/mui";
+import type { Except } from "type-fest";
 
 export interface ColorSwatchButtonProps
-  extends ComponentPropsWithoutRef<"button"> {
+  // Omit the default "color" prop so that it can't be confused for the `value`
+  // prop
+  extends Except<ComponentPropsWithoutRef<"button">, "color"> {
   /**
    * What color is shown with this swatch. If not provided, shows a checkerboard
    * pattern, typically used as "not set" or "transparent".
