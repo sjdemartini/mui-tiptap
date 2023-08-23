@@ -11,12 +11,13 @@ import {
 import { useEffect, useState, type ReactNode } from "react";
 import { makeStyles } from "tss-react/mui";
 import type { Except } from "type-fest";
-import { MenuButton, Z_INDEXES, type MenuButtonProps } from "..";
+import { Z_INDEXES } from "../styles";
 import {
   ColorPicker,
   type ColorPickerProps,
   type SwatchColorOption,
 } from "./ColorPicker";
+import MenuButton, { type MenuButtonProps } from "./MenuButton";
 
 export interface MenuButtonColorPickerProps
   // Omit the default `color`, `value`, and `onChange` toggle button props so
