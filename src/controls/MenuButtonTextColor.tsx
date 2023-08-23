@@ -1,6 +1,6 @@
 /// <reference types="@tiptap/extension-color" />
 import { FormatColorText } from "@mui/icons-material";
-import { useRichTextEditorContext } from "..";
+import { useRichTextEditorContext } from "../context";
 import {
   MenuButtonColorPicker,
   type MenuButtonColorPickerProps,

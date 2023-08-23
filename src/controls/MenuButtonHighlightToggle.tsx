@@ -1,6 +1,7 @@
 /// <reference types="@tiptap/extension-highlight" />
 import { BorderColor } from "@mui/icons-material";
-import { MenuButton, useRichTextEditorContext, type MenuButtonProps } from "..";
+import { useRichTextEditorContext } from "../context";
+import MenuButton, { type MenuButtonProps } from "./MenuButton";
 
 export type MenuButtonHighlightToggleProps = Partial<MenuButtonProps>;
 
