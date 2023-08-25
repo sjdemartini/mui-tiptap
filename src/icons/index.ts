@@ -7,6 +7,7 @@ export { default as CodeBlock } from "./CodeBlock";
 export { default as DeleteColumn } from "./DeleteColumn";
 export { default as DeleteRow } from "./DeleteRow";
 export { default as FormatColorBar } from "./FormatColorBar";
+export { default as FormatColorFillNoBar } from "./FormatColorFillNoBar";
 export { default as FormatColorTextNoBar } from "./FormatColorTextNoBar";
 export { default as FormatInkHighlighter } from "./FormatInkHighlighter";
 export { default as FormatInkHighlighterNoBar } from "./FormatInkHighlighterNoBar";
