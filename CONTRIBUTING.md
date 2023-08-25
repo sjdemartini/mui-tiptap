@@ -24,6 +24,16 @@ This package uses Vite with Hot Module Replacement (HMR), so file edits should r
 
 To instead test a "built" version of this package which is installed into an "external" module, you can run `pnpm example`, which runs a server with the separate application in the `example/` directory.
 
+### Adding a new icon
+
+When the `@mui/icons-material` icon set is insufficient, it can be helpful to browse a larger set of free open-source icons and add what’s needed directly to `mui-tiptap`. This also avoids any additional third-party JS dependencies.
+
+1. Download an icon (e.g. from https://iconbuddy.app/svg-icons, which aggregates and organizes thousands of free icons from many separate icon libraries and sources)
+2. Create a new tsx file in `src/icons/`
+3. If icon edits or customizations are needed, https://yqnn.github.io/svg-path-editor/ and https://boxy-svg.com/app are handy free web-based tools. Typically you will want to work with and export in a "0 0 24 24" viewBox, since that is what MUI icons use by default.
+4. Copy the `<path>` from the downloaded SVG, and in the new TSX file, pass that as the argument to the `createSvgIcon` helper from `@mui/material`. (If there are multiple `<path>`s, put them within a React Fragment.)
+5. Export the icon component in that new file and in `src/icons/index.ts`.
+
 ## Releasing a new version (for maintainers)
 
 When a new version should be cut since some new changes have landed on the `main` branch, do the following to publish it:
