@@ -1,4 +1,5 @@
 export * from "./ColorPicker";
+export * from "./ColorPickerPopper";
 export * from "./ColorSwatchButton";
 export { default as MenuButton, type MenuButtonProps } from "./MenuButton";
 export {
