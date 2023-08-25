@@ -59,12 +59,12 @@ export default function MenuButtonHighlightColor({
         }
       }}
       disabled={!editor?.isEditable || !editor.can().toggleHighlight()}
+      {...menuButtonProps}
       labels={{
         removeColorButton: "None",
         removeColorButtonTooltipTitle: "Remove highlighting from this text",
         ...menuButtonProps.labels,
       }}
-      {...menuButtonProps}
     />
   );
 }
