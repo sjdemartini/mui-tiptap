@@ -5,6 +5,7 @@
 export { default as CodeBlock } from "./CodeBlock";
 export { default as DeleteColumn } from "./DeleteColumn";
 export { default as DeleteRow } from "./DeleteRow";
+export { default as FormatInkHighlighter } from "./FormatInkHighlighter";
 export { default as InsertColumnLeft } from "./InsertColumnLeft";
 export { default as InsertColumnRight } from "./InsertColumnRight";
 export { default as InsertRowBottom } from "./InsertRowBottom";
