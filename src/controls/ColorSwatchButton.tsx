@@ -1,3 +1,4 @@
+import { Check } from "@mui/icons-material";
 import {
   forwardRef,
   type ComponentPropsWithoutRef,
@@ -20,6 +21,11 @@ export interface ColorSwatchButtonProps
    * the button.
    */
   label?: string;
+  /**
+   * Whether this swatch color is the currently active color. If true, shows an
+   * overlaid checkmark as a visual indicator.
+   */
+  active?: boolean;
   /** If given, sets the padding between the color and the border of the swatch. */
   padding?: string | number;
 }
@@ -31,8 +37,8 @@ export interface ColorSwatchButtonProps
 export const ColorSwatchButton = forwardRef<
   ElementRef<"button">,
   ColorSwatchButtonProps
->(({ value: colorValue, label, padding, ...buttonProps }, ref) => {
-  const { classes, cx } = useStyles();
+>(({ value: colorValue, label, padding, active, ...buttonProps }, ref) => {
+  const { classes, cx, theme } = useStyles();
   return (
     <button
       ref={ref}
@@ -46,7 +52,19 @@ export const ColorSwatchButton = forwardRef<
         !colorValue && classes.colorNotSet,
         buttonProps.className
       )}
-    />
+    >
+      {active && (
+        <Check
+          fontSize="small"
+          className={classes.activeIcon}
+          style={{
+            color: colorValue
+              ? theme.palette.getContrastText(colorValue)
+              : undefined,
+          }}
+        />
+      )}
+    </button>
   );
 });
 
@@ -67,6 +85,12 @@ const useStyles = makeStyles({ name: { ColorSwatchButton } })((theme) => ({
     // user, it adds a gap between the color and the border.
     padding: 0,
     backgroundClip: "content-box",
+  },
+
+  activeIcon: {
+    height: "100%",
+    width: "80%",
+    verticalAlign: "middle",
   },
 
   colorNotSet: {
