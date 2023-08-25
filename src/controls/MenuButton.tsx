@@ -3,14 +3,15 @@ import {
   toggleButtonClasses,
   type ToggleButtonProps,
 } from "@mui/material";
-import type { RefObject } from "react";
+import type { ReactNode, RefObject } from "react";
 import { makeStyles } from "tss-react/mui";
 import type { Except, SetOptional } from "type-fest";
 import MenuButtonTooltip, {
   type MenuButtonTooltipProps,
 } from "./MenuButtonTooltip";
 
-export type MenuButtonProps = {
+export interface MenuButtonProps
+  extends SetOptional<Except<ToggleButtonProps, "ref" | "children">, "value"> {
   /**
    * The label that will be displayed in a tooltip when hovering. Also used as
    * the underlying ToggleButton `value` if a separate `value` prop is not
@@ -32,11 +33,19 @@ export type MenuButtonProps = {
    * https://tiptap.dev/api/keyboard-shortcuts.
    */
   tooltipShortcutKeys?: MenuButtonTooltipProps["shortcutKeys"];
-  /** The icon component to use for the button. Must accept a className. */
-  IconComponent: React.ElementType<{ className: string }>;
+  /**
+   * The icon component to use for the button, rendered as button `children` if
+   * provided. Must accept a className.
+   */
+  IconComponent?: React.ElementType<{ className: string }>;
+  /**
+   * Override the default button content instead of displaying the
+   * <IconComponent />.
+   */
+  children?: ReactNode;
   /** Attaches a `ref` to the ToggleButton's root button element. */
   buttonRef?: RefObject<HTMLButtonElement>;
-} & SetOptional<Except<ToggleButtonProps, "ref">, "value">;
+}
 
 export const MENU_BUTTON_FONT_SIZE_DEFAULT = "1.25rem";
 
@@ -64,6 +73,7 @@ export default function MenuButton({
   tooltipShortcutKeys,
   IconComponent,
   buttonRef,
+  children,
   ...toggleButtonProps
 }: MenuButtonProps) {
   const { classes } = useStyles();
@@ -79,7 +89,10 @@ export default function MenuButton({
           value={tooltipLabel}
           {...toggleButtonProps}
         >
-          <IconComponent className={classes.menuButtonIcon} />
+          {children ??
+            (IconComponent && (
+              <IconComponent className={classes.menuButtonIcon} />
+            ))}
         </ToggleButton>
       </MenuButtonTooltip>
     </span>
