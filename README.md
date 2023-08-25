@@ -264,7 +264,7 @@ Namely, this version of the extension, coupled with the `mui-tiptap` CSS styles 
 
 These controls components to help you quickly put together your menu bar, for each of the various Tiptap extensions you may want to use.
 
-You can override all props for these components (e.g. to change the icon, tooltip label, shortcut keys shown, `onClick` behavior, etc.). Or easily create controls for your own extensions and use-cases with the base `MenuButton` and `MenuSelect` components.
+You can override all props for these components (e.g. to change the `IconComponent`, `tooltipLabel`, `tooltipShortcutKeys` for which shortcut is shown, `onClick` behavior, etc.). Or easily create controls for your own extensions and use-cases with the base `MenuButton` and `MenuSelect` components.
 
 | Extension                                                                                                                          | `mui-tiptap` component(s)                                                                                                                                                                                                                                                |
 | ---------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |

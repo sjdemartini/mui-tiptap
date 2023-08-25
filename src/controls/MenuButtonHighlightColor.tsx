@@ -1,6 +1,6 @@
 /// <reference types="@tiptap/extension-highlight" />
 import { useRichTextEditorContext } from "../context";
-import { FormatInkHighlighter } from "../icons";
+import { FormatInkHighlighterNoBar } from "../icons";
 import {
   MenuButtonColorPicker,
   type MenuButtonColorPickerProps,
@@ -47,10 +47,7 @@ export default function MenuButtonHighlightColor({
     : "";
   return (
     <MenuButtonColorPicker
-      // TODO(Steven DeMartini): Add a custom icon component here that handles
-      // showing the "current" color in the bar below the pen (see
-      // MenuButtonTextColor comments for more details).
-      IconComponent={FormatInkHighlighter}
+      IconComponent={FormatInkHighlighterNoBar}
       tooltipLabel="Highlight color"
       tooltipShortcutKeys={["mod", "Shift", "H"]}
       value={currentHighlightColor}

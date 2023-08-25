@@ -1,6 +1,6 @@
 /// <reference types="@tiptap/extension-color" />
-import { FormatColorText } from "@mui/icons-material";
 import { useRichTextEditorContext } from "../context";
+import { FormatColorTextNoBar } from "../icons";
 import {
   MenuButtonColorPicker,
   type MenuButtonColorPickerProps,
@@ -18,7 +18,7 @@ export interface MenuButtonTextColorProps
 }
 
 export default function MenuButtonTextColor({
-  IconComponent = FormatColorText,
+  IconComponent = FormatColorTextNoBar,
   tooltipLabel = "Text color",
   defaultTextColor = "",
   ...menuButtonProps
@@ -30,16 +30,6 @@ export default function MenuButtonTextColor({
     | undefined;
   return (
     <MenuButtonColorPicker
-      // Ideally we'd show the current selected color in the lower bar of the
-      // icon (like Office, Google Docs, and other tools do), but this is
-      // relatively complicated to implement since the svg is all one path.
-      // (We'd presumably need to combine two SVGs here, one of which shows the
-      // color in the bar below, and one of which shows the "normal" icon
-      // uncolored above it excluding the bar.) We don't color the entire icon
-      // since it can make the icon invisible depending on the color chosen and
-      // user's background color.
-      // TODO(Steven DeMartini): Add a custom icon component here that handles a
-      // "current" color per the above
       IconComponent={IconComponent}
       tooltipLabel={tooltipLabel}
       // If the color is unset, we fall back to the default color
