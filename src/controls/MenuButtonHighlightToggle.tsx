@@ -1,6 +1,6 @@
 /// <reference types="@tiptap/extension-highlight" />
-import { BorderColor } from "@mui/icons-material";
 import { useRichTextEditorContext } from "../context";
+import { FormatInkHighlighter } from "../icons";
 import MenuButton, { type MenuButtonProps } from "./MenuButton";
 
 export type MenuButtonHighlightToggleProps = Partial<MenuButtonProps>;
@@ -21,9 +21,7 @@ export default function MenuButtonHighlightToggle({
   const editor = useRichTextEditorContext();
   return (
     <MenuButton
-      // Note that MUI does not expose a "highlight color" icon, so BorderColor
-      // is the next best option
-      IconComponent={BorderColor}
+      IconComponent={FormatInkHighlighter}
       tooltipLabel="Highlight"
       tooltipShortcutKeys={["mod", "Shift", "H"]}
       selected={editor?.isActive("highlight") ?? false}
