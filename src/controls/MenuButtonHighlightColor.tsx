@@ -1,6 +1,6 @@
 /// <reference types="@tiptap/extension-highlight" />
-import { BorderColor } from "@mui/icons-material";
 import { useRichTextEditorContext } from "../context";
+import { FormatInkHighlighter } from "../icons";
 import {
   MenuButtonColorPicker,
   type MenuButtonColorPickerProps,
@@ -50,9 +50,7 @@ export default function MenuButtonHighlightColor({
       // TODO(Steven DeMartini): Add a custom icon component here that handles
       // showing the "current" color in the bar below the pen (see
       // MenuButtonTextColor comments for more details).
-      // Note that MUI does not expose a "highlight color" icon, so BorderColor
-      // is the next best option
-      IconComponent={BorderColor}
+      IconComponent={FormatInkHighlighter}
       tooltipLabel="Highlight color"
       tooltipShortcutKeys={["mod", "Shift", "H"]}
       value={currentHighlightColor}
