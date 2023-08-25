@@ -152,6 +152,7 @@ export function ColorPicker({
     typeof swatchColor === "string" ? { value: swatchColor } : swatchColor
   );
 
+  const colorValueAsHex = colorToHex(value);
   return (
     <>
       {/* Fall back to black with the HexColorPickers if there isn't a (valid)
@@ -159,13 +160,13 @@ export function ColorPicker({
       be intuitive. */}
       {disableAlpha ? (
         <HexColorPicker
-          color={colorToHex(value) ?? "#000000"}
+          color={colorValueAsHex ?? "#000000"}
           onChange={(color) => onChange(color, "gradient")}
           className={classes.gradientPicker}
         />
       ) : (
         <HexAlphaColorPicker
-          color={colorToHex(value) ?? "#000000"}
+          color={colorValueAsHex ?? "#000000"}
           onChange={(color) => onChange(color, "gradient")}
           className={classes.gradientPicker}
         />
@@ -189,8 +190,6 @@ export function ColorPicker({
         fullWidth
       />
 
-      {/* TODO(Steven DeMartini): Add a way to indicate if a given swatch is the
-      currently selected color (e.g. showing a checkmark like Google Docs does) */}
       {swatchColorObjects.length > 0 && (
         <div className={classes.swatchContainer}>
           {swatchColorObjects.map((swatchColor) => (
@@ -199,6 +198,17 @@ export function ColorPicker({
               value={swatchColor.value}
               label={swatchColor.label}
               onClick={() => onChange(swatchColor.value ?? "", "swatch")}
+              // We'll show the swatch as active if this swatch color is naively
+              // equal to the current color, if this swatch is for "transparent"
+              // and no color is set, or if the color matches when parsing and
+              // converting both colors to hex.
+              active={
+                swatchColor.value == value ||
+                (!swatchColor.value && !value) ||
+                (!!swatchColor.value &&
+                  !!colorValueAsHex &&
+                  colorToHex(swatchColor.value) === colorValueAsHex)
+              }
             />
           ))}
         </div>
