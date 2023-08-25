@@ -36,6 +36,16 @@
       "import": "./dist/esm/icons/index.js"
     }
   },
+  "typesVersions": {
+    "*": {
+      "icons": [
+        "./dist/icons/index.d.ts"
+      ],
+      "*": [
+        "*"
+      ]
+    }
+  },
   "license": "MIT",
   "engines": {
     "pnpm": ">=8"
