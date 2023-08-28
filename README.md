@@ -107,7 +107,15 @@ The simplest way to render a rich text editor is to use the `RichTextEditor` com
 ```tsx
 import { Button } from "@mui/material";
 import StarterKit from "@tiptap/starter-kit";
-import { RichTextEditor, type RichTextEditorRef } from "mui-tiptap";
+import {
+  MenuButtonBold,
+  MenuButtonItalic,
+  MenuControlsContainer,
+  MenuDivider,
+  MenuSelectHeading,
+  RichTextEditor,
+  type RichTextEditorRef,
+} from "mui-tiptap";
 import { useRef } from "react";
 
 function App() {
