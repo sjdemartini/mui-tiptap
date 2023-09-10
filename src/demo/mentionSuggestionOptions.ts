@@ -1,7 +1,7 @@
 import type { MentionOptions } from "@tiptap/extension-mention";
 import { ReactRenderer } from "@tiptap/react";
 import tippy, { type Instance as TippyInstance } from "tippy.js";
-import MentionList, { type MentionListRef } from "./MentionList";
+import SuggestionList, { type SuggestionListRef } from "./SuggestionList";
 
 export type MentionSuggestion = {
   id: string;
@@ -80,12 +80,12 @@ export const mentionSuggestionOptions: MentionOptions["suggestion"] = {
     ),
 
   render: () => {
-    let component: ReactRenderer<MentionListRef> | undefined;
+    let component: ReactRenderer<SuggestionListRef> | undefined;
     let popup: TippyInstance | undefined;
 
     return {
       onStart: (props) => {
-        component = new ReactRenderer(MentionList, {
+        component = new ReactRenderer(SuggestionList, {
           props,
           editor: props.editor,
         });
