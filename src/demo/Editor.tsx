@@ -104,11 +104,15 @@ export default function Editor() {
         );
         if (pastedImageFiles.length > 0) {
           handleNewImageFiles(pastedImageFiles);
+          // Return true to mark the paste event as handled. This can for
+          // instance prevent redundant copies of the same image showing up,
+          // like if you right-click and copy an image from within the editor
+          // (in which case it will be added to the clipboard both as a file and
+          // as HTML, which Tiptap would otherwise separately parse.)
+          return true;
         }
 
-        // We return false here to allow the standard paste-handler to run as
-        // well. This allows users to paste content containing both image files
-        // *and* text or html content.
+        // We return false here to allow the standard paste-handler to run.
         return false;
       },
       [handleNewImageFiles]
