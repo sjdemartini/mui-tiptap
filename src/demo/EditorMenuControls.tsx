@@ -147,7 +147,7 @@ export default function EditorMenuControls() {
           // data directly into the editor content, though that can make the
           // editor content very large.
           files.map((file) => ({
-            url: URL.createObjectURL(file),
+            src: URL.createObjectURL(file),
             alt: file.name,
           }))
         }

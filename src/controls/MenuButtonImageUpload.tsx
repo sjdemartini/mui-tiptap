@@ -2,7 +2,7 @@ import type { Editor } from "@tiptap/core";
 import { useRef, type ComponentPropsWithoutRef } from "react";
 import type { SetOptional } from "type-fest";
 import { useRichTextEditorContext } from "../context";
-import { insertImages, type ImageAttributes } from "../utils";
+import { insertImages, type ImageNodeAttributes } from "../utils";
 import MenuButtonAddImage, {
   type MenuButtonAddImageProps,
 } from "./MenuButtonAddImage";
@@ -11,13 +11,13 @@ export interface MenuButtonImageUploadProps
   extends SetOptional<MenuButtonAddImageProps, "onClick"> {
   /**
    * Take an array of user-selected files to upload, and return an array of
-   * image file attributes. Typically will be an async function (i.e. will
+   * image node attributes. Typically will be an async function (i.e. will
    * return a promise) used to upload the files to a server and return URLs at
    * which the image files can be viewed subsequently.
    */
   onUploadFiles: (
     files: File[]
-  ) => ImageAttributes[] | Promise<ImageAttributes[]>;
+  ) => ImageNodeAttributes[] | Promise<ImageNodeAttributes[]>;
   /**
    * Handler called with the result from `onUploadFiles`, taking the uploaded
    * files and inserting them into the Tiptap content. If not provided, by
@@ -29,7 +29,7 @@ export interface MenuButtonImageUploadProps
     images,
     editor,
   }: {
-    images: ImageAttributes[];
+    images: ImageNodeAttributes[];
     editor: Editor | null;
   }) => void;
   /**
@@ -62,10 +62,10 @@ export default function MenuButtonImageUpload({
     if (!editor || editor.isDestroyed || files.length === 0) {
       return;
     }
-    const attributesForImageFiles = await onUploadFiles(Array.from(files));
+    const attributesForImages = await onUploadFiles(Array.from(files));
     insertImages({
       editor,
-      images: attributesForImageFiles,
+      images: attributesForImages,
     });
   };
 
