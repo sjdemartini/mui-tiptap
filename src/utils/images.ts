@@ -1,10 +1,14 @@
-import type { Editor } from "@tiptap/core";
+import type { Editor, JSONContent } from "@tiptap/core";
 
-export type ImageAttributes = {
+// See
+// https://github.com/ueberdosis/tiptap/blob/6cbc2d423391c950558721510c1b4c8614feb534/packages/extension-image/src/image.ts#L48-L58
+export type ImageNodeAttributes = {
   /** The URL at which this image can be served. Used as <img> `src`. */
-  url: string;
+  src: string;
   /** Alt text for the image. */
   alt?: string;
+  /** The `title` attribute when we render the image element. */
+  title?: string;
 };
 
 /**
@@ -24,7 +28,7 @@ export function insertImages({
   editor,
   insertPosition,
 }: {
-  images: ImageAttributes[];
+  images: ImageNodeAttributes[];
   editor: Editor | null;
   insertPosition?: number;
 }): void {
@@ -32,52 +36,24 @@ export function insertImages({
     return;
   }
 
-  // We'll replace the user's current selection (if there is any) as long as
-  // there wasn't a specific insert position given
-  let shouldReplace = insertPosition === undefined;
-  // Default to the user's current cursor position if the caller didn't
-  // provide an insertPosition
-  const currentInsertPosition = insertPosition ?? editor.state.selection.from;
+  const imageContentToInsert: JSONContent[] = images
+    .filter((imageAttrs) => !!imageAttrs.src)
+    .map((imageAttrs) => ({
+      type: editor.schema.nodes.image.name,
+      attrs: imageAttrs,
+    }));
 
   editor
     .chain()
-    // Insert the new images into the document!
-    .command(({ tr }) => {
-      // Since we add each image at the same cursor position, we'll insert
-      // them in reverse order so that the item added first will appear first
-      // in the document
-      images
-        .slice()
-        .reverse()
-        .forEach((image) => {
-          if (!image.url) {
-            return;
-          }
-          // Add a new image node for the new image
-          const node = editor.schema.nodes.image.create({
-            src: image.url,
-            alt: image.alt,
-          });
-
-          if (shouldReplace) {
-            tr.replaceSelectionWith(node);
-            // Once we've replaced the selection, all subsequent images
-            // should be inserted (not replaced) to allow multiple nodes to
-            // be added.
-            shouldReplace = false;
-          } else {
-            tr.insert(currentInsertPosition, node);
-          }
-        });
-
-      return true;
+    .command(({ commands }) => {
+      if (insertPosition == null) {
+        // We'll insert at and replace the user's current selection if there
+        // wasn't a specific insert position given
+        return commands.insertContent(imageContentToInsert);
+      } else {
+        return commands.insertContentAt(insertPosition, imageContentToInsert);
+      }
     })
-    // Select the last image node we inserted and re-focus the editor. (For
-    // instance, if the user dropped an image somewhere in the document that
-    // differed from their previous cursor position, our
-    // `currentInsertPosition` should reflect the desired drop location, and
-    // we'll keep them there when refocusing the editor.)
-    .setTextSelection(currentInsertPosition)
     .focus()
     .run();
 }

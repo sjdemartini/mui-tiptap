@@ -50,7 +50,7 @@ export default function Editor() {
       // large. You will probably want to use the same upload function here as
       // for the MenuButtonImageUpload `onUploadFiles` prop.
       const attributesForImageFiles = files.map((file) => ({
-        url: URL.createObjectURL(file),
+        src: URL.createObjectURL(file),
         alt: file.name,
       }));
 
