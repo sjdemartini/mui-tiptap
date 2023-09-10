@@ -1,6 +1,5 @@
 import { useTheme } from "@mui/material";
 import {
-  MenuButtonAddImage,
   MenuButtonAddTable,
   MenuButtonBlockquote,
   MenuButtonBold,
@@ -10,6 +9,7 @@ import {
   MenuButtonEditLink,
   MenuButtonHighlightColor,
   MenuButtonHorizontalRule,
+  MenuButtonImageUpload,
   MenuButtonIndent,
   MenuButtonItalic,
   MenuButtonOrderedList,
@@ -30,11 +30,9 @@ import {
   MenuSelectHeading,
   MenuSelectTextAlign,
   isTouchDevice,
-  useRichTextEditorContext,
 } from "../";
 
 export default function EditorMenuControls() {
-  const editor = useRichTextEditorContext();
   const theme = useTheme();
   return (
     <MenuControlsContainer>
@@ -139,14 +137,20 @@ export default function EditorMenuControls() {
 
       <MenuDivider />
 
-      <MenuButtonAddImage
-        onClick={() => {
-          const url = window.prompt("Image URL");
-
-          if (url) {
-            editor?.chain().focus().setImage({ src: url }).run();
-          }
-        }}
+      <MenuButtonImageUpload
+        onUploadFiles={(files) =>
+          // For the sake of a demo, we don't have a server to upload the file
+          // to, so we'll instead convert it to a local "temporary" object URL.
+          // (This will not persist properly in a production setting. You should
+          // instead upload the image files to your server, or perhaps convert
+          // the images to bas64 if you would like to encode the image data
+          // directly into the editor content, though that can make the editor
+          // content very large.)
+          files.map((file) => ({
+            url: URL.createObjectURL(file),
+            alt: file.name,
+          }))
+        }
       />
 
       <MenuDivider />
