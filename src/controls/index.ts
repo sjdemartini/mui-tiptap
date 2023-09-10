@@ -64,6 +64,10 @@ export {
   type MenuButtonHorizontalRuleProps,
 } from "./MenuButtonHorizontalRule";
 export {
+  default as MenuButtonImageUpload,
+  type MenuButtonImageUploadProps,
+} from "./MenuButtonImageUpload";
+export {
   default as MenuButtonIndent,
   type MenuButtonIndentProps,
 } from "./MenuButtonIndent";
