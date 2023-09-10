@@ -3,8 +3,8 @@ import type { SuggestionOptions, SuggestionProps } from "@tiptap/suggestion";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import type { MentionSuggestion } from "./mentionSuggestionOptions";
 
-export type MentionListRef = {
-  // For convenience using this MentionList from within the
+export type SuggestionListRef = {
+  // For convenience using this SuggestionList from within the
   // mentionSuggestionOptions, we'll match the signature of SuggestionOptions's
   // `onKeyDown` returned in its `render` function
   onKeyDown: NonNullable<
@@ -23,9 +23,9 @@ interface MentionNodeAttrs {
   label?: string | null;
 }
 
-export type MentionListProps = SuggestionProps<MentionSuggestion>;
+export type SuggestionListProps = SuggestionProps<MentionSuggestion>;
 
-const MentionList = forwardRef<MentionListRef, MentionListProps>(
+const SuggestionList = forwardRef<SuggestionListRef, SuggestionListProps>(
   (props, ref) => {
     const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -123,6 +123,6 @@ const MentionList = forwardRef<MentionListRef, MentionListProps>(
   }
 );
 
-MentionList.displayName = "MentionList";
+SuggestionList.displayName = "SuggestionList";
 
-export default MentionList;
+export default SuggestionList;
