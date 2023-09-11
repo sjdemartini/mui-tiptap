@@ -57,7 +57,7 @@ export default function Editor() {
       insertImages({
         images: attributesForImageFiles,
         editor: rteRef.current.editor,
-        insertPosition,
+        position: insertPosition,
       });
     },
     []
