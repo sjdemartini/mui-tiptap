@@ -63,6 +63,7 @@
   - [Choosing your editor `extensions`](#choosing-your-editor-extensions)
     - [Extension precedence and ordering](#extension-precedence-and-ordering)
     - [Other extension tips](#other-extension-tips)
+  - [Drag-and-drop and paste for images](#drag-and-drop-and-paste-for-images)
   - [Re-rendering `RichTextEditor` when `content` changes](#re-rendering-richtexteditor-when-content-changes)
 - [Contributing](#contributing)
 
@@ -487,6 +488,10 @@ Extensions that need to be higher precedence (for their keyboard shortcuts, etc.
   ```ts
   Code.extend({ excludes: "italic" });
   ```
+
+### Drag-and-drop and paste for images
+
+You can provide `editorProps` to the `RichTextEditor` component or `useEditor`, and provide the `handleDrop` and `handlePaste` options to add support for drag-and-drop and paste of image files, respectively. Check out the [mui-tiptap example](https://github.com/sjdemartini/mui-tiptap/blob/0da00f73f801c8d9c89b05f52c699573bc1e11b9/src/demo/Editor.tsx#L144-L147) of this in action. The mui-tiptap [`insertImages`](https://github.com/sjdemartini/mui-tiptap/blob/0da00f73f801c8d9c89b05f52c699573bc1e11b9/src/utils/images.ts#L14-L59) util is handy for this to take uploaded files and insert them into the editor content.
 
 ### Re-rendering `RichTextEditor` when `content` changes
 
