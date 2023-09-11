@@ -20,17 +20,17 @@ export type ImageNodeAttributes = {
  *
  * @param options.images The attributes of each image to insert
  * @param options.editor The Tiptap editor in which to insert
- * @param options.insertPosition The position at which to insert into the editor
+ * @param options.position The position at which to insert into the editor
  * content. If not given, uses the current editor caret/selection position.
  */
 export function insertImages({
   images,
   editor,
-  insertPosition,
+  position,
 }: {
   images: ImageNodeAttributes[];
   editor: Editor | null;
-  insertPosition?: number;
+  position?: number;
 }): void {
   if (!editor || editor.isDestroyed || images.length === 0) {
     return;
@@ -46,12 +46,12 @@ export function insertImages({
   editor
     .chain()
     .command(({ commands }) => {
-      if (insertPosition == null) {
+      if (position == null) {
         // We'll insert at and replace the user's current selection if there
         // wasn't a specific insert position given
         return commands.insertContent(imageContentToInsert);
       } else {
-        return commands.insertContentAt(insertPosition, imageContentToInsert);
+        return commands.insertContentAt(position, imageContentToInsert);
       }
     })
     .focus()
