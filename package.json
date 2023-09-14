@@ -66,7 +66,6 @@
     "lint": "eslint --ext .js,.jsx,.ts,.tsx src --fix",
     "lint:check": "eslint --ext .js,.jsx,.ts,.tsx src",
     "md-link:check": "markdown-link-check -v -p *.md -c .markdown-link-check-config.json",
-    "preinstall": "npx only-allow pnpm",
     "test": "vitest run",
     "test:watch": "vitest watch",
     "test:coverage": "vitest run --coverage",
