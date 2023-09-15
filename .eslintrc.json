@@ -103,7 +103,10 @@
             "message": "Please use specific module imports like \"lodash/foo\" instead of \"lodash\".",
             "allowTypeImports": true
           }
-        ]
+        ],
+        // Disallow imports of third-level MUI "private" paths per
+        // https://mui.com/material-ui/guides/minimizing-bundle-size/#option-one-use-path-imports
+        "patterns": ["@mui/*/*/*"]
       }
     ],
     "react/function-component-definition": "warn",
