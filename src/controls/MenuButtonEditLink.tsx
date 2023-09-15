@@ -1,4 +1,4 @@
-import { Link } from "@mui/icons-material";
+import Link from "@mui/icons-material/Link";
 import { useRef } from "react";
 import { useRichTextEditorContext } from "../context";
 import MenuButton, { type MenuButtonProps } from "./MenuButton";

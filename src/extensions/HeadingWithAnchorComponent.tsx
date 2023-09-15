@@ -1,4 +1,4 @@
-import { Link as LinkIcon } from "@mui/icons-material";
+import LinkIcon from "@mui/icons-material/Link";
 import {
   getText,
   getTextSerializersFromSchema,

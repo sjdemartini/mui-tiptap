@@ -1,5 +1,5 @@
 /// <reference types="@tiptap/extension-superscript" />
-import { Superscript } from "@mui/icons-material";
+import Superscript from "@mui/icons-material/Superscript";
 import { useRichTextEditorContext } from "../context";
 import MenuButton, { type MenuButtonProps } from "./MenuButton";
 

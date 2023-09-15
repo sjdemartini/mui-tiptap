@@ -1,4 +1,4 @@
-import { FormatSize } from "@mui/icons-material";
+import FormatSize from "@mui/icons-material/FormatSize";
 import { MenuItem } from "@mui/material";
 import type { Editor } from "@tiptap/core";
 import type { ReactNode } from "react";

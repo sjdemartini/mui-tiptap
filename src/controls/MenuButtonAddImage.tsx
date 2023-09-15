@@ -1,4 +1,4 @@
-import { AddPhotoAlternate } from "@mui/icons-material";
+import AddPhotoAlternate from "@mui/icons-material/AddPhotoAlternate";
 import type { SetRequired } from "type-fest";
 import { useRichTextEditorContext } from "../context";
 import MenuButton, { type MenuButtonProps } from "./MenuButton";

@@ -1,5 +1,5 @@
 /// <reference types="@tiptap/extension-strike" />
-import { StrikethroughS } from "@mui/icons-material";
+import StrikethroughS from "@mui/icons-material/StrikethroughS";
 import { useRichTextEditorContext } from "../context";
 import MenuButton, { type MenuButtonProps } from "./MenuButton";
 
