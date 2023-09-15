@@ -1,5 +1,5 @@
 /// <reference types="@tiptap/extension-code" />
-import { Code } from "@mui/icons-material";
+import Code from "@mui/icons-material/Code";
 import { useRichTextEditorContext } from "../context";
 import MenuButton, { type MenuButtonProps } from "./MenuButton";
 

@@ -1,4 +1,4 @@
-import { FormatIndentIncrease } from "@mui/icons-material";
+import FormatIndentIncrease from "@mui/icons-material/FormatIndentIncrease";
 import { useRichTextEditorContext } from "../context";
 import MenuButton, { type MenuButtonProps } from "./MenuButton";
 

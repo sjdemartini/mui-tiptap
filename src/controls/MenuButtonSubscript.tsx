@@ -1,5 +1,5 @@
 /// <reference types="@tiptap/extension-subscript" />
-import { Subscript } from "@mui/icons-material";
+import Subscript from "@mui/icons-material/Subscript";
 import { useRichTextEditorContext } from "../context";
 import MenuButton, { type MenuButtonProps } from "./MenuButton";
 

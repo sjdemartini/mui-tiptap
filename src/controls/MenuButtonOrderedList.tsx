@@ -1,5 +1,5 @@
 /// <reference types="@tiptap/extension-ordered-list" />
-import { FormatListNumbered } from "@mui/icons-material";
+import FormatListNumbered from "@mui/icons-material/FormatListNumbered";
 import { useRichTextEditorContext } from "../context";
 import MenuButton, { type MenuButtonProps } from "./MenuButton";
 
