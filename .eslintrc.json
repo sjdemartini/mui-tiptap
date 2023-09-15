@@ -102,11 +102,20 @@
             "name": "lodash",
             "message": "Please use specific module imports like \"lodash/foo\" instead of \"lodash\".",
             "allowTypeImports": true
+          },
+          {
+            "name": "@mui/icons-material",
+            "message": "Please use second-level default path imports rather than top-level named imports. See https://github.com/sjdemartini/mui-tiptap/issues/154"
           }
         ],
         // Disallow imports of third-level MUI "private" paths per
         // https://mui.com/material-ui/guides/minimizing-bundle-size/#option-one-use-path-imports
-        "patterns": ["@mui/*/*/*"]
+        "patterns": [
+          {
+            "group": ["@mui/*/*/*"],
+            "message": "Imports of third-level MUI \"private\" paths are not allowed per https://mui.com/material-ui/guides/minimizing-bundle-size/#option-one-use-path-imports"
+          }
+        ]
       }
     ],
     "react/function-component-definition": "warn",
