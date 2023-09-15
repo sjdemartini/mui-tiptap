@@ -1,6 +1,13 @@
 name: build-test
-# Run this any time there's a push, and allow this to be called from other workflows
-on: [push, workflow_call]
+
+# Run this for pushes to the main branch and for pull requests, and allow this
+# to be called from other workflows
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+  workflow_call:
+
 jobs:
   build_and_test:
     runs-on: ubuntu-latest
