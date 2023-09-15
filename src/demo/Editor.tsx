@@ -1,4 +1,6 @@
-import { Lock, LockOpen, TextFields } from "@mui/icons-material";
+import Lock from "@mui/icons-material/Lock";
+import LockOpen from "@mui/icons-material/LockOpen";
+import TextFields from "@mui/icons-material/TextFields";
 import { Box, Button, Stack, Typography } from "@mui/material";
 import type { EditorOptions } from "@tiptap/core";
 import { useCallback, useRef, useState } from "react";

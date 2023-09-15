@@ -1,5 +1,5 @@
 /// <reference types="@tiptap/extension-blockquote" />
-import { FormatQuote } from "@mui/icons-material";
+import FormatQuote from "@mui/icons-material/FormatQuote";
 import { useRichTextEditorContext } from "../context";
 import MenuButton, { type MenuButtonProps } from "./MenuButton";
 

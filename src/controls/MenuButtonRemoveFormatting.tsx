@@ -1,4 +1,4 @@
-import { FormatClear } from "@mui/icons-material";
+import FormatClear from "@mui/icons-material/FormatClear";
 import { useRichTextEditorContext } from "../context";
 import MenuButton, { type MenuButtonProps } from "./MenuButton";
 

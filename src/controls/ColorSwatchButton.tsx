@@ -1,4 +1,4 @@
-import { Check } from "@mui/icons-material";
+import Check from "@mui/icons-material/Check";
 import {
   forwardRef,
   type ComponentPropsWithoutRef,

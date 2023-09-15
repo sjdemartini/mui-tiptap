@@ -1,4 +1,5 @@
-import { FormatColorFill, GridOff } from "@mui/icons-material";
+import FormatColorFill from "@mui/icons-material/FormatColorFill";
+import GridOff from "@mui/icons-material/GridOff";
 import MenuDivider from "../MenuDivider";
 import { useRichTextEditorContext } from "../context";
 import {
