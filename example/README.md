@@ -1,1 +1,1 @@
-An "external" example application that installs and imports `mui-tiptap`.
+A simple "external" example application that installs and imports `mui-tiptap` (to test build/install nuances). For a more complete "kitchen sink" demo/example of `mui-tiptap`, see [`src/demo/`](../src/demo/) or the [CodeSandbox live demo](https://codesandbox.io/p/sandbox/mui-tiptap-demo-3zl2l6).
