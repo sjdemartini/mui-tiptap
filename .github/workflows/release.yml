@@ -11,6 +11,9 @@ jobs:
   # Then release to npm
   release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write # Needed for https://docs.npmjs.com/generating-provenance-statements
     strategy:
       matrix:
         node-version: [18]
@@ -46,6 +49,6 @@ jobs:
       # (https://gist.github.com/DarrenN/8c6a5b969481725a4413?permalink_comment_id=4156395#gistcomment-4156395)
       # to parse the version, then could regex for whether it's a pre-release or
       # not.
-      - run: npm publish
+      - run: npm publish --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
