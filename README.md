@@ -458,6 +458,8 @@ The `MenuButtonTextColor` and `MenuButtonHighlightColor` components also have a 
 
 Browse [the official Tiptap extensions](https://tiptap.dev/extensions), and check out [`mui-tiptap`’s additional extensions](#tiptap-extensions). The easiest way to get started is to install and use Tiptap’s [`StarterKit` extension](https://tiptap.dev/api/extensions/starter-kit), which bundles several common Tiptap extensions.
 
+To use an extension, you need to (1) install its package and (2) include the extension in the `extensions` array when instantiating your editor (either with `<RichTextEditor extensions={[]} />` or `useEditor({ extensions: [] })`).
+
 #### Extension precedence and ordering
 
 Extensions that need to be higher precedence (for their keyboard shortcuts, etc.) should come **later** in your extensions array. (See Tiptap's general notes on extension plugin precedence and ordering [here](https://github.com/ueberdosis/tiptap/issues/1547#issuecomment-890848888).) For example:
