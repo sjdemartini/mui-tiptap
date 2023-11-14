@@ -60,7 +60,7 @@ export type RichTextFieldProps = {
 };
 
 const richTextFieldClasses: RichTextFieldClasses = getUtilityClasses(
-  RichTextField.name,
+  "RichTextField",
   ["root", "standard", "outlined", "menuBar", "menuBarContent", "content"]
 );
 
