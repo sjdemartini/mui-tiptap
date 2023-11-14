@@ -90,7 +90,7 @@ export type ControlledBubbleMenuProps = {
 };
 
 const controlledBubbleMenuClasses: ControlledBubbleMenuClasses =
-  getUtilityClasses(ControlledBubbleMenu.name, ["root", "paper"]);
+  getUtilityClasses("ControlledBubbleMenu", ["root", "paper"]);
 
 const useStyles = makeStyles({ name: { ControlledBubbleMenu } })((theme) => ({
   root: {

@@ -16,7 +16,7 @@ export type RichTextContentProps = {
 };
 
 const richTextContentClasses: RichTextContentClasses = getUtilityClasses(
-  RichTextContent.name,
+  "RichTextContent",
   ["root", "readonly", "editable"]
 );
 

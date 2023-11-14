@@ -30,7 +30,7 @@ export type MenuBarProps = {
   classes?: Partial<MenuBarClasses>;
 };
 
-const menuBarClasses: MenuBarClasses = getUtilityClasses(MenuBar.name, [
+const menuBarClasses: MenuBarClasses = getUtilityClasses("MenuBar", [
   "root",
   "sticky",
   "nonSticky",

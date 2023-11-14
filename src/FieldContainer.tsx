@@ -22,7 +22,7 @@ export type FieldContainerProps = {
 };
 
 const fieldContainerClasses: FieldContainerClasses = getUtilityClasses(
-  FieldContainer.name,
+  "FieldContainer",
   ["root", "outlined", "standard", "focused", "disabled", "notchedOutline"]
 );
 

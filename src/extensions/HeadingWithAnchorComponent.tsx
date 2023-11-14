@@ -91,7 +91,7 @@ export type HeadingWithAnchorComponentClasses = ReturnType<
 >["classes"];
 
 const headingWithAnchorComponentClasses: HeadingWithAnchorComponentClasses =
-  getUtilityClasses(HeadingWithAnchorComponent.name, [
+  getUtilityClasses("HeadingWithAnchorComponent", [
     "root",
     "container",
     "link",
