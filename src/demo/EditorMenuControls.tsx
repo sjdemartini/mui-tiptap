@@ -29,6 +29,7 @@ import {
   MenuSelectFontSize,
   MenuSelectHeading,
   MenuSelectTextAlign,
+  MenuSelectCellStyle,
   isTouchDevice,
 } from "../";
 
@@ -167,6 +168,10 @@ export default function EditorMenuControls() {
 
       <MenuButtonUndo />
       <MenuButtonRedo />
+
+      <MenuDivider />
+
+      <MenuSelectCellStyle/>
     </MenuControlsContainer>
   );
 }

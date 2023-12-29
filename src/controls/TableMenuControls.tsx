@@ -16,6 +16,7 @@ import {
 } from "../icons";
 import MenuButton from "./MenuButton";
 import MenuControlsContainer from "./MenuControlsContainer";
+import MenuButtonTableBorderStyle from './MenuSelectCellStyle';
 
 export type TableMenuControlsProps = {
   /** Class applied to the root controls container element. */
@@ -36,6 +37,7 @@ export type TableMenuControlsProps = {
     toggleHeaderRow?: string;
     toggleHeaderColumn?: string;
     toggleHeaderCell?: string;
+    borderStyle?: string;
     deleteTable?: string;
   };
 };
@@ -134,6 +136,10 @@ export default function TableMenuControls({
         disabled={!editor?.can().toggleHeaderCell()}
         selected={editor?.isActive("tableHeader") ?? false}
       />
+
+      <MenuDivider />
+
+      <MenuButtonTableBorderStyle/>
 
       <MenuDivider />
 

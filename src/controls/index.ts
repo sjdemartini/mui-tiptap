@@ -151,3 +151,7 @@ export {
   default as TableMenuControls,
   type TableMenuControlsProps,
 } from "./TableMenuControls";
+export {
+  default as MenuSelectCellStyle,
+  type MenuSelectCellStyleProps,
+} from "./MenuSelectCellStyle";
