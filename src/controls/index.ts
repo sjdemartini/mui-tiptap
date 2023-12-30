@@ -143,6 +143,10 @@ export {
   type MenuSelectHeadingProps,
 } from "./MenuSelectHeading";
 export {
+  default as MenuSelectTableBorderStyle,
+  type MenuSelectTableBorderStyleProps,
+} from "./MenuSelectTableBorderStyle";
+export {
   default as MenuSelectTextAlign,
   type MenuSelectTextAlignProps,
   type TextAlignSelectOption,
@@ -151,7 +155,3 @@ export {
   default as TableMenuControls,
   type TableMenuControlsProps,
 } from "./TableMenuControls";
-export {
-  default as MenuSelectCellStyle,
-  type MenuSelectCellStyleProps,
-} from "./MenuSelectCellStyle";

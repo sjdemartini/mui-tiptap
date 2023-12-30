@@ -37,8 +37,8 @@ import {
   HeadingWithAnchor,
   LinkBubbleMenuHandler,
   ResizableImage,
+  TableCellImproved,
   TableImproved,
-  TableCellImproved
 } from "../";
 import { mentionSuggestionOptions } from "./mentionSuggestionOptions";
 

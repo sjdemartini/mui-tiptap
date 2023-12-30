@@ -16,7 +16,7 @@ import {
 } from "../icons";
 import MenuButton from "./MenuButton";
 import MenuControlsContainer from "./MenuControlsContainer";
-import MenuButtonTableBorderStyle from './MenuSelectCellStyle';
+import MenuSelectTableBorderStyle from "./MenuSelectTableBorderStyle";
 
 export type TableMenuControlsProps = {
   /** Class applied to the root controls container element. */
@@ -139,7 +139,7 @@ export default function TableMenuControls({
 
       <MenuDivider />
 
-      <MenuButtonTableBorderStyle/>
+      <MenuSelectTableBorderStyle />
 
       <MenuDivider />
 

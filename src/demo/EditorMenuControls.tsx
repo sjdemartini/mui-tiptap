@@ -28,8 +28,8 @@ import {
   MenuSelectFontFamily,
   MenuSelectFontSize,
   MenuSelectHeading,
+  MenuSelectTableBorderStyle,
   MenuSelectTextAlign,
-  MenuSelectCellStyle,
   isTouchDevice,
 } from "../";
 
@@ -171,7 +171,7 @@ export default function EditorMenuControls() {
 
       <MenuDivider />
 
-      <MenuSelectCellStyle/>
+      <MenuSelectTableBorderStyle />
     </MenuControlsContainer>
   );
 }
