@@ -1,7 +1,6 @@
 import BorderStyle from "@mui/icons-material/BorderStyle";
-import { MenuItem, type SelectChangeEvent } from "@mui/material";
-import { useCallback } from "react";
-import { makeStyles } from "tss-react/mui";
+import * as React from "react";
+import ControlledBubbleMenu from "../ControlledBubbleMenu";
 import { useRichTextEditorContext } from "../context";
 import {
   BorderStyleDashed,
@@ -14,171 +13,180 @@ import {
   BorderStyleRidge,
   BorderStyleSolid,
 } from "../icons";
-import MenuButtonTooltip from "./MenuButtonTooltip";
+import MenuButton from "./MenuButton";
+import MenuControlsContainer from "./MenuControlsContainer";
 
-import type { Except } from "type-fest";
-import { MENU_BUTTON_FONT_SIZE_DEFAULT } from "./MenuButton";
-import MenuSelect, { type MenuSelectProps } from "./MenuSelect";
-
-export type BorderStyleSelectOption = {
-  value: string;
-  Component: React.ElementType<{
-    className: string;
-  }>;
-
-  label?: string;
+export type MenuSelectTableBorderStyleProps = {
+  labels?: {
+    borderStyle?: string;
+    solid?: string;
+    dashed?: string;
+    dotted?: string;
+    double?: string;
+    groove?: string;
+    ridge?: string;
+    inset?: string;
+    outset?: string;
+    none?: string;
+  };
+  className?: string;
 };
 
-export interface MenuSelectTableBorderStyleProps
-  extends Except<MenuSelectProps<string>, "children"> {
-  options?: BorderStyleSelectOption[];
-
-  emptyLabel?: React.ReactNode;
-}
-
-const useStyles = makeStyles({ name: { MenuSelectTableBorderStyle } })(
-  (theme) => ({
-    selectInput: {
-      width: MENU_BUTTON_FONT_SIZE_DEFAULT,
-    },
-
-    menuItem: {
-      paddingLeft: 0,
-      paddingRight: 0,
-    },
-
-    menuOption: {
-      display: "flex",
-      width: "100%",
-      justifyContent: "center",
-    },
-
-    menuButton: {
-      fontSize: MENU_BUTTON_FONT_SIZE_DEFAULT,
-
-      color: theme.palette.action.active,
-    },
-  })
-);
-
-const DEFAULT_STYLE_OPTIONS: BorderStyleSelectOption[] = [
-  {
-    value: "solid",
-    label: "Solid",
-    Component: BorderStyleSolid,
-  },
-  {
-    value: "dashed",
-    label: "Dashed",
-    Component: BorderStyleDashed,
-  },
-  {
-    value: "dotted",
-    label: "Dotted",
-    Component: BorderStyleDotted,
-  },
-  {
-    value: "double",
-    label: "Double",
-    Component: BorderStyleDouble,
-  },
-  {
-    value: "groove",
-    label: "Groove",
-    Component: BorderStyleGroove,
-  },
-  {
-    value: "ridge",
-    label: "Ridge",
-    Component: BorderStyleRidge,
-  },
-  {
-    value: "inset",
-    label: "Inset",
-    Component: BorderStyleInset,
-  },
-  {
-    value: "outset",
-    label: "Outset",
-    Component: BorderStyleOutset,
-  },
-  {
-    value: "none",
-    label: "None",
-    Component: BorderStyleNone,
-  },
-];
-
 export default function MenuSelectTableBorderStyle({
-  options = DEFAULT_STYLE_OPTIONS,
-  emptyLabel = <BorderStyle />,
-  ...menuSelectProps
+  labels,
+  className,
 }: MenuSelectTableBorderStyleProps) {
-  const { classes, cx } = useStyles();
   const editor = useRichTextEditorContext();
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
-  const handleStyleSelect: (event: SelectChangeEvent) => void = useCallback(
-    (event) => {
-      const style = event.target.value;
-      editor?.chain().focus().setCellAttribute("borderStyle", style).run();
-    },
-    [editor]
-  );
-
-  const selectedValue = (editor?.getAttributes("tableCell").borderStyle ??
-    "") as string;
+  if (!editor?.isEditable) {
+    return null;
+  }
 
   return (
-    <MenuSelect<string>
-      onChange={handleStyleSelect}
-      disabled={!editor?.isEditable}
-      renderValue={(value) => {
-        let content;
-        if (value) {
-          const styleOptionForValue = options.find(
-            (option) => option.value === value
-          );
-          content = styleOptionForValue ? (
-            <styleOptionForValue.Component className={classes.menuButton} />
-          ) : (
-            value
-          );
-        } else {
-          content = emptyLabel;
-        }
-        return <span className={classes.menuOption}>{content}</span>;
-      }}
-      aria-label="Border style"
-      tooltipTitle="Border style"
-      value={selectedValue}
-      displayEmpty
-      {...menuSelectProps}
-      inputProps={{
-        ...menuSelectProps.inputProps,
-        className: cx(
-          classes.selectInput,
-          menuSelectProps.inputProps?.className
-        ),
-      }}
-    >
-      {options.map((styleOption) => (
-        <MenuItem
-          key={styleOption.value}
-          value={styleOption.value}
-          disabled={
-            !editor?.can().setCellAttribute("borderStyle", styleOption.value)
-          }
-          className={classes.menuItem}
-        >
-          <MenuButtonTooltip
-            label={styleOption.label ?? ""}
-            placement="right"
-            contentWrapperClassName={classes.menuOption}
-          >
-            <styleOption.Component className={classes.menuButton} />
-          </MenuButtonTooltip>
-        </MenuItem>
-      ))}
-    </MenuSelect>
+    <>
+      <MenuButton
+        tooltipLabel={labels?.borderStyle ?? "Border style"}
+        IconComponent={BorderStyle}
+        onMouseOver={handleClick}
+        selected={open}
+        aria-haspopup="true"
+        aria-expanded={open ? "true" : undefined}
+        aria-controls={open ? "border-style-menu" : undefined}
+      />
+      <ControlledBubbleMenu
+        editor={editor}
+        anchorEl={anchorEl}
+        open={open}
+        placement="bottom-start"
+        onMouseLeave={handleClose}
+      >
+        <MenuControlsContainer className={className} direction="vertical">
+          <MenuButton
+            tooltipLabel={labels?.solid ?? "Solid"}
+            IconComponent={BorderStyleSolid}
+            onClick={() =>
+              editor
+                .chain()
+                .focus()
+                .setCellAttribute("borderStyle", "solid")
+                .run()
+            }
+            disabled={!editor.can().setCellAttribute("borderStyle", "solid")}
+          />
+
+          <MenuButton
+            tooltipLabel={labels?.dashed ?? "Dashed"}
+            IconComponent={BorderStyleDashed}
+            onClick={() =>
+              editor
+                .chain()
+                .focus()
+                .setCellAttribute("borderStyle", "dashed")
+                .run()
+            }
+            disabled={!editor.can().setCellAttribute("borderStyle", "dashed")}
+          />
+
+          <MenuButton
+            tooltipLabel={labels?.dotted ?? "Dotted"}
+            IconComponent={BorderStyleDotted}
+            onClick={() =>
+              editor
+                .chain()
+                .focus()
+                .setCellAttribute("borderStyle", "dotted")
+                .run()
+            }
+            disabled={!editor.can().setCellAttribute("borderStyle", "dotted")}
+          />
+
+          <MenuButton
+            tooltipLabel={labels?.double ?? "Double"}
+            IconComponent={BorderStyleDouble}
+            onClick={() =>
+              editor
+                .chain()
+                .focus()
+                .setCellAttribute("borderStyle", "double")
+                .run()
+            }
+            disabled={!editor.can().setCellAttribute("borderStyle", "double")}
+          />
+
+          <MenuButton
+            tooltipLabel={labels?.groove ?? "Groove"}
+            IconComponent={BorderStyleGroove}
+            onClick={() =>
+              editor
+                .chain()
+                .focus()
+                .setCellAttribute("borderStyle", "groove")
+                .run()
+            }
+            disabled={!editor.can().setCellAttribute("borderStyle", "groove")}
+          />
+
+          <MenuButton
+            tooltipLabel={labels?.ridge ?? "Ridge"}
+            IconComponent={BorderStyleRidge}
+            onClick={() =>
+              editor
+                .chain()
+                .focus()
+                .setCellAttribute("borderStyle", "ridge")
+                .run()
+            }
+            disabled={!editor.can().setCellAttribute("borderStyle", "ridge")}
+          />
+
+          <MenuButton
+            tooltipLabel={labels?.inset ?? "Inset"}
+            IconComponent={BorderStyleInset}
+            onClick={() =>
+              editor
+                .chain()
+                .focus()
+                .setCellAttribute("borderStyle", "inset")
+                .run()
+            }
+            disabled={!editor.can().setCellAttribute("borderStyle", "inset")}
+          />
+
+          <MenuButton
+            tooltipLabel={labels?.outset ?? "Outset"}
+            IconComponent={BorderStyleOutset}
+            onClick={() =>
+              editor
+                .chain()
+                .focus()
+                .setCellAttribute("borderStyle", "outset")
+                .run()
+            }
+            disabled={!editor.can().setCellAttribute("borderStyle", "outset")}
+          />
+
+          <MenuButton
+            tooltipLabel={labels?.none ?? "None"}
+            IconComponent={BorderStyleNone}
+            onClick={() =>
+              editor
+                .chain()
+                .focus()
+                .setCellAttribute("borderStyle", "none")
+                .run()
+            }
+            disabled={!editor.can().setCellAttribute("borderStyle", "none")}
+          />
+        </MenuControlsContainer>
+      </ControlledBubbleMenu>
+    </>
   );
 }

@@ -37,7 +37,6 @@ export type TableMenuControlsProps = {
     toggleHeaderRow?: string;
     toggleHeaderColumn?: string;
     toggleHeaderCell?: string;
-    borderStyle?: string;
     deleteTable?: string;
   };
 };

@@ -23,14 +23,18 @@ export type MenuControlsContainerProps = {
    * interval, if `debounced` is true.
    */
   DebounceProps?: Except<DebounceRenderProps, "children">;
+  direction?: "horizontal" | "vertical";
 };
 
-const useStyles = makeStyles({
+const useStyles = makeStyles<{
+  direction: MenuControlsContainerProps["direction"];
+}>({
   name: { MenuControlsContainer: MenuControlsContainer },
-})((theme) => {
+})((theme, { direction }) => {
   return {
     root: {
       display: "flex",
+      flexDirection: direction === "vertical" ? "column" : "row",
       rowGap: theme.spacing(0.3),
       columnGap: theme.spacing(0.3),
       alignItems: "center",
@@ -45,8 +49,9 @@ export default function MenuControlsContainer({
   className,
   debounced,
   DebounceProps,
+  direction = "horizontal",
 }: MenuControlsContainerProps) {
-  const { classes, cx } = useStyles();
+  const { classes, cx } = useStyles({ direction });
   const content = <div className={cx(classes.root, className)}>{children}</div>;
   return debounced ? (
     <DebounceRender {...DebounceProps}>{content}</DebounceRender>
