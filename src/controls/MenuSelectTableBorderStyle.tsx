@@ -148,8 +148,8 @@ export default function MenuSelectTableBorderStyle({
         }
         return <span className={classes.menuOption}>{content}</span>;
       }}
-      aria-label="Cell style"
-      tooltipTitle="Cell style"
+      aria-label="Border style"
+      tooltipTitle="Border style"
       value={selectedValue}
       displayEmpty
       {...menuSelectProps}
