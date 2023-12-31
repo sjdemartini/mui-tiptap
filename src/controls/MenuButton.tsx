@@ -18,6 +18,7 @@ export interface MenuButtonProps
    * included.
    */
   tooltipLabel: MenuButtonTooltipProps["label"];
+  tooltipPlacement?: MenuButtonTooltipProps["placement"];
   /**
    * (Optional) An array of the keyboard shortcut keys that trigger this action
    * will be displayed in a tooltip when hovering. If empty, no keyboard
@@ -70,6 +71,7 @@ const useStyles = makeStyles({ name: { MenuButton } })({
  */
 export default function MenuButton({
   tooltipLabel,
+  tooltipPlacement,
   tooltipShortcutKeys,
   IconComponent,
   buttonRef,
@@ -81,6 +83,7 @@ export default function MenuButton({
     <span className={classes.root}>
       <MenuButtonTooltip
         label={tooltipLabel}
+        placement={tooltipPlacement}
         shortcutKeys={tooltipShortcutKeys}
       >
         <ToggleButton
