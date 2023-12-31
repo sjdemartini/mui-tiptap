@@ -11,6 +11,9 @@ dependencies:
   lodash:
     specifier: ^4.17.21
     version: 4.17.21
+  prosemirror-utils:
+    specifier: 1.2.1-0
+    version: 1.2.1-0(prosemirror-model@1.19.2)(prosemirror-state@1.4.2)
   react-colorful:
     specifier: ^5.6.1
     version: 5.6.1(react-dom@18.2.0)(react@18.2.0)
@@ -4585,7 +4588,6 @@ packages:
 
   /orderedmap@2.1.0:
     resolution: {integrity: sha512-/pIFexOm6S70EPdznemIz3BQZoJ4VTFrhqzu0ACBqBgeLsLxq8e6Jim63ImIfwW/zAD1AlXpRMlOv3aghmo4dA==}
-    dev: true
 
   /p-limit@3.1.0:
     resolution: {integrity: sha512-TYOanM3wGwNGsZN2cVTYPArw454xnXj5qmWF1bEoAc4+cU/ol7GVh7odevjp1FNHduHc3KZMcFduxU5Xc6uJRQ==}
@@ -4855,7 +4857,6 @@ packages:
     resolution: {integrity: sha512-RXl0Waiss4YtJAUY3NzKH0xkJmsZupCIccqcIFoLTIKFlKNbIvFDRl27/kQy1FP8iUAxrjRRfIVvOebnnXJgqQ==}
     dependencies:
       orderedmap: 2.1.0
-    dev: true
 
   /prosemirror-schema-basic@1.2.2:
     resolution: {integrity: sha512-/dT4JFEGyO7QnNTe9UaKUhjDXbTNkiWTq/N4VpKaF79bBjSExVV2NXmJpcM7z/gD7mbqNjxbmWW5nf1iNSSGnw==}
@@ -4877,7 +4878,6 @@ packages:
       prosemirror-model: 1.19.2
       prosemirror-transform: 1.7.4
       prosemirror-view: 1.31.4
-    dev: true
 
   /prosemirror-tables@1.3.4:
     resolution: {integrity: sha512-z6uLSQ1BLC3rgbGwZmpfb+xkdvD7W/UOsURDfognZFYaTtc0gsk7u/t71Yijp2eLflVpffMk6X0u0+u+MMDvIw==}
@@ -4908,7 +4908,16 @@ packages:
     resolution: {integrity: sha512-GO38mvqJ2yeI0BbL5E1CdHcly032Dlfn9nHqlnCHqlNf9e9jZwJixxp6VRtOeDZ1uTDpDIziezMKbA41LpAx3A==}
     dependencies:
       prosemirror-model: 1.19.2
-    dev: true
+
+  /prosemirror-utils@1.2.1-0(prosemirror-model@1.19.2)(prosemirror-state@1.4.2):
+    resolution: {integrity: sha512-YJNjxSAFhV+w7/nKfLU4SJ0sYEHDJuaIvIxp6V1DgrVFSBBksnvHZTGPVmKGYEnbTqr0kG8HXqopNKPoQtT+3A==}
+    peerDependencies:
+      prosemirror-model: ^1.19.2
+      prosemirror-state: ^1.4.3
+    dependencies:
+      prosemirror-model: 1.19.2
+      prosemirror-state: 1.4.2
+    dev: false
 
   /prosemirror-view@1.31.4:
     resolution: {integrity: sha512-nJzH2LpYbonSTYFqQ1BUdEhbd1WPN/rp/K9T9qxBEYpgg3jK3BvEUCR45Ymc9IHpO0m3nBJwPm19RBxZdoBVuw==}
@@ -4916,7 +4925,6 @@ packages:
       prosemirror-model: 1.19.2
       prosemirror-state: 1.4.2
       prosemirror-transform: 1.7.4
-    dev: true
 
   /punycode@2.3.0:
     resolution: {integrity: sha512-rRV+zQD8tVFys26lAGR9WUuS4iUAngJScM+ZRSKtvl5tKeZ2t5bvdNFdNHBW9FWR4guGHlgmsZ1G7BSm2wTbuA==}

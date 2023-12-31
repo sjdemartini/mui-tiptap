@@ -55,7 +55,7 @@ export default function MenuSelectTableBorderStyle({
       <MenuButton
         tooltipLabel={labels?.borderStyle ?? "Border style"}
         IconComponent={BorderStyle}
-        onMouseOver={handleClick}
+        onClick={handleClick}
         selected={open}
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
