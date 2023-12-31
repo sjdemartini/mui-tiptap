@@ -77,6 +77,7 @@ export default function MenuSelectTableBorderStyle({
                 .chain()
                 .focus()
                 .setCellAttribute("borderStyle", "solid")
+                .updateAttributes("tableHeader", { borderStyle: "solid" })
                 .run()
             }
             disabled={!editor.can().setCellAttribute("borderStyle", "solid")}
@@ -90,6 +91,7 @@ export default function MenuSelectTableBorderStyle({
                 .chain()
                 .focus()
                 .setCellAttribute("borderStyle", "dashed")
+                .updateAttributes("tableHeader", { borderStyle: "dashed" })
                 .run()
             }
             disabled={!editor.can().setCellAttribute("borderStyle", "dashed")}
@@ -103,6 +105,7 @@ export default function MenuSelectTableBorderStyle({
                 .chain()
                 .focus()
                 .setCellAttribute("borderStyle", "dotted")
+                .updateAttributes("tableHeader", { borderStyle: "dotted" })
                 .run()
             }
             disabled={!editor.can().setCellAttribute("borderStyle", "dotted")}
@@ -116,6 +119,7 @@ export default function MenuSelectTableBorderStyle({
                 .chain()
                 .focus()
                 .setCellAttribute("borderStyle", "double")
+                .updateAttributes("tableHeader", { borderStyle: "double" })
                 .run()
             }
             disabled={!editor.can().setCellAttribute("borderStyle", "double")}
@@ -129,6 +133,7 @@ export default function MenuSelectTableBorderStyle({
                 .chain()
                 .focus()
                 .setCellAttribute("borderStyle", "groove")
+                .updateAttributes("tableHeader", { borderStyle: "groove" })
                 .run()
             }
             disabled={!editor.can().setCellAttribute("borderStyle", "groove")}
@@ -142,6 +147,7 @@ export default function MenuSelectTableBorderStyle({
                 .chain()
                 .focus()
                 .setCellAttribute("borderStyle", "ridge")
+                .updateAttributes("tableHeader", { borderStyle: "ridge" })
                 .run()
             }
             disabled={!editor.can().setCellAttribute("borderStyle", "ridge")}
@@ -155,6 +161,7 @@ export default function MenuSelectTableBorderStyle({
                 .chain()
                 .focus()
                 .setCellAttribute("borderStyle", "inset")
+                .updateAttributes("tableHeader", { borderStyle: "inset" })
                 .run()
             }
             disabled={!editor.can().setCellAttribute("borderStyle", "inset")}
@@ -168,6 +175,7 @@ export default function MenuSelectTableBorderStyle({
                 .chain()
                 .focus()
                 .setCellAttribute("borderStyle", "outset")
+                .updateAttributes("tableHeader", { borderStyle: "outset" })
                 .run()
             }
             disabled={!editor.can().setCellAttribute("borderStyle", "outset")}
@@ -181,6 +189,7 @@ export default function MenuSelectTableBorderStyle({
                 .chain()
                 .focus()
                 .setCellAttribute("borderStyle", "none")
+                .updateAttributes("tableHeader", { borderStyle: "none" })
                 .run()
             }
             disabled={!editor.can().setCellAttribute("borderStyle", "none")}
