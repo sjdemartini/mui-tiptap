@@ -1,13 +1,16 @@
-import { createSvgIcon } from "@mui/material";
+import Box from "@mui/material/Box";
+import { MENU_BUTTON_FONT_SIZE_DEFAULT } from "../controls/MenuButton";
 
-const BorderStyleRidge = createSvgIcon(
-  <>
-    <path d="M10 20 H190" stroke="currentColor" />
-    <path d="M10 20 V120" stroke="currentColor" />
-    <path d="M190 20 V120" stroke="currentColor" />
-    <path d="M10 120 H190" stroke="currentColor" />
-  </>,
-  "BorderStyleRidge"
-);
+function BorderStyleRidge() {
+  return (
+    <Box
+      sx={(theme) => ({
+        border: `3px ridge ${theme.palette.text.primary}`,
+        width: MENU_BUTTON_FONT_SIZE_DEFAULT,
+        height: MENU_BUTTON_FONT_SIZE_DEFAULT,
+      })}
+    />
+  );
+}
 
 export default BorderStyleRidge;

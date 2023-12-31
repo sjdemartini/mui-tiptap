@@ -1,12 +1,16 @@
-import { createSvgIcon } from "@mui/material";
+import Box from "@mui/material/Box";
+import { MENU_BUTTON_FONT_SIZE_DEFAULT } from "../controls/MenuButton";
 
-const BorderStyleInset = createSvgIcon(
-  <>
-    <path d="M5 5 H95" stroke="currentColor" />
-    <path d="M10 6 H90" stroke="currentColor" />
-    <path d="M15 7 H85" stroke="currentColor" />
-  </>,
-  "BorderStyleInset"
-);
+function BorderStyleInset() {
+  return (
+    <Box
+      sx={(theme) => ({
+        border: `3px inset ${theme.palette.text.primary}`,
+        width: MENU_BUTTON_FONT_SIZE_DEFAULT,
+        height: MENU_BUTTON_FONT_SIZE_DEFAULT,
+      })}
+    />
+  );
+}
 
 export default BorderStyleInset;

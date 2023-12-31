@@ -1,9 +1,16 @@
-import { createSvgIcon } from "@mui/material";
+import Box from "@mui/material/Box";
+import { MENU_BUTTON_FONT_SIZE_DEFAULT } from "../controls/MenuButton";
 
-// From: https://www.svgrepo.com/svg/361697/border-solid
-const BorderStyleSolid = createSvgIcon(
-  <path d="M23 13H1v-2h22z" />,
-  "BorderStyleSolid"
-);
+function BorderStyleSolid() {
+  return (
+    <Box
+      sx={(theme) => ({
+        border: `3px solid ${theme.palette.text.primary}`,
+        width: MENU_BUTTON_FONT_SIZE_DEFAULT,
+        height: MENU_BUTTON_FONT_SIZE_DEFAULT,
+      })}
+    />
+  );
+}
 
 export default BorderStyleSolid;

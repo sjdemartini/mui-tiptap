@@ -1,8 +1,16 @@
-import { createSvgIcon } from "@mui/material";
+import Box from "@mui/material/Box";
+import { MENU_BUTTON_FONT_SIZE_DEFAULT } from "../controls/MenuButton";
 
-const BorderStyleDouble = createSvgIcon(
-  <path d="M17 6v1h-17v-1h17zM0 10h17v-1h-17v1z" />,
-  "BorderStyleDouble"
-);
+function BorderStyleDouble() {
+  return (
+    <Box
+      sx={(theme) => ({
+        border: `3px double ${theme.palette.text.primary}`,
+        width: MENU_BUTTON_FONT_SIZE_DEFAULT,
+        height: MENU_BUTTON_FONT_SIZE_DEFAULT,
+      })}
+    />
+  );
+}
 
 export default BorderStyleDouble;
