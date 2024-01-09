@@ -1,6 +1,6 @@
 import {
   ToggleButton,
-  toggleButtonClasses,
+  type ToggleButtonClasses,
   type ToggleButtonProps,
 } from "@mui/material";
 import type { ReactNode, RefObject } from "react";
@@ -11,7 +11,16 @@ import MenuButtonTooltip, {
 } from "./MenuButtonTooltip";
 
 export interface MenuButtonProps
-  extends SetOptional<Except<ToggleButtonProps, "ref" | "children">, "value"> {
+  extends SetOptional<
+    Except<ToggleButtonProps, "ref" | "children" | "classes">,
+    "value"
+  > {
+  /**
+   * Override or extend the styles applied to the component.
+   */
+  classes?: Partial<ToggleButtonClasses> & {
+    toggleButton?: string;
+  };
   /**
    * The label that will be displayed in a tooltip when hovering. Also used as
    * the underlying ToggleButton `value` if a separate `value` prop is not
@@ -50,12 +59,14 @@ export interface MenuButtonProps
 export const MENU_BUTTON_FONT_SIZE_DEFAULT = "1.25rem";
 
 const useStyles = makeStyles({ name: { MenuButton } })({
-  root: {
-    // Use && for additional specificity, since MUI's conditional "disabled"
-    // styles also set the border
-    [`&& .${toggleButtonClasses.root}`]: {
+  root: {},
+
+  toggleButton: {
+    border: "none",
+    padding: 5,
+
+    "&.Mui-disabled": {
       border: "none",
-      padding: 5,
     },
   },
 
@@ -69,6 +80,8 @@ const useStyles = makeStyles({ name: { MenuButton } })({
  * menu.
  */
 export default function MenuButton({
+  className,
+  classes: overrideClasses,
   tooltipLabel,
   tooltipShortcutKeys,
   IconComponent,
@@ -76,14 +89,16 @@ export default function MenuButton({
   children,
   ...toggleButtonProps
 }: MenuButtonProps) {
-  const { classes } = useStyles();
+  const { classes, cx } = useStyles();
   return (
-    <span className={classes.root}>
+    <span className={cx(classes.root, className)}>
       <MenuButtonTooltip
         label={tooltipLabel}
         shortcutKeys={tooltipShortcutKeys}
       >
         <ToggleButton
+          className={cx(classes.toggleButton, overrideClasses?.toggleButton)}
+          classes={overrideClasses}
           ref={buttonRef}
           size="small"
           value={tooltipLabel}
