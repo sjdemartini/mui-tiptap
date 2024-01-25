@@ -21,7 +21,7 @@
   },
   "[typescript][typescriptreact][javascript][javascriptreact]": {
     "editor.codeActionsOnSave": {
-      "source.fixAll.eslint": true
+      "source.fixAll.eslint": "explicit"
     },
     "editor.tabSize": 2
   },
