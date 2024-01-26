@@ -76,6 +76,7 @@
   "dependencies": {
     "encodeurl": "^1.0.2",
     "lodash": "^4.17.21",
+    "prosemirror-utils": "1.2.1-0",
     "react-colorful": "^5.6.1",
     "tss-react": "^4.8.3",
     "type-fest": "^3.12.0"
@@ -88,6 +89,8 @@
     "@tiptap/extension-heading": "^2.0.0-beta.210",
     "@tiptap/extension-image": "^2.0.0-beta.210",
     "@tiptap/extension-table": "^2.0.0-beta.210",
+    "@tiptap/extension-table-cell": "^2.0.0-beta.210",
+    "@tiptap/extension-table-header": "^2.0.4",
     "@tiptap/pm": "^2.0.0-beta.210",
     "@tiptap/react": "^2.0.0-beta.210",
     "react": "^16.8.0 || ^17.0.2 || ^18.0.0",

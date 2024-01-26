@@ -87,6 +87,7 @@ export type ControlledBubbleMenuProps = {
    * content.
    */
   PaperProps?: Partial<PaperProps>;
+  onMouseLeave?: (event: React.MouseEvent<HTMLElement>) => void;
 };
 
 const controlledBubbleMenuClasses: ControlledBubbleMenuClasses =
@@ -141,6 +142,7 @@ export default function ControlledBubbleMenu({
   ],
   flipPadding = 8,
   PaperProps,
+  onMouseLeave,
 }: ControlledBubbleMenuProps) {
   const { classes, cx } = useStyles(undefined, {
     props: { classes: overrideClasses },
@@ -222,6 +224,7 @@ export default function ControlledBubbleMenu({
       container={container}
       disablePortal={disablePortal}
       transition
+      onMouseLeave={onMouseLeave}
     >
       {({ TransitionProps }) => (
         <Fade
