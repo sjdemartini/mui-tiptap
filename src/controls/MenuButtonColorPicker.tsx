@@ -2,6 +2,7 @@ import type { PopperProps } from "@mui/material";
 import { useState, type ReactNode } from "react";
 import { makeStyles } from "tss-react/mui";
 import type { Except } from "type-fest";
+import { useRichTextEditorContext } from "../context";
 import { FormatColorBar } from "../icons";
 import type { ColorPickerProps, SwatchColorOption } from "./ColorPicker";
 import { ColorPickerPopper } from "./ColorPickerPopper";
@@ -99,16 +100,24 @@ export function MenuButtonColorPicker({
 }: MenuButtonColorPickerProps) {
   const { classes, cx } = useStyles();
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+  const editor = useRichTextEditorContext();
 
   const handleClose = () => setAnchorEl(null);
 
   const { IconComponent, children, ...otherMenuButtonProps } = menuButtonProps;
+  console.log({ commands: editor?.commands });
 
   return (
     <>
       <MenuButton
-        onClick={(e) =>
-          anchorEl ? handleClose() : setAnchorEl(e.currentTarget)
+        onClick={
+          (e) => {
+            editor?.commands.openColorPickerBubbleMenu({
+              anchorEl,
+              placement: "bottom",
+            });
+          }
+          // anchorEl ? handleClose() : setAnchorEl(e.currentTarget)
         }
         aria-describedby={popperId}
         {...otherMenuButtonProps}

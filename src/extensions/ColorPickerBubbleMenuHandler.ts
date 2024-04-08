@@ -1,0 +1,194 @@
+import { Extension } from "@tiptap/core";
+import { Plugin, PluginKey } from "@tiptap/pm/state";
+import type { ColorPickerBubbleMenuProps } from "../ColorPickerBubbleMenu";
+
+declare module "@tiptap/core" {
+  interface Commands<ReturnType> {
+    colorPickerBubbleMenu: {
+      openColorPickerBubbleMenu: (
+        options?: Partial<ColorPickerBubbleMenuProps>
+      ) => ReturnType;
+
+      closeColorPickerBubbleMenu: () => ReturnType;
+    };
+  }
+}
+
+export type ColorPickerBubbleMenuHandlerStorage = {
+  state: boolean;
+  bubbleMenuOptions: Partial<ColorPickerBubbleMenuProps> | undefined;
+};
+
+/* The Tiptap Color extension (@tiptap/extension-color, @tiptap/extension-highlight) should also be installed
+ * and included in your extensions when using ColorPickerBubbleMenuHandler:
+ */
+const ColorPickerBubbleMenuHandler = Extension.create<
+  undefined,
+  ColorPickerBubbleMenuHandlerStorage
+>({
+  name: "colorPickerBubbleMenuHandler",
+
+  addStorage() {
+    return {
+      state: false,
+      bubbleMenuOptions: undefined,
+    };
+  },
+
+  addCommands() {
+    return {
+      openColorPickerBubbleMenu:
+        (bubbleMenuOptions = {}) =>
+        ({ editor, chain, dispatch }) => {
+          // let newMenuState: LinkMenuState;
+          // if (editor.isActive("link")) {
+          //   // If their cursor is currently on a link, we'll open the link menu to
+          //   // view the details.
+          //   if (currentMenuState !== LinkMenuState.VIEW_LINK_DETAILS) {
+          //     // If the user isn't already in the "View Link Details" menu, we'll first
+          //     // change the selection to encompass the entire link to make it obvious which
+          //     // link is being edited and what text it includes. We also focus in case the
+          //     // user clicked the Link menu button (so we re-focus on the editor).
+
+          //     // NOTE: there is a bug in Tiptap where `extendMarkRange` will not
+          //     // work despite `isActive("link")` having returning true if the
+          //     // click/cursor is at the end of a link
+          //     // https://github.com/ueberdosis/tiptap/issues/2535. This leads to
+          //     // confusing behavior and should probably be handled with a workaround
+          //     // (like checking whether `extendMarkRange` had any effect) so that we
+          //     // don't open the link menu unless we know we've selected the entire
+          //     // link.
+          //     chain().extendMarkRange("link").focus().run();
+          //   }
+
+          //   newMenuState = LinkMenuState.VIEW_LINK_DETAILS;
+          // } else {
+          //   // Otherwise open the edit link menu for the user to add a new link
+          //   newMenuState = LinkMenuState.EDIT_LINK;
+          // }
+
+          // if (dispatch) {
+          //   // Only change the state if this is not a dry-run
+          //   // https://tiptap.dev/api/commands#dry-run-for-commands. Note that
+          //   // this happens automatically for the Tiptap built-in commands
+          //   // called with `chain()` above.
+          //   this.storage.state = newMenuState;
+          //   this.storage.bubbleMenuOptions = bubbleMenuOptions;
+          // }
+
+          this.storage.state = true;
+          this.storage.bubbleMenuOptions = bubbleMenuOptions;
+
+          return true;
+        },
+
+      // editLinkInBubbleMenu:
+      //   () =>
+      //   ({ dispatch }) => {
+      //     const currentMenuState = this.storage.state;
+      //     const newMenuState = LinkMenuState.EDIT_LINK;
+      //     if (currentMenuState === newMenuState) {
+      //       return false;
+      //     }
+
+      //     if (dispatch) {
+      //       // Only change the state if this is not a dry-run
+      //       // https://tiptap.dev/api/commands#dry-run-for-commands.
+      //       this.storage.state = newMenuState;
+      //     }
+
+      //     return true;
+      //   },
+
+      closeColorPickerBubbleMenu:
+        () =>
+        ({ commands, dispatch }) => {
+          // const currentMenuState = this.storage.state;
+          // if (currentMenuState === LinkMenuState.HIDDEN) {
+          //   return false;
+          // }
+
+          // Re-focus on the editor (e.g. for re-selection) since the user was
+          // previously editing and has now canceled
+          commands.focus();
+
+          if (dispatch) {
+            // Only change the state if this is not a dry-run
+            // https://tiptap.dev/api/commands#dry-run-for-commands. Note that
+            // this happens automatically for the Tiptap built-in commands
+            // called with `commands` above.
+            this.storage.state = false;
+          }
+
+          return true;
+        },
+    };
+  },
+
+  onSelectionUpdate() {
+    console.log("onSelectionUpdate");
+    // To ensure we maintain the proper bubble menu state, if someone is
+    // viewing/editing a link but moves off of it (e.g. with their keyboard
+    // arrow keys, or by clicking out, or by typing over the currently selected
+    // link), we'll close the bubble menu. Note that when in "view" mode (and
+    // not "edit") for an existing link, we only close if the state shows the
+    // user is not on an active link anymore, since the selection can be updated
+    // via `openLinkBubbleMenu` (and we don't want to immediately close it upon
+    // initial opening of the bubble menu). By contrast in "edit" mode, the
+    // user's focus should be in the edit form and selection shouldn't
+    // automatically update during opening or otherwise, so clicking out (i.e.
+    // changing selection) definitively indicates cancellation.
+    // onSelectionUpdate runs before handleClick, so we need to promptly close
+    // in that scenario.
+    // if (this.storage.state === LinkMenuState.EDIT_LINK) {
+    //   this.editor.commands.closeLinkBubbleMenu();
+    // } else if (
+    //   this.storage.state === LinkMenuState.VIEW_LINK_DETAILS &&
+    //   !this.editor.isActive("link")
+    // ) {
+    //   this.editor.commands.closeLinkBubbleMenu();
+    // }
+  },
+
+  addKeyboardShortcuts() {
+    return {
+      "Mod-Shift-u": () => {
+        this.editor.commands.openLinkBubbleMenu();
+        return true;
+      },
+    };
+  },
+
+  addProseMirrorPlugins() {
+    return [
+      new Plugin({
+        key: new PluginKey("handleClickLinkForMenu"),
+        props: {
+          handleClick: (view, pos, event) => {
+            console.log("addProseMirrorPlugins clickHandler");
+            // const attrs = getAttributes(view.state, "link");
+            // const link = (event.target as HTMLElement).closest("a");
+            // If the user has clicked on a link and the menu isn't already
+            // open, we'll open it. Otherwise we close it. (Closing the menu if
+            // it's already open allows a user to put their cursor at a specific
+            // point within the link text and implicitly close the bubble menu,
+            // like the Slack UI does, if they don't want to use the bubble menu
+            // but instead want to use regular cursor/keyboard interaction with
+            // the link text.)
+            if (this.storage.state) {
+              this.editor.commands.openColorPickerBubbleMenu();
+            } else {
+              this.editor.commands.closeColorPickerBubbleMenu();
+            }
+            // Return false so that the click still propagates to any other
+            // handlers, without `preventDefault` (see note on boolean return
+            // values here https://prosemirror.net/docs/ref/#view.EditorProps)
+            return false;
+          },
+        },
+      }),
+    ];
+  },
+});
+
+export default ColorPickerBubbleMenuHandler;

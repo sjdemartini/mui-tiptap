@@ -1,4 +1,8 @@
 export {
+  default as ColorPickerBubbleMenuHandler,
+  type ColorPickerBubbleMenuHandlerStorage,
+} from "./ColorPickerBubbleMenuHandler";
+export {
   default as FontSize,
   type FontSizeAttrs,
   type FontSizeOptions,

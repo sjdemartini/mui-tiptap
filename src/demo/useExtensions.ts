@@ -40,6 +40,7 @@ import {
   ResizableImage,
   TableImproved,
 } from "../";
+import ColorPickerBubbleMenuHandler from "../extensions/ColorPickerBubbleMenuHandler";
 import { mentionSuggestionOptions } from "./mentionSuggestionOptions";
 
 export type UseExtensionsOptions = {
@@ -148,6 +149,7 @@ export default function useExtensions({
         openOnClick: false,
       }),
       LinkBubbleMenuHandler,
+      ColorPickerBubbleMenuHandler,
 
       // Extensions
       Gapcursor,

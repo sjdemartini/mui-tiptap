@@ -1,4 +1,8 @@
 export {
+  default as ColorPickerBubbleMenu,
+  type ColorPickerBubbleMenuProps,
+} from "./ColorPickerBubbleMenu";
+export {
   default as ControlledBubbleMenu,
   type ControlledBubbleMenuProps,
 } from "./ControlledBubbleMenu";

@@ -13,6 +13,7 @@ import {
   insertImages,
   type RichTextEditorRef,
 } from "../";
+import ColorPickerBubbleMenu from "../ColorPickerBubbleMenu";
 import EditorMenuControls from "./EditorMenuControls";
 import useExtensions from "./useExtensions";
 
@@ -215,6 +216,7 @@ export default function Editor() {
           {() => (
             <>
               <LinkBubbleMenu />
+              <ColorPickerBubbleMenu />
               <TableBubbleMenu />
             </>
           )}
