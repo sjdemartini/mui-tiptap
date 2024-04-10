@@ -1,54 +1,56 @@
 /// <reference types="@tiptap/extension-color" />
-import { useState } from "react";
-import { makeStyles } from "tss-react/mui";
+import type { Editor } from "@tiptap/core";
 import type { Except } from "type-fest";
 import ControlledBubbleMenu, {
   type ControlledBubbleMenuProps,
 } from "../ControlledBubbleMenu";
 import { useRichTextEditorContext } from "../context";
+import type {
+  ColorPickerProps,
+  SwatchColorOption,
+} from "../controls/ColorPicker";
 import { ColorPickerPopperBody } from "../controls/ColorPickerPopper";
-import { ColorPickerBubbleMenuHandlerStorage } from "../extensions/ColorPickerBubbleMenuHandler";
-// import {
-//   LinkMenuState,
-//   type LinkBubbleMenuHandlerStorage,
-// } from "../extensions/LinkBubbleMenuHandler";
-// import EditLinkMenuContent, {
-//   type EditLinkMenuContentProps,
-// } from "./EditLinkMenuContent";
-// import ViewLinkMenuContent, {
-//   type ViewLinkMenuContentProps,
-// } from "./ViewLinkMenuContent";
+import { ColorPickerMode } from "../controls/MenuButtonColorPicker";
+import type { ColorPickerBubbleMenuHandlerStorage } from "../extensions/ColorPickerBubbleMenuHandler";
+import { getAttributesForEachSelected } from "../utils";
 
 export interface ColorPickerBubbleMenuProps
   extends Partial<
     Except<ControlledBubbleMenuProps, "open" | "editor" | "children">
   > {
   /**
-   * Override the default text content/labels in this interface. For any value
-   * that is omitted in this object, it falls back to the default content.
+   * Provide default list of colors (must be valid CSS color strings) which
+   * are used to form buttons for color swatches.
    */
-  // labels?: ViewLinkMenuContentProps["labels"] &
-  //   EditLinkMenuContentProps["labels"];
-  whatever?: string;
+  swatchColors?: SwatchColorOption[];
+  /** Override the props for the color picker. */
+  ColorPickerProps?: Partial<ColorPickerProps>;
+  /**
+   * Used to indicate the default color of the text in the Tiptap editor, if no
+   * color has been set with the color extension (or if color has been *unset*
+   * with the extension). Typically should be set to the same value as the MUI
+   * `theme.palette.text.primary`.
+   */
+  defaultTextColor?: string;
+  mode?: ColorPickerMode;
 }
 
-const useStyles = makeStyles({ name: { ColorPickerBubbleMenu } })((theme) => ({
-  content: {
-    padding: theme.spacing(1.5, 2, 0.5),
-  },
-}));
+// Tiptap will return any textStyle attributes when calling
+// `getAttributes("textStyle")`, but here we care about `color`, so add more
+// explicit typing for that. Based on
+// https://github.com/ueberdosis/tiptap/blob/6cbc2d423391c950558721510c1b4c8614feb534/packages/extension-color/src/color.ts#L37-L51
+interface TextStyleAttrs extends ReturnType<Editor["getAttributes"]> {
+  color?: string | null;
+}
 
 /**
- * A component that renders a bubble menu when viewing, creating, or editing a
- * link. Requires the mui-tiptap LinkBubbleMenuHandler extension and Tiptap's
- * Link extension (@tiptap/extension-link, https://tiptap.dev/api/marks/link) to
- * both be included in your editor `extensions` array.
+ * A component that renders a bubble menu for color picker.
  *
- * Pairs well with the `<MenuButtonEditLink />` component.
+ * Pairs well with the `<MenuButtonTextColor />`, `<MenuButtonHighlightColor />` component.
  *
  * If you're using `RichTextEditor`, include this component via
  * `RichTextEditor`’s `children` render-prop. Otherwise, include the
- * `LinkBubbleMenu` as a child of the component where you call `useEditor` and
+ * `ColorPickerBubbleMenu` as a child of the component where you call `useEditor` and
  * render your `RichTextField` or `RichTextContent`. (The bubble menu itself
  * will be positioned appropriately no matter where you put it in your React
  * tree, as long as it is re-rendered whenever the Tiptap `editor` forces an
@@ -56,20 +58,20 @@ const useStyles = makeStyles({ name: { ColorPickerBubbleMenu } })((theme) => ({
  * `useEditor`).
  */
 export default function ColorPickerBubbleMenu({
+  swatchColors,
+  defaultTextColor = "",
+  ColorPickerProps,
   ...controlledBubbleMenuProps
 }: ColorPickerBubbleMenuProps) {
-  const { classes } = useStyles();
   const editor = useRichTextEditorContext();
-  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-  const handleClose = () => setAnchorEl(null);
 
   if (!editor?.isEditable) {
     return null;
   }
 
-  if (!("linkBubbleMenuHandler" in editor.storage)) {
+  if (!("colorPickerBubbleMenuHandler" in editor.storage)) {
     throw new Error(
-      "You must add the LinkBubbleMenuHandler extension to the useEditor `extensions` array in order to use this component!"
+      "You must add the ColorPickerBubbleMenuHandler extension to the useEditor `extensions` array in order to use this component!"
     );
   }
   const handlerStorage = editor.storage
@@ -78,71 +80,40 @@ export default function ColorPickerBubbleMenu({
   // Update the menu step if the bubble menu state has changed
   const menuState = handlerStorage.state;
 
-  // let linkMenuContent = null;
-  // if (menuState === LinkMenuState.VIEW_LINK_DETAILS) {
-  //   linkMenuContent = (
-  //     <ViewLinkMenuContent
-  //       editor={editor}
-  //       onCancel={editor.commands.closeLinkBubbleMenu}
-  //       onEdit={editor.commands.editLinkInBubbleMenu}
-  //       onRemove={() => {
-  //         // Remove the link and place the cursor at the end of the link (which
-  //         // requires "focus" to take effect)
-  //         editor
-  //           .chain()
-  //           .unsetLink()
-  //           .setTextSelection(editor.state.selection.to)
-  //           .focus()
-  //           .run();
-  //       }}
-  //       labels={labels}
-  //     />
-  //   );
-  // } else if (menuState === LinkMenuState.EDIT_LINK) {
-  //   linkMenuContent = (
-  //     <EditLinkMenuContent
-  //       editor={editor}
-  //       onCancel={editor.commands.closeLinkBubbleMenu}
-  //       onSave={({ text, link }) => {
-  //         editor
-  //           .chain()
-  //           // Make sure if we're updating a link, we update the link for the
-  //           // full link "mark"
-  //           .extendMarkRange("link")
-  //           // Update the link href and its text content
-  //           .insertContent({
-  //             type: "text",
-  //             marks: [
-  //               {
-  //                 type: "link",
-  //                 attrs: {
-  //                   href: link,
-  //                 },
-  //               },
-  //             ],
-  //             text: text,
-  //           })
-  //           // Note that as of "@tiptap/extension-link" 2.0.0-beta.37 when
-  //           // `autolink` is on (which we want), adding the link mark directly
-  //           // via `insertContent` above wasn't sufficient for the link mark to
-  //           // be applied (though specifying it above is still necessary), so we
-  //           // insert the content there and call `setLink` separately here.
-  //           // Unclear why this separate command is necessary, but it does the
-  //           // trick.
-  //           .setLink({
-  //             href: link,
-  //           })
-  //           // Place the cursor at the end of the link (which requires "focus"
-  //           // to take effect)
-  //           .focus()
-  //           .run();
+  // Determine if all of the selected content shares the same set color.
+  const allCurrentTextStyleAttrs: TextStyleAttrs[] = editor
+    ? getAttributesForEachSelected(editor.state, "textStyle")
+    : [];
+  const isTextStyleAppliedToEntireSelection = !!editor.isActive("textStyle");
+  const currentColors: string[] = allCurrentTextStyleAttrs.map(
+    // Treat any null/missing color as the default color
+    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+    (attrs) => attrs.color || defaultTextColor
+  );
+  if (!isTextStyleAppliedToEntireSelection) {
+    // If there is some selected content that does not have textStyle, we can
+    // treat it the same as a selected textStyle mark with color set to the
+    // default
+    currentColors.push(defaultTextColor);
+  }
+  const numUniqueCurrentColors = new Set(currentColors).size;
 
-  //         editor.commands.closeLinkBubbleMenu();
-  //       }}
-  //       labels={labels}
-  //     />
-  //   );
-  // }
+  let currentColor;
+  if (numUniqueCurrentColors === 1) {
+    // There's exactly one color in the selected content, so show that
+    currentColor = currentColors[0];
+  } else if (numUniqueCurrentColors > 1) {
+    // There are multiple colors (either explicitly, or because some of the
+    // selection has a color set and some does not and is using the default
+    // color). Similar to other rich text editors like Google Docs, we'll treat
+    // this as "unset" and not show a color indicator in the button or a
+    // "current" color when interacting with the color picker.
+    currentColor = "";
+  } else {
+    // Since no color was set anywhere in the selected content, we should show
+    // the default color
+    currentColor = defaultTextColor;
+  }
 
   return (
     <ControlledBubbleMenu
@@ -152,17 +123,23 @@ export default function ColorPickerBubbleMenu({
       {...controlledBubbleMenuProps}
     >
       <ColorPickerPopperBody
-        value={""}
+        value={currentColor}
         onSave={(newColor: string) => {
-          console.log("[ColorPickerBubbleMenu] Save");
+          if (handlerStorage.bubbleMenuOptions.mode === ColorPickerMode.Text) {
+            editor.chain().focus().setColor(newColor).run();
+          } else {
+            // Highlight
+            if (newColor) {
+              editor.chain().focus().setHighlight({ color: newColor }).run();
+            } else {
+              editor.chain().focus().unsetHighlight().run();
+            }
+          }
+          editor.commands.closeColorPickerBubbleMenu();
         }}
         onCancel={editor.commands.closeColorPickerBubbleMenu}
-        // value={value || ""}
-        // onSave={onSave}
-        // onCancel={onCancel}
-        // swatchColors={swatchColors}
-        // ColorPickerProps={ColorPickerProps}
-        // labels={labels}
+        swatchColors={swatchColors}
+        ColorPickerProps={ColorPickerProps}
       />
     </ControlledBubbleMenu>
   );

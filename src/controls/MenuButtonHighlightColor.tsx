@@ -2,6 +2,7 @@
 import { useRichTextEditorContext } from "../context";
 import { FormatInkHighlighterNoBar } from "../icons";
 import {
+  ColorPickerMode,
   MenuButtonColorPicker,
   type MenuButtonColorPickerProps,
 } from "./MenuButtonColorPicker";
@@ -66,6 +67,7 @@ export default function MenuButtonHighlightColor({
         removeColorButtonTooltipTitle: "Remove highlighting from this text",
         ...menuButtonProps.labels,
       }}
+      mode={ColorPickerMode.Highlight}
     />
   );
 }

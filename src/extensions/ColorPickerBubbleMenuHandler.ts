@@ -39,43 +39,7 @@ const ColorPickerBubbleMenuHandler = Extension.create<
     return {
       openColorPickerBubbleMenu:
         (bubbleMenuOptions = {}) =>
-        ({ editor, chain, dispatch }) => {
-          // let newMenuState: LinkMenuState;
-          // if (editor.isActive("link")) {
-          //   // If their cursor is currently on a link, we'll open the link menu to
-          //   // view the details.
-          //   if (currentMenuState !== LinkMenuState.VIEW_LINK_DETAILS) {
-          //     // If the user isn't already in the "View Link Details" menu, we'll first
-          //     // change the selection to encompass the entire link to make it obvious which
-          //     // link is being edited and what text it includes. We also focus in case the
-          //     // user clicked the Link menu button (so we re-focus on the editor).
-
-          //     // NOTE: there is a bug in Tiptap where `extendMarkRange` will not
-          //     // work despite `isActive("link")` having returning true if the
-          //     // click/cursor is at the end of a link
-          //     // https://github.com/ueberdosis/tiptap/issues/2535. This leads to
-          //     // confusing behavior and should probably be handled with a workaround
-          //     // (like checking whether `extendMarkRange` had any effect) so that we
-          //     // don't open the link menu unless we know we've selected the entire
-          //     // link.
-          //     chain().extendMarkRange("link").focus().run();
-          //   }
-
-          //   newMenuState = LinkMenuState.VIEW_LINK_DETAILS;
-          // } else {
-          //   // Otherwise open the edit link menu for the user to add a new link
-          //   newMenuState = LinkMenuState.EDIT_LINK;
-          // }
-
-          // if (dispatch) {
-          //   // Only change the state if this is not a dry-run
-          //   // https://tiptap.dev/api/commands#dry-run-for-commands. Note that
-          //   // this happens automatically for the Tiptap built-in commands
-          //   // called with `chain()` above.
-          //   this.storage.state = newMenuState;
-          //   this.storage.bubbleMenuOptions = bubbleMenuOptions;
-          // }
-
+        () => {
           this.storage.state = true;
           this.storage.bubbleMenuOptions = bubbleMenuOptions;
 

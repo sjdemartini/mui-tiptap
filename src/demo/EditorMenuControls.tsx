@@ -71,6 +71,7 @@ export default function EditorMenuControls() {
 
       <MenuButtonTextColor
         defaultTextColor={theme.palette.text.primary}
+        useWithBubbleMenu={true}
         swatchColors={[
           { value: "#000000", label: "Black" },
           { value: "#ffffff", label: "White" },
@@ -84,6 +85,7 @@ export default function EditorMenuControls() {
       />
 
       <MenuButtonHighlightColor
+        useWithBubbleMenu={true}
         swatchColors={[
           { value: "#595959", label: "Dark grey" },
           { value: "#dddddd", label: "Light grey" },

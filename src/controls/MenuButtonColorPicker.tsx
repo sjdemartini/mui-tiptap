@@ -11,6 +11,11 @@ import MenuButton, {
   type MenuButtonProps,
 } from "./MenuButton";
 
+export enum ColorPickerMode {
+  Text,
+  Highlight,
+}
+
 export interface MenuButtonColorPickerProps
   // Omit the default `color`, `value`, and `onChange` toggle button props so
   // that "color" can't be confused for the `value` prop, and so that we can use
@@ -71,6 +76,20 @@ export interface MenuButtonColorPickerProps
      */
     textFieldPlaceholder?: string;
   };
+
+  /**
+   * Used internally to set the intention of the color picker to either text coloring or highlight.
+   */
+  mode?: ColorPickerMode;
+
+  /**
+   * The `<MenuButtonTextColor />`, `<MenuButtonHighlightColor />` components can also
+   * be used with bubble menu, like the link. In case you need more control regarding
+   * where the color picker is rendered. For example, if you're using it inside a modal
+   * and the color picker renders in a layer below it, you can use `<ColorPickerBubbleMenu />`
+   * and pass the `container` prop to change the rendering parent.
+   */
+  useWithBubbleMenu?: boolean;
 }
 
 const useStyles = makeStyles({ name: { MenuButtonColorPicker } })((theme) => ({
@@ -96,6 +115,8 @@ export function MenuButtonColorPicker({
   popperId,
   PopperProps,
   ColorPickerProps,
+  mode,
+  useWithBubbleMenu,
   ...menuButtonProps
 }: MenuButtonColorPickerProps) {
   const { classes, cx } = useStyles();
@@ -105,20 +126,21 @@ export function MenuButtonColorPicker({
   const handleClose = () => setAnchorEl(null);
 
   const { IconComponent, children, ...otherMenuButtonProps } = menuButtonProps;
-  console.log({ commands: editor?.commands });
 
   return (
     <>
       <MenuButton
-        onClick={
-          (e) => {
+        onClick={(e) => {
+          if (useWithBubbleMenu) {
             editor?.commands.openColorPickerBubbleMenu({
               anchorEl,
               placement: "bottom",
+              mode,
             });
+          } else {
+            anchorEl ? handleClose() : setAnchorEl(e.currentTarget);
           }
-          // anchorEl ? handleClose() : setAnchorEl(e.currentTarget)
-        }
+        }}
         aria-describedby={popperId}
         {...otherMenuButtonProps}
       >

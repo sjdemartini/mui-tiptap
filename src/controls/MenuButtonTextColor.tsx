@@ -4,6 +4,7 @@ import { useRichTextEditorContext } from "../context";
 import { FormatColorTextNoBar } from "../icons";
 import { getAttributesForEachSelected } from "../utils";
 import {
+  ColorPickerMode,
   MenuButtonColorPicker,
   type MenuButtonColorPickerProps,
 } from "./MenuButtonColorPicker";
@@ -81,6 +82,7 @@ export default function MenuButtonTextColor({
       disabled={!editor?.isEditable || !editor.can().setColor("#000")}
       {...menuButtonProps}
       labels={{ removeColorButton: "Reset", ...menuButtonProps.labels }}
+      mode={ColorPickerMode.Text}
     />
   );
 }
