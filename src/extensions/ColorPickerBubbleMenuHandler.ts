@@ -1,5 +1,4 @@
 import { Extension } from "@tiptap/core";
-import { Plugin, PluginKey } from "@tiptap/pm/state";
 import type { ColorPickerBubbleMenuProps } from "../ColorPickerBubbleMenu";
 
 declare module "@tiptap/core" {
@@ -46,34 +45,9 @@ const ColorPickerBubbleMenuHandler = Extension.create<
           return true;
         },
 
-      // editLinkInBubbleMenu:
-      //   () =>
-      //   ({ dispatch }) => {
-      //     const currentMenuState = this.storage.state;
-      //     const newMenuState = LinkMenuState.EDIT_LINK;
-      //     if (currentMenuState === newMenuState) {
-      //       return false;
-      //     }
-
-      //     if (dispatch) {
-      //       // Only change the state if this is not a dry-run
-      //       // https://tiptap.dev/api/commands#dry-run-for-commands.
-      //       this.storage.state = newMenuState;
-      //     }
-
-      //     return true;
-      //   },
-
       closeColorPickerBubbleMenu:
         () =>
         ({ commands, dispatch }) => {
-          // const currentMenuState = this.storage.state;
-          // if (currentMenuState === LinkMenuState.HIDDEN) {
-          //   return false;
-          // }
-
-          // Re-focus on the editor (e.g. for re-selection) since the user was
-          // previously editing and has now canceled
           commands.focus();
 
           if (dispatch) {
@@ -87,71 +61,6 @@ const ColorPickerBubbleMenuHandler = Extension.create<
           return true;
         },
     };
-  },
-
-  onSelectionUpdate() {
-    console.log("onSelectionUpdate");
-    // To ensure we maintain the proper bubble menu state, if someone is
-    // viewing/editing a link but moves off of it (e.g. with their keyboard
-    // arrow keys, or by clicking out, or by typing over the currently selected
-    // link), we'll close the bubble menu. Note that when in "view" mode (and
-    // not "edit") for an existing link, we only close if the state shows the
-    // user is not on an active link anymore, since the selection can be updated
-    // via `openLinkBubbleMenu` (and we don't want to immediately close it upon
-    // initial opening of the bubble menu). By contrast in "edit" mode, the
-    // user's focus should be in the edit form and selection shouldn't
-    // automatically update during opening or otherwise, so clicking out (i.e.
-    // changing selection) definitively indicates cancellation.
-    // onSelectionUpdate runs before handleClick, so we need to promptly close
-    // in that scenario.
-    // if (this.storage.state === LinkMenuState.EDIT_LINK) {
-    //   this.editor.commands.closeLinkBubbleMenu();
-    // } else if (
-    //   this.storage.state === LinkMenuState.VIEW_LINK_DETAILS &&
-    //   !this.editor.isActive("link")
-    // ) {
-    //   this.editor.commands.closeLinkBubbleMenu();
-    // }
-  },
-
-  addKeyboardShortcuts() {
-    return {
-      "Mod-Shift-u": () => {
-        this.editor.commands.openLinkBubbleMenu();
-        return true;
-      },
-    };
-  },
-
-  addProseMirrorPlugins() {
-    return [
-      new Plugin({
-        key: new PluginKey("handleClickLinkForMenu"),
-        props: {
-          handleClick: (view, pos, event) => {
-            console.log("addProseMirrorPlugins clickHandler");
-            // const attrs = getAttributes(view.state, "link");
-            // const link = (event.target as HTMLElement).closest("a");
-            // If the user has clicked on a link and the menu isn't already
-            // open, we'll open it. Otherwise we close it. (Closing the menu if
-            // it's already open allows a user to put their cursor at a specific
-            // point within the link text and implicitly close the bubble menu,
-            // like the Slack UI does, if they don't want to use the bubble menu
-            // but instead want to use regular cursor/keyboard interaction with
-            // the link text.)
-            if (this.storage.state) {
-              this.editor.commands.openColorPickerBubbleMenu();
-            } else {
-              this.editor.commands.closeColorPickerBubbleMenu();
-            }
-            // Return false so that the click still propagates to any other
-            // handlers, without `preventDefault` (see note on boolean return
-            // values here https://prosemirror.net/docs/ref/#view.EditorProps)
-            return false;
-          },
-        },
-      }),
-    ];
   },
 });
 
