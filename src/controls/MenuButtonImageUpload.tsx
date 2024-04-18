@@ -2,7 +2,10 @@ import type { Editor } from "@tiptap/core";
 import { useRef, type ComponentPropsWithoutRef } from "react";
 import type { SetOptional } from "type-fest";
 import { useRichTextEditorContext } from "../context";
-import { insertImages, type ImageNodeAttributes } from "../utils";
+import {
+  insertImages as insertImagesDefault,
+  type ImageNodeAttributes,
+} from "../utils";
 import MenuButtonAddImage, {
   type MenuButtonAddImageProps,
 } from "./MenuButtonAddImage";
@@ -52,6 +55,7 @@ export interface MenuButtonImageUploadProps
 export default function MenuButtonImageUpload({
   onUploadFiles,
   inputProps,
+  insertImages = insertImagesDefault,
   ...props
 }: MenuButtonImageUploadProps) {
   const editor = useRichTextEditorContext();
