@@ -85,6 +85,8 @@ export default function MenuButtonImageUpload({
           if (event.target.files) {
             await handleAndInsertNewFiles(event.target.files);
           }
+
+          event.target.value = ""; // Clear the input so the same file can be re-uploaded
         }}
         style={{ display: "none" }} // Hide this input
         {...inputProps}
