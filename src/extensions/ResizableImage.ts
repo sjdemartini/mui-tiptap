@@ -144,7 +144,7 @@ const ResizableImage = Image.extend<ResizableImageOptions>({
 
   /**
    * By default, the Image extension supports markdown-like input rules for text entered
-   * in the editor, such as the string "![wat](http://placekitten.com/g/500)". We'll
+   * in the editor, such as the string "![wat](https://picsum.photos/600/400)". We'll
    * override the default implementation so that we can restrict which `src` values are
    * permitted.
    */
