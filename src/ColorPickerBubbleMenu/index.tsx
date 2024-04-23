@@ -125,7 +125,7 @@ export default function ColorPickerBubbleMenu({
       <ColorPickerPopperBody
         value={currentColor}
         onSave={(newColor: string) => {
-          if (handlerStorage.bubbleMenuOptions.mode === ColorPickerMode.Text) {
+          if (handlerStorage.bubbleMenuOptions?.mode === ColorPickerMode.Text) {
             editor.chain().focus().setColor(newColor).run();
           } else {
             // Highlight
