@@ -156,6 +156,7 @@ export default function MenuSelectHeading({
   );
 
   let selectedValue: HeadingOptionValue | "" = "";
+  let currentLevel: number | undefined;
   if (editor?.isActive("paragraph")) {
     selectedValue = HEADING_OPTION_VALUES.Paragraph;
   } else if (editor?.isActive("heading")) {
@@ -173,11 +174,12 @@ export default function MenuSelectHeading({
     // show the first of the selected nodes' levels and not allow changing all
     // selected to that heading level. See
     // https://github.com/ueberdosis/tiptap/issues/3481.)
-    const level = numCurrentNodeLevels === 1 ? currentNodeLevels[0] : undefined;
-    if (level && level in LEVEL_TO_HEADING_OPTION_VALUE) {
+    currentLevel =
+      numCurrentNodeLevels === 1 ? currentNodeLevels[0] : undefined;
+    if (currentLevel && currentLevel in LEVEL_TO_HEADING_OPTION_VALUE) {
       selectedValue =
         LEVEL_TO_HEADING_OPTION_VALUE[
-          level as keyof typeof LEVEL_TO_HEADING_OPTION_VALUE
+          currentLevel as keyof typeof LEVEL_TO_HEADING_OPTION_VALUE
         ];
     }
   }
@@ -185,7 +187,8 @@ export default function MenuSelectHeading({
   const isCurrentlyParagraphOrHeading = selectedValue !== "";
   const canSetParagraph = editor?.can().setParagraph();
   // We have to pass a level when running `can`, so this is just an arbitrary one
-  const canSetHeading = editor?.can().setHeading({ level: 1 });
+  const canSetHeading =
+    currentLevel === 1 || editor?.can().setHeading({ level: 1 });
 
   // Figure out which settings the user has enabled with the heading extension
   const enabledHeadingLevels: Set<Level> = useMemo(() => {
