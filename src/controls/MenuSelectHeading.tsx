@@ -187,6 +187,9 @@ export default function MenuSelectHeading({
   const isCurrentlyParagraphOrHeading = selectedValue !== "";
   const canSetParagraph = editor?.can().setParagraph();
   // We have to pass a level when running `can`, so this is just an arbitrary one
+  // And, we have to check `currentLevel` to prevent all other heading levels from
+  // being disabled when Heading 1 is selected.
+  // See https://github.com/sjdemartini/mui-tiptap/issues/197
   const canSetHeading =
     currentLevel === 1 || editor?.can().setHeading({ level: 1 });
 
