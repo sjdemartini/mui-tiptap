@@ -1,8 +1,8 @@
 /// <reference types="@tiptap/extension-highlight" />
 import { useRichTextEditorContext } from "../context";
 import { FormatInkHighlighterNoBar } from "../icons";
+import { ColorPickerMode } from "../utils/types";
 import {
-  ColorPickerMode,
   MenuButtonColorPicker,
   type MenuButtonColorPickerProps,
 } from "./MenuButtonColorPicker";

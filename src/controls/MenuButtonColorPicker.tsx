@@ -4,17 +4,13 @@ import { makeStyles } from "tss-react/mui";
 import type { Except } from "type-fest";
 import { useRichTextEditorContext } from "../context";
 import { FormatColorBar } from "../icons";
+import type { ColorPickerMode } from "../utils/types";
 import type { ColorPickerProps, SwatchColorOption } from "./ColorPicker";
 import { ColorPickerPopper } from "./ColorPickerPopper";
 import MenuButton, {
   MENU_BUTTON_FONT_SIZE_DEFAULT,
   type MenuButtonProps,
 } from "./MenuButton";
-
-export enum ColorPickerMode {
-  Text,
-  Highlight,
-}
 
 export interface MenuButtonColorPickerProps
   // Omit the default `color`, `value`, and `onChange` toggle button props so

@@ -10,9 +10,9 @@ import type {
   SwatchColorOption,
 } from "../controls/ColorPicker";
 import { ColorPickerPopperBody } from "../controls/ColorPickerPopper";
-import { ColorPickerMode } from "../controls/MenuButtonColorPicker";
 import type { ColorPickerBubbleMenuHandlerStorage } from "../extensions/ColorPickerBubbleMenuHandler";
 import { getAttributesForEachSelected } from "../utils";
+import { ColorPickerMode } from "../utils/types";
 
 export interface ColorPickerBubbleMenuProps
   extends Partial<
@@ -81,9 +81,8 @@ export default function ColorPickerBubbleMenu({
   const menuState = handlerStorage.state;
 
   // Determine if all of the selected content shares the same set color.
-  const allCurrentTextStyleAttrs: TextStyleAttrs[] = editor
-    ? getAttributesForEachSelected(editor.state, "textStyle")
-    : [];
+  const allCurrentTextStyleAttrs: TextStyleAttrs[] =
+    getAttributesForEachSelected(editor.state, "textStyle");
   const isTextStyleAppliedToEntireSelection = !!editor.isActive("textStyle");
   const currentColors: string[] = allCurrentTextStyleAttrs.map(
     // Treat any null/missing color as the default color
