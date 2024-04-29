@@ -10,7 +10,6 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { makeStyles } from "tss-react/mui";
-import { Z_INDEXES } from "../styles";
 import { ColorPicker } from "./ColorPicker";
 import type { MenuButtonColorPickerProps } from "./MenuButtonColorPicker";
 
@@ -106,14 +105,14 @@ export function ColorPickerPopperBody({
   );
 }
 
-const useStyles = makeStyles({ name: { ColorPickerPopper } })({
+const useStyles = makeStyles({ name: { ColorPickerPopper } })((theme) => ({
   root: {
-    zIndex: Z_INDEXES.BUBBLE_MENU,
+    zIndex: theme.zIndex.tooltip,
     // This width seems to work well to allow exactly 8 swatches, as well as the
     // default button content
     width: 235,
   },
-});
+}));
 
 /**
  * Renders the ColorPicker inside of a Popper interface, for use with the
