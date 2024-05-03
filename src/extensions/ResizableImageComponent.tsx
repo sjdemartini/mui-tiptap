@@ -4,6 +4,7 @@ import { NodeViewWrapper } from "@tiptap/react";
 import throttle from "lodash/throttle";
 import { useMemo, useRef } from "react";
 import { makeStyles } from "tss-react/mui";
+import type ResizableImage from "./ResizableImage";
 import { ResizableImageResizer } from "./ResizableImageResizer";
 
 // Based on
@@ -27,6 +28,7 @@ interface ResizableImageNode extends ProseMirrorNode {
 
 interface Props extends NodeViewProps {
   node: ResizableImageNode;
+  extension: typeof ResizableImage;
 }
 
 const IMAGE_MINIMUM_WIDTH_PIXELS = 15;
@@ -71,7 +73,8 @@ const useStyles = makeStyles({ name: { ResizableImageComponent } })(
   })
 );
 
-function ResizableImageComponent({ node, selected, updateAttributes }: Props) {
+function ResizableImageComponent(props: Props) {
+  const { node, selected, updateAttributes, extension } = props;
   const { classes, cx } = useStyles();
   const { attrs } = node;
 
@@ -200,6 +203,10 @@ function ResizableImageComponent({ node, selected, updateAttributes }: Props) {
             onResize={handleResize}
             className={classes.resizer}
           />
+        )}
+
+        {extension.options.childComponent && (
+          <extension.options.childComponent {...props} />
         )}
       </div>
     </NodeViewWrapper>
