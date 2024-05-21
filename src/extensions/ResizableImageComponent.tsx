@@ -128,6 +128,7 @@ function ResizableImageComponent(props: Props) {
     [updateAttributes]
   );
 
+  const ChildComponent = extension.options.ChildComponent;
   return (
     <NodeViewWrapper
       style={{
@@ -205,9 +206,7 @@ function ResizableImageComponent(props: Props) {
           />
         )}
 
-        {extension.options.childComponent && (
-          <extension.options.childComponent {...props} />
-        )}
+        {ChildComponent && <ChildComponent {...props} />}
       </div>
     </NodeViewWrapper>
   );

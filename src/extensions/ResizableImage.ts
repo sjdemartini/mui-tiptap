@@ -6,7 +6,6 @@ import {
 } from "@tiptap/core";
 import { Image, type ImageOptions } from "@tiptap/extension-image";
 import { ReactNodeViewRenderer } from "@tiptap/react";
-import type { FC } from "react";
 import ResizableImageComponent from "./ResizableImageComponent";
 
 export type ResizableImageOptions = ImageOptions & {
@@ -22,9 +21,11 @@ export type ResizableImageOptions = ImageOptions & {
   isAllowedImgSrc(src: string | null): boolean;
 
   /**
-   * Optional React component to pass in as a child component to ResizableImage.
+   * Optional React component to pass in as a child component to ResizableImage,
+   * as a sibling placed after the img element.
+   * This component will be rendered with the NodeViewProps passed from TipTap.
    */
-  childComponent?: FC<NodeViewProps>;
+  ChildComponent?: React.ElementType<NodeViewProps>;
 };
 
 /**
