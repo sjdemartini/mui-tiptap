@@ -2,6 +2,7 @@ import {
   InputRule,
   mergeAttributes,
   type ExtendedRegExpMatchArray,
+  type NodeViewProps,
 } from "@tiptap/core";
 import { Image, type ImageOptions } from "@tiptap/extension-image";
 import { ReactNodeViewRenderer } from "@tiptap/react";
@@ -18,6 +19,13 @@ export type ResizableImageOptions = ImageOptions & {
    * hostnames are allowed.
    */
   isAllowedImgSrc(src: string | null): boolean;
+
+  /**
+   * Optional React component to pass in as a child component to ResizableImage,
+   * as a sibling placed after the img element.
+   * This component will be rendered with the NodeViewProps passed from TipTap.
+   */
+  ChildComponent?: React.ElementType<NodeViewProps>;
 };
 
 /**
