@@ -2,7 +2,7 @@ import type { NodeViewProps } from "@tiptap/core";
 import type { Node as ProseMirrorNode } from "@tiptap/pm/model";
 import { NodeViewWrapper } from "@tiptap/react";
 import throttle from "lodash/throttle";
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, useState } from "react";
 import { makeStyles } from "tss-react/mui";
 import type ResizableImage from "./ResizableImage";
 import { ResizableImageResizer } from "./ResizableImageResizer";
@@ -79,6 +79,11 @@ function ResizableImageComponent(props: Props) {
   const { attrs } = node;
 
   const imageRef = useRef<HTMLImageElement | null>(null);
+
+  // Moved the mouseDown state here from ResizableImageResizer to control the resizer visibility when "inline" option is enabled.
+  // Gave more leniency to selected condition to show the resizer by including mouseDown state.
+  const [mouseDown, setMouseDown] = useState(false);
+  const selectedOrDragging = selected || mouseDown;
 
   const handleResize = useMemo(
     () =>
@@ -163,9 +168,9 @@ function ResizableImageComponent(props: Props) {
             classes.image,
             // For consistency with the standard Image extension selection
             // class/UI:
-            selected && "ProseMirror-selectednode",
+            selectedOrDragging && "ProseMirror-selectednode",
             // We'll only show the outline when the editor content is selected
-            selected && classes.imageSelected
+            selectedOrDragging && classes.imageSelected
           )}
           style={{
             // If no width has been specified, we use auto max-width
@@ -199,10 +204,12 @@ function ResizableImageComponent(props: Props) {
           }}
         />
 
-        {selected && (
+        {selectedOrDragging && (
           <ResizableImageResizer
             onResize={handleResize}
             className={classes.resizer}
+            mouseDown={mouseDown}
+            setMouseDown={setMouseDown}
           />
         )}
 
