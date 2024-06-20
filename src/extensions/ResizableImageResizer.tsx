@@ -1,9 +1,16 @@
-import { useCallback, useEffect, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  type Dispatch,
+  type SetStateAction,
+} from "react";
 import { makeStyles } from "tss-react/mui";
 
 type ResizableImageResizerProps = {
   className?: string;
   onResize: (event: MouseEvent) => void;
+  mouseDown: boolean;
+  setMouseDown: Dispatch<SetStateAction<boolean>>;
 };
 
 const useStyles = makeStyles({ name: { ResizableImageResizer } })((theme) => ({
@@ -23,9 +30,10 @@ const useStyles = makeStyles({ name: { ResizableImageResizer } })((theme) => ({
 export function ResizableImageResizer({
   onResize,
   className,
+  mouseDown,
+  setMouseDown,
 }: ResizableImageResizerProps) {
   const { classes, cx } = useStyles();
-  const [mouseDown, setMouseDown] = useState(false);
 
   useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
@@ -52,11 +60,14 @@ export function ResizableImageResizer({
     return () => {
       window.removeEventListener("mouseup", handleMouseUp);
     };
-  }, []);
+  }, [setMouseDown]);
 
-  const handleMouseDown = useCallback((_event: React.MouseEvent) => {
-    setMouseDown(true);
-  }, []);
+  const handleMouseDown = useCallback(
+    (_event: React.MouseEvent) => {
+      setMouseDown(true);
+    },
+    [setMouseDown]
+  );
 
   return (
     // There isn't a great role to use here (perhaps role="separator" is the
