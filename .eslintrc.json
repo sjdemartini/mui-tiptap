@@ -75,7 +75,7 @@
         "devDependencies": [
           "./src/demo/**",
           "./src/**/__tests__/**",
-          "vite.config.ts"
+          "vite.config.mts"
         ],
         "includeTypes": true
       }
