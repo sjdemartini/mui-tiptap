@@ -2,7 +2,7 @@ import type { NodeViewProps } from "@tiptap/core";
 import type { Node as ProseMirrorNode } from "@tiptap/pm/model";
 import { NodeViewWrapper } from "@tiptap/react";
 import throttle from "lodash/throttle";
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, useState } from "react";
 import { makeStyles } from "tss-react/mui";
 import type ResizableImage from "./ResizableImage";
 import { ResizableImageResizer } from "./ResizableImageResizer";
@@ -79,6 +79,16 @@ function ResizableImageComponent(props: Props) {
   const { attrs } = node;
 
   const imageRef = useRef<HTMLImageElement | null>(null);
+
+  // We store the mouse-down state of the ResizableImageResizer here to properly
+  // control the resizer visibility when `inline` option is enabled. Tiptap
+  // seems to change the selected state of the node to `false` as soon as the
+  // user drags on the resize handle if the extension has `inline: true`, so we
+  // need to consider the resizing state here in order to ensure it's still
+  // shown during a resize. See
+  // https://github.com/sjdemartini/mui-tiptap/issues/211
+  const [resizerMouseDown, setResizerMouseDown] = useState(false);
+  const selectedOrResizing = selected || resizerMouseDown;
 
   const handleResize = useMemo(
     () =>
@@ -163,9 +173,9 @@ function ResizableImageComponent(props: Props) {
             classes.image,
             // For consistency with the standard Image extension selection
             // class/UI:
-            selected && "ProseMirror-selectednode",
+            selectedOrResizing && "ProseMirror-selectednode",
             // We'll only show the outline when the editor content is selected
-            selected && classes.imageSelected
+            selectedOrResizing && classes.imageSelected
           )}
           style={{
             // If no width has been specified, we use auto max-width
@@ -199,10 +209,12 @@ function ResizableImageComponent(props: Props) {
           }}
         />
 
-        {selected && (
+        {selectedOrResizing && (
           <ResizableImageResizer
             onResize={handleResize}
             className={classes.resizer}
+            mouseDown={resizerMouseDown}
+            setMouseDown={setResizerMouseDown}
           />
         )}
 
