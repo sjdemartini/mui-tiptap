@@ -36,9 +36,8 @@ const IMAGE_MINIMUM_WIDTH_PIXELS = 15;
 const useStyles = makeStyles({ name: { ResizableImageComponent } })(
   (theme) => ({
     imageContainer: {
-      // Use inline-block so that the container is only as big as the inner
-      // img
-      display: "inline-block",
+      // Use inline-flex so that the container is only as big as the inner img
+      display: "inline-flex",
       // Use relative position so that the resizer is positioned relative to
       // the img dimensions (via their common container)
       position: "relative",
@@ -150,6 +149,10 @@ function ResizableImageComponent(props: Props) {
         textAlign: attrs.textAlign,
         width: "100%",
       }}
+      // Change the outer component's component to a "span" if the `inline`
+      // extension option is enabled, to ensure it can appear alongside other
+      // inline elements like text.
+      as={extension.options.inline ? "span" : "div"}
     >
       {/* We need a separate inner image container here in order to (1) have the
       node view wrapper take up the full width of its parent div created by

@@ -265,7 +265,12 @@ export function getEditorStyles(theme: Theme): StyleRules {
       // and add a scrollbar
       maxWidth: "100%",
       height: "auto",
-      display: "block",
+      // Using inline-flex allows the image to be correctly positioned, whether
+      // the Image/ResizableImage extension is configured with `inline` as false
+      // or true. In the former case (the default), it should have other
+      // block-level elements on either side of it, allowing it to flow
+      // correctly as a block.
+      display: "inline-flex",
       ...getImageBackgroundColorStyles(theme),
 
       // Behavior when an image (node) is selected, at which point it can be deleted,
