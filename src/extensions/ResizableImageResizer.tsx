@@ -36,17 +36,18 @@ export function ResizableImageResizer({
   const { classes, cx } = useStyles();
 
   useEffect(() => {
+    if (!mouseDown) {
+      return;
+    }
+
+    // If the user is currently holding down the resize handle, we'll have mouse
+    // movements fire the onResize callback (since the user would be "dragging"
+    // the handle).
     const handleMouseMove = (event: MouseEvent) => {
       onResize(event);
     };
 
-    if (mouseDown) {
-      // If the user is currently holding down the resize handle, we'll have mouse
-      // movements fire the onResize callback (since the user would be "dragging" the
-      // handle)
-      window.addEventListener("mousemove", handleMouseMove);
-    }
-
+    window.addEventListener("mousemove", handleMouseMove);
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
     };
