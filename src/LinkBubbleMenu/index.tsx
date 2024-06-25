@@ -1,4 +1,5 @@
 /// <reference types="@tiptap/extension-link" />
+import type { Editor, Mark } from "@tiptap/core";
 import { makeStyles } from "tss-react/mui";
 import type { Except } from "type-fest";
 import ControlledBubbleMenu, {
@@ -33,6 +34,21 @@ const useStyles = makeStyles({ name: { LinkBubbleMenu } })((theme) => ({
     padding: theme.spacing(1.5, 2, 0.5),
   },
 }));
+
+const getSelectedTextMarks = (editor: Editor) => {
+  const { state } = editor;
+  const { from, to } = state.selection;
+
+  const marks: Mark[] = [];
+
+  state.doc.nodesBetween(from, to, (node) => {
+    if (node.isText) {
+      marks.push(...node.marks);
+    }
+  });
+
+  return marks;
+};
 
 /**
  * A component that renders a bubble menu when viewing, creating, or editing a
@@ -107,14 +123,7 @@ export default function LinkBubbleMenu({
             // Update the link href and its text content
             .insertContent({
               type: "text",
-              marks: [
-                {
-                  type: "link",
-                  attrs: {
-                    href: link,
-                  },
-                },
-              ],
+              marks: getSelectedTextMarks(editor),
               text: text,
             })
             // Note that as of "@tiptap/extension-link" 2.0.0-beta.37 when
