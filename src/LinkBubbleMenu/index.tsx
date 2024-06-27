@@ -1,5 +1,4 @@
 /// <reference types="@tiptap/extension-link" />
-import type { Editor, Mark } from "@tiptap/core";
 import { makeStyles } from "tss-react/mui";
 import type { Except } from "type-fest";
 import ControlledBubbleMenu, {
@@ -34,21 +33,6 @@ const useStyles = makeStyles({ name: { LinkBubbleMenu } })((theme) => ({
     padding: theme.spacing(1.5, 2, 0.5),
   },
 }));
-
-const getSelectedTextMarks = (editor: Editor) => {
-  const { state } = editor;
-  const { from, to } = state.selection;
-
-  const marks: Mark[] = [];
-
-  state.doc.nodesBetween(from, to, (node) => {
-    if (node.isText) {
-      marks.push(...node.marks);
-    }
-  });
-
-  return marks;
-};
 
 /**
  * A component that renders a bubble menu when viewing, creating, or editing a
@@ -121,10 +105,40 @@ export default function LinkBubbleMenu({
             // full link "mark"
             .extendMarkRange("link")
             // Update the link href and its text content
-            .insertContent({
-              type: "text",
-              marks: getSelectedTextMarks(editor),
-              text: text,
+            .command(({ tr, state }) => {
+              const existingHref = editor.isActive("link")
+                ? (editor.getAttributes("link").href as string)
+                : "";
+
+              const { selection, schema } = state;
+
+              if (existingHref) {
+                // Get the resolved position from the selection
+                const resolvedPos = state.doc.resolve(selection.from);
+                const nodeAfter = resolvedPos.nodeAfter;
+
+                if (nodeAfter?.isText) {
+                  // Insert new text without changing the link mark
+                  tr.insertText(text, selection.from, selection.to);
+
+                  // Set the link separately to ensure the link mark is applied
+                  tr.addMark(
+                    selection.from,
+                    selection.from + text.length,
+                    schema.marks.link.create({ href: link })
+                  );
+                }
+              } else {
+                tr.insertText(text, selection.from, selection.to);
+
+                tr.addMark(
+                  selection.from,
+                  selection.from + text.length,
+                  schema.marks.link.create({ href: link })
+                );
+              }
+
+              return true;
             })
             // Note that as of "@tiptap/extension-link" 2.0.0-beta.37 when
             // `autolink` is on (which we want), adding the link mark directly
