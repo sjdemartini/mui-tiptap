@@ -10,11 +10,10 @@ import { getAttributesForEachSelected } from "../utils/getAttributesForEachSelec
 import MenuButtonTooltip from "./MenuButtonTooltip";
 import MenuSelect, { type MenuSelectProps } from "./MenuSelect";
 
-export interface MenuSelectHeadingProps
-  extends Except<
-    MenuSelectProps<HeadingOptionValue | "">,
-    "value" | "children"
-  > {
+export type MenuSelectHeadingProps = Except<
+  MenuSelectProps<HeadingOptionValue | "">,
+  "value" | "children"
+> & {
   /**
    * Override the default labels for the select options. For any value that
    * is omitted in this object, it falls back to the default content.
@@ -43,7 +42,7 @@ export interface MenuSelectHeadingProps
     /** @deprecated Use `labels.empty` instead. */
     emptyValue?: React.ReactNode;
   };
-}
+};
 
 const useStyles = makeStyles({ name: { MenuSelectHeading } })((theme) => {
   const editorStyles = getEditorStyles(theme);
