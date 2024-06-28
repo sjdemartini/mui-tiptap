@@ -29,8 +29,10 @@ export type FontFamilySelectOption = {
   label?: ReactNode;
 };
 
-export interface MenuSelectFontFamilyProps
-  extends Except<MenuSelectProps<string>, "value" | "children"> {
+export type MenuSelectFontFamilyProps = Except<
+  MenuSelectProps<string>,
+  "value" | "children"
+> & {
   /**
    * Provide the list of font families to show as options.
    */
@@ -56,7 +58,7 @@ export interface MenuSelectFontFamilyProps
    * default shows "Font".
    */
   emptyLabel?: React.ReactNode;
-}
+};
 
 const useStyles = makeStyles({ name: { MenuSelectFontFamily } })({
   selectInput: {

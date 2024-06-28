@@ -41,8 +41,10 @@ export type TextAlignSelectOption = {
   shortcutKeys?: MenuButtonTooltipProps["shortcutKeys"];
 };
 
-export interface MenuSelectTextAlignProps
-  extends Except<MenuSelectProps<string>, "children"> {
+export type MenuSelectTextAlignProps = Except<
+  MenuSelectProps<string>,
+  "children"
+> & {
   /**
    * Override the options shown for text alignment. Use this to change the
    * label, icon, tooltip, and shortcut keys shown for each option, and/or the
@@ -74,7 +76,7 @@ export interface MenuSelectTextAlignProps
    * font size, for instance).
    */
   emptyLabel?: React.ReactNode;
-}
+};
 
 const useStyles = makeStyles({ name: { MenuSelectTextAlign } })((theme) => ({
   selectInput: {

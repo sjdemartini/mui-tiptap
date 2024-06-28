@@ -36,8 +36,10 @@ export type FontSizeSelectOptionObject = {
  */
 export type FontSizeSelectOption = string | FontSizeSelectOptionObject;
 
-export interface MenuSelectFontSizeProps
-  extends Except<MenuSelectProps<string>, "value" | "children"> {
+export type MenuSelectFontSizeProps = Except<
+  MenuSelectProps<string>,
+  "value" | "children"
+> & {
   /**
    * Override the list of the size option strings shown in the dropdown.
    */
@@ -66,7 +68,7 @@ export interface MenuSelectFontSizeProps
   emptyLabel?: React.ReactNode;
   /** @deprecated Use `emptyLabel` prop instead. */
   emptyValue?: React.ReactNode;
-}
+};
 
 const useStyles = makeStyles({ name: { MenuSelectFontSize } })({
   selectInput: {
