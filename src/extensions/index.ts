@@ -13,4 +13,6 @@ export {
   type LinkBubbleMenuHandlerStorage,
 } from "./LinkBubbleMenuHandler";
 export { default as ResizableImage } from "./ResizableImage";
+export { default as TableCellImproved } from "./TableCellImproved";
+export { default as TableHeaderImproved } from "./TableHeaderImproved";
 export { default as TableImproved } from "./TableImproved";
