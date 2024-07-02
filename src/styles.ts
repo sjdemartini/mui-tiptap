@@ -49,7 +49,7 @@ export function getEditorStyles(theme: Theme): StyleRules {
 
     "& h1": {
       // We don't use MUI's default heading typography styles of h1-h6 here
-      // since h1 and h2 are a bit too huge/dramatic. Instead, for we use h3-h6,
+      // since h1 and h2 are a bit too huge/dramatic. Instead, we use h3-h6,
       // subtitle1, and subtitle2.
 
       // For h1, we take our usual font family, set a bold font weight, and set
