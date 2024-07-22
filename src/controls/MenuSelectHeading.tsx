@@ -185,12 +185,6 @@ export default function MenuSelectHeading({
 
   const isCurrentlyParagraphOrHeading = selectedValue !== "";
   const canSetParagraph = !!editor?.can().setParagraph();
-  // We have to pass a level when running `can`, so this is just an arbitrary
-  // one. And we have to check `currentLevel` to prevent all other heading
-  // levels from being disabled when Heading 1 is selected (see
-  // https://github.com/sjdemartini/mui-tiptap/issues/197).
-  const canSetHeading =
-    currentLevel === 1 || !!editor?.can().setHeading({ level: 1 });
 
   // Figure out which settings the user has enabled with the heading extension
   const enabledHeadingLevels: Set<Level> = useMemo(() => {
@@ -199,6 +193,22 @@ export default function MenuSelectHeading({
     );
     return new Set(headingExtension?.options.levels ?? []);
   }, [editor]);
+
+  // In determining whether we can set a heading, at least one heading level
+  // must be enabled in the extension configuration. We have to pass a level
+  // when running `can().setHeading()`, so we just use the first one that is
+  // enabled. And since some Tiptap versions return `false` for
+  // `can().setHeading()` when passing the current level, we also have to check
+  // whether that arbitrary first level is the `currentLevel` (see
+  // https://github.com/sjdemartini/mui-tiptap/issues/197).
+  const firstEnabledHeadingResult = enabledHeadingLevels.values().next();
+  const firstEnabledHeading = firstEnabledHeadingResult.done
+    ? undefined
+    : firstEnabledHeadingResult.value;
+  const canSetHeading =
+    firstEnabledHeading !== undefined &&
+    (currentLevel === firstEnabledHeading ||
+      !!editor?.can().setHeading({ level: firstEnabledHeading }));
 
   return (
     // We currently have to specify that the value is of type
