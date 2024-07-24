@@ -1,4 +1,4 @@
-import { useEditor, type Editor, type EditorOptions } from "@tiptap/react";
+import { useEditor, type Editor } from "@tiptap/react";
 import {
   forwardRef,
   useEffect,
@@ -9,8 +9,16 @@ import type { Except, SetRequired } from "type-fest";
 import RichTextEditorProvider from "./RichTextEditorProvider";
 import RichTextField, { type RichTextFieldProps } from "./RichTextField";
 
+// We define our own `UseEditorOptions` type here based on the signature of
+// `useEditor` so that we can support both Tiptap 2.5+ which uses a new
+// `UseEditorOptions` type
+// (https://github.com/ueberdosis/tiptap/commit/df5609cdff27f97e11860579a7af852cf3e50ce5#diff-13acb5e551812e195c1140c10ba5ac298a0005996d07756cfd77c2d4194cb350R16),
+// as well as Tiptap <2.5 where `useEditor` used the `EditorOptions` type and
+// `UseEditorOptions` didn't yet exist.
+type UseEditorOptions = NonNullable<Parameters<typeof useEditor>[0]>;
+
 export interface RichTextEditorProps
-  extends SetRequired<Partial<EditorOptions>, "extensions"> {
+  extends SetRequired<Partial<UseEditorOptions>, "extensions"> {
   /**
    * Render the controls content to show inside the menu bar atop the editor
    * content. Typically you will want to render a <MenuControlsContainer>
@@ -78,14 +86,14 @@ const RichTextEditor = forwardRef<RichTextEditorRef, RichTextEditorProps>(
       editorDependencies = [],
       // We default to `editable=true` just like `useEditor` does
       editable = true,
-      ...editorProps
+      ...editorOptions
     }: RichTextEditorProps,
     ref
   ) {
     const editor = useEditor(
       {
         editable: editable,
-        ...editorProps,
+        ...editorOptions,
       },
       editorDependencies
     );
