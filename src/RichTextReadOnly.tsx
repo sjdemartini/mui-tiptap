@@ -1,11 +1,12 @@
-import { useEditor, type EditorOptions } from "@tiptap/react";
+import { useEditor } from "@tiptap/react";
 import { useEffect, useRef } from "react";
 import type { Except, SetRequired } from "type-fest";
 import RichTextContent from "./RichTextContent";
+import type { UseEditorOptions } from "./RichTextEditor";
 import RichTextEditorProvider from "./RichTextEditorProvider";
 
 export type RichTextReadOnlyProps = SetRequired<
-  Partial<Except<EditorOptions, "editable">>,
+  Partial<Except<UseEditorOptions, "editable">>,
   "extensions"
 >;
 
