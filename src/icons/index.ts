@@ -3,6 +3,15 @@
 // install size and external dependencies (see
 // https://github.com/sjdemartini/mui-tiptap/issues/119).
 export { default as BorderColorNoBar } from "./BorderColorNoBar";
+export { default as BorderStyleDashed } from "./BorderStyleDashed";
+export { default as BorderStyleDotted } from "./BorderStyleDotted";
+export { default as BorderStyleDouble } from "./BorderStyleDouble";
+export { default as BorderStyleGroove } from "./BorderStyleGroove";
+export { default as BorderStyleInset } from "./BorderStyleInset";
+export { default as BorderStyleNone } from "./BorderStyleNone";
+export { default as BorderStyleOutset } from "./BorderStyleOutset";
+export { default as BorderStyleRidge } from "./BorderStyleRidge";
+export { default as BorderStyleSolid } from "./BorderStyleSolid";
 export { default as CodeBlock } from "./CodeBlock";
 export { default as DeleteColumn } from "./DeleteColumn";
 export { default as DeleteRow } from "./DeleteRow";

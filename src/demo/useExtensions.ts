@@ -23,8 +23,6 @@ import { Placeholder } from "@tiptap/extension-placeholder";
 import { Strike } from "@tiptap/extension-strike";
 import { Subscript } from "@tiptap/extension-subscript";
 import { Superscript } from "@tiptap/extension-superscript";
-import { TableCell } from "@tiptap/extension-table-cell";
-import { TableHeader } from "@tiptap/extension-table-header";
 import { TableRow } from "@tiptap/extension-table-row";
 import { TaskItem } from "@tiptap/extension-task-item";
 import { TaskList } from "@tiptap/extension-task-list";
@@ -38,6 +36,8 @@ import {
   HeadingWithAnchor,
   LinkBubbleMenuHandler,
   ResizableImage,
+  TableCellImproved,
+  TableHeaderImproved,
   TableImproved,
 } from "../";
 import { mentionSuggestionOptions } from "./mentionSuggestionOptions";
@@ -109,8 +109,8 @@ export default function useExtensions({
         resizable: true,
       }),
       TableRow,
-      TableHeader,
-      TableCell,
+      TableHeaderImproved,
+      TableCellImproved,
 
       BulletList,
       CodeBlock,
