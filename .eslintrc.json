@@ -5,6 +5,7 @@
     "node": true
   },
   "parser": "@typescript-eslint/parser",
+  "ignorePatterns": ["create-esm-package-json.js"], // Not in the TS project
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
