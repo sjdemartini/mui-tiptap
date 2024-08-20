@@ -23,17 +23,27 @@
   ],
   "types": "./dist/index.d.ts",
   "main": "dist/index.js",
-  "module": "dist/esm/index.js",
+  "module": "dist/index.mjs",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "require": "./dist/index.js",
-      "import": "./dist/esm/index.js"
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      }
     },
     "./icons": {
-      "types": "./dist/icons/index.d.ts",
-      "require": "./dist/icons/index.js",
-      "import": "./dist/esm/icons/index.js"
+      "require": {
+        "types": "./dist/icons/index.d.ts",
+        "default": "./dist/icons/index.js"
+      },
+      "import": {
+        "types": "./dist/icons/index.d.mts",
+        "default": "./dist/icons/index.mjs"
+      }
     }
   },
   "typesVersions": {
@@ -56,7 +66,7 @@
   },
   "sideEffects": false,
   "scripts": {
-    "build": "pnpm clean && tsc --project tsconfig.build.json && tsc --project tsconfig.build-esm.json",
+    "build": "pnpm clean && tsup src/index.ts src/icons/index.ts --dts --format esm,cjs --sourcemap",
     "clean": "rimraf dist coverage",
     "example": "pnpm build && rimraf ./example/node_modules && pnpm --dir ./example install && pnpm --dir ./example run dev",
     "dev": "vite",
@@ -175,6 +185,7 @@
     "react-dom": "^18.2.0",
     "rimraf": "^5.0.0",
     "tippy.js": "^6.3.7",
+    "tsup": "^8.2.4",
     "typescript": "^5.1.6",
     "vite": "^5.3.1",
     "vitest": "^1.6.0",

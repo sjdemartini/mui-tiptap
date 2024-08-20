@@ -1,8 +1,0 @@
-{
-  "extends": "./tsconfig.build.json",
-  "compilerOptions": {
-    "target": "ES2018",
-    "module": "ES2020",
-    "outDir": "./dist/esm"
-  }
-}
