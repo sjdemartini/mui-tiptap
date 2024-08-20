@@ -66,3 +66,6 @@ jobs:
         # Run the tests and print out the coverage information. In the future,
         # we could integrate with Codecov or something.
         run: pnpm run test:coverage
+
+      - name: Validate the build's packaging CJS and ESM compatibility
+        run: npx @arethetypeswrong/cli@0.15.4 --pack
