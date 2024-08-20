@@ -2,7 +2,12 @@ import { defineConfig } from "tsup";
 
 export default defineConfig({
   clean: true, // Clean dist folder before building
-  dts: true, // Generate .d.ts files
+  // Perhaps we should consider generating the types ourselves after the tsup
+  // build instead of setting `dts: true`, so that we can create type files per
+  // input file, rather than a single type file for the full bundle, a la
+  // https://github.com/refinedev/refine/blob/4c34444633a252fd830fc3ddbc5963e112269e2f/packages/mui/tsup.config.ts#L34,
+  // https://github.com/refinedev/refine/blob/4c34444633a252fd830fc3ddbc5963e112269e2f/packages/shared/generate-declarations.js
+  dts: true,
   entry: ["src/index.ts", "src/icons/index.ts"],
   format: ["cjs", "esm"],
   sourcemap: true,
