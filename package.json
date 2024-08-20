@@ -67,7 +67,7 @@
   },
   "sideEffects": false,
   "scripts": {
-    "build": "pnpm clean && tsup src/index.ts src/icons/index.ts --dts --format esm,cjs --sourcemap",
+    "build": "tsup",
     "clean": "rimraf dist coverage",
     "example": "pnpm build && rimraf ./example/node_modules && pnpm --dir ./example install && pnpm --dir ./example run dev",
     "dev": "vite",
