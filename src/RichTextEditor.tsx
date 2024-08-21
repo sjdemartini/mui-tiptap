@@ -101,7 +101,7 @@ const RichTextEditor = forwardRef<RichTextEditorRef, RichTextEditorProps>(
     // Allow consumers of this component to access the editor via ref
     useImperativeHandle<RichTextEditorRef, RichTextEditorRef>(ref, () => ({
       editor: editor,
-    }));
+    }), [editor]);
 
     // Update editable state if/when it changes
     useEffect(() => {
