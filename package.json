@@ -22,25 +22,25 @@
     "dist"
   ],
   "type": "commonjs",
-  "types": "./dist/index.d.ts",
-  "main": "dist/index.js",
+  "types": "./dist/cjs/index.d.ts",
+  "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "require": "./dist/index.js",
-      "import": "./dist/esm/index.js"
+      "types": "./dist/cjs/index.d.ts",
+      "module": "./dist/esm/index.js",
+      "default": "./dist/cjs/index.js"
     },
     "./icons": {
-      "types": "./dist/icons/index.d.ts",
-      "require": "./dist/icons/index.js",
-      "import": "./dist/esm/icons/index.js"
+      "types": "./dist/cjs/icons/index.d.ts",
+      "module": "./dist/esm/icons/index.js",
+      "default": "./dist/cjs/icons/index.js"
     }
   },
   "typesVersions": {
     "*": {
       "icons": [
-        "./dist/icons/index.d.ts"
+        "./dist/cjs/icons/index.d.ts"
       ],
       "*": [
         "*"
