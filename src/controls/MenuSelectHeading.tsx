@@ -42,7 +42,11 @@ export type MenuSelectHeadingProps = Except<
     /** @deprecated Use `labels.empty` instead. */
     emptyValue?: React.ReactNode;
   };
-  hideShortcuts?: boolean
+  /**
+   * Whether to hide the shortcut key tooltips for each heading option. By
+   * default false.
+   */
+  hideShortcuts?: boolean;
 };
 
 const useStyles = makeStyles({ name: { MenuSelectHeading } })((theme) => {
@@ -127,6 +131,7 @@ const LEVEL_TO_HEADING_OPTION_VALUE = {
 
 export default function MenuSelectHeading({
   labels,
+  hideShortcuts = false,
   ...menuSelectProps
 }: MenuSelectHeadingProps) {
   const { classes, cx } = useStyles();
@@ -267,7 +272,7 @@ export default function MenuSelectHeading({
       >
         <MenuButtonTooltip
           label=""
-          shortcutKeys={menuSelectProps.hideShortcuts ? undefined : ["mod", "alt", "0"]}
+          shortcutKeys={hideShortcuts ? undefined : ["mod", "alt", "0"]}
           placement="right"
           contentWrapperClassName={classes.menuOption}
         >
@@ -282,7 +287,7 @@ export default function MenuSelectHeading({
         >
           <MenuButtonTooltip
             label=""
-            shortcutKeys={menuSelectProps.hideShortcuts ? undefined : ["mod", "alt", "1"]}
+            shortcutKeys={hideShortcuts ? undefined : ["mod", "alt", "1"]}
             placement="right"
             contentWrapperClassName={cx(
               classes.menuOption,
@@ -302,7 +307,7 @@ export default function MenuSelectHeading({
         >
           <MenuButtonTooltip
             label=""
-            shortcutKeys={menuSelectProps.hideShortcuts ? undefined : ["mod", "alt", "2"]}
+            shortcutKeys={hideShortcuts ? undefined : ["mod", "alt", "2"]}
             placement="right"
             contentWrapperClassName={cx(
               classes.menuOption,
@@ -322,7 +327,7 @@ export default function MenuSelectHeading({
         >
           <MenuButtonTooltip
             label=""
-            shortcutKeys={menuSelectProps.hideShortcuts ? undefined : ["mod", "alt", "3"]}
+            shortcutKeys={hideShortcuts ? undefined : ["mod", "alt", "3"]}
             placement="right"
             contentWrapperClassName={cx(
               classes.menuOption,
@@ -342,7 +347,7 @@ export default function MenuSelectHeading({
         >
           <MenuButtonTooltip
             label=""
-            shortcutKeys={menuSelectProps.hideShortcuts ? undefined : ["mod", "alt", "4"]}
+            shortcutKeys={hideShortcuts ? undefined : ["mod", "alt", "4"]}
             placement="right"
             contentWrapperClassName={cx(
               classes.menuOption,
@@ -362,7 +367,7 @@ export default function MenuSelectHeading({
         >
           <MenuButtonTooltip
             label=""
-            shortcutKeys={menuSelectProps.hideShortcuts ? undefined : ["mod", "alt", "5"]}
+            shortcutKeys={hideShortcuts ? undefined : ["mod", "alt", "5"]}
             placement="right"
             contentWrapperClassName={cx(
               classes.menuOption,
@@ -382,7 +387,7 @@ export default function MenuSelectHeading({
         >
           <MenuButtonTooltip
             label=""
-            shortcutKeys={menuSelectProps.hideShortcuts ? undefined : ["mod", "alt", "6"]}
+            shortcutKeys={hideShortcuts ? undefined : ["mod", "alt", "6"]}
             placement="right"
             contentWrapperClassName={cx(
               classes.menuOption,
