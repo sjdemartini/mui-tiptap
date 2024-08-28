@@ -27,14 +27,24 @@
   "module": "dist/esm/index.js",
   "exports": {
     ".": {
-      "types": "./dist/cjs/index.d.ts",
-      "module": "./dist/esm/index.js",
-      "default": "./dist/cjs/index.js"
+      "require": {
+        "types": "./dist/cjs/index.d.ts",
+        "default": "./dist/cjs/index.js"
+      },
+      "import": {
+        "types": "./dist/esm/index.d.ts",
+        "default": "./dist/esm/index.js"
+      }
     },
     "./icons": {
-      "types": "./dist/cjs/icons/index.d.ts",
-      "module": "./dist/esm/icons/index.js",
-      "default": "./dist/cjs/icons/index.js"
+      "require": {
+        "types": "./dist/cjs/icons/index.d.ts",
+        "default": "./dist/cjs/icons/index.js"
+      },
+      "import": {
+        "types": "./dist/esm/icons/index.d.ts",
+        "default": "./dist/esm/icons/index.js"
+      }
     }
   },
   "typesVersions": {
