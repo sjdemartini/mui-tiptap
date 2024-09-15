@@ -35,6 +35,7 @@
     "plugin:jsx-a11y/recommended",
     "prettier"
   ],
+  "ignorePatterns": ["create-cjs-package-json-file.cjs"], // Not in the TS project
   "reportUnusedDisableDirectives": true,
   "settings": {
     "import/resolver": {
