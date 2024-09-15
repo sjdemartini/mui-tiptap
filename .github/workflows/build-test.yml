@@ -68,4 +68,4 @@ jobs:
         run: pnpm run test:coverage
 
       - name: Validate the build's packaging CJS and ESM compatibility
-        run: npx @arethetypeswrong/cli@0.15.4 --pack
+        run: npx @arethetypeswrong/cli@0.16.2 --pack
