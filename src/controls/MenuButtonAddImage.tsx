@@ -1,7 +1,7 @@
 import AddPhotoAlternate from "@mui/icons-material/AddPhotoAlternate";
 import type { SetRequired } from "type-fest";
-import { useRichTextEditorContext } from "../context";
-import MenuButton, { type MenuButtonProps } from "./MenuButton";
+import { useRichTextEditorContext } from "../context.js";
+import MenuButton, { type MenuButtonProps } from "./MenuButton.js";
 
 /**
  * You must provide your own `onClick` handler.

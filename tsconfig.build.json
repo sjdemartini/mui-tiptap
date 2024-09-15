@@ -3,6 +3,8 @@
   "include": ["./src"],
   "exclude": ["./src/demo", "./src/**/__tests__"],
   "compilerOptions": {
+    "module": "CommonJS",
+    "moduleResolution": "Node10",
     "outDir": "./dist/cjs"
   }
 }

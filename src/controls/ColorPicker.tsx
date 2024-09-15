@@ -2,8 +2,8 @@ import { TextField } from "@mui/material";
 import { useEffect, useRef } from "react";
 import { HexAlphaColorPicker, HexColorPicker } from "react-colorful";
 import { makeStyles } from "tss-react/mui";
-import { colorToHex as colorToHexDefault } from "../utils/color";
-import { ColorSwatchButton } from "./ColorSwatchButton";
+import { colorToHex as colorToHexDefault } from "../utils/color.js";
+import { ColorSwatchButton } from "./ColorSwatchButton.js";
 
 export type ColorChangeSource = "gradient" | "text" | "swatch";
 

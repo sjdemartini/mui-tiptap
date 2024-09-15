@@ -4,8 +4,8 @@ import { NodeViewWrapper } from "@tiptap/react";
 import throttle from "lodash/throttle";
 import { useMemo, useRef, useState } from "react";
 import { makeStyles } from "tss-react/mui";
-import type ResizableImage from "./ResizableImage";
-import { ResizableImageResizer } from "./ResizableImageResizer";
+import type ResizableImage from "./ResizableImage.js";
+import { ResizableImageResizer } from "./ResizableImageResizer.js";
 
 // Based on
 // https://github.com/ueberdosis/tiptap/blob/ab4a0e2507b4b92c46d293a0bb06bb00a04af6e0/packages/extension-image/src/image.ts#L47-L59

@@ -1,10 +1,10 @@
 /// <reference types="@tiptap/extension-highlight" />
-import { useRichTextEditorContext } from "../context";
-import { FormatInkHighlighterNoBar } from "../icons";
+import { useRichTextEditorContext } from "../context.js";
+import { FormatInkHighlighterNoBar } from "../icons/index.js";
 import {
   MenuButtonColorPicker,
   type MenuButtonColorPickerProps,
-} from "./MenuButtonColorPicker";
+} from "./MenuButtonColorPicker.js";
 
 export interface MenuButtonHighlightColorProps
   extends Partial<MenuButtonColorPickerProps> {

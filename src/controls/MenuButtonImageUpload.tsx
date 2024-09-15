@@ -1,14 +1,14 @@
 import type { Editor } from "@tiptap/core";
 import { useRef, type ComponentPropsWithoutRef } from "react";
 import type { SetOptional } from "type-fest";
-import { useRichTextEditorContext } from "../context";
+import { useRichTextEditorContext } from "../context.js";
 import {
   insertImages as insertImagesDefault,
   type ImageNodeAttributes,
-} from "../utils";
+} from "../utils/index.js";
 import MenuButtonAddImage, {
   type MenuButtonAddImageProps,
-} from "./MenuButtonAddImage";
+} from "./MenuButtonAddImage.js";
 
 export interface MenuButtonImageUploadProps
   extends SetOptional<MenuButtonAddImageProps, "onClick"> {

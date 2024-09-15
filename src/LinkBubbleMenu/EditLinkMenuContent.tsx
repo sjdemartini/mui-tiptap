@@ -8,7 +8,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import useKeyDown from "../hooks/useKeyDown";
+import useKeyDown from "../hooks/useKeyDown.js";
 
 export type EditLinkMenuContentProps = {
   editor: Editor;

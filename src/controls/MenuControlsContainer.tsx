@@ -2,7 +2,7 @@ import { makeStyles } from "tss-react/mui";
 import type { Except } from "type-fest";
 import DebounceRender, {
   type DebounceRenderProps,
-} from "../utils/DebounceRender";
+} from "../utils/DebounceRender.js";
 
 export type MenuControlsContainerProps = {
   /** The set of controls (buttons, etc) to include in the menu bar. */

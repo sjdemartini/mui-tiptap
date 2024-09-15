@@ -1,7 +1,7 @@
 import type { Editor } from "@tiptap/core";
 import { Heading, type HeadingOptions } from "@tiptap/extension-heading";
 import { ReactNodeViewRenderer } from "@tiptap/react";
-import HeadingWithAnchorComponent from "./HeadingWithAnchorComponent";
+import HeadingWithAnchorComponent from "./HeadingWithAnchorComponent.js";
 
 export type HeadingWithAnchorOptions = HeadingOptions & {
   /**

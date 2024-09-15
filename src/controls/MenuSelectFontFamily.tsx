@@ -4,9 +4,9 @@ import type { Editor } from "@tiptap/core";
 import type { ReactNode } from "react";
 import { makeStyles } from "tss-react/mui";
 import type { Except } from "type-fest";
-import { useRichTextEditorContext } from "../context";
-import { getAttributesForEachSelected } from "../utils/getAttributesForEachSelected";
-import MenuSelect, { type MenuSelectProps } from "./MenuSelect";
+import { useRichTextEditorContext } from "../context.js";
+import { getAttributesForEachSelected } from "../utils/getAttributesForEachSelected.js";
+import MenuSelect, { type MenuSelectProps } from "./MenuSelect.js";
 
 export type FontFamilySelectOption = {
   /**

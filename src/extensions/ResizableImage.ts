@@ -6,7 +6,7 @@ import {
 } from "@tiptap/core";
 import { Image, type ImageOptions } from "@tiptap/extension-image";
 import { ReactNodeViewRenderer } from "@tiptap/react";
-import ResizableImageComponent from "./ResizableImageComponent";
+import ResizableImageComponent from "./ResizableImageComponent.js";
 
 export type ResizableImageOptions = ImageOptions & {
   /**

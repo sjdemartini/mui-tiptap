@@ -3,8 +3,8 @@ import { EditorContent } from "@tiptap/react";
 import { useMemo } from "react";
 import type { CSSObject } from "tss-react";
 import { makeStyles } from "tss-react/mui";
-import { useRichTextEditorContext } from "./context";
-import { getEditorStyles, getUtilityClasses } from "./styles";
+import { useRichTextEditorContext } from "./context.js";
+import { getEditorStyles, getUtilityClasses } from "./styles.js";
 
 export type RichTextContentClasses = ReturnType<typeof useStyles>["classes"];
 

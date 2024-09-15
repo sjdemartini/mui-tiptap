@@ -3,18 +3,18 @@ import { makeStyles } from "tss-react/mui";
 import type { Except } from "type-fest";
 import ControlledBubbleMenu, {
   type ControlledBubbleMenuProps,
-} from "../ControlledBubbleMenu";
-import { useRichTextEditorContext } from "../context";
+} from "../ControlledBubbleMenu.js";
+import { useRichTextEditorContext } from "../context.js";
 import {
   LinkMenuState,
   type LinkBubbleMenuHandlerStorage,
-} from "../extensions/LinkBubbleMenuHandler";
+} from "../extensions/LinkBubbleMenuHandler.js";
 import EditLinkMenuContent, {
   type EditLinkMenuContentProps,
-} from "./EditLinkMenuContent";
+} from "./EditLinkMenuContent.js";
 import ViewLinkMenuContent, {
   type ViewLinkMenuContentProps,
-} from "./ViewLinkMenuContent";
+} from "./ViewLinkMenuContent.js";
 
 export interface LinkBubbleMenuProps
   extends Partial<

@@ -1,7 +1,7 @@
 import Link from "@mui/icons-material/Link";
 import { useRef } from "react";
-import { useRichTextEditorContext } from "../context";
-import MenuButton, { type MenuButtonProps } from "./MenuButton";
+import { useRichTextEditorContext } from "../context.js";
+import MenuButton, { type MenuButtonProps } from "./MenuButton.js";
 
 export type MenuButtonEditLinkProps = Partial<MenuButtonProps>;
 

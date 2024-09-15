@@ -2,11 +2,14 @@
   "compilerOptions": {
     "target": "ES2015",
     "lib": ["ES2015", "DOM", "DOM.Iterable"],
-    "module": "CommonJS",
+    "module": "ES2015",
     "skipLibCheck": true,
 
     // Build options
-    "moduleResolution": "node",
+    // It would be nice to use moduleResolution "node16", but it's not supported
+    // by tiptap until v2.5.0 (https://github.com/ueberdosis/tiptap/issues/3488,
+    // https://github.com/ueberdosis/tiptap/pull/4001)
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "react-jsx",

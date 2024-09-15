@@ -1,8 +1,8 @@
 import { getSchemaTypeNameByName } from "@tiptap/core";
 import type { MarkType, NodeType } from "@tiptap/pm/model";
 import type { EditorState } from "@tiptap/pm/state";
-import { getAttributesForMarks } from "./getAttributesForMarks";
-import { getAttributesForNodes } from "./getAttributesForNodes";
+import { getAttributesForMarks } from "./getAttributesForMarks.js";
+import { getAttributesForNodes } from "./getAttributesForNodes.js";
 
 /**
  * Get the attributes of all currently selected marks and nodes of the given

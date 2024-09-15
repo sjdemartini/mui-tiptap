@@ -1,7 +1,7 @@
 /// <reference types="@tiptap/extension-task-list" />
 import Checklist from "@mui/icons-material/Checklist";
-import { useRichTextEditorContext } from "../context";
-import MenuButton, { type MenuButtonProps } from "./MenuButton";
+import { useRichTextEditorContext } from "../context.js";
+import MenuButton, { type MenuButtonProps } from "./MenuButton.js";
 
 export type MenuButtonTaskListProps = Partial<MenuButtonProps>;
 

@@ -13,7 +13,7 @@ import {
   type PaletteMode,
 } from "@mui/material";
 import { useCallback, useMemo, useState } from "react";
-import Editor from "./Editor";
+import Editor from "./Editor.js";
 
 export default function App() {
   const systemSettingsPrefersDarkMode = useMediaQuery(

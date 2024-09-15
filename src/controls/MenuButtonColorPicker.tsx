@@ -2,13 +2,13 @@ import type { PopperProps } from "@mui/material";
 import { useState, type ReactNode } from "react";
 import { makeStyles } from "tss-react/mui";
 import type { Except } from "type-fest";
-import { FormatColorBar } from "../icons";
-import type { ColorPickerProps, SwatchColorOption } from "./ColorPicker";
-import { ColorPickerPopper } from "./ColorPickerPopper";
+import { FormatColorBar } from "../icons/index.js";
+import type { ColorPickerProps, SwatchColorOption } from "./ColorPicker.js";
+import { ColorPickerPopper } from "./ColorPickerPopper.js";
 import MenuButton, {
   MENU_BUTTON_FONT_SIZE_DEFAULT,
   type MenuButtonProps,
-} from "./MenuButton";
+} from "./MenuButton.js";
 
 export interface MenuButtonColorPickerProps
   // Omit the default `color`, `value`, and `onChange` toggle button props so

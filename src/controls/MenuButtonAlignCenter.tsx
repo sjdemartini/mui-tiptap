@@ -1,7 +1,7 @@
 /// <reference types="@tiptap/extension-text-align" />
 import FormatAlignCenterIcon from "@mui/icons-material/FormatAlignCenter";
-import { useRichTextEditorContext } from "../context";
-import MenuButton, { type MenuButtonProps } from "./MenuButton";
+import { useRichTextEditorContext } from "../context.js";
+import MenuButton, { type MenuButtonProps } from "./MenuButton.js";
 
 export type MenuButtonAlignCenterProps = Partial<MenuButtonProps>;
 

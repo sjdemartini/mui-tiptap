@@ -1,5 +1,5 @@
 import type { Editor } from "@tiptap/react";
-import { RichTextEditorContext } from "./context";
+import { RichTextEditorContext } from "./context.js";
 
 export type RichTextEditorProviderProps = {
   editor: Editor | null;

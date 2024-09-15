@@ -1,7 +1,7 @@
 /// <reference types="@tiptap/extension-history" />
 import UndoIcon from "@mui/icons-material/Undo";
-import { useRichTextEditorContext } from "../context";
-import MenuButton, { type MenuButtonProps } from "./MenuButton";
+import { useRichTextEditorContext } from "../context.js";
+import MenuButton, { type MenuButtonProps } from "./MenuButton.js";
 
 export type MenuButtonUndoProps = Partial<MenuButtonProps>;
 

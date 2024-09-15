@@ -9,8 +9,8 @@ import type { Node as ProseMirrorNode } from "@tiptap/pm/model";
 import { NodeViewContent, NodeViewWrapper } from "@tiptap/react";
 import { useMemo } from "react";
 import { makeStyles } from "tss-react/mui";
-import { getUtilityClasses } from "../styles";
-import slugify from "../utils/slugify";
+import { getUtilityClasses } from "../styles.js";
+import slugify from "../utils/slugify.js";
 
 // Based on
 // https://github.com/ueberdosis/tiptap/blob/c9eb6a6299796450c7c1cfdc3552d76070c78c65/packages/extension-heading/src/heading.ts#L41-L48

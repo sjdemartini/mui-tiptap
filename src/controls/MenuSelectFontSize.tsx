@@ -4,11 +4,11 @@ import type { Editor } from "@tiptap/core";
 import type { ReactNode } from "react";
 import { makeStyles } from "tss-react/mui";
 import type { Except } from "type-fest";
-import { useRichTextEditorContext } from "../context";
-import type { FontSizeAttrs } from "../extensions/FontSize";
-import { getAttributesForEachSelected } from "../utils/getAttributesForEachSelected";
-import { MENU_BUTTON_FONT_SIZE_DEFAULT } from "./MenuButton";
-import MenuSelect, { type MenuSelectProps } from "./MenuSelect";
+import { useRichTextEditorContext } from "../context.js";
+import type { FontSizeAttrs } from "../extensions/FontSize.js";
+import { getAttributesForEachSelected } from "../utils/getAttributesForEachSelected.js";
+import { MENU_BUTTON_FONT_SIZE_DEFAULT } from "./MenuButton.js";
+import MenuSelect, { type MenuSelectProps } from "./MenuSelect.js";
 
 export type FontSizeSelectOptionObject = {
   /**

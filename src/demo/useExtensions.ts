@@ -39,8 +39,8 @@ import {
   LinkBubbleMenuHandler,
   ResizableImage,
   TableImproved,
-} from "../";
-import { mentionSuggestionOptions } from "./mentionSuggestionOptions";
+} from "..//index.js";
+import { mentionSuggestionOptions } from "./mentionSuggestionOptions.js";
 
 export type UseExtensionsOptions = {
   /** Placeholder hint to show in the text input area before a user types a message. */

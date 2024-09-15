@@ -1,11 +1,13 @@
 import { makeStyles } from "tss-react/mui";
-import FieldContainer from "./FieldContainer";
-import MenuBar, { type MenuBarProps } from "./MenuBar";
-import RichTextContent, { type RichTextContentProps } from "./RichTextContent";
-import { useRichTextEditorContext } from "./context";
-import useDebouncedFocus from "./hooks/useDebouncedFocus";
-import { getUtilityClasses } from "./styles";
-import DebounceRender from "./utils/DebounceRender";
+import FieldContainer from "./FieldContainer.js";
+import MenuBar, { type MenuBarProps } from "./MenuBar.js";
+import RichTextContent, {
+  type RichTextContentProps,
+} from "./RichTextContent.js";
+import { useRichTextEditorContext } from "./context.js";
+import useDebouncedFocus from "./hooks/useDebouncedFocus.js";
+import { getUtilityClasses } from "./styles.js";
+import DebounceRender from "./utils/DebounceRender.js";
 
 export type RichTextFieldClasses = ReturnType<typeof useStyles>["classes"];
 

@@ -1,7 +1,7 @@
 /// <reference types="@tiptap/extension-italic" />
 import FormatItalic from "@mui/icons-material/FormatItalic";
-import { useRichTextEditorContext } from "../context";
-import MenuButton, { type MenuButtonProps } from "./MenuButton";
+import { useRichTextEditorContext } from "../context.js";
+import MenuButton, { type MenuButtonProps } from "./MenuButton.js";
 
 export type MenuButtonItalicProps = Partial<MenuButtonProps>;
 

@@ -1,6 +1,6 @@
-import { useRichTextEditorContext } from "../context";
-import { Table } from "../icons";
-import MenuButton, { type MenuButtonProps } from "./MenuButton";
+import { useRichTextEditorContext } from "../context.js";
+import { Table } from "../icons/index.js";
+import MenuButton, { type MenuButtonProps } from "./MenuButton.js";
 
 export type MenuButtonAddTableProps = Partial<MenuButtonProps>;
 

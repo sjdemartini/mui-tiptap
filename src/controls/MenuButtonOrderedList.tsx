@@ -1,7 +1,7 @@
 /// <reference types="@tiptap/extension-ordered-list" />
 import FormatListNumbered from "@mui/icons-material/FormatListNumbered";
-import { useRichTextEditorContext } from "../context";
-import MenuButton, { type MenuButtonProps } from "./MenuButton";
+import { useRichTextEditorContext } from "../context.js";
+import MenuButton, { type MenuButtonProps } from "./MenuButton.js";
 
 export type MenuButtonOrderedListProps = Partial<MenuButtonProps>;
 

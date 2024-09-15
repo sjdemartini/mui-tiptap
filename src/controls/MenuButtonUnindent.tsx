@@ -1,6 +1,6 @@
 import FormatIndentDecrease from "@mui/icons-material/FormatIndentDecrease";
-import { useRichTextEditorContext } from "../context";
-import MenuButton, { type MenuButtonProps } from "./MenuButton";
+import { useRichTextEditorContext } from "../context.js";
+import MenuButton, { type MenuButtonProps } from "./MenuButton.js";
 
 export type MenuButtonUnindentProps = Partial<MenuButtonProps>;
 

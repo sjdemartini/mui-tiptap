@@ -8,7 +8,7 @@ import { makeStyles } from "tss-react/mui";
 import type { Except, SetOptional } from "type-fest";
 import MenuButtonTooltip, {
   type MenuButtonTooltipProps,
-} from "./MenuButtonTooltip";
+} from "./MenuButtonTooltip.js";
 
 export interface MenuButtonProps
   extends SetOptional<Except<ToggleButtonProps, "ref" | "children">, "value"> {

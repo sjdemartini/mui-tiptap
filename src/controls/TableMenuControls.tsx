@@ -1,7 +1,7 @@
 import FormatColorFill from "@mui/icons-material/FormatColorFill";
 import GridOff from "@mui/icons-material/GridOff";
-import MenuDivider from "../MenuDivider";
-import { useRichTextEditorContext } from "../context";
+import MenuDivider from "../MenuDivider.js";
+import { useRichTextEditorContext } from "../context.js";
 import {
   DeleteColumn,
   DeleteRow,
@@ -13,9 +13,9 @@ import {
   LayoutRowFill,
   MergeCellsHorizontal,
   SplitCellsHorizontal,
-} from "../icons";
-import MenuButton from "./MenuButton";
-import MenuControlsContainer from "./MenuControlsContainer";
+} from "../icons/index.js";
+import MenuButton from "./MenuButton.js";
+import MenuControlsContainer from "./MenuControlsContainer.js";
 
 export type TableMenuControlsProps = {
   /** Class applied to the root controls container element. */

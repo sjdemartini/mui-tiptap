@@ -6,8 +6,8 @@ import {
   type DependencyList,
 } from "react";
 import type { Except, SetRequired } from "type-fest";
-import RichTextEditorProvider from "./RichTextEditorProvider";
-import RichTextField, { type RichTextFieldProps } from "./RichTextField";
+import RichTextEditorProvider from "./RichTextEditorProvider.js";
+import RichTextField, { type RichTextFieldProps } from "./RichTextField.js";
 
 // We define our own `UseEditorOptions` type here based on the signature of
 // `useEditor` so that we can support both Tiptap 2.5+ which uses a new

@@ -1,7 +1,7 @@
 /// <reference types="@tiptap/extension-text-align" />
 import FormatAlignRightIcon from "@mui/icons-material/FormatAlignRight";
-import { useRichTextEditorContext } from "../context";
-import MenuButton, { type MenuButtonProps } from "./MenuButton";
+import { useRichTextEditorContext } from "../context.js";
+import MenuButton, { type MenuButtonProps } from "./MenuButton.js";
 
 export type MenuButtonAlignRightProps = Partial<MenuButtonProps>;
 

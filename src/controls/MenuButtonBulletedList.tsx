@@ -1,7 +1,7 @@
 /// <reference types="@tiptap/extension-bullet-list" />
 import FormatListBulleted from "@mui/icons-material/FormatListBulleted";
-import { useRichTextEditorContext } from "../context";
-import MenuButton, { type MenuButtonProps } from "./MenuButton";
+import { useRichTextEditorContext } from "../context.js";
+import MenuButton, { type MenuButtonProps } from "./MenuButton.js";
 
 export type MenuButtonBulletedListProps = Partial<MenuButtonProps>;
 

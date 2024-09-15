@@ -1,7 +1,7 @@
 /// <reference types="@tiptap/extension-code-block" />
-import { useRichTextEditorContext } from "../context";
-import { CodeBlock } from "../icons";
-import MenuButton, { type MenuButtonProps } from "./MenuButton";
+import { useRichTextEditorContext } from "../context.js";
+import { CodeBlock } from "../icons/index.js";
+import MenuButton, { type MenuButtonProps } from "./MenuButton.js";
 
 export type MenuButtonCodeBlockProps = Partial<MenuButtonProps>;
 

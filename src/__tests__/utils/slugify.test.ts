@@ -1,6 +1,6 @@
 /* cSpell:disable */
 import { describe, expect, it } from "vitest";
-import slugify from "../../utils/slugify";
+import slugify from "../../utils/slugify.js";
 
 describe("slugify()", () => {
   // Test cases are modeled after Django's slugify, modified based on unicode

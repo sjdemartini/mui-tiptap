@@ -1,7 +1,7 @@
 /// <reference types="@tiptap/extension-underline" />
 import FormatUnderlinedIcon from "@mui/icons-material/FormatUnderlined";
-import { useRichTextEditorContext } from "../context";
-import MenuButton, { type MenuButtonProps } from "./MenuButton";
+import { useRichTextEditorContext } from "../context.js";
+import MenuButton, { type MenuButtonProps } from "./MenuButton.js";
 
 export type MenuButtonUnderlineProps = Partial<MenuButtonProps>;
 

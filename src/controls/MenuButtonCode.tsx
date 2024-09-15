@@ -1,7 +1,7 @@
 /// <reference types="@tiptap/extension-code" />
 import Code from "@mui/icons-material/Code";
-import { useRichTextEditorContext } from "../context";
-import MenuButton, { type MenuButtonProps } from "./MenuButton";
+import { useRichTextEditorContext } from "../context.js";
+import MenuButton, { type MenuButtonProps } from "./MenuButton.js";
 
 export type MenuButtonCodeProps = Partial<MenuButtonProps>;
 

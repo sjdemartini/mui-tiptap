@@ -10,9 +10,9 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { makeStyles } from "tss-react/mui";
-import { Z_INDEXES } from "../styles";
-import { ColorPicker } from "./ColorPicker";
-import type { MenuButtonColorPickerProps } from "./MenuButtonColorPicker";
+import { Z_INDEXES } from "../styles.js";
+import { ColorPicker } from "./ColorPicker.js";
+import type { MenuButtonColorPickerProps } from "./MenuButtonColorPicker.js";
 
 export interface ColorPickerPopperBodyProps
   extends Pick<

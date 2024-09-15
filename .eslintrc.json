@@ -16,7 +16,8 @@
     "import",
     "@typescript-eslint",
     "react-refresh",
-    "tss-unused-classes"
+    "tss-unused-classes",
+    "require-extensions"
   ],
   "extends": [
     "eslint:recommended",
@@ -30,6 +31,7 @@
     "plugin:@typescript-eslint/strict",
     "plugin:import/recommended",
     "plugin:import/typescript",
+    "plugin:require-extensions/recommended",
     "plugin:jsx-a11y/recommended",
     "prettier"
   ],

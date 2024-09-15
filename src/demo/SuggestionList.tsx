@@ -1,7 +1,7 @@
 import { List, ListItem, ListItemButton, Paper } from "@mui/material";
 import type { SuggestionOptions, SuggestionProps } from "@tiptap/suggestion";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
-import type { MentionSuggestion } from "./mentionSuggestionOptions";
+import type { MentionSuggestion } from "./mentionSuggestionOptions.js";
 
 export type SuggestionListRef = {
   // For convenience using this SuggestionList from within the

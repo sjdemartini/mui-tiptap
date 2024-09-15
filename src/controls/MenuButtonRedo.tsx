@@ -1,7 +1,7 @@
 /// <reference types="@tiptap/extension-history" />
 import RedoIcon from "@mui/icons-material/Redo";
-import { useRichTextEditorContext } from "../context";
-import MenuButton, { type MenuButtonProps } from "./MenuButton";
+import { useRichTextEditorContext } from "../context.js";
+import MenuButton, { type MenuButtonProps } from "./MenuButton.js";
 
 export type MenuButtonRedoProps = Partial<MenuButtonProps>;
 

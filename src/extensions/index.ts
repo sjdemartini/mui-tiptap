@@ -2,15 +2,15 @@ export {
   default as FontSize,
   type FontSizeAttrs,
   type FontSizeOptions,
-} from "./FontSize";
+} from "./FontSize.js";
 export {
   default as HeadingWithAnchor,
   scrollToCurrentHeadingAnchor,
   type HeadingWithAnchorOptions,
-} from "./HeadingWithAnchor";
+} from "./HeadingWithAnchor.js";
 export {
   default as LinkBubbleMenuHandler,
   type LinkBubbleMenuHandlerStorage,
-} from "./LinkBubbleMenuHandler";
-export { default as ResizableImage } from "./ResizableImage";
-export { default as TableImproved } from "./TableImproved";
+} from "./LinkBubbleMenuHandler.js";
+export { default as ResizableImage } from "./ResizableImage.js";
+export { default as TableImproved } from "./TableImproved.js";

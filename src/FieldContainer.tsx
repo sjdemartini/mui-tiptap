@@ -1,6 +1,6 @@
 import type React from "react";
 import { makeStyles } from "tss-react/mui";
-import { Z_INDEXES, getUtilityClasses } from "./styles";
+import { Z_INDEXES, getUtilityClasses } from "./styles.js";
 
 export type FieldContainerClasses = ReturnType<typeof useStyles>["classes"];
 

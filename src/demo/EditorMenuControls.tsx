@@ -30,7 +30,7 @@ import {
   MenuSelectHeading,
   MenuSelectTextAlign,
   isTouchDevice,
-} from "../";
+} from "..//index.js";
 
 export default function EditorMenuControls() {
   const theme = useTheme();

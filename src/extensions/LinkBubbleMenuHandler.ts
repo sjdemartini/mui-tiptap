@@ -1,6 +1,6 @@
 import { Extension, getAttributes } from "@tiptap/core";
 import { Plugin, PluginKey } from "@tiptap/pm/state";
-import type { LinkBubbleMenuProps } from "../LinkBubbleMenu";
+import type { LinkBubbleMenuProps } from "../LinkBubbleMenu/index.js";
 
 declare module "@tiptap/core" {
   interface Commands<ReturnType> {

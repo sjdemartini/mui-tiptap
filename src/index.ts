@@ -1,45 +1,48 @@
 export {
   default as ControlledBubbleMenu,
   type ControlledBubbleMenuProps,
-} from "./ControlledBubbleMenu";
+} from "./ControlledBubbleMenu.js";
 export {
   default as LinkBubbleMenu,
   type LinkBubbleMenuProps,
-} from "./LinkBubbleMenu";
-export { default as MenuBar, type MenuBarProps } from "./MenuBar";
-export { default as MenuDivider, type MenuDividerProps } from "./MenuDivider";
+} from "./LinkBubbleMenu/index.js";
+export { default as MenuBar, type MenuBarProps } from "./MenuBar.js";
+export {
+  default as MenuDivider,
+  type MenuDividerProps,
+} from "./MenuDivider.js";
 export {
   default as RichTextContent,
   type RichTextContentProps,
-} from "./RichTextContent";
+} from "./RichTextContent.js";
 export {
   default as RichTextEditor,
   type RichTextEditorProps,
   type RichTextEditorRef,
-} from "./RichTextEditor";
+} from "./RichTextEditor.js";
 export {
   default as RichTextEditorProvider,
   type RichTextEditorProviderProps,
-} from "./RichTextEditorProvider";
+} from "./RichTextEditorProvider.js";
 export {
   default as RichTextField,
   type RichTextFieldProps,
-} from "./RichTextField";
+} from "./RichTextField.js";
 export {
   default as RichTextReadOnly,
   type RichTextReadOnlyProps,
-} from "./RichTextReadOnly";
+} from "./RichTextReadOnly.js";
 export {
   default as TableBubbleMenu,
   type TableBubbleMenuProps,
-} from "./TableBubbleMenu";
-export { RichTextEditorContext, useRichTextEditorContext } from "./context";
-export * from "./controls";
-export * from "./extensions";
-export * from "./hooks";
+} from "./TableBubbleMenu.js";
+export { RichTextEditorContext, useRichTextEditorContext } from "./context.js";
+export * from "./controls/index.js";
+export * from "./extensions/index.js";
+export * from "./hooks/index.js";
 export {
   Z_INDEXES,
   getEditorStyles,
   getImageBackgroundColorStyles,
-} from "./styles";
-export * from "./utils";
+} from "./styles.js";
+export * from "./utils/index.js";

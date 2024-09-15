@@ -9,7 +9,7 @@ import {
 import { isNodeSelection, posToDOMRect, type Editor } from "@tiptap/core";
 import { useCallback } from "react";
 import { makeStyles } from "tss-react/mui";
-import { Z_INDEXES, getUtilityClasses } from "./styles";
+import { Z_INDEXES, getUtilityClasses } from "./styles.js";
 
 export type ControlledBubbleMenuClasses = ReturnType<
   typeof useStyles

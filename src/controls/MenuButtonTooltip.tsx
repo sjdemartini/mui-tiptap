@@ -1,6 +1,6 @@
 import { Tooltip, Typography, alpha, type TooltipProps } from "@mui/material";
 import { makeStyles } from "tss-react/mui";
-import { getModShortcutKey } from "../utils/platform";
+import { getModShortcutKey } from "../utils/platform.js";
 
 export type MenuButtonTooltipProps = {
   /**

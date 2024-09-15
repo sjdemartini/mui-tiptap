@@ -4,11 +4,11 @@ import type { Heading, Level } from "@tiptap/extension-heading";
 import { useCallback, useMemo, type ReactNode } from "react";
 import { makeStyles } from "tss-react/mui";
 import type { Except } from "type-fest";
-import { useRichTextEditorContext } from "../context";
-import { getEditorStyles } from "../styles";
-import { getAttributesForEachSelected } from "../utils/getAttributesForEachSelected";
-import MenuButtonTooltip from "./MenuButtonTooltip";
-import MenuSelect, { type MenuSelectProps } from "./MenuSelect";
+import { useRichTextEditorContext } from "../context.js";
+import { getEditorStyles } from "../styles.js";
+import { getAttributesForEachSelected } from "../utils/getAttributesForEachSelected.js";
+import MenuButtonTooltip from "./MenuButtonTooltip.js";
+import MenuSelect, { type MenuSelectProps } from "./MenuSelect.js";
 
 export type MenuSelectHeadingProps = Except<
   MenuSelectProps<HeadingOptionValue | "">,

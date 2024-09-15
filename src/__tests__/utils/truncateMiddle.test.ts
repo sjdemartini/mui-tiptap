@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import truncateMiddle from "../../utils/truncateMiddle";
+import truncateMiddle from "../../utils/truncateMiddle.js";
 
 describe("truncateMiddle()", () => {
   it("returns an ellipsis and truncates from the middle of a string", () => {

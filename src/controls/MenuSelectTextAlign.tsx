@@ -5,18 +5,18 @@ import FormatAlignRightIcon from "@mui/icons-material/FormatAlignRight";
 import { MenuItem, type SelectChangeEvent } from "@mui/material";
 import { useCallback, useMemo } from "react";
 import { makeStyles } from "tss-react/mui";
-import { useRichTextEditorContext } from "../context";
+import { useRichTextEditorContext } from "../context.js";
 import MenuButtonTooltip, {
   type MenuButtonTooltipProps,
-} from "./MenuButtonTooltip";
+} from "./MenuButtonTooltip.js";
 // We'll import just the type for TextAlignOptions, which we don't expose
 // externally but only utilize within the component below, so allow this import
 // without needing to list extension-text-align as a peer dependency.
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { TextAlignOptions } from "@tiptap/extension-text-align";
 import type { Except } from "type-fest";
-import { MENU_BUTTON_FONT_SIZE_DEFAULT } from "./MenuButton";
-import MenuSelect, { type MenuSelectProps } from "./MenuSelect";
+import { MENU_BUTTON_FONT_SIZE_DEFAULT } from "./MenuButton.js";
+import MenuSelect, { type MenuSelectProps } from "./MenuSelect.js";
 
 export type TextAlignSelectOption = {
   /**

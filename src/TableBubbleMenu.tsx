@@ -4,15 +4,15 @@ import { makeStyles } from "tss-react/mui";
 import type { Except } from "type-fest";
 import ControlledBubbleMenu, {
   type ControlledBubbleMenuProps,
-} from "./ControlledBubbleMenu";
-import { useRichTextEditorContext } from "./context";
+} from "./ControlledBubbleMenu.js";
+import { useRichTextEditorContext } from "./context.js";
 import TableMenuControls, {
   type TableMenuControlsProps,
-} from "./controls/TableMenuControls";
-import { useDebouncedFocus } from "./hooks";
+} from "./controls/TableMenuControls.js";
+import { useDebouncedFocus } from "./hooks/index.js";
 import DebounceRender, {
   type DebounceRenderProps,
-} from "./utils/DebounceRender";
+} from "./utils/DebounceRender.js";
 
 export type TableBubbleMenuProps = {
   /**

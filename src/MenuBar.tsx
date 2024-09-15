@@ -1,6 +1,6 @@
 import { Collapse } from "@mui/material";
 import { makeStyles } from "tss-react/mui";
-import { Z_INDEXES, getUtilityClasses } from "./styles";
+import { Z_INDEXES, getUtilityClasses } from "./styles.js";
 
 export type MenuBarClasses = ReturnType<typeof useStyles>["classes"];
 

@@ -1,7 +1,7 @@
 /// <reference types="@tiptap/extension-highlight" />
-import { useRichTextEditorContext } from "../context";
-import { FormatInkHighlighter } from "../icons";
-import MenuButton, { type MenuButtonProps } from "./MenuButton";
+import { useRichTextEditorContext } from "../context.js";
+import { FormatInkHighlighter } from "../icons/index.js";
+import MenuButton, { type MenuButtonProps } from "./MenuButton.js";
 
 export type MenuButtonHighlightToggleProps = Partial<MenuButtonProps>;
 

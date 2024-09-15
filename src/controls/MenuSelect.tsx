@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { makeStyles } from "tss-react/mui";
-import MenuButtonTooltip from "./MenuButtonTooltip";
+import MenuButtonTooltip from "./MenuButtonTooltip.js";
 
 export type MenuSelectProps<T> = SelectProps<T> & {
   /** An optional tooltip to show when hovering over this Select. */
