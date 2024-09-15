@@ -68,4 +68,11 @@ jobs:
         run: pnpm run test:coverage
 
       - name: Validate the build's packaging CJS and ESM compatibility
-        run: npx @arethetypeswrong/cli@0.16.2 --pack
+        # For now, we ignore the named-exports rule, as this gets triggered for
+        # the `node16 (from ESM)` context, and appears hard to resolve while
+        # still avoiding these issues:
+        # - https://github.com/sjdemartini/mui-tiptap/issues/256
+        # - https://github.com/sjdemartini/mui-tiptap/issues/264
+        # Ideally we can fix this in the future without breaking Node and NextJS
+        # contexts.
+        run: npx @arethetypeswrong/cli@0.16.2 --pack --ignore-rules named-exports
