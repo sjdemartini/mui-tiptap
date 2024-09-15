@@ -21,7 +21,6 @@
   "files": [
     "dist"
   ],
-  "type": "commonjs",
   "types": "./dist/cjs/index.d.ts",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
