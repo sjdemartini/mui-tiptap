@@ -143,6 +143,10 @@ export {
   type MenuSelectHeadingProps,
 } from "./MenuSelectHeading";
 export {
+  default as MenuSelectTableBorderStyle,
+  type MenuSelectTableBorderStyleProps,
+} from "./MenuSelectTableBorderStyle";
+export {
   default as MenuSelectTextAlign,
   type MenuSelectTextAlignProps,
   type TextAlignSelectOption,

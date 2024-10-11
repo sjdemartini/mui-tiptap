@@ -1,4 +1,5 @@
 import { findParentNodeClosestToPos, posToDOMRect } from "@tiptap/core";
+import { findParentNodeOfType } from "prosemirror-utils";
 import { useMemo } from "react";
 import { makeStyles } from "tss-react/mui";
 import type { Except } from "type-fest";
@@ -9,7 +10,6 @@ import { useRichTextEditorContext } from "./context";
 import TableMenuControls, {
   type TableMenuControlsProps,
 } from "./controls/TableMenuControls";
-import { useDebouncedFocus } from "./hooks";
 import DebounceRender, {
   type DebounceRenderProps,
 } from "./utils/DebounceRender";
@@ -69,15 +69,6 @@ export default function TableBubbleMenu({
 }: TableBubbleMenuProps) {
   const editor = useRichTextEditorContext();
   const { classes } = useStyles();
-
-  // Because the user interactions with the table menu bar buttons unfocus the
-  // editor (since it's not part of the editor content), we'll debounce our
-  // visual focused state so that we keep the bubble menu open during those
-  // interactions. That way we don't close it upon menu bar button click
-  // immediately, which can prevent menu button callbacks from working and
-  // also undesirably will close the bubble menu rather than keeping it open for
-  // future menu interaction.
-  const isEditorFocusedDebounced = useDebouncedFocus({ editor });
 
   // We want to position the table menu outside the entire table, rather than at the
   // current cursor position, so that it's essentially static even as the table changes
@@ -143,10 +134,16 @@ export default function TableBubbleMenu({
     <TableMenuControls className={classes.controls} labels={labels} />
   );
 
+  const tableNode = findParentNodeOfType(editor.state.schema.nodes.table)(
+    editor.state.selection
+  );
+
+  const shouldOpen = Boolean(tableNode);
+
   return (
     <ControlledBubbleMenu
       editor={editor}
-      open={isEditorFocusedDebounced && editor.isActive("table")}
+      open={shouldOpen}
       anchorEl={bubbleMenuAnchorEl}
       // So the menu doesn't move as columns are added, removed, or resized, we
       // prefer "foo-start" rather than the centered "foo" placement. Similarly,
