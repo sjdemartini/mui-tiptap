@@ -109,6 +109,12 @@ export default function EditLinkMenuContent({
     // current site). It also allows the value to pass browser-builtin
     // `type="url"` validation.
     let currentHrefValue = hrefRef.current.value.trim();
+
+    // If the user types in a relative path, don't format it.
+    if (currentHrefValue.startsWith("/")) {
+      return;
+    }
+
     if (
       currentHrefValue &&
       !currentHrefValue.startsWith("http://") &&
@@ -168,7 +174,7 @@ export default function EditLinkMenuContent({
         label={labels?.editLinkHrefInputLabel ?? "Link"}
         margin="dense"
         size="small"
-        type="url"
+        type="text"
         onBlur={formatHref}
         onKeyDown={(event) => {
           // If the user is trying to submit the form directly from the href field, make
@@ -177,6 +183,11 @@ export default function EditLinkMenuContent({
           if (event.key === "Enter") {
             formatHref();
           }
+        }}
+        slotProps={{
+          htmlInput: {
+            pattern: "(http|https|mailto|tel):\\/\\/.*|^/.*",
+          },
         }}
         fullWidth
         required
