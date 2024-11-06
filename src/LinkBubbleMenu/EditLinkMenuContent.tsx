@@ -98,26 +98,24 @@ export default function EditLinkMenuContent({
       return;
     }
 
-    // Parse what the user typed in, and add a protocol if they typed in a value
-    // but didn't include a protocol. (This also includes mailto and tel, since
-    // they are also valid for `href`
-    // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-href and
-    // Tiptap has builtin autolink support for email address conversion to
-    // mailto.) This is what Slack does, and seems like a reasonable behavior to
-    // ensure it's a valid URL (e.g. if someone types "example.com", we should
-    // accept it and treat it as "http://example.com", not a relative path on the
-    // current site). It also allows the value to pass browser-builtin
-    // `type="url"` validation.
+    // Parse what the user typed in. Unless the value is explicitly a relative
+    // URL (starting with "/" or "#"), add a protocol if they typed in a value
+    // that doesn't include a protocol. (This also includes mailto:, tel:, and
+    // sms: since they are also valid for `href`
+    // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-href,
+    // and Tiptap has builtin autolink support for email address conversion to
+    // mailto.) This protocol-adding behavior is what Slack does, and seems
+    // reasonable to ensure it's more likely a valid/expected URL (e.g. if
+    // someone types "example.com", we should accept it and treat it as
+    // "http://example.com", not a relative path on the current site).
     let currentHrefValue = hrefRef.current.value.trim();
     if (
       currentHrefValue &&
-      !currentHrefValue.startsWith("http://") &&
-      !currentHrefValue.startsWith("https://") &&
-      !currentHrefValue.startsWith("mailto:") &&
-      !currentHrefValue.startsWith("tel:")
+      !/^(https?:\/\/|mailto:|tel:|sms:|\/|#)/.test(currentHrefValue)
     ) {
       currentHrefValue = `http://${currentHrefValue}`;
     }
+
     // URL-encode any characters that wouldn't be valid. We use `encodeurl`
     // instead of the builtin `encodeURI` so that if there are any
     // already-encoded sequences, they're not double-encoded and thus broken.
@@ -168,7 +166,7 @@ export default function EditLinkMenuContent({
         label={labels?.editLinkHrefInputLabel ?? "Link"}
         margin="dense"
         size="small"
-        type="url"
+        type="text" // "text" instead of "url" so that we can allow relative URLs
         onBlur={formatHref}
         onKeyDown={(event) => {
           // If the user is trying to submit the form directly from the href field, make
