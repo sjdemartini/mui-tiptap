@@ -26,6 +26,7 @@ export interface LinkBubbleMenuProps
    */
   labels?: ViewLinkMenuContentProps["labels"] &
     EditLinkMenuContentProps["labels"];
+  formatHref?: EditLinkMenuContentProps["formatHref"];
 }
 
 const useStyles = makeStyles({ name: { LinkBubbleMenu } })((theme) => ({
@@ -53,6 +54,7 @@ const useStyles = makeStyles({ name: { LinkBubbleMenu } })((theme) => ({
  */
 export default function LinkBubbleMenu({
   labels,
+  formatHref,
   ...controlledBubbleMenuProps
 }: LinkBubbleMenuProps) {
   const { classes } = useStyles();
@@ -135,6 +137,7 @@ export default function LinkBubbleMenu({
           editor.commands.closeLinkBubbleMenu();
         }}
         labels={labels}
+        formatHref={formatHref}
       />
     );
   }
