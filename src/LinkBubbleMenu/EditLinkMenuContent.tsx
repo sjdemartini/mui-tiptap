@@ -1,19 +1,25 @@
 import { Button, DialogActions, TextField, Typography } from "@mui/material";
 import { getMarkRange, getMarkType, type Editor } from "@tiptap/core";
-import encodeurl from "encodeurl";
-import {
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-  type ReactNode,
-} from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import useKeyDown from "../hooks/useKeyDown";
+import { formatHref as formatHrefDefault } from "../utils/links";
 
 export type EditLinkMenuContentProps = {
   editor: Editor;
   onCancel: () => void;
   onSave: ({ text, link }: { text: string; link: string }) => void;
+  /**
+   * Function to format the `href` value the user entered for the link, when a
+   * user has finished typing (`onBlur` or when pressing Enter). Takes in the
+   * user-entered input value and returns the formatted value.
+   *
+   * If not provided, the default behavior:
+   *  - trims leading/trailing whitespace
+   *  - ensures the value has a protocol (http://) if it doesn't already, unless
+   *    it's a relative URL (starting with "/") or anchor (starting with "#")
+   *  - URL-encodes the result
+   */
+  formatHref?: (value: string) => string;
   /** Override default text content/labels used within the component. */
   labels?: {
     /** Menu title shown when adding a new link. */
@@ -37,6 +43,7 @@ export default function EditLinkMenuContent({
   onCancel,
   onSave,
   labels,
+  formatHref = formatHrefDefault,
 }: EditLinkMenuContentProps) {
   const existingHref = editor.isActive("link")
     ? (editor.getAttributes("link").href as string)
@@ -93,36 +100,12 @@ export default function EditLinkMenuContent({
   // If the user presses escape, we should cancel
   useKeyDown("Escape", onCancel);
 
-  const formatHref = useCallback(() => {
+  function formatAndSetHref() {
     if (!hrefRef.current) {
       return;
     }
-
-    // Parse what the user typed in. Unless the value is explicitly a relative
-    // URL (starting with "/" or "#"), add a protocol if they typed in a value
-    // that doesn't include a protocol. (This also includes mailto:, tel:, and
-    // sms: since they are also valid for `href`
-    // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-href,
-    // and Tiptap has builtin autolink support for email address conversion to
-    // mailto.) This protocol-adding behavior is what Slack does, and seems
-    // reasonable to ensure it's more likely a valid/expected URL (e.g. if
-    // someone types "example.com", we should accept it and treat it as
-    // "http://example.com", not a relative path on the current site).
-    let currentHrefValue = hrefRef.current.value.trim();
-    if (
-      currentHrefValue &&
-      !/^(https?:\/\/|mailto:|tel:|sms:|\/|#)/.test(currentHrefValue)
-    ) {
-      currentHrefValue = `http://${currentHrefValue}`;
-    }
-
-    // URL-encode any characters that wouldn't be valid. We use `encodeurl`
-    // instead of the builtin `encodeURI` so that if there are any
-    // already-encoded sequences, they're not double-encoded and thus broken.
-    // (Useful for instance when a user pastes a URL into the form with complex
-    // and already-encoded parameters.)
-    setHrefValue(encodeurl(currentHrefValue));
-  }, []);
+    setHrefValue(formatHref(hrefRef.current.value));
+  }
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -167,13 +150,13 @@ export default function EditLinkMenuContent({
         margin="dense"
         size="small"
         type="text" // "text" instead of "url" so that we can allow relative URLs
-        onBlur={formatHref}
+        onBlur={formatAndSetHref}
         onKeyDown={(event) => {
           // If the user is trying to submit the form directly from the href field, make
           // sure we first format what they entered (which will update it to allow it to
           // pass URL field validation)
           if (event.key === "Enter") {
-            formatHref();
+            formatAndSetHref();
           }
         }}
         fullWidth
