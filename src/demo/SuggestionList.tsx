@@ -75,7 +75,9 @@ const SuggestionList = forwardRef<SuggestionListRef, SuggestionListProps>(
       selectItem(selectedIndex);
     };
 
-    useEffect(() => setSelectedIndex(0), [props.items]);
+    useEffect(() => {
+      setSelectedIndex(0);
+    }, [props.items]);
 
     useImperativeHandle(ref, () => ({
       onKeyDown: ({ event }) => {
@@ -111,7 +113,9 @@ const SuggestionList = forwardRef<SuggestionListRef, SuggestionListProps>(
             <ListItem key={item.id} disablePadding>
               <ListItemButton
                 selected={index === selectedIndex}
-                onClick={() => selectItem(index)}
+                onClick={() => {
+                  selectItem(index);
+                }}
               >
                 {item.mentionLabel}
               </ListItemButton>

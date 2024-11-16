@@ -133,7 +133,9 @@ export default function EditLinkMenuContent({
         inputRef={textRef}
         value={textValue}
         disabled={isSubmitting}
-        onChange={(event) => setTextValue(event.target.value)}
+        onChange={(event) => {
+          setTextValue(event.target.value);
+        }}
         label={labels?.editLinkTextInputLabel ?? "Text"}
         margin="normal"
         size="small"
@@ -144,7 +146,9 @@ export default function EditLinkMenuContent({
       <TextField
         inputRef={hrefRef}
         value={hrefValue}
-        onChange={(event) => setHrefValue(event.target.value)}
+        onChange={(event) => {
+          setHrefValue(event.target.value);
+        }}
         disabled={isSubmitting}
         label={labels?.editLinkHrefInputLabel ?? "Link"}
         margin="dense"

@@ -115,7 +115,9 @@ const RichTextEditor = forwardRef<RichTextEditorRef, RichTextEditorProps>(
       // We use queueMicrotask to avoid any flushSync console errors as
       // mentioned here (though setEditable shouldn't trigger them in practice)
       // https://github.com/ueberdosis/tiptap/issues/3764#issuecomment-1546854730
-      queueMicrotask(() => editor.setEditable(editable));
+      queueMicrotask(() => {
+        editor.setEditable(editable);
+      });
     }, [editable, editor]);
 
     return (

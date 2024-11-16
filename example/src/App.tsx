@@ -22,11 +22,9 @@ export default function App() {
   const [paletteMode, setPaletteMode] = useState<PaletteMode>(
     systemSettingsPrefersDarkMode ? "dark" : "light"
   );
-  const togglePaletteMode = useCallback(
-    () =>
-      setPaletteMode((prevMode) => (prevMode === "light" ? "dark" : "light")),
-    []
-  );
+  const togglePaletteMode = useCallback(() => {
+    setPaletteMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
+  }, []);
   const theme = useMemo(
     () =>
       createTheme({

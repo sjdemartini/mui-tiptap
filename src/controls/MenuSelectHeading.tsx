@@ -235,6 +235,7 @@ export default function MenuSelectHeading({
         if (selected === "") {
           // Handle the deprecated `emptyValue` label name, falling back to the
           // newer `labels.empty`, and finally our default empty label
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
           result = labels?.emptyValue ?? labels?.empty ?? <em>Change to…</em>;
         } else if (selected === HEADING_OPTION_VALUES.Paragraph) {
           result = labels?.paragraph;

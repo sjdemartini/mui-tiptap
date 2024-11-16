@@ -60,22 +60,22 @@ export function getEditorStyles(theme: Theme): StyleRules {
 
       ...(hasResponsiveStyles
         ? {
-            fontSize: `${1.5625 * 1.2}rem`,
+            fontSize: `${(1.5625 * 1.2).toFixed(4)}rem`,
 
             [theme.breakpoints.up("sm")]: {
-              fontSize: `${1.8219 * 1.2}rem`,
+              fontSize: `${(1.8219 * 1.2).toFixed(4)}rem`,
             },
 
             [theme.breakpoints.up("md")]: {
-              fontSize: `${2.0243 * 1.2}rem`,
+              fontSize: `${(2.0243 * 1.2).toFixed(4)}rem`,
             },
 
             [theme.breakpoints.up("lg")]: {
-              fontSize: `${2.0243 * 1.2}rem`,
+              fontSize: `${(2.0243 * 1.2).toFixed(4)}rem`,
             },
           }
         : {
-            fontSize: `${2.0243 * 1.2}rem`,
+            fontSize: `${(2.0243 * 1.2).toFixed(4)}rem`,
           }),
     },
 

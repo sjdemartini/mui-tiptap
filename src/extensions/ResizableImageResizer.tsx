@@ -54,7 +54,9 @@ export function ResizableImageResizer({
   }, [mouseDown, onResize]);
 
   useEffect(() => {
-    const handleMouseUp = () => setMouseDown(false);
+    const handleMouseUp = () => {
+      setMouseDown(false);
+    };
 
     window.addEventListener("mouseup", handleMouseUp);
 

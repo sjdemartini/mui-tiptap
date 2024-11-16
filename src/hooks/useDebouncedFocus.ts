@@ -27,7 +27,10 @@ export default function useDebouncedFocus({
   );
 
   const updateIsFocusedDebounced = useMemo(
-    () => debounce((focused: boolean) => setIsFocusedDebounced(focused), wait),
+    () =>
+      debounce((focused: boolean) => {
+        setIsFocusedDebounced(focused);
+      }, wait),
     [wait]
   );
 

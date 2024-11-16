@@ -141,6 +141,7 @@ const DEFAULT_ALIGNMENT_OPTIONS: TextAlignSelectOption[] = [
 export default function MenuSelectTextAlign({
   options = DEFAULT_ALIGNMENT_OPTIONS,
   emptyLabel = "",
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   alignmentOptions,
   ...menuSelectProps
 }: MenuSelectTextAlignProps) {

@@ -202,7 +202,9 @@ export default function PageContentWithEditor() {
       <Divider sx={{ mt: 5, mb: 2 }} />
 
       <Button
-        onClick={() => setHtmlResult(rteRef.current?.editor?.getHTML() ?? "")}
+        onClick={() => {
+          setHtmlResult(rteRef.current?.editor?.getHTML() ?? "");
+        }}
       >
         Save and display HTML
       </Button>

@@ -127,11 +127,14 @@ const MULTIPLE_SIZES_SELECTED_VALUE = "MULTIPLE";
 /** A font-size selector for use with the mui-tiptap FontSize extension.  */
 export default function MenuSelectFontSize({
   options = DEFAULT_FONT_SIZE_SELECT_OPTIONS,
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   sizeOptions,
   hideUnsetOption = false,
   unsetOptionLabel = "Default",
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   unsetOptionContent,
   emptyLabel,
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   emptyValue,
   ...menuSelectProps
 }: MenuSelectFontSizeProps) {

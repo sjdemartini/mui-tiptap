@@ -42,7 +42,6 @@ export default function MenuButtonHighlightColor({
       // highlight keyboard shortcut, toggleHighlight/setHighlight when no
       // explicit color is provided, and the "==thing==" syntax), fall back to
       // the provided defaultMarkColor
-      // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
       (editor.getAttributes("highlight").color as string | null | undefined) ||
       defaultMarkColor
     : "";
