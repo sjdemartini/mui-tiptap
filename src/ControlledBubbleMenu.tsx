@@ -9,7 +9,7 @@ import {
 import { isNodeSelection, posToDOMRect, type Editor } from "@tiptap/core";
 import { useCallback } from "react";
 import { makeStyles } from "tss-react/mui";
-import { Z_INDEXES, getUtilityClasses } from "./styles";
+import { getUtilityClasses } from "./styles";
 
 export type ControlledBubbleMenuClasses = ReturnType<
   typeof useStyles
@@ -94,7 +94,11 @@ const controlledBubbleMenuClasses: ControlledBubbleMenuClasses =
 
 const useStyles = makeStyles({ name: { ControlledBubbleMenu } })((theme) => ({
   root: {
-    zIndex: Z_INDEXES.BUBBLE_MENU,
+    // Ensure the bubble menu is above modals, in case the editor is rendered in
+    // a modal, consistent with recommendations here
+    // https://github.com/mui/material-ui/issues/14216. See
+    // https://github.com/sjdemartini/mui-tiptap/issues/265.
+    zIndex: theme.zIndex.tooltip,
   },
 
   paper: {

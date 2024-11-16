@@ -29,7 +29,11 @@ function fileListToImageFiles(fileList: FileList): File[] {
   });
 }
 
-export default function Editor() {
+type Props = {
+  disableStickyMenuBar?: boolean;
+};
+
+export default function Editor({ disableStickyMenuBar }: Props) {
   const extensions = useExtensions({
     placeholder: "Add your own content here...",
   });
@@ -155,6 +159,7 @@ export default function Editor() {
             variant: "outlined",
             MenuBarProps: {
               hide: !showMenuBar,
+              disableSticky: disableStickyMenuBar,
             },
             // Below is an example of adding a toggle within the outlined field
             // for showing/hiding the editor menu bar, and a "submit" button for

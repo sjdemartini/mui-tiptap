@@ -18,8 +18,6 @@ export const Z_INDEXES = {
   // The notched outline of the "outlined" field variant should be at the same z-index
   // as the menu-bar, so that it can contain/enclose it
   NOTCHED_OUTLINE: 2,
-  // The bubble menus should appear on top of the menu bar
-  BUBBLE_MENU: 3,
 } as const;
 
 export function getEditorStyles(theme: Theme): StyleRules {
