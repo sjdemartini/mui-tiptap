@@ -10,7 +10,6 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { makeStyles } from "tss-react/mui";
-import { Z_INDEXES } from "../styles";
 import { ColorPicker } from "./ColorPicker";
 import type { MenuButtonColorPickerProps } from "./MenuButtonColorPicker";
 
@@ -106,14 +105,18 @@ export function ColorPickerPopperBody({
   );
 }
 
-const useStyles = makeStyles({ name: { ColorPickerPopper } })({
+const useStyles = makeStyles({ name: { ColorPickerPopper } })((theme) => ({
   root: {
-    zIndex: Z_INDEXES.BUBBLE_MENU,
+    // Ensure the popper is above modals, in case the editor is rendered in a
+    // modal, consistent with recommendations here
+    // https://github.com/mui/material-ui/issues/14216. See
+    // https://github.com/sjdemartini/mui-tiptap/issues/206.
+    zIndex: theme.zIndex.tooltip,
     // This width seems to work well to allow exactly 8 swatches, as well as the
     // default button content
     width: 235,
   },
-});
+}));
 
 /**
  * Renders the ColorPicker inside of a Popper interface, for use with the
