@@ -9,6 +9,7 @@ let isTouchDeviceResult: boolean | undefined;
  */
 export function isMac(): boolean {
   if (isMacResult === undefined) {
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     isMacResult = navigator.platform.includes("Mac");
   }
   return isMacResult;

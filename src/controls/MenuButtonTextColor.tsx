@@ -42,7 +42,6 @@ export default function MenuButtonTextColor({
   const isTextStyleAppliedToEntireSelection = !!editor?.isActive("textStyle");
   const currentColors: string[] = allCurrentTextStyleAttrs.map(
     // Treat any null/missing color as the default color
-    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
     (attrs) => attrs.color || defaultTextColor
   );
   if (!isTextStyleAppliedToEntireSelection) {

@@ -161,13 +161,17 @@ export function ColorPicker({
       {disableAlpha ? (
         <HexColorPicker
           color={colorValueAsHex ?? "#000000"}
-          onChange={(color) => onChange(color, "gradient")}
+          onChange={(color) => {
+            onChange(color, "gradient");
+          }}
           className={classes.gradientPicker}
         />
       ) : (
         <HexAlphaColorPicker
           color={colorValueAsHex ?? "#000000"}
-          onChange={(color) => onChange(color, "gradient")}
+          onChange={(color) => {
+            onChange(color, "gradient");
+          }}
           className={classes.gradientPicker}
         />
       )}
@@ -197,7 +201,9 @@ export function ColorPicker({
               key={swatchColor.value}
               value={swatchColor.value}
               label={swatchColor.label}
-              onClick={() => onChange(swatchColor.value ?? "", "swatch")}
+              onClick={() => {
+                onChange(swatchColor.value ?? "", "swatch");
+              }}
               // We'll show the swatch as active if this swatch color is naively
               // equal to the current color, if this swatch is for "transparent"
               // and no color is set, or if the color matches when parsing and

@@ -32,7 +32,12 @@ export default function PageContentWithEditorSimple() {
         )}
       />
 
-      <Button onClick={() => console.log(rteRef.current?.editor?.getHTML())}>
+      <Button
+        onClick={() => {
+          // eslint-disable-next-line no-console
+          console.log(rteRef.current?.editor?.getHTML());
+        }}
+      >
         Log HTML
       </Button>
     </div>

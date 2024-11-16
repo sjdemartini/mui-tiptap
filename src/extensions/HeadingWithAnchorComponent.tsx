@@ -109,7 +109,8 @@ export default function HeadingWithAnchorComponent({
   // (https://github.com/ueberdosis/tiptap/blob/c9eb6a6299796450c7c1cfdc3552d76070c78c65/packages/extension-heading/src/heading.ts#L58-L65)
   const hasLevel = extension.options.levels.includes(node.attrs.level);
   const level = hasLevel ? node.attrs.level : extension.options.levels[0];
-  const HeadingTag = `h${level}` as keyof JSX.IntrinsicElements;
+  // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+  const HeadingTag = `h${level}` as keyof React.JSX.IntrinsicElements;
   // Create an anchor ID based on the text content of the header (like
   // GitHub/GitLab do). Note that we use Tiptap's `getText` rather than
   // `node.textContent` so that nodes like Mentions can produce text for this

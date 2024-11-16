@@ -182,9 +182,9 @@ export default function Editor({ disableStickyMenuBar }: Props) {
                     showMenuBar ? "Hide formatting" : "Show formatting"
                   }
                   size="small"
-                  onClick={() =>
-                    setShowMenuBar((currentState) => !currentState)
-                  }
+                  onClick={() => {
+                    setShowMenuBar((currentState) => !currentState);
+                  }}
                   selected={showMenuBar}
                   IconComponent={TextFields}
                 />
@@ -197,7 +197,9 @@ export default function Editor({ disableStickyMenuBar }: Props) {
                       : "Allow edits"
                   }
                   size="small"
-                  onClick={() => setIsEditable((currentState) => !currentState)}
+                  onClick={() => {
+                    setIsEditable((currentState) => !currentState);
+                  }}
                   selected={!isEditable}
                   IconComponent={isEditable ? Lock : LockOpen}
                 />

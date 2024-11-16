@@ -167,9 +167,7 @@ function ResizableImageComponent(props: Props) {
           height="auto"
           width={attrs.width ? attrs.width : undefined}
           {...{
-            // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
             alt: attrs.alt || undefined,
-            // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
             title: attrs.title || undefined,
           }}
           className={cx(

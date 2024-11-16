@@ -100,16 +100,22 @@ export function MenuButtonColorPicker({
   const { classes, cx } = useStyles();
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
-  const handleClose = () => setAnchorEl(null);
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const { IconComponent, children, ...otherMenuButtonProps } = menuButtonProps;
 
   return (
     <>
       <MenuButton
-        onClick={(e) =>
-          anchorEl ? handleClose() : setAnchorEl(e.currentTarget)
-        }
+        onClick={(e) => {
+          if (anchorEl) {
+            handleClose();
+          } else {
+            setAnchorEl(e.currentTarget);
+          }
+        }}
         aria-describedby={popperId}
         {...otherMenuButtonProps}
       >

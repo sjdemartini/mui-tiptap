@@ -28,11 +28,9 @@ export default function App() {
     systemSettingsPrefersDarkMode ? "dark" : "light"
   );
   const [dialogOpen, setDialogOpen] = useState(false);
-  const togglePaletteMode = useCallback(
-    () =>
-      setPaletteMode((prevMode) => (prevMode === "light" ? "dark" : "light")),
-    []
-  );
+  const togglePaletteMode = useCallback(() => {
+    setPaletteMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
+  }, []);
   const theme = useMemo(
     () =>
       createTheme({
@@ -55,7 +53,13 @@ export default function App() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             mui-tiptap
           </Typography>
-          <Button onClick={() => setDialogOpen(true)}>View in a dialog</Button>
+          <Button
+            onClick={() => {
+              setDialogOpen(true);
+            }}
+          >
+            View in a dialog
+          </Button>
           <IconButton onClick={togglePaletteMode} color="inherit">
             {theme.palette.mode === "dark" ? (
               <Brightness7Icon />
@@ -72,14 +76,18 @@ export default function App() {
 
       <Dialog
         open={dialogOpen}
-        onClose={() => setDialogOpen(false)}
+        onClose={() => {
+          setDialogOpen(false);
+        }}
         maxWidth="xl"
         PaperProps={{ sx: { overflowY: "auto", maxHeight: "70vh" } }}
         aria-labelledby="editor-dialog-title"
       >
         <DialogTitle id="editor-dialog-title">Editor in a dialog</DialogTitle>
         <IconButton
-          onClick={() => setDialogOpen(false)}
+          onClick={() => {
+            setDialogOpen(false);
+          }}
           aria-label="close"
           sx={{
             position: "absolute",
