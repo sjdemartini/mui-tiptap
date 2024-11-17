@@ -23,15 +23,18 @@ export default tseslint.config(
       ...tseslint.configs.strictTypeChecked,
       reactPlugin.configs.flat.recommended,
       reactPlugin.configs.flat["jsx-runtime"],
-      /* eslint-disable @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access */
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       importPlugin.flatConfigs.recommended,
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       importPlugin.flatConfigs.typescript,
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       jsxA11y.flatConfigs.recommended,
       comments.recommended,
       eslintConfigPrettier,
     ],
     plugins: {
       "react-hooks": reactHooks,
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       "react-refresh": reactRefresh,
       "tss-unused-classes": tssUnusedClasses,
     },
@@ -40,10 +43,11 @@ export default tseslint.config(
       reportUnusedDisableDirectives: "warn",
     },
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     languageOptions: {
       ...reactPlugin.configs.flat.recommended.languageOptions,
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       ...jsxA11y.flatConfigs.recommended.languageOptions,
-      /* eslint-enable @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access */
 
       globals: {
         ...globals.browser,
