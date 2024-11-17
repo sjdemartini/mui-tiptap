@@ -8,7 +8,6 @@ import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
 import tssUnusedClasses from "eslint-plugin-tss-unused-classes";
 import globals from "globals";
-// eslint-disable-next-line import/no-unresolved
 import tseslint from "typescript-eslint";
 
 export default tseslint.config(
@@ -109,6 +108,15 @@ export default tseslint.config(
           argsIgnorePattern: "^_",
         },
       ],
+
+      // Per
+      // https://typescript-eslint.io/troubleshooting/typed-linting/performance/#eslint-plugin-import,
+      // we disable some redundant rules, which helps with performance
+      "import/named": "off",
+      "import/namespace": "off",
+      "import/default": "off",
+      "import/no-named-as-default-member": "off",
+      "import/no-unresolved": "off",
 
       "import/no-extraneous-dependencies": [
         "error",
