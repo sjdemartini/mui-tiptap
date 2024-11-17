@@ -58,7 +58,8 @@
   "scripts": {
     "build": "pnpm clean && tsc --project tsconfig.build.json && tsc --project tsconfig.build-esm.json",
     "clean": "rimraf dist coverage",
-    "example": "pnpm build && rimraf ./example/node_modules && pnpm --dir ./example install && pnpm --dir ./example run dev",
+    "example": "pnpm build && pnpm example:install && pnpm --dir ./example run dev",
+    "example:install": "rimraf ./example/node_modules && pnpm --dir ./example install",
     "dev": "vite",
     "type:check": "tsc --noEmit",
     "format": "prettier --write .",
