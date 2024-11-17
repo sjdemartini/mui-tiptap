@@ -165,6 +165,8 @@ export default tseslint.config(
         },
       ],
 
+      "react/button-has-type": "error",
+
       "react/function-component-definition": "warn",
 
       "react/jsx-no-useless-fragment": [
