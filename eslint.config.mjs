@@ -174,13 +174,6 @@ export default tseslint.config(
         },
       ],
 
-      "react-hooks/exhaustive-deps": [
-        "warn",
-        {
-          additionalHooks: "(useUpdateEffect)",
-        },
-      ],
-
       "react-refresh/only-export-components": [
         "warn",
         {
