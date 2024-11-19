@@ -12,7 +12,7 @@ import tseslint from "typescript-eslint";
 
 export default tseslint.config(
   {
-    ignores: ["**/dist/**"],
+    ignores: ["**/dist/**", "coverage/**", "**/node_modules/**"],
   },
   {
     files: ["**/*.{js,jsx,mjs,cjs,ts,tsx}"],
