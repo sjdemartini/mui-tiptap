@@ -82,6 +82,8 @@ export type ControlledBubbleMenuProps = {
   className?: string;
   /** Override or extend existing styles. */
   classes?: Partial<ControlledBubbleMenuClasses>;
+  /** Styles applied to the root Popper element. */
+  sx?: PopperProps["sx"];
   /**
    * Override the default props for the Paper containing the bubble menu
    * content.
@@ -130,6 +132,7 @@ export default function ControlledBubbleMenu({
   open,
   className,
   classes: overrideClasses = {},
+  sx,
   children,
   anchorEl,
   container,
@@ -223,6 +226,7 @@ export default function ControlledBubbleMenu({
       ]}
       anchorEl={anchorEl ?? defaultAnchorEl}
       className={cx(controlledBubbleMenuClasses.root, classes.root, className)}
+      sx={sx}
       container={container}
       disablePortal={disablePortal}
       transition
