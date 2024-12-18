@@ -12,7 +12,7 @@ export default function MenuButtonStrikethrough(
   return (
     <MenuButton
       tooltipLabel="Strikethrough"
-      tooltipShortcutKeys={["mod", "Shift", "X"]}
+      tooltipShortcutKeys={["mod", "Shift", "S"]}
       IconComponent={StrikethroughS}
       selected={editor?.isActive("strike") ?? false}
       disabled={!editor?.isEditable || !editor.can().toggleStrike()}
