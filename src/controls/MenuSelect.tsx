@@ -96,6 +96,13 @@ export default function MenuSelect<T>({
         setTooltipOpen(false);
         selectProps.onClick?.(...args);
       }}
+      onOpen={(...args) => {
+        // Close the tooltip when the dropdown is opened. This can ensure the
+        // tooltip doesn't block menu items, etc. (see
+        // https://github.com/sjdemartini/mui-tiptap/issues/308).
+        setTooltipOpen(false);
+        selectProps.onOpen?.(...args);
+      }}
       inputProps={{
         ...selectProps.inputProps,
         className: cx(classes.input, selectProps.inputProps?.className),
