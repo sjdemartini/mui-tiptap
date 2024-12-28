@@ -14,27 +14,22 @@ jobs:
     permissions:
       contents: read
       id-token: write # Needed for https://docs.npmjs.com/generating-provenance-statements
-    strategy:
-      matrix:
-        node-version: [18]
 
     needs: [build-test] # Require standard CI steps to pass before publishing
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
 
       # Set up .npmrc file to publish to npm. This also allows NODE_AUTH_TOKEN
       # to work below.
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
-          node-version: "18.x"
+          node-version: "20.x"
           registry-url: "https://registry.npmjs.org"
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 9
 
       - run: pnpm install
 
