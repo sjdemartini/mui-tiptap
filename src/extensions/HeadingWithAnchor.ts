@@ -59,6 +59,10 @@ const HeadingWithAnchor = Heading.extend<HeadingWithAnchorOptions>({
   // and don't need any fancy interaction with React, doing so allows us to use
   // a MUI SVG icon as well as MUI styling
   addNodeView() {
+    // @ts-expect-error Our HeadingWithAnchorComponent component overrides the
+    // NodeViewProps to specify that the `node`'s `attrs` must contain the
+    // `level` key, as the base `Heading` extension requires, but
+    // `ReactNodeViewRenderer`'s type doesn't account for this.
     return ReactNodeViewRenderer(HeadingWithAnchorComponent);
   },
 });

@@ -1,4 +1,5 @@
 import { List, ListItem, ListItemButton, Paper } from "@mui/material";
+import type { MentionNodeAttrs } from "@tiptap/extension-mention";
 import type { SuggestionOptions, SuggestionProps } from "@tiptap/suggestion";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import type { MentionSuggestion } from "./mentionSuggestionOptions";
@@ -13,15 +14,6 @@ export type SuggestionListRef = {
     >["onKeyDown"]
   >;
 };
-
-// This type is based on
-// https://github.com/ueberdosis/tiptap/blob/a27c35ac8f1afc9d51f235271814702bc72f1e01/packages/extension-mention/src/mention.ts#L73-L103.
-// TODO(Steven DeMartini): Use the Tiptap exported MentionNodeAttrs interface
-// once https://github.com/ueberdosis/tiptap/pull/4136 is merged.
-interface MentionNodeAttrs {
-  id: string | null;
-  label?: string | null;
-}
 
 export type SuggestionListProps = SuggestionProps<MentionSuggestion>;
 
@@ -50,14 +42,6 @@ const SuggestionList = forwardRef<SuggestionListRef, SuggestionListProps>(
         id: suggestion.id,
         label: suggestion.mentionLabel,
       };
-      // @ts-expect-error there is currently a bug in the Tiptap SuggestionProps
-      // type where if you specify the suggestion type (like
-      // `SuggestionProps<MentionSuggestion>`), it will incorrectly require that
-      // type variable for `command`'s argument as well (whereas instead the
-      // type of that argument should be the Mention Node attributes). This
-      // should be fixed once https://github.com/ueberdosis/tiptap/pull/4136 is
-      // merged and we can add a separate type arg to `SuggestionProps` to
-      // specify the type of the commanded selected item.
       props.command(mentionItem);
     };
 
