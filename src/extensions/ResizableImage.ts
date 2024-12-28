@@ -201,6 +201,11 @@ const ResizableImage = Image.extend<ResizableImageOptions>({
     // (and set the `width` attribute as it does so), use a Node View. See
     // https://tiptap.dev/guide/custom-extensions#node-views and
     // https://tiptap.dev/guide/node-views/react
+    // @ts-expect-error Our ResizableImageComponent component overrides the
+    // NodeViewProps to specify that the `node`'s `attrs` contains the
+    // attributes added above and in the base Image extension (src, width,
+    // aspectRatio, etc.), but `ReactNodeViewRenderer`'s type doesn't account
+    // for this.
     return ReactNodeViewRenderer(ResizableImageComponent);
   },
 });
