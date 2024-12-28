@@ -14,6 +14,15 @@ jobs:
     strategy:
       matrix:
         node-version: [20]
+        # Test across different versions of Tiptap to ensure compatibility: the
+        # version used in our lockfile, an older version we support, and the
+        # latest v2 version.
+        tiptap-version: [null, 2.0.4, "^2.10.0"]
+        include:
+          - tiptap-version: 2.0.4
+            # Specify the version of y-prosemirror to use to ensure proper peer
+            # dependency compatibility and resolution.
+            y-prosemirror-version: 1.0.20
 
     steps:
       - name: Checkout repo
@@ -33,8 +42,47 @@ jobs:
       - name: Dependencies audit
         run: pnpm audit --audit-level=high
 
+      - if: ${{ matrix.tiptap-version != null }}
+        name: Override tiptap version to ${{ matrix.tiptap-version }}
+        # So that we can update all tiptap packages at once, we use
+        # `pnpm update`, which allows wildcard syntax and version specifier
+        # (unlike `pnpm install`). We have to separately install the indirect
+        # dependencies of @tiptap/react with the desired version (the floating
+        # and bubble menu packages), since `update` doesn't apply to them.
+        run: |
+          pnpm update -D "@tiptap/*@${{ matrix.tiptap-version }}"
+          pnpm add -D "@tiptap/extension-floating-menu@${{ matrix.tiptap-version }}" "@tiptap/extension-bubble-menu@${{ matrix.tiptap-version }}"
+          pnpm dedupe
+
+      - if: ${{ matrix.y-prosemirror-version }}
+        name: Override y-prosemirror version to ${{ matrix.y-prosemirror-version }}
+        run: pnpm add -D "y-prosemirror@${{ matrix.y-prosemirror-version }}"
+
       - name: Check for duplicate dependencies
         run: pnpm dedupe --check
+
+      - if: ${{ matrix.tiptap-version == '2.0.4' }}
+        name: Resolve known inconsequential TS differences in Tiptap 2.0.4
+        # 1) Delete the `@ts-expect-error` comments where needed, as older
+        # versions of Tiptap didn't have the same types that required this
+        # override.
+        # 2) Add `@ts-expect-error` to TableImproved.ts where the typing in
+        # older versions was incorrect (as Tiptap itself did here
+        # https://github.com/ueberdosis/tiptap/blob/b0198eb14b98db5ca691bd9bfe698ffaddbc4ded/packages/extension-table/src/table.ts#L253,
+        # and we did prior to updating to newer Tiptap).
+        # 3) Restore an older version of the demo SuggestionList, since it
+        # relied on local typing overrides awaiting fixes published in Tiptap
+        # 2.5.0. This ensures `type:check` passes, though isn't part of the
+        # build anyway.
+        run: |
+          sed -i '/@ts-expect-error/d' src/extensions/HeadingWithAnchor.ts src/extensions/ResizableImage.ts
+
+          sed -i '/View: this.options.View/i\
+                        // @ts-expect-error incorrect type\
+          ' src/extensions/TableImproved.ts
+
+          git fetch origin tag v1.16.0 --no-tags
+          git restore --source v1.16.0 src/demo/SuggestionList.tsx
 
       - name: Build
         run: pnpm run build
