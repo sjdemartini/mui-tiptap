@@ -101,19 +101,20 @@ export type ColorPickerProps = {
      */
     textFieldPlaceholder?: string;
   };
-  /** Override or extend existing styles. These classes are merged with the
-   * default utility classes. For instance, to hide the swatch container,
-   * you could do:
+  /**
+   * Override or extend existing styles. These classes are merged with the
+   * default utility classes. For instance, if you need to conditionally hide
+   * the swatch container, you could do:
    *
    *   ColorPickerProps={{
    *     classes: {
-   *       swatchContainer: "hide-swatch"
+   *       swatchContainer: shouldHide ? "hide" : undefined
    *     }
    *   }}
    *
    * And in your CSS:
    *
-   *   .MuiTiptap-ColorPicker-swatchContainer.hide-swatch {
+   *   .MuiTiptap-ColorPicker-swatchContainer.hide {
    *     display: none;
    *   }
    */
