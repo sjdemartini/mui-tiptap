@@ -2,8 +2,11 @@ import { TextField } from "@mui/material";
 import { useEffect, useRef } from "react";
 import { HexAlphaColorPicker, HexColorPicker } from "react-colorful";
 import { makeStyles } from "tss-react/mui";
+import { getUtilityClasses } from "../styles";
 import { colorToHex as colorToHexDefault } from "../utils/color";
 import { ColorSwatchButton } from "./ColorSwatchButton";
+
+export type ColorPickerClasses = ReturnType<typeof useStyles>["classes"];
 
 export type ColorChangeSource = "gradient" | "text" | "swatch";
 
@@ -98,7 +101,30 @@ export type ColorPickerProps = {
      */
     textFieldPlaceholder?: string;
   };
+  /**
+   * Override or extend existing styles. These classes are merged with the
+   * default utility classes. For instance, if you need to conditionally hide
+   * the swatch container, you could do:
+   *
+   *   ColorPickerProps={{
+   *     classes: {
+   *       swatchContainer: shouldHide ? "hide" : undefined
+   *     }
+   *   }}
+   *
+   * And in your CSS:
+   *
+   *   .MuiTiptap-ColorPicker-swatchContainer.hide {
+   *     display: none;
+   *   }
+   */
+  classes?: Partial<ColorPickerClasses>;
 };
+
+const colorPickerUtilityClasses: ColorPickerClasses = getUtilityClasses(
+  "ColorPicker",
+  ["gradientPicker", "colorTextInput", "swatchContainer"]
+);
 
 const useStyles = makeStyles({ name: { ColorPicker } })((theme) => ({
   gradientPicker: {
@@ -131,8 +157,11 @@ export function ColorPicker({
   colorToHex = colorToHexDefault,
   disableAlpha = false,
   labels = {},
+  classes: overrideClasses = {},
 }: ColorPickerProps) {
-  const { classes } = useStyles();
+  const { classes, cx } = useStyles(undefined, {
+    props: { classes: overrideClasses },
+  });
   const { textFieldPlaceholder = 'Ex: "#7cb5ec"' } = labels;
 
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -161,18 +190,24 @@ export function ColorPicker({
       {disableAlpha ? (
         <HexColorPicker
           color={colorValueAsHex ?? "#000000"}
+          className={cx(
+            colorPickerUtilityClasses.gradientPicker,
+            classes.gradientPicker
+          )}
           onChange={(color) => {
             onChange(color, "gradient");
           }}
-          className={classes.gradientPicker}
         />
       ) : (
         <HexAlphaColorPicker
           color={colorValueAsHex ?? "#000000"}
+          className={cx(
+            colorPickerUtilityClasses.gradientPicker,
+            classes.gradientPicker
+          )}
           onChange={(color) => {
             onChange(color, "gradient");
           }}
-          className={classes.gradientPicker}
         />
       )}
 
@@ -183,7 +218,10 @@ export function ColorPicker({
         defaultValue={value || ""}
         inputRef={inputRef}
         spellCheck={false}
-        className={classes.colorTextInput}
+        className={cx(
+          colorPickerUtilityClasses.colorTextInput,
+          classes.colorTextInput
+        )}
         onChange={(event) => {
           const newColor = event.target.value;
           const newHexColor = colorToHex(newColor);
@@ -195,7 +233,12 @@ export function ColorPicker({
       />
 
       {swatchColorObjects.length > 0 && (
-        <div className={classes.swatchContainer}>
+        <div
+          className={cx(
+            colorPickerUtilityClasses.swatchContainer,
+            classes.swatchContainer
+          )}
+        >
           {swatchColorObjects.map((swatchColor) => (
             <ColorSwatchButton
               key={swatchColor.value}
