@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, type BoxProps } from "@mui/material";
 import { EditorContent } from "@tiptap/react";
 import { useMemo } from "react";
 import type { CSSObject } from "tss-react";
@@ -13,6 +13,10 @@ export type RichTextContentProps = {
   className?: string;
   /** Override or extend existing styles. */
   classes?: Partial<RichTextContentClasses>;
+  /**
+   * Override the default props for the Box MUI Component
+   */
+  BoxProps?: Pick<BoxProps, "sx">;
 };
 
 const richTextContentClasses: RichTextContentClasses = getUtilityClasses(
@@ -51,6 +55,7 @@ const useStyles = makeStyles({ name: { RichTextContent } })((theme) => {
 export default function RichTextContent({
   className,
   classes: overrideClasses = {},
+  BoxProps,
 }: RichTextContentProps) {
   const { classes, cx } = useStyles(undefined, {
     props: { classes: overrideClasses },
@@ -70,6 +75,11 @@ export default function RichTextContent({
   );
 
   return (
-    <Box className={editorClasses} component={EditorContent} editor={editor} />
+    <Box
+      className={editorClasses}
+      component={EditorContent}
+      editor={editor}
+      sx={{ ...BoxProps?.sx }}
+    />
   );
 }

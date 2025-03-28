@@ -1,4 +1,4 @@
-import { Collapse } from "@mui/material";
+import { Collapse, type CollapseProps } from "@mui/material";
 import { makeStyles } from "tss-react/mui";
 import { Z_INDEXES, getUtilityClasses } from "./styles";
 
@@ -28,6 +28,10 @@ export type MenuBarProps = {
   className?: string;
   /** Override or extend existing styles. */
   classes?: Partial<MenuBarClasses>;
+  /**
+   * Override the default props for the Collapse MUI Component
+   */
+  CollapseProps?: Pick<CollapseProps, "sx">;
 };
 
 const menuBarClasses: MenuBarClasses = getUtilityClasses("MenuBar", [
@@ -71,6 +75,7 @@ export default function MenuBar({
   children,
   className,
   classes: overrideClasses,
+  CollapseProps,
 }: MenuBarProps) {
   const { classes, cx } = useStyles(
     { stickyOffset },
@@ -95,6 +100,7 @@ export default function MenuBar({
           : [menuBarClasses.sticky, classes.sticky],
         className
       )}
+      sx={{ ...CollapseProps?.sx }}
     >
       <div className={classes.content}>{children}</div>
     </Collapse>

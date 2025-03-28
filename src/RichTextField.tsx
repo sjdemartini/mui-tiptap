@@ -1,5 +1,5 @@
 import { makeStyles } from "tss-react/mui";
-import FieldContainer from "./FieldContainer";
+import FieldContainer, { type FieldContainerProps } from "./FieldContainer";
 import MenuBar, { type MenuBarProps } from "./MenuBar";
 import RichTextContent, { type RichTextContentProps } from "./RichTextContent";
 import { useRichTextEditorContext } from "./context";
@@ -57,6 +57,10 @@ export type RichTextFieldProps = {
    * Override any props for the child RichTextContent component.
    */
   RichTextContentProps?: Partial<RichTextContentProps>;
+  /**
+   * Override any props for the child FieldContainer component.
+   */
+  FieldContainerProps?: Partial<FieldContainerProps>;
 };
 
 const richTextFieldClasses: RichTextFieldClasses = getUtilityClasses(
@@ -122,6 +126,7 @@ export default function RichTextField({
   footer,
   MenuBarProps,
   RichTextContentProps,
+  FieldContainerProps,
 }: RichTextFieldProps) {
   const { classes, cx } = useStyles(undefined, {
     props: { classes: overrideClasses },
@@ -135,6 +140,7 @@ export default function RichTextField({
 
   return (
     <FieldContainer
+      {...FieldContainerProps}
       variant={variant}
       focused={!disabled && isFieldFocused}
       disabled={disabled}

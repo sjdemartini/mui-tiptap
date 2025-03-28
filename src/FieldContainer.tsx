@@ -1,3 +1,4 @@
+import { Box, type BoxProps } from "@mui/material";
 import type React from "react";
 import { makeStyles } from "tss-react/mui";
 import { Z_INDEXES, getUtilityClasses } from "./styles";
@@ -19,6 +20,10 @@ export type FieldContainerProps = {
   classes?: Partial<FieldContainerClasses>;
   focused?: boolean;
   disabled?: boolean;
+  /**
+   * Override the default props for the Box MUI Component
+   */
+  BoxProps?: Pick<BoxProps, "sx">;
 };
 
 const fieldContainerClasses: FieldContainerClasses = getUtilityClasses(
@@ -100,13 +105,14 @@ export default function FieldContainer({
   disabled,
   classes: overrideClasses = {},
   className,
+  BoxProps,
 }: FieldContainerProps) {
   const { classes, cx } = useStyles(undefined, {
     props: { classes: overrideClasses },
   });
 
   return (
-    <div
+    <Box
       className={cx(
         fieldContainerClasses.root,
         classes.root,
@@ -120,6 +126,7 @@ export default function FieldContainer({
         disabled && [fieldContainerClasses.disabled, classes.disabled],
         className
       )}
+      sx={{ ...BoxProps?.sx }}
     >
       {children}
 
@@ -132,6 +139,6 @@ export default function FieldContainer({
           aria-hidden
         />
       )}
-    </div>
+    </Box>
   );
 }
