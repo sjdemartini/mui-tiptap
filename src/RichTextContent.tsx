@@ -79,7 +79,7 @@ export default function RichTextContent({
       className={editorClasses}
       component={EditorContent}
       editor={editor}
-      sx={{ ...BoxProps?.sx }}
+      sx={BoxProps?.sx}
     />
   );
 }

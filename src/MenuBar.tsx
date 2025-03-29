@@ -100,7 +100,7 @@ export default function MenuBar({
           : [menuBarClasses.sticky, classes.sticky],
         className
       )}
-      sx={{ ...CollapseProps?.sx }}
+      sx={CollapseProps?.sx}
     >
       <div className={classes.content}>{children}</div>
     </Collapse>

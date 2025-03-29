@@ -126,7 +126,7 @@ export default function FieldContainer({
         disabled && [fieldContainerClasses.disabled, classes.disabled],
         className
       )}
-      sx={{ ...BoxProps?.sx }}
+      sx={BoxProps?.sx}
     >
       {children}
 
