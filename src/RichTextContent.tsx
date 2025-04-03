@@ -8,15 +8,11 @@ import { getEditorStyles, getUtilityClasses } from "./styles";
 
 export type RichTextContentClasses = ReturnType<typeof useStyles>["classes"];
 
-export type RichTextContentProps = {
+export type RichTextContentProps = BoxProps & {
   /** Optional additional className to provide to the root element. */
   className?: string;
   /** Override or extend existing styles. */
   classes?: Partial<RichTextContentClasses>;
-  /**
-   * Override the default props for the Box MUI Component
-   */
-  BoxProps?: Pick<BoxProps, "sx">;
 };
 
 const richTextContentClasses: RichTextContentClasses = getUtilityClasses(
@@ -55,7 +51,7 @@ const useStyles = makeStyles({ name: { RichTextContent } })((theme) => {
 export default function RichTextContent({
   className,
   classes: overrideClasses = {},
-  BoxProps,
+  ...muiProps
 }: RichTextContentProps) {
   const { classes, cx } = useStyles(undefined, {
     props: { classes: overrideClasses },
@@ -76,10 +72,10 @@ export default function RichTextContent({
 
   return (
     <Box
+      {...muiProps}
       className={editorClasses}
       component={EditorContent}
       editor={editor}
-      sx={BoxProps?.sx}
     />
   );
 }

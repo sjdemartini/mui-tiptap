@@ -4,7 +4,7 @@ import { Z_INDEXES, getUtilityClasses } from "./styles";
 
 export type MenuBarClasses = ReturnType<typeof useStyles>["classes"];
 
-export type MenuBarProps = {
+export type MenuBarProps = CollapseProps & {
   /**
    * Whether to hide the menu bar. When changing between false/true, uses the
    * collapse animation. By default false
@@ -28,10 +28,6 @@ export type MenuBarProps = {
   className?: string;
   /** Override or extend existing styles. */
   classes?: Partial<MenuBarClasses>;
-  /**
-   * Override the default props for the Collapse MUI Component
-   */
-  CollapseProps?: Pick<CollapseProps, "sx">;
 };
 
 const menuBarClasses: MenuBarClasses = getUtilityClasses("MenuBar", [
@@ -75,7 +71,7 @@ export default function MenuBar({
   children,
   className,
   classes: overrideClasses,
-  CollapseProps,
+  ...muiProps
 }: MenuBarProps) {
   const { classes, cx } = useStyles(
     { stickyOffset },
@@ -85,6 +81,7 @@ export default function MenuBar({
   );
   return (
     <Collapse
+      {...muiProps}
       in={!hide}
       // For performance reasons, we set unmountOnExit to avoid rendering the
       // menu bar unless it's needed/shown
@@ -100,7 +97,6 @@ export default function MenuBar({
           : [menuBarClasses.sticky, classes.sticky],
         className
       )}
-      sx={CollapseProps?.sx}
     >
       <div className={classes.content}>{children}</div>
     </Collapse>

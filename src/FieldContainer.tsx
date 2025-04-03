@@ -5,7 +5,7 @@ import { Z_INDEXES, getUtilityClasses } from "./styles";
 
 export type FieldContainerClasses = ReturnType<typeof useStyles>["classes"];
 
-export type FieldContainerProps = {
+export type FieldContainerProps = BoxProps & {
   /**
    * Which style to use for the field. "outlined" shows a border around the children,
    * which updates its appearance depending on hover/focus states, like MUI's
@@ -20,10 +20,6 @@ export type FieldContainerProps = {
   classes?: Partial<FieldContainerClasses>;
   focused?: boolean;
   disabled?: boolean;
-  /**
-   * Override the default props for the Box MUI Component
-   */
-  BoxProps?: Pick<BoxProps, "sx">;
 };
 
 const fieldContainerClasses: FieldContainerClasses = getUtilityClasses(
@@ -105,7 +101,7 @@ export default function FieldContainer({
   disabled,
   classes: overrideClasses = {},
   className,
-  BoxProps,
+  ...muiProps
 }: FieldContainerProps) {
   const { classes, cx } = useStyles(undefined, {
     props: { classes: overrideClasses },
@@ -113,6 +109,7 @@ export default function FieldContainer({
 
   return (
     <Box
+      {...muiProps}
       className={cx(
         fieldContainerClasses.root,
         classes.root,
@@ -126,7 +123,6 @@ export default function FieldContainer({
         disabled && [fieldContainerClasses.disabled, classes.disabled],
         className
       )}
-      sx={BoxProps?.sx}
     >
       {children}
 
