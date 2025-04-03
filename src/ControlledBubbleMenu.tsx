@@ -9,13 +9,14 @@ import {
 import { isNodeSelection, posToDOMRect, type Editor } from "@tiptap/core";
 import { useCallback } from "react";
 import { makeStyles } from "tss-react/mui";
+import type { Except } from "type-fest";
 import { getUtilityClasses } from "./styles";
 
 export type ControlledBubbleMenuClasses = ReturnType<
   typeof useStyles
 >["classes"];
 
-export type ControlledBubbleMenuProps = {
+export type ControlledBubbleMenuProps = Except<PopperProps, "children"> & {
   editor: Editor;
   open: boolean;
   children: React.ReactNode;
@@ -82,8 +83,6 @@ export type ControlledBubbleMenuProps = {
   className?: string;
   /** Override or extend existing styles. */
   classes?: Partial<ControlledBubbleMenuClasses>;
-  /** Styles applied to the root Popper element. */
-  sx?: PopperProps["sx"];
   /**
    * Override the default props for the Paper containing the bubble menu
    * content.
