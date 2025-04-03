@@ -9,6 +9,9 @@ export type RichTextReadOnlyProps = SetRequired<
   Partial<Except<UseEditorOptions, "editable">>,
   "extensions"
 > & {
+  /**
+   * Override the props for the RichTextContent component.
+   */
   RichTextContentProps?: RichTextContentProps;
 };
 
