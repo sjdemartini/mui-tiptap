@@ -1,10 +1,11 @@
 import { Collapse, type CollapseProps } from "@mui/material";
 import { makeStyles } from "tss-react/mui";
+import type { Except } from "type-fest";
 import { Z_INDEXES, getUtilityClasses } from "./styles";
 
 export type MenuBarClasses = ReturnType<typeof useStyles>["classes"];
 
-export type MenuBarProps = CollapseProps & {
+export type MenuBarProps = Except<CollapseProps, "children"> & {
   /**
    * Whether to hide the menu bar. When changing between false/true, uses the
    * collapse animation. By default false

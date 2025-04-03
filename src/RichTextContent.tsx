@@ -3,12 +3,13 @@ import { EditorContent } from "@tiptap/react";
 import { useMemo } from "react";
 import type { CSSObject } from "tss-react";
 import { makeStyles } from "tss-react/mui";
+import type { Except } from "type-fest";
 import { useRichTextEditorContext } from "./context";
 import { getEditorStyles, getUtilityClasses } from "./styles";
 
 export type RichTextContentClasses = ReturnType<typeof useStyles>["classes"];
 
-export type RichTextContentProps = BoxProps & {
+export type RichTextContentProps = Except<BoxProps, "children"> & {
   /** Optional additional className to provide to the root element. */
   className?: string;
   /** Override or extend existing styles. */

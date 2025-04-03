@@ -1,11 +1,12 @@
 import { Box, type BoxProps } from "@mui/material";
 import type React from "react";
 import { makeStyles } from "tss-react/mui";
+import type { Except } from "type-fest";
 import { Z_INDEXES, getUtilityClasses } from "./styles";
 
 export type FieldContainerClasses = ReturnType<typeof useStyles>["classes"];
 
-export type FieldContainerProps = BoxProps & {
+export type FieldContainerProps = Except<BoxProps, "children"> & {
   /**
    * Which style to use for the field. "outlined" shows a border around the children,
    * which updates its appearance depending on hover/focus states, like MUI's
