@@ -71,7 +71,7 @@ importers:
         version: 2.10.4(@tiptap/core@2.10.4(@tiptap/pm@2.10.4))(y-prosemirror@1.2.15(prosemirror-model@1.24.1)(prosemirror-state@1.4.3)(prosemirror-view@1.37.1)(y-protocols@1.0.5)(yjs@13.5.44))
       '@tiptap/extension-color':
         specifier: ^2.10.4
-        version: 2.10.4(@tiptap/core@2.10.4(@tiptap/pm@2.10.4))(@tiptap/extension-text-style@2.10.4(@tiptap/core@2.10.4(@tiptap/pm@2.10.4)))
+        version: 2.23.0(@tiptap/core@2.10.4(@tiptap/pm@2.10.4))(@tiptap/extension-text-style@2.10.4(@tiptap/core@2.10.4(@tiptap/pm@2.10.4)))
       '@tiptap/extension-document':
         specifier: ^2.10.4
         version: 2.10.4(@tiptap/core@2.10.4(@tiptap/pm@2.10.4))
@@ -1214,8 +1214,8 @@ packages:
       '@tiptap/pm': ^2.7.0
       y-prosemirror: ^1.2.11
 
-  '@tiptap/extension-color@2.10.4':
-    resolution: {integrity: sha512-LgYECcWnTfonqzTUJQN+ujNlWQahGg4G6typRR44opNxwGTlmXHjc6h/JwgLiYxSMZke3EDP/17BSQDH9MMrIA==}
+  '@tiptap/extension-color@2.23.0':
+    resolution: {integrity: sha512-KWnxX5Y2/yVgUizEv/feFLMJObnY11pjAmvkypx10/8pkc8EECsa+fJPSkm4293TumVNiJxxGWkGZ1jkL0avoA==}
     peerDependencies:
       '@tiptap/core': ^2.7.0
       '@tiptap/extension-text-style': ^2.7.0
@@ -4515,7 +4515,7 @@ snapshots:
       '@tiptap/pm': 2.10.4
       y-prosemirror: 1.2.15(prosemirror-model@1.24.1)(prosemirror-state@1.4.3)(prosemirror-view@1.37.1)(y-protocols@1.0.5)(yjs@13.5.44)
 
-  '@tiptap/extension-color@2.10.4(@tiptap/core@2.10.4(@tiptap/pm@2.10.4))(@tiptap/extension-text-style@2.10.4(@tiptap/core@2.10.4(@tiptap/pm@2.10.4)))':
+  '@tiptap/extension-color@2.23.0(@tiptap/core@2.10.4(@tiptap/pm@2.10.4))(@tiptap/extension-text-style@2.10.4(@tiptap/core@2.10.4(@tiptap/pm@2.10.4)))':
     dependencies:
       '@tiptap/core': 2.10.4(@tiptap/pm@2.10.4)
       '@tiptap/extension-text-style': 2.10.4(@tiptap/core@2.10.4(@tiptap/pm@2.10.4))
