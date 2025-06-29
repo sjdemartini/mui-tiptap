@@ -22,9 +22,7 @@ export default tseslint.config(
       ...tseslint.configs.strictTypeChecked,
       reactPlugin.configs.flat.recommended,
       reactPlugin.configs.flat["jsx-runtime"],
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       importPlugin.flatConfigs.recommended,
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       importPlugin.flatConfigs.typescript,
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       jsxA11y.flatConfigs.recommended,
@@ -33,7 +31,6 @@ export default tseslint.config(
     ],
     plugins: {
       "react-hooks": reactHooks,
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       "react-refresh": reactRefresh,
       "tss-unused-classes": tssUnusedClasses,
     },
