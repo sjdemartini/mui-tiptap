@@ -91,9 +91,9 @@ export default function EditLinkMenuContent({
     // well focus on the href input.
     const autoFocusOnTextInput = !isNewLink || !initialText;
     if (autoFocusOnTextInput) {
-      textRef.current?.focus();
+      textRef.current?.focus({ preventScroll: true });
     } else {
-      hrefRef.current?.focus();
+      hrefRef.current?.focus({ preventScroll: true });
     }
   }, [isNewLink, initialText]);
 
