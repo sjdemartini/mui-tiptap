@@ -7,4 +7,6 @@ updates:
     schedule:
       interval: "weekly"
     ignore:
+      - dependency-name: "@emotion/*"
       - dependency-name: "@tiptap/*"
+      - dependency-name: "yjs"
