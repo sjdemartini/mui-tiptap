@@ -241,11 +241,11 @@ importers:
         specifier: ^3.11.2
         version: 3.13.7
       prettier:
-        specifier: ^2.8.8
-        version: 2.8.8
+        specifier: ^3.6.2
+        version: 3.6.2
       prettier-plugin-organize-imports:
         specifier: ^4.1.0
-        version: 4.1.0(prettier@2.8.8)(typescript@5.1.6)
+        version: 4.1.0(prettier@3.6.2)(typescript@5.1.6)
       prosemirror-model:
         specifier: ^1.7.1
         version: 1.24.1
@@ -3150,9 +3150,9 @@ packages:
       vue-tsc:
         optional: true
 
-  prettier@2.8.8:
-    resolution: {integrity: sha512-tdN8qQGvNjw4CHbY+XXk0JgCXn9QiF21a55rBe5LJAU+kDyC4WQn4+awm2Xfk2lQMk5fKup9XgzTZtGkjBdP9Q==}
-    engines: {node: '>=10.13.0'}
+  prettier@3.6.2:
+    resolution: {integrity: sha512-I7AIg5boAr5R0FFtJ6rCfD+LFsWHp81dolrFD8S79U9tb8Az2nGrJncnMSnys+bpQJfRUzqs9hnA81OAA3hCuQ==}
+    engines: {node: '>=14'}
     hasBin: true
 
   progress@2.0.3:
@@ -6879,12 +6879,12 @@ snapshots:
 
   prelude-ls@1.2.1: {}
 
-  prettier-plugin-organize-imports@4.1.0(prettier@2.8.8)(typescript@5.1.6):
+  prettier-plugin-organize-imports@4.1.0(prettier@3.6.2)(typescript@5.1.6):
     dependencies:
-      prettier: 2.8.8
+      prettier: 3.6.2
       typescript: 5.1.6
 
-  prettier@2.8.8: {}
+  prettier@3.6.2: {}
 
   progress@2.0.3: {}
 
