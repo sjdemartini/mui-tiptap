@@ -80,7 +80,7 @@ export default function App() {
           setDialogOpen(false);
         }}
         maxWidth="xl"
-        PaperProps={{ sx: { overflowY: "auto", maxHeight: "70vh" } }}
+        slotProps={{ paper: { sx: { overflowY: "auto", maxHeight: "70vh" } } }}
         aria-labelledby="editor-dialog-title"
       >
         <DialogTitle id="editor-dialog-title">Editor in a dialog</DialogTitle>
