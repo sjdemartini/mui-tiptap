@@ -83,6 +83,7 @@ jobs:
 
           git fetch origin tag v1.16.0 --no-tags
           git restore --source v1.16.0 src/demo/SuggestionList.tsx
+          pnpm exec prettier --write src/demo/SuggestionList.tsx
 
       - name: Build
         run: pnpm run build
