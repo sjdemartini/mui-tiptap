@@ -183,7 +183,7 @@
     "y-prosemirror": "^1.2.11",
     "y-protocols": "1.0.5",
     "y-webrtc": "^10.2.5",
-    "yjs": "13.5.44"
+    "yjs": "13.6.27"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
