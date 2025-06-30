@@ -118,12 +118,12 @@ export default function HeadingWithAnchorComponent({
   // https://github.com/ueberdosis/tiptap/issues/1336 for instance)
   const textSerializers = useMemo(
     () => getTextSerializersFromSchema(editor.schema),
-    [editor.schema]
+    [editor.schema],
   );
   const headingId = slugify(
     getText(node, {
       textSerializers: textSerializers,
-    })
+    }),
   );
 
   return (
@@ -148,7 +148,7 @@ export default function HeadingWithAnchorComponent({
       <span
         className={cx(
           headingWithAnchorComponentClasses.container,
-          classes.container
+          classes.container,
         )}
       >
         <a
@@ -159,7 +159,7 @@ export default function HeadingWithAnchorComponent({
           <LinkIcon
             className={cx(
               headingWithAnchorComponentClasses.linkIcon,
-              classes.linkIcon
+              classes.linkIcon,
             )}
           />
         </a>

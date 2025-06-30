@@ -110,7 +110,7 @@ const ResizableImage = Image.extend<ResizableImageOptions>({
           height: "auto",
         },
         this.options.HTMLAttributes,
-        HTMLAttributes
+        HTMLAttributes,
       ),
     ];
   },
@@ -192,7 +192,7 @@ const ResizableImage = Image.extend<ResizableImageOptions>({
             // Since the image src is valid, let the normal handler run
             return rule.handler(props);
           },
-        })
+        }),
     );
   },
 

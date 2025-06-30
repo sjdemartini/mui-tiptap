@@ -160,13 +160,13 @@ export default function MenuSelectTextAlign({
       const alignment = event.target.value;
       editor?.chain().setTextAlign(alignment).focus().run();
     },
-    [editor]
+    [editor],
   );
 
   // Figure out which settings the user has enabled with the heading extension
   const textAlignExtensionOptions = useMemo(() => {
     const textAlignExtension = editor?.extensionManager.extensions.find(
-      (extension) => extension.name == "textAlign"
+      (extension) => extension.name == "textAlign",
     );
     return textAlignExtension?.options as TextAlignOptions | undefined;
   }, [editor]);
@@ -184,7 +184,7 @@ export default function MenuSelectTextAlign({
   // alignments to that default would not work (not triggering "onChange").
   const selectedValue =
     Array.from(enabledAlignments).find((alignment) =>
-      editor?.isActive({ textAlign: alignment })
+      editor?.isActive({ textAlign: alignment }),
     ) ?? "";
 
   return (
@@ -193,7 +193,7 @@ export default function MenuSelectTextAlign({
       disabled={
         !editor?.isEditable ||
         !Array.from(enabledAlignments).some((alignment) =>
-          editor.can().setTextAlign(alignment)
+          editor.can().setTextAlign(alignment),
         )
       }
       // Override the rendering of the selected value so that we don't show
@@ -202,7 +202,7 @@ export default function MenuSelectTextAlign({
         let content;
         if (value) {
           const alignmentOptionForValue = options.find(
-            (option) => option.value === value
+            (option) => option.value === value,
           );
           content = alignmentOptionForValue ? (
             <alignmentOptionForValue.IconComponent
@@ -225,13 +225,13 @@ export default function MenuSelectTextAlign({
         ...menuSelectProps.inputProps,
         className: cx(
           classes.selectInput,
-          menuSelectProps.inputProps?.className
+          menuSelectProps.inputProps?.className,
         ),
       }}
     >
       {options
         .filter((alignmentOption) =>
-          enabledAlignments.has(alignmentOption.value)
+          enabledAlignments.has(alignmentOption.value),
         )
         .map((alignmentOption) => (
           <MenuItem

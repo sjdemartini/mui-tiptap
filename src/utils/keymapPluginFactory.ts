@@ -15,7 +15,7 @@ import { Plugin, type Command, type PluginKey } from "@tiptap/pm/state";
  */
 export default function keymapPluginFactory(
   bindings: Record<string, Command>,
-  key: PluginKey
+  key: PluginKey,
 ): Plugin {
   return new Plugin({
     key,

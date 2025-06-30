@@ -24,7 +24,7 @@ export function getEditorStyles(theme: Theme): StyleRules {
   // Check whether the user has enabled responsive typography
   // (https://mui.com/material-ui/customization/typography/#responsive-font-sizes)
   const hasResponsiveStyles = Object.keys(theme.typography.h1).some((key) =>
-    key.includes("@media")
+    key.includes("@media"),
   );
 
   const cursorDelayOpacityChangeAnimation = keyframes`
@@ -551,7 +551,7 @@ export function getUtilityClass(componentName: string, slot: string): string {
  */
 export function getUtilityClasses<T extends string>(
   componentName: string,
-  slots: T[]
+  slots: T[],
 ): Record<T, string> {
   const result: Record<string, string> = {};
 

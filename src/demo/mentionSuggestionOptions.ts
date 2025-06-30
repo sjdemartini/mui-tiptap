@@ -74,9 +74,9 @@ export const mentionSuggestionOptions: MentionOptions["suggestion"] = {
         // Find matching entries based on what the user has typed so far (after
         // the @ symbol)
         .filter((item) =>
-          item.mentionLabel.toLowerCase().startsWith(query.toLowerCase())
+          item.mentionLabel.toLowerCase().startsWith(query.toLowerCase()),
         )
-        .slice(0, 5)
+        .slice(0, 5),
     ),
 
   render: () => {

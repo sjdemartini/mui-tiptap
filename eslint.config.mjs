@@ -194,5 +194,5 @@ export default tseslint.config(
 
       "tss-unused-classes/unused-classes": "warn",
     },
-  }
+  },
 );

@@ -6,7 +6,7 @@ import MenuButton, { type MenuButtonProps } from "./MenuButton";
 export type MenuButtonAlignJustifyProps = Partial<MenuButtonProps>;
 
 export default function MenuButtonAlignJustify(
-  props: MenuButtonAlignJustifyProps
+  props: MenuButtonAlignJustifyProps,
 ) {
   const editor = useRichTextEditorContext();
   return (

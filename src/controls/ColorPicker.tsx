@@ -123,7 +123,7 @@ export type ColorPickerProps = {
 
 const colorPickerUtilityClasses: ColorPickerClasses = getUtilityClasses(
   "ColorPicker",
-  ["gradientPicker", "colorTextInput", "swatchContainer"]
+  ["gradientPicker", "colorTextInput", "swatchContainer"],
 );
 
 const useStyles = makeStyles({ name: { ColorPicker } })((theme) => ({
@@ -178,7 +178,7 @@ export function ColorPicker({
   const swatchColorObjects: SwatchColorOptionObject[] = (
     swatchColors ?? []
   ).map((swatchColor) =>
-    typeof swatchColor === "string" ? { value: swatchColor } : swatchColor
+    typeof swatchColor === "string" ? { value: swatchColor } : swatchColor,
   );
 
   const colorValueAsHex = colorToHex(value);
@@ -192,7 +192,7 @@ export function ColorPicker({
           color={colorValueAsHex ?? "#000000"}
           className={cx(
             colorPickerUtilityClasses.gradientPicker,
-            classes.gradientPicker
+            classes.gradientPicker,
           )}
           onChange={(color) => {
             onChange(color, "gradient");
@@ -203,7 +203,7 @@ export function ColorPicker({
           color={colorValueAsHex ?? "#000000"}
           className={cx(
             colorPickerUtilityClasses.gradientPicker,
-            classes.gradientPicker
+            classes.gradientPicker,
           )}
           onChange={(color) => {
             onChange(color, "gradient");
@@ -220,7 +220,7 @@ export function ColorPicker({
         spellCheck={false}
         className={cx(
           colorPickerUtilityClasses.colorTextInput,
-          classes.colorTextInput
+          classes.colorTextInput,
         )}
         onChange={(event) => {
           const newColor = event.target.value;
@@ -236,7 +236,7 @@ export function ColorPicker({
         <div
           className={cx(
             colorPickerUtilityClasses.swatchContainer,
-            classes.swatchContainer
+            classes.swatchContainer,
           )}
         >
           {swatchColorObjects.map((swatchColor) => (

@@ -138,7 +138,7 @@ export default function MenuSelectHeading({
   const editor = useRichTextEditorContext();
 
   const handleHeadingType: (
-    event: SelectChangeEvent<"" | HeadingOptionValue>
+    event: SelectChangeEvent<"" | HeadingOptionValue>,
   ) => void = useCallback(
     (event) => {
       const value = event.target.value;
@@ -157,7 +157,7 @@ export default function MenuSelectHeading({
           .run();
       }
     },
-    [editor]
+    [editor],
   );
 
   let selectedValue: HeadingOptionValue | "" = "";
@@ -167,10 +167,10 @@ export default function MenuSelectHeading({
   } else if (editor?.isActive("heading")) {
     const currentNodeHeadingAttributes = getAttributesForEachSelected(
       editor.state,
-      "heading"
+      "heading",
     );
     const currentNodeLevels = currentNodeHeadingAttributes.map(
-      (attrs) => attrs.level as number | undefined
+      (attrs) => attrs.level as number | undefined,
     );
     const numCurrentNodeLevels = new Set(currentNodeLevels).size;
     // We only want to show a selected level value if all of the selected nodes
@@ -195,7 +195,7 @@ export default function MenuSelectHeading({
   // Figure out which settings the user has enabled with the heading extension
   const enabledHeadingLevels: Set<Level> = useMemo(() => {
     const headingExtension = editor?.extensionManager.extensions.find(
-      (extension): extension is typeof Heading => extension.name == "heading"
+      (extension): extension is typeof Heading => extension.name == "heading",
     );
     return new Set(headingExtension?.options.levels ?? []);
   }, [editor]);
@@ -263,7 +263,7 @@ export default function MenuSelectHeading({
         ...menuSelectProps.inputProps,
         className: cx(
           classes.selectInput,
-          menuSelectProps.inputProps?.className
+          menuSelectProps.inputProps?.className,
         ),
       }}
     >
@@ -293,7 +293,7 @@ export default function MenuSelectHeading({
             contentWrapperClassName={cx(
               classes.menuOption,
               classes.headingOption,
-              classes.headingOption1
+              classes.headingOption1,
             )}
           >
             {labels?.heading1 ?? HEADING_OPTION_VALUES.Heading1}
@@ -313,7 +313,7 @@ export default function MenuSelectHeading({
             contentWrapperClassName={cx(
               classes.menuOption,
               classes.headingOption,
-              classes.headingOption2
+              classes.headingOption2,
             )}
           >
             {labels?.heading2 ?? HEADING_OPTION_VALUES.Heading2}
@@ -333,7 +333,7 @@ export default function MenuSelectHeading({
             contentWrapperClassName={cx(
               classes.menuOption,
               classes.headingOption,
-              classes.headingOption3
+              classes.headingOption3,
             )}
           >
             {labels?.heading3 ?? HEADING_OPTION_VALUES.Heading3}
@@ -353,7 +353,7 @@ export default function MenuSelectHeading({
             contentWrapperClassName={cx(
               classes.menuOption,
               classes.headingOption,
-              classes.headingOption4
+              classes.headingOption4,
             )}
           >
             {labels?.heading4 ?? HEADING_OPTION_VALUES.Heading4}
@@ -373,7 +373,7 @@ export default function MenuSelectHeading({
             contentWrapperClassName={cx(
               classes.menuOption,
               classes.headingOption,
-              classes.headingOption5
+              classes.headingOption5,
             )}
           >
             {labels?.heading5 ?? HEADING_OPTION_VALUES.Heading5}
@@ -393,7 +393,7 @@ export default function MenuSelectHeading({
             contentWrapperClassName={cx(
               classes.menuOption,
               classes.headingOption,
-              classes.headingOption6
+              classes.headingOption6,
             )}
           >
             {labels?.heading6 ?? HEADING_OPTION_VALUES.Heading6}

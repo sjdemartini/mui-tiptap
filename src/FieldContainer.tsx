@@ -23,7 +23,7 @@ export type FieldContainerProps = {
 
 const fieldContainerClasses: FieldContainerClasses = getUtilityClasses(
   "FieldContainer",
-  ["root", "outlined", "standard", "focused", "disabled", "notchedOutline"]
+  ["root", "outlined", "standard", "focused", "disabled", "notchedOutline"],
 );
 
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
@@ -118,7 +118,7 @@ export default function FieldContainer({
         // in this order
         focused && [fieldContainerClasses.focused, classes.focused],
         disabled && [fieldContainerClasses.disabled, classes.disabled],
-        className
+        className,
       )}
     >
       {children}
@@ -127,7 +127,7 @@ export default function FieldContainer({
         <div
           className={cx(
             fieldContainerClasses.notchedOutline,
-            classes.notchedOutline
+            classes.notchedOutline,
           )}
           aria-hidden
         />

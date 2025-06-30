@@ -66,7 +66,7 @@ export default function Editor({ disableStickyMenuBar }: Props) {
         position: insertPosition,
       });
     },
-    []
+    [],
   );
 
   // Allow for dropping images into the editor
@@ -94,7 +94,7 @@ export default function Editor({ disableStickyMenuBar }: Props) {
 
         return false;
       },
-      [handleNewImageFiles]
+      [handleNewImageFiles],
     );
 
   // Allow for pasting images
@@ -106,7 +106,7 @@ export default function Editor({ disableStickyMenuBar }: Props) {
         }
 
         const pastedImageFiles = fileListToImageFiles(
-          event.clipboardData.files
+          event.clipboardData.files,
         );
         if (pastedImageFiles.length > 0) {
           handleNewImageFiles(pastedImageFiles);
@@ -121,7 +121,7 @@ export default function Editor({ disableStickyMenuBar }: Props) {
         // We return false here to allow the standard paste-handler to run.
         return false;
       },
-      [handleNewImageFiles]
+      [handleNewImageFiles],
     );
 
   const [submittedContent, setSubmittedContent] = useState("");
@@ -209,7 +209,7 @@ export default function Editor({ disableStickyMenuBar }: Props) {
                   size="small"
                   onClick={() => {
                     setSubmittedContent(
-                      rteRef.current?.editor?.getHTML() ?? ""
+                      rteRef.current?.editor?.getHTML() ?? "",
                     );
                   }}
                 >

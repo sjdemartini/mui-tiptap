@@ -6,7 +6,7 @@ import MenuButton, { type MenuButtonProps } from "./MenuButton";
 export type MenuButtonStrikethroughProps = Partial<MenuButtonProps>;
 
 export default function MenuButtonStrikethrough(
-  props: MenuButtonStrikethroughProps
+  props: MenuButtonStrikethroughProps,
 ) {
   const editor = useRichTextEditorContext();
   return (

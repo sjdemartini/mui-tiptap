@@ -23,7 +23,7 @@ export default function useDebouncedFocus({
   wait = 250,
 }: UseDebouncedFocusOptions): boolean {
   const [isFocusedDebounced, setIsFocusedDebounced] = useState(
-    !!editor?.isFocused
+    !!editor?.isFocused,
   );
 
   const updateIsFocusedDebounced = useMemo(
@@ -31,7 +31,7 @@ export default function useDebouncedFocus({
       debounce((focused: boolean) => {
         setIsFocusedDebounced(focused);
       }, wait),
-    [wait]
+    [wait],
   );
 
   useEffect(() => {
