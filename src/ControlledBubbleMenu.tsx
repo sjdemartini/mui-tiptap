@@ -249,7 +249,7 @@ export default function ControlledBubbleMenu({
             className={cx(
               controlledBubbleMenuClasses.paper,
               classes.paper,
-              PaperProps?.className
+              PaperProps?.className,
             )}
           >
             {children}

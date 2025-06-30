@@ -6,7 +6,7 @@ import MenuButton, { type MenuButtonProps } from "./MenuButton";
 export type MenuButtonAlignCenterProps = Partial<MenuButtonProps>;
 
 export default function MenuButtonAlignCenter(
-  props: MenuButtonAlignCenterProps
+  props: MenuButtonAlignCenterProps,
 ) {
   const editor = useRichTextEditorContext();
   return (

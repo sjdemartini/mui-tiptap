@@ -50,7 +50,7 @@ export const ColorSwatchButton = forwardRef<
       className={cx(
         classes.root,
         !colorValue && classes.colorNotSet,
-        buttonProps.className
+        buttonProps.className,
       )}
     >
       {active && (

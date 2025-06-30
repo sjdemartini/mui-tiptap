@@ -69,7 +69,7 @@ const useStyles = makeStyles({ name: { ResizableImageComponent } })(
         display: "none",
       },
     },
-  })
+  }),
 );
 
 function ResizableImageComponent(props: Props) {
@@ -124,7 +124,7 @@ function ResizableImageComponent(props: Props) {
             // Set a minimum width, since any smaller is probably a mistake, and we
             // don't want images to get mistakenly shrunken below a size which makes
             // it hard to later select/resize the image
-            IMAGE_MINIMUM_WIDTH_PIXELS
+            IMAGE_MINIMUM_WIDTH_PIXELS,
           );
 
           updateAttributes({
@@ -132,9 +132,9 @@ function ResizableImageComponent(props: Props) {
           });
         },
         50,
-        { trailing: true } // Make sure our last event triggers a callback
+        { trailing: true }, // Make sure our last event triggers a callback
       ),
-    [updateAttributes]
+    [updateAttributes],
   );
 
   const ChildComponent = extension.options.ChildComponent;
@@ -176,7 +176,7 @@ function ResizableImageComponent(props: Props) {
             // class/UI:
             selectedOrResizing && "ProseMirror-selectednode",
             // We'll only show the outline when the editor content is selected
-            selectedOrResizing && classes.imageSelected
+            selectedOrResizing && classes.imageSelected,
           )}
           style={{
             // If no width has been specified, we use auto max-width
@@ -201,7 +201,7 @@ function ResizableImageComponent(props: Props) {
             if (!attrs.aspectRatio) {
               newAttributes.aspectRatio = String(
                 event.currentTarget.naturalWidth /
-                  event.currentTarget.naturalHeight
+                  event.currentTarget.naturalHeight,
               );
             }
             if (newAttributes.width || newAttributes.aspectRatio) {

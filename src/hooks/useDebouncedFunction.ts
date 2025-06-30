@@ -19,7 +19,7 @@ import { useEffect, useMemo, useRef } from "react";
 export default function useDebouncedFunction<T extends (...args: any) => any>(
   func: T | undefined,
   wait: number,
-  options?: DebounceSettings
+  options?: DebounceSettings,
 ): DebouncedFunc<T> {
   const funcRef = useRef(func);
 
@@ -48,7 +48,7 @@ export default function useDebouncedFunction<T extends (...args: any) => any>(
     () => () => {
       debouncedCallback.cancel();
     },
-    [debouncedCallback]
+    [debouncedCallback],
   );
 
   return debouncedCallback;

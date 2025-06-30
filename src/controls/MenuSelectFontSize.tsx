@@ -146,7 +146,7 @@ export default function MenuSelectFontSize({
   unsetOptionLabel = unsetOptionContent ?? unsetOptionLabel;
   options = sizeOptions ?? options;
   const optionObjects: FontSizeSelectOptionObject[] = (options ?? []).map(
-    (option) => (typeof option === "string" ? { value: option } : option)
+    (option) => (typeof option === "string" ? { value: option } : option),
   );
 
   // Determine if all of the selected content shares the same set font size.
@@ -165,7 +165,7 @@ export default function MenuSelectFontSize({
     : [];
   const isTextStyleAppliedToEntireSelection = !!editor?.isActive("textStyle");
   const currentFontSizes: string[] = allCurrentTextStyleAttrs.map(
-    (attrs) => attrs.fontSize ?? "" // Treat any null/missing font-size as ""
+    (attrs) => attrs.fontSize ?? "", // Treat any null/missing font-size as ""
   );
   if (!isTextStyleAppliedToEntireSelection) {
     // If there is some selected content that does not have textStyle, we can
@@ -231,7 +231,7 @@ export default function MenuSelectFontSize({
         ...menuSelectProps.inputProps,
         className: cx(
           classes.selectInput,
-          menuSelectProps.inputProps?.className
+          menuSelectProps.inputProps?.className,
         ),
       }}
     >

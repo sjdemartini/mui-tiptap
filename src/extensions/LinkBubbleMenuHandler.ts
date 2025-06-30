@@ -21,7 +21,7 @@ declare module "@tiptap/core" {
        * the link appears or will appear.)
        */
       openLinkBubbleMenu: (
-        options?: Partial<LinkBubbleMenuProps>
+        options?: Partial<LinkBubbleMenuProps>,
       ) => ReturnType;
       /**
        * Edit an existing link in the bubble menu, to be used when currently

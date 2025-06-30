@@ -9,7 +9,7 @@ export type MenuButtonRemoveFormattingProps = Partial<MenuButtonProps>;
  * unsetAllMarks command (https://tiptap.dev/api/commands/unset-all-marks).
  */
 export default function MenuButtonRemoveFormatting(
-  props: MenuButtonRemoveFormattingProps
+  props: MenuButtonRemoveFormattingProps,
 ) {
   const editor = useRichTextEditorContext();
   return (

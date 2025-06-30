@@ -134,7 +134,8 @@ export function MenuButtonColorPicker({
                 className={cx(
                   classes.menuButtonIcon,
                   classes.colorIndicatorIcon,
-                  menuButtonProps.disabled && classes.colorIndicatorIconDisabled
+                  menuButtonProps.disabled &&
+                    classes.colorIndicatorIconDisabled,
                 )}
                 style={
                   menuButtonProps.disabled ? undefined : { color: colorValue }

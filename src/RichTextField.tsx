@@ -61,7 +61,7 @@ export type RichTextFieldProps = {
 
 const richTextFieldClasses: RichTextFieldClasses = getUtilityClasses(
   "RichTextField",
-  ["root", "standard", "outlined", "menuBar", "menuBarContent", "content"]
+  ["root", "standard", "outlined", "menuBar", "menuBarContent", "content"],
 );
 
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
@@ -144,7 +144,7 @@ export default function RichTextField({
         variant === "outlined"
           ? [richTextFieldClasses.outlined, classes.outlined]
           : [richTextFieldClasses.standard, classes.standard],
-        className
+        className,
       )}
     >
       {controls && (
@@ -155,12 +155,12 @@ export default function RichTextField({
             root: cx(
               richTextFieldClasses.menuBar,
               classes.menuBar,
-              MenuBarProps?.classes?.root
+              MenuBarProps?.classes?.root,
             ),
             content: cx(
               richTextFieldClasses.content,
               classes.menuBarContent,
-              MenuBarProps?.classes?.content
+              MenuBarProps?.classes?.content,
             ),
           }}
         >
@@ -177,7 +177,7 @@ export default function RichTextField({
         className={cx(
           richTextFieldClasses.content,
           classes.content,
-          RichTextContentProps?.className
+          RichTextContentProps?.className,
         )}
       />
 

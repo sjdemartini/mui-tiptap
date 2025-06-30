@@ -42,7 +42,7 @@ export default function MenuButtonTextColor({
   const isTextStyleAppliedToEntireSelection = !!editor?.isActive("textStyle");
   const currentColors: string[] = allCurrentTextStyleAttrs.map(
     // Treat any null/missing color as the default color
-    (attrs) => attrs.color || defaultTextColor
+    (attrs) => attrs.color || defaultTextColor,
   );
   if (!isTextStyleAppliedToEntireSelection) {
     // If there is some selected content that does not have textStyle, we can

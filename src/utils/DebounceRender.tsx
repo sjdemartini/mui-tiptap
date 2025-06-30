@@ -58,7 +58,7 @@ export default class DebounceRender extends Component<DebounceRenderProps> {
         leading: true,
         trailing: true,
         maxWait: 300,
-      }
+      },
     );
   }
 

@@ -22,10 +22,10 @@ import Editor from "./Editor";
 
 export default function App() {
   const systemSettingsPrefersDarkMode = useMediaQuery(
-    "(prefers-color-scheme: dark)"
+    "(prefers-color-scheme: dark)",
   );
   const [paletteMode, setPaletteMode] = useState<PaletteMode>(
-    systemSettingsPrefersDarkMode ? "dark" : "light"
+    systemSettingsPrefersDarkMode ? "dark" : "light",
   );
   const [dialogOpen, setDialogOpen] = useState(false);
   const togglePaletteMode = useCallback(() => {
@@ -41,7 +41,7 @@ export default function App() {
           },
         },
       }),
-    [paletteMode]
+    [paletteMode],
   );
 
   return (

@@ -6,7 +6,7 @@ import MenuButton, { type MenuButtonProps } from "./MenuButton";
 export type MenuButtonHorizontalRuleProps = Partial<MenuButtonProps>;
 
 export default function MenuButtonHorizontalRule(
-  props: MenuButtonHorizontalRuleProps
+  props: MenuButtonHorizontalRuleProps,
 ) {
   const editor = useRichTextEditorContext();
   return (

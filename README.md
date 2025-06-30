@@ -473,7 +473,6 @@ Extensions that need to be higher precedence (for their keyboard shortcuts, etc.
 #### Other extension tips
 
 - If you’d like [`Subscript`](https://tiptap.dev/api/marks/subscript) and [`Superscript`](https://tiptap.dev/api/marks/superscript) extensions to be mutually exclusive, so that text can't be both superscript and subscript simultaneously, use the `excludes` configuration parameter to exclude each other.
-
   - As described in [this Tiptap issue](https://github.com/ueberdosis/tiptap/pull/1436#issuecomment-1031937768). For instance:
 
     ```ts
