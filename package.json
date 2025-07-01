@@ -75,7 +75,7 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "encodeurl": "^1.0.2",
+    "encodeurl": "^2.0.0",
     "lodash": "^4.17.21",
     "react-colorful": "^5.6.1",
     "tss-react": "^4.8.3",
