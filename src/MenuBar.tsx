@@ -1,10 +1,11 @@
-import { Collapse } from "@mui/material";
+import { Collapse, type CollapseProps } from "@mui/material";
 import { makeStyles } from "tss-react/mui";
+import type { Except } from "type-fest";
 import { Z_INDEXES, getUtilityClasses } from "./styles";
 
 export type MenuBarClasses = ReturnType<typeof useStyles>["classes"];
 
-export type MenuBarProps = {
+export type MenuBarProps = Except<CollapseProps, "children"> & {
   /**
    * Whether to hide the menu bar. When changing between false/true, uses the
    * collapse animation. By default false
@@ -71,6 +72,7 @@ export default function MenuBar({
   children,
   className,
   classes: overrideClasses,
+  ...muiProps
 }: MenuBarProps) {
   const { classes, cx } = useStyles(
     { stickyOffset },
@@ -80,6 +82,7 @@ export default function MenuBar({
   );
   return (
     <Collapse
+      {...muiProps}
       in={!hide}
       // For performance reasons, we set unmountOnExit to avoid rendering the
       // menu bar unless it's needed/shown

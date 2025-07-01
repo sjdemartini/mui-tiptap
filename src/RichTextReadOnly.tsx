@@ -1,14 +1,19 @@
 import { useEditor } from "@tiptap/react";
 import { useEffect, useRef } from "react";
 import type { Except, SetRequired } from "type-fest";
-import RichTextContent from "./RichTextContent";
+import RichTextContent, { type RichTextContentProps } from "./RichTextContent";
 import type { UseEditorOptions } from "./RichTextEditor";
 import RichTextEditorProvider from "./RichTextEditorProvider";
 
 export type RichTextReadOnlyProps = SetRequired<
   Partial<Except<UseEditorOptions, "editable">>,
   "extensions"
->;
+> & {
+  /**
+   * Override the props for the RichTextContent component.
+   */
+  RichTextContentProps?: RichTextContentProps;
+};
 
 function RichTextReadOnlyInternal(props: RichTextReadOnlyProps) {
   const editor = useEditor({
@@ -44,7 +49,7 @@ function RichTextReadOnlyInternal(props: RichTextReadOnlyProps) {
 
   return (
     <RichTextEditorProvider editor={editor}>
-      <RichTextContent />
+      <RichTextContent {...props.RichTextContentProps} />
     </RichTextEditorProvider>
   );
 }
