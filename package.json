@@ -72,7 +72,7 @@
     "test:coverage": "vitest run --coverage",
     "spell:check": "cspell \"{README.md,CODE_OF_CONDUCT.md,CONTRIBUTING.md,.github/*.md}\"",
     "visualize": "npx vite-bundle-visualizer@0.10.0",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "dependencies": {
     "encodeurl": "^1.0.2",
