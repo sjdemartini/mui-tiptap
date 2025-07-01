@@ -145,7 +145,7 @@
     "@tiptap/react": "^2.10.4",
     "@tiptap/starter-kit": "^2.10.4",
     "@tiptap/suggestion": "^2.10.4",
-    "@types/encodeurl": "^1.0.0",
+    "@types/encodeurl": "^1.0.3",
     "@types/lodash": "^4.14.195",
     "@types/node": "^22.9.0",
     "@types/react": "^18.2.12",
