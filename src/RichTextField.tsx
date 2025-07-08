@@ -1,7 +1,6 @@
-import type { BoxProps } from "@mui/material";
 import { makeStyles } from "tss-react/mui";
 import type { Except } from "type-fest";
-import FieldContainer from "./FieldContainer";
+import FieldContainer, { type FieldContainerProps } from "./FieldContainer";
 import MenuBar, { type MenuBarProps } from "./MenuBar";
 import RichTextContent, { type RichTextContentProps } from "./RichTextContent";
 import { useRichTextEditorContext } from "./context";
@@ -11,7 +10,10 @@ import DebounceRender from "./utils/DebounceRender";
 
 export type RichTextFieldClasses = ReturnType<typeof useStyles>["classes"];
 
-export type RichTextFieldProps = Except<BoxProps, "children"> & {
+export type RichTextFieldProps = Except<
+  FieldContainerProps,
+  "children" | "className" | "classes" | "focused" | "disabled"
+> & {
   /**
    * Which style to use for the field. "outlined" shows a border around the controls,
    * editor, and footer, which updates depending on hover/focus states, like MUI's
@@ -124,7 +126,7 @@ export default function RichTextField({
   footer,
   MenuBarProps,
   RichTextContentProps,
-  ...muiProps
+  ...fieldContainerProps
 }: RichTextFieldProps) {
   const { classes, cx } = useStyles(undefined, {
     props: { classes: overrideClasses },
@@ -138,7 +140,7 @@ export default function RichTextField({
 
   return (
     <FieldContainer
-      {...muiProps}
+      {...fieldContainerProps}
       variant={variant}
       focused={!disabled && isFieldFocused}
       disabled={disabled}
