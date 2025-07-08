@@ -55,7 +55,7 @@ const useStyles = makeStyles({ name: { RichTextContent } })((theme) => {
 export default function RichTextContent({
   className,
   classes: overrideClasses = {},
-  ...muiProps
+  ...boxProps
 }: RichTextContentProps) {
   const { classes, cx } = useStyles(undefined, {
     props: { classes: overrideClasses },
@@ -76,7 +76,7 @@ export default function RichTextContent({
 
   return (
     <Box
-      {...muiProps}
+      {...boxProps}
       className={editorClasses}
       component={EditorContent}
       editor={editor}

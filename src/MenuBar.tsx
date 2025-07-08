@@ -79,7 +79,7 @@ export default function MenuBar({
   className,
   classes: overrideClasses,
   unmountOnExit = true,
-  ...muiProps
+  ...collapseProps
 }: MenuBarProps) {
   const { classes, cx } = useStyles(
     { stickyOffset },
@@ -89,7 +89,7 @@ export default function MenuBar({
   );
   return (
     <Collapse
-      {...muiProps}
+      {...collapseProps}
       in={!hide}
       unmountOnExit={unmountOnExit}
       // Note that we have to apply the sticky CSS classes to the container

@@ -102,7 +102,7 @@ export default function FieldContainer({
   disabled,
   classes: overrideClasses = {},
   className,
-  ...muiProps
+  ...boxProps
 }: FieldContainerProps) {
   const { classes, cx } = useStyles(undefined, {
     props: { classes: overrideClasses },
@@ -110,7 +110,7 @@ export default function FieldContainer({
 
   return (
     <Box
-      {...muiProps}
+      {...boxProps}
       className={cx(
         fieldContainerClasses.root,
         classes.root,
