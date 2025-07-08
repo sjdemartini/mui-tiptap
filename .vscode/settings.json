@@ -5,6 +5,9 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "editor.insertSpaces": true,
+  "editor.rulers": [80],
+  "editor.wordWrapColumn": 80,
+  "vim.textwidth": 80,
   "files.exclude": {
     "**/node_modules/**": true,
     "htmlcov/": true,
