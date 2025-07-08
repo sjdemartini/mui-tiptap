@@ -9,15 +9,28 @@ import {
 import { isNodeSelection, posToDOMRect, type Editor } from "@tiptap/core";
 import { useCallback } from "react";
 import { makeStyles } from "tss-react/mui";
+import type { Except } from "type-fest";
 import { getUtilityClasses } from "./styles";
 
 export type ControlledBubbleMenuClasses = ReturnType<
   typeof useStyles
 >["classes"];
 
-export type ControlledBubbleMenuProps = {
+export type ControlledBubbleMenuProps = Except<
+  PopperProps,
+  | "children"
+  | "transition"
+  | "open"
+  | "anchorEl"
+  | "container"
+  | "disablePortal"
+  | "placement"
+> & {
+  /** The editor instance. */
   editor: Editor;
-  open: boolean;
+  /** Whether the bubble menu is open. */
+  open: PopperProps["open"];
+  /** The content of the bubble menu. */
   children: React.ReactNode;
   /**
    * To override the anchor element to which the bubble menu is positioned.
@@ -82,8 +95,6 @@ export type ControlledBubbleMenuProps = {
   className?: string;
   /** Override or extend existing styles. */
   classes?: Partial<ControlledBubbleMenuClasses>;
-  /** Styles applied to the root Popper element. */
-  sx?: PopperProps["sx"];
   /**
    * Override the default props for the Paper containing the bubble menu
    * content.
@@ -148,6 +159,7 @@ export default function ControlledBubbleMenu({
   ],
   flipPadding = 8,
   PaperProps,
+  ...popperProps
 }: ControlledBubbleMenuProps) {
   const { classes, cx } = useStyles(undefined, {
     props: { classes: overrideClasses },
@@ -230,6 +242,7 @@ export default function ControlledBubbleMenu({
       container={container}
       disablePortal={disablePortal}
       transition
+      {...popperProps}
     >
       {({ TransitionProps }) => (
         <Fade

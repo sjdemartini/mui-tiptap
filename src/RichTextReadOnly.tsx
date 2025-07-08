@@ -1,29 +1,43 @@
 import { useEditor } from "@tiptap/react";
 import { useEffect, useRef } from "react";
 import type { Except, SetRequired } from "type-fest";
-import RichTextContent from "./RichTextContent";
+import RichTextContent, { type RichTextContentProps } from "./RichTextContent";
 import type { UseEditorOptions } from "./RichTextEditor";
 import RichTextEditorProvider from "./RichTextEditorProvider";
 
 export type RichTextReadOnlyProps = SetRequired<
   Partial<Except<UseEditorOptions, "editable">>,
   "extensions"
->;
+> & {
+  /**
+   * Override the props for the RichTextContent component.
+   */
+  RichTextContentProps?: RichTextContentProps;
+  /**
+   * A convenience prop alternative to `RichTextContentProps.sx` for applying
+   * styles to the rich text content.
+   */
+  sx?: RichTextContentProps["sx"];
+};
 
-function RichTextReadOnlyInternal(props: RichTextReadOnlyProps) {
+function RichTextReadOnlyInternal({
+  RichTextContentProps,
+  sx,
+  ...editorOptions
+}: RichTextReadOnlyProps) {
   const editor = useEditor({
-    ...props,
+    ...editorOptions,
     editable: false,
   });
 
   // Update content if/when it changes
-  const previousContent = useRef(props.content);
+  const previousContent = useRef(editorOptions.content);
   useEffect(() => {
     if (
       !editor ||
       editor.isDestroyed ||
-      props.content === undefined ||
-      props.content === previousContent.current
+      editorOptions.content === undefined ||
+      editorOptions.content === previousContent.current
     ) {
       return;
     }
@@ -31,20 +45,20 @@ function RichTextReadOnlyInternal(props: RichTextReadOnlyProps) {
     // mentioned here
     // https://github.com/ueberdosis/tiptap/issues/3764#issuecomment-1546854730
     queueMicrotask(() => {
-      // Validate that props.content isn't undefined again to appease TS
-      if (props.content !== undefined) {
-        editor.commands.setContent(props.content);
+      // Validate that editorOptions.content isn't undefined again to appease TS
+      if (editorOptions.content !== undefined) {
+        editor.commands.setContent(editorOptions.content);
       }
     });
-  }, [props.content, editor]);
+  }, [editorOptions.content, editor]);
 
   useEffect(() => {
-    previousContent.current = props.content;
-  }, [props.content]);
+    previousContent.current = editorOptions.content;
+  }, [editorOptions.content]);
 
   return (
     <RichTextEditorProvider editor={editor}>
-      <RichTextContent />
+      <RichTextContent sx={sx} {...RichTextContentProps} />
     </RichTextEditorProvider>
   );
 }

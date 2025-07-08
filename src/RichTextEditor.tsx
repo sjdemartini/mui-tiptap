@@ -41,6 +41,11 @@ export interface RichTextEditorProps
    */
   RichTextFieldProps?: Except<RichTextFieldProps, "controls">;
   /**
+   * A convenience prop alternative to `RichTextFieldProps.sx` for applying
+   * styles to the rich text field.
+   */
+  sx?: RichTextFieldProps["sx"];
+  /**
    * Optional content to render alongside/after the inner RichTextField, where
    * you can access the editor via the parameter to this render prop, or in a
    * child component via `useRichTextEditorContext()`. Useful for including
@@ -82,6 +87,7 @@ const RichTextEditor = forwardRef<RichTextEditorRef, RichTextEditorProps>(
       className,
       renderControls,
       RichTextFieldProps = {},
+      sx,
       children,
       editorDependencies = [],
       // We default to `editable=true` just like `useEditor` does
@@ -126,6 +132,7 @@ const RichTextEditor = forwardRef<RichTextEditorRef, RichTextEditorProps>(
           disabled={!editable}
           controls={renderControls?.(editor)}
           className={className}
+          sx={sx}
           {...RichTextFieldProps}
         />
         {children?.(editor)}

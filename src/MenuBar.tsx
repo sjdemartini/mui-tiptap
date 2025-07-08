@@ -1,10 +1,11 @@
-import { Collapse } from "@mui/material";
+import { Collapse, type CollapseProps } from "@mui/material";
 import { makeStyles } from "tss-react/mui";
+import type { Except } from "type-fest";
 import { Z_INDEXES, getUtilityClasses } from "./styles";
 
 export type MenuBarClasses = ReturnType<typeof useStyles>["classes"];
 
-export type MenuBarProps = {
+export type MenuBarProps = Except<CollapseProps, "children" | "in"> & {
   /**
    * Whether to hide the menu bar. When changing between false/true, uses the
    * collapse animation. By default false
@@ -22,6 +23,12 @@ export type MenuBarProps = {
    * navigation toolbar). By default 0.
    */
   stickyOffset?: number;
+  /**
+   * Whether to unmount the menu bar when it's hidden. Unlike ordinary MUI
+   * `Collapse` behavior, this is by default true for performance reasons, to
+   * avoid rendering the menu bar unless it's needed/shown
+   */
+  unmountOnExit?: boolean;
   /** The set of controls (buttons, etc) to include in the menu bar. */
   children?: React.ReactNode;
   /** Class applied to the outermost `root` element. */
@@ -71,6 +78,8 @@ export default function MenuBar({
   children,
   className,
   classes: overrideClasses,
+  unmountOnExit = true,
+  ...collapseProps
 }: MenuBarProps) {
   const { classes, cx } = useStyles(
     { stickyOffset },
@@ -80,10 +89,9 @@ export default function MenuBar({
   );
   return (
     <Collapse
+      {...collapseProps}
       in={!hide}
-      // For performance reasons, we set unmountOnExit to avoid rendering the
-      // menu bar unless it's needed/shown
-      unmountOnExit
+      unmountOnExit={unmountOnExit}
       // Note that we have to apply the sticky CSS classes to the container
       // (rather than the menu bar itself) in order for it to behave
       // properly
