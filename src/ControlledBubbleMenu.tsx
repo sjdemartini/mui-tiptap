@@ -16,9 +16,21 @@ export type ControlledBubbleMenuClasses = ReturnType<
   typeof useStyles
 >["classes"];
 
-export type ControlledBubbleMenuProps = Except<PopperProps, "children"> & {
+export type ControlledBubbleMenuProps = Except<
+  PopperProps,
+  | "children"
+  | "transition"
+  | "open"
+  | "anchorEl"
+  | "container"
+  | "disablePortal"
+  | "placement"
+> & {
+  /** The editor instance. */
   editor: Editor;
-  open: boolean;
+  /** Whether the bubble menu is open. */
+  open: PopperProps["open"];
+  /** The content of the bubble menu. */
   children: React.ReactNode;
   /**
    * To override the anchor element to which the bubble menu is positioned.
@@ -147,6 +159,7 @@ export default function ControlledBubbleMenu({
   ],
   flipPadding = 8,
   PaperProps,
+  ...popperProps
 }: ControlledBubbleMenuProps) {
   const { classes, cx } = useStyles(undefined, {
     props: { classes: overrideClasses },
@@ -229,6 +242,7 @@ export default function ControlledBubbleMenu({
       container={container}
       disablePortal={disablePortal}
       transition
+      {...popperProps}
     >
       {({ TransitionProps }) => (
         <Fade

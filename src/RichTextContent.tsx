@@ -9,7 +9,10 @@ import { getEditorStyles, getUtilityClasses } from "./styles";
 
 export type RichTextContentClasses = ReturnType<typeof useStyles>["classes"];
 
-export type RichTextContentProps = Except<BoxProps, "children"> & {
+export type RichTextContentProps = Except<
+  BoxProps,
+  "children" | "component"
+> & {
   /** Optional additional className to provide to the root element. */
   className?: string;
   /** Override or extend existing styles. */
