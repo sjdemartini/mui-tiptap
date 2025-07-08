@@ -6,7 +6,7 @@ import MenuButton, { type MenuButtonProps } from "./MenuButton";
 export type MenuButtonBulletedListProps = Partial<MenuButtonProps>;
 
 export default function MenuButtonBulletedList(
-  props: MenuButtonBulletedListProps
+  props: MenuButtonBulletedListProps,
 ) {
   const editor = useRichTextEditorContext();
   return (

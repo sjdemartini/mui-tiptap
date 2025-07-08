@@ -78,7 +78,7 @@ export default function MenuBar({
     { stickyOffset },
     {
       props: { classes: overrideClasses },
-    }
+    },
   );
   return (
     <Collapse
@@ -96,7 +96,7 @@ export default function MenuBar({
         disableSticky
           ? [menuBarClasses.nonSticky, classes.nonSticky]
           : [menuBarClasses.sticky, classes.sticky],
-        className
+        className,
       )}
     >
       <div className={classes.content}>{children}</div>

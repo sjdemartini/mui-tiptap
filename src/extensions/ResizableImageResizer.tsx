@@ -69,7 +69,7 @@ export function ResizableImageResizer({
     (_event: React.MouseEvent) => {
       setMouseDown(true);
     },
-    [setMouseDown]
+    [setMouseDown],
   );
 
   return (

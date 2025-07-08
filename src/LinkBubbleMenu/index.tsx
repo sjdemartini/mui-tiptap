@@ -66,7 +66,7 @@ export default function LinkBubbleMenu({
 
   if (!("linkBubbleMenuHandler" in editor.storage)) {
     throw new Error(
-      "You must add the LinkBubbleMenuHandler extension to the useEditor `extensions` array in order to use this component!"
+      "You must add the LinkBubbleMenuHandler extension to the useEditor `extensions` array in order to use this component!",
     );
   }
   const handlerStorage = editor.storage

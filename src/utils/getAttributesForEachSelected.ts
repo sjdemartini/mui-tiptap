@@ -24,12 +24,12 @@ import { getAttributesForNodes } from "./getAttributesForNodes";
  */
 export function getAttributesForEachSelected(
   state: EditorState,
-  typeOrName: string | NodeType | MarkType
+  typeOrName: string | NodeType | MarkType,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Record<string, any>[] {
   const schemaType = getSchemaTypeNameByName(
     typeof typeOrName === "string" ? typeOrName : typeOrName.name,
-    state.schema
+    state.schema,
   );
 
   if (schemaType === "node") {

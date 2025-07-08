@@ -88,14 +88,14 @@ const RichTextEditor = forwardRef<RichTextEditorRef, RichTextEditorProps>(
       editable = true,
       ...editorOptions
     }: RichTextEditorProps,
-    ref
+    ref,
   ) {
     const editor = useEditor(
       {
         editable: editable,
         ...editorOptions,
       },
-      editorDependencies
+      editorDependencies,
     );
 
     // Allow consumers of this component to access the editor via ref
@@ -104,7 +104,7 @@ const RichTextEditor = forwardRef<RichTextEditorRef, RichTextEditorProps>(
       () => ({
         editor: editor,
       }),
-      [editor]
+      [editor],
     );
 
     // Update editable state if/when it changes
@@ -131,7 +131,7 @@ const RichTextEditor = forwardRef<RichTextEditorRef, RichTextEditorProps>(
         {children?.(editor)}
       </RichTextEditorProvider>
     );
-  }
+  },
 );
 
 export default RichTextEditor;

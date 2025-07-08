@@ -101,13 +101,13 @@ export default function TableBubbleMenu({
               const nearestTableParent = editor.isActive("table")
                 ? findParentNodeClosestToPos(
                     editor.state.selection.$anchor,
-                    (node) => node.type.name === "table"
+                    (node) => node.type.name === "table",
                   )
                 : null;
 
               if (nearestTableParent) {
                 const wrapperDomNode = editor.view.nodeDOM(
-                  nearestTableParent.pos
+                  nearestTableParent.pos,
                 ) as HTMLElement | null | undefined;
 
                 // The DOM node of a Tiptap table node is a div wrapper, which contains a `table` child.
@@ -132,7 +132,7 @@ export default function TableBubbleMenu({
             },
           }
         : null,
-    [editor]
+    [editor],
   );
 
   if (!editor?.isEditable) {

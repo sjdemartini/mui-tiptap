@@ -6,7 +6,7 @@ import MenuButton, { type MenuButtonProps } from "./MenuButton";
 export type MenuButtonSuperscriptProps = Partial<MenuButtonProps>;
 
 export default function MenuButtonSuperscript(
-  props: MenuButtonSuperscriptProps
+  props: MenuButtonSuperscriptProps,
 ) {
   const editor = useRichTextEditorContext();
   return (

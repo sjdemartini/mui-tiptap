@@ -110,7 +110,7 @@ export default function MenuSelectFontFamily({
     : [];
   const isTextStyleAppliedToEntireSelection = !!editor?.isActive("textStyle");
   const currentFontFamilies: string[] = allCurrentTextStyleAttrs.map(
-    (attrs) => attrs.fontFamily ?? "" // Treat any null/missing font-family as ""
+    (attrs) => attrs.fontFamily ?? "", // Treat any null/missing font-family as ""
   );
   if (!isTextStyleAppliedToEntireSelection) {
     // If there is some selected content that does not have textStyle, we can
@@ -172,7 +172,7 @@ export default function MenuSelectFontFamily({
         ...menuSelectProps.inputProps,
         className: cx(
           classes.selectInput,
-          menuSelectProps.inputProps?.className
+          menuSelectProps.inputProps?.className,
         ),
       }}
     >

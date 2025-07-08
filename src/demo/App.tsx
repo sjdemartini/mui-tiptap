@@ -22,10 +22,10 @@ import Editor from "./Editor";
 
 export default function App() {
   const systemSettingsPrefersDarkMode = useMediaQuery(
-    "(prefers-color-scheme: dark)"
+    "(prefers-color-scheme: dark)",
   );
   const [paletteMode, setPaletteMode] = useState<PaletteMode>(
-    systemSettingsPrefersDarkMode ? "dark" : "light"
+    systemSettingsPrefersDarkMode ? "dark" : "light",
   );
   const [dialogOpen, setDialogOpen] = useState(false);
   const togglePaletteMode = useCallback(() => {
@@ -41,7 +41,7 @@ export default function App() {
           },
         },
       }),
-    [paletteMode]
+    [paletteMode],
   );
 
   return (
@@ -80,7 +80,7 @@ export default function App() {
           setDialogOpen(false);
         }}
         maxWidth="xl"
-        PaperProps={{ sx: { overflowY: "auto", maxHeight: "70vh" } }}
+        slotProps={{ paper: { sx: { overflowY: "auto", maxHeight: "70vh" } } }}
         aria-labelledby="editor-dialog-title"
       >
         <DialogTitle id="editor-dialog-title">Editor in a dialog</DialogTitle>

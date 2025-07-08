@@ -17,10 +17,10 @@ import PageContentWithEditor from "./PageContentWithEditor";
 
 export default function App() {
   const systemSettingsPrefersDarkMode = useMediaQuery(
-    "(prefers-color-scheme: dark)"
+    "(prefers-color-scheme: dark)",
   );
   const [paletteMode, setPaletteMode] = useState<PaletteMode>(
-    systemSettingsPrefersDarkMode ? "dark" : "light"
+    systemSettingsPrefersDarkMode ? "dark" : "light",
   );
   const togglePaletteMode = useCallback(() => {
     setPaletteMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
@@ -32,7 +32,7 @@ export default function App() {
           mode: paletteMode,
         },
       }),
-    [paletteMode]
+    [paletteMode],
   );
 
   return (

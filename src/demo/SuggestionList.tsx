@@ -47,7 +47,7 @@ const SuggestionList = forwardRef<SuggestionListRef, SuggestionListProps>(
 
     const upHandler = () => {
       setSelectedIndex(
-        (selectedIndex + props.items.length - 1) % props.items.length
+        (selectedIndex + props.items.length - 1) % props.items.length,
       );
     };
 
@@ -108,7 +108,7 @@ const SuggestionList = forwardRef<SuggestionListRef, SuggestionListProps>(
         </List>
       </Paper>
     ) : null;
-  }
+  },
 );
 
 SuggestionList.displayName = "SuggestionList";

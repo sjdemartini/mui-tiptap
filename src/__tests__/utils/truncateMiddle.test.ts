@@ -7,7 +7,7 @@ describe("truncateMiddle()", () => {
     expect(truncateMiddle("short string")).toBe("short string");
     expect(truncateMiddle("short string", 5)).toBe("sh…ng");
     expect(truncateMiddle("This is a string that will be truncated!")).toBe(
-      "This is a…truncated!"
+      "This is a…truncated!",
     );
   });
 });

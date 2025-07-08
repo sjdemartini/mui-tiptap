@@ -37,7 +37,7 @@ export default function ViewLinkMenuContent({
   const { classes } = useStyles();
   const linkRange = getMarkRange(
     editor.state.selection.$to,
-    getMarkType("link", editor.schema)
+    getMarkType("link", editor.schema),
   );
   const linkText = linkRange
     ? editor.state.doc.textBetween(linkRange.from, linkRange.to)

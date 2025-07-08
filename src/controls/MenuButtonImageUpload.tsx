@@ -19,7 +19,7 @@ export interface MenuButtonImageUploadProps
    * which the image files can be viewed subsequently.
    */
   onUploadFiles: (
-    files: File[]
+    files: File[],
   ) => ImageNodeAttributes[] | Promise<ImageNodeAttributes[]>;
   /**
    * Handler called with the result from `onUploadFiles`, taking the uploaded

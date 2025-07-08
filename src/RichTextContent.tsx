@@ -18,7 +18,7 @@ export type RichTextContentProps = Except<BoxProps, "children"> & {
 
 const richTextContentClasses: RichTextContentClasses = getUtilityClasses(
   "RichTextContent",
-  ["root", "readonly", "editable"]
+  ["root", "readonly", "editable"],
 );
 
 const useStyles = makeStyles({ name: { RichTextContent } })((theme) => {
@@ -66,9 +66,9 @@ export default function RichTextContent({
         classes.root,
         editor?.isEditable
           ? [richTextContentClasses.editable, classes.editable]
-          : [richTextContentClasses.readonly, classes.readonly]
+          : [richTextContentClasses.readonly, classes.readonly],
       ),
-    [className, classes, cx, editor?.isEditable]
+    [className, classes, cx, editor?.isEditable],
   );
 
   return (

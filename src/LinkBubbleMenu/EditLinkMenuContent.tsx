@@ -50,7 +50,7 @@ export default function EditLinkMenuContent({
     : "";
   const linkRange = getMarkRange(
     editor.state.selection.$from,
-    getMarkType("link", editor.schema)
+    getMarkType("link", editor.schema),
   );
   const linkText = linkRange
     ? editor.state.doc.textBetween(linkRange.from, linkRange.to)
@@ -58,7 +58,7 @@ export default function EditLinkMenuContent({
 
   const selectedText = editor.state.doc.textBetween(
     editor.state.selection.$from.pos,
-    editor.state.selection.$to.pos
+    editor.state.selection.$to.pos,
   );
 
   // If we're on a link, we'll use the full link text, otherwise we'll fall back
@@ -91,9 +91,9 @@ export default function EditLinkMenuContent({
     // well focus on the href input.
     const autoFocusOnTextInput = !isNewLink || !initialText;
     if (autoFocusOnTextInput) {
-      textRef.current?.focus();
+      textRef.current?.focus({ preventScroll: true });
     } else {
-      hrefRef.current?.focus();
+      hrefRef.current?.focus({ preventScroll: true });
     }
   }, [isNewLink, initialText]);
 
