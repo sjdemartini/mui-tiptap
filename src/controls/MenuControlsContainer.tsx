@@ -1,10 +1,11 @@
+import { Box, type BoxProps } from "@mui/material";
 import { makeStyles } from "tss-react/mui";
 import type { Except } from "type-fest";
 import DebounceRender, {
   type DebounceRenderProps,
 } from "../utils/DebounceRender";
 
-export type MenuControlsContainerProps = {
+export type MenuControlsContainerProps = Except<BoxProps, "children"> & {
   /** The set of controls (buttons, etc) to include in the menu bar. */
   children?: React.ReactNode;
   className?: string;
@@ -45,9 +46,14 @@ export default function MenuControlsContainer({
   className,
   debounced,
   DebounceProps,
+  ...boxProps
 }: MenuControlsContainerProps) {
   const { classes, cx } = useStyles();
-  const content = <div className={cx(classes.root, className)}>{children}</div>;
+  const content = (
+    <Box {...boxProps} className={cx(classes.root, className)}>
+      {children}
+    </Box>
+  );
   return debounced ? (
     <DebounceRender {...DebounceProps}>{content}</DebounceRender>
   ) : (
