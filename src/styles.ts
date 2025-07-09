@@ -20,11 +20,25 @@ export const Z_INDEXES = {
   NOTCHED_OUTLINE: 2,
 } as const;
 
-export function getEditorStyles(theme: Theme): StyleRules {
+// Don't crash if a user has removed the default variants
+// (https://mui.com/material-ui/customization/typography/#adding-amp-disabling-variants,
+// https://github.com/sjdemartini/mui-tiptap/issues/339). Typography-dependent
+// styles will be omitted in this case. Consumers should likely use a
+// nested ThemeProvider around mui-tiptap components
+// (https://mui.com/material-ui/customization/theming/#nesting-the-theme) to
+// define the typography styles they want to use if their main theme doesn't
+// include them, based on MUI's default typography variants.
+type ThemeWithOptionalTypographyVariants = Omit<Theme, "typography"> & {
+  typography: Partial<Theme["typography"]>;
+};
+
+export function getEditorStyles(
+  theme: ThemeWithOptionalTypographyVariants,
+): StyleRules {
   // Check whether the user has enabled responsive typography
   // (https://mui.com/material-ui/customization/typography/#responsive-font-sizes)
-  const hasResponsiveStyles = Object.keys(theme.typography.h1).some((key) =>
-    key.includes("@media"),
+  const hasResponsiveStyles = Object.keys(theme.typography.h1 ?? {}).some(
+    (key) => key.includes("@media"),
   );
 
   const cursorDelayOpacityChangeAnimation = keyframes`
@@ -55,7 +69,7 @@ export function getEditorStyles(theme: Theme): StyleRules {
       // (which we use as our next smaller header). Note that if the MUI
       // `responsiveFontSizes` theme utility was used, we increase the font size
       // at all responsive breakpoints.
-      fontFamily: theme.typography.h3.fontFamily,
+      fontFamily: theme.typography.h3?.fontFamily,
       fontWeight: "bold",
 
       ...(hasResponsiveStyles
@@ -455,7 +469,7 @@ export function getEditorStyles(theme: Theme): StyleRules {
       fontWeight: 600,
       // Make sure we always use our standard font and don't take on the font of an
       // element this is showing up inside of (like <code>)
-      fontFamily: theme.typography.body1.fontFamily,
+      fontFamily: theme.typography.body1?.fontFamily ?? "initial",
       left: -1,
       lineHeight: "normal",
       padding: "0.1rem 0.3rem",
@@ -496,7 +510,7 @@ export function getEditorStyles(theme: Theme): StyleRules {
  * would have been created on a light-colored background context (e.g. may have black
  * text labels that wouldn't be readable in dark mode otherwise).
  */
-export function getImageBackgroundColorStyles(theme: Theme): {
+export function getImageBackgroundColorStyles(theme: Pick<Theme, "palette">): {
   backgroundColor?: string;
   color?: string;
 } {
