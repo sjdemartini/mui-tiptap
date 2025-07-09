@@ -4,6 +4,8 @@ import { Bold } from "@tiptap/extension-bold";
 import { BulletList } from "@tiptap/extension-bullet-list";
 import { Code } from "@tiptap/extension-code";
 import { CodeBlock } from "@tiptap/extension-code-block";
+import { Collaboration } from "@tiptap/extension-collaboration";
+import { CollaborationCaret } from "@tiptap/extension-collaboration-caret";
 import { Color } from "@tiptap/extension-color";
 import { Document } from "@tiptap/extension-document";
 import { Dropcursor } from "@tiptap/extension-dropcursor";
@@ -11,7 +13,6 @@ import { FontFamily } from "@tiptap/extension-font-family";
 import { Gapcursor } from "@tiptap/extension-gapcursor";
 import { HardBreak } from "@tiptap/extension-hard-break";
 import { Highlight } from "@tiptap/extension-highlight";
-import { History } from "@tiptap/extension-history";
 import { HorizontalRule } from "@tiptap/extension-horizontal-rule";
 import { Italic } from "@tiptap/extension-italic";
 import { Link } from "@tiptap/extension-link";
@@ -33,6 +34,8 @@ import { TextAlign } from "@tiptap/extension-text-align";
 import { TextStyle } from "@tiptap/extension-text-style";
 import { Underline } from "@tiptap/extension-underline";
 import { useMemo } from "react";
+import { WebrtcProvider } from "y-webrtc";
+import * as Y from "yjs";
 import {
   FontSize,
   HeadingWithAnchor,
@@ -80,6 +83,9 @@ const CustomSubscript = Subscript.extend({
 const CustomSuperscript = Superscript.extend({
   excludes: "subscript",
 });
+
+const ydoc = new Y.Doc();
+const provider = new WebrtcProvider("tiptap-collaboration-example", ydoc);
 
 /**
  * A hook for providing a default set of useful extensions for the MUI-Tiptap
@@ -182,7 +188,14 @@ export default function useExtensions({
 
       // We use the regular `History` (undo/redo) extension when not using
       // collaborative editing
-      History,
+      // History,
+
+      Collaboration.extend().configure({
+        document: ydoc,
+      }),
+      CollaborationCaret.extend().configure({
+        provider,
+      }),
     ];
   }, [placeholder]);
 }
