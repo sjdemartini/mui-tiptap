@@ -8,12 +8,23 @@ updates:
       interval: "weekly"
     ignore:
       - dependency-name: "@emotion/*"
+        update-types: ["version-update:semver-patch"]
+      - dependency-name: "@mui/*"
+        update-types: ["version-update:semver-patch"]
       - dependency-name: "@tiptap/*"
+      - dependency-name: "prosemirror-*"
+      - dependency-name: "y-*"
       - dependency-name: "yjs"
 
     groups:
+      emotion:
+        patterns:
+          - "@emotion/*"
       eslint:
         patterns:
           - "@eslint*"
           - "eslint*"
           - "typescript-eslint"
+      mui:
+        patterns:
+          - "@mui/*"
