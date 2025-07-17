@@ -535,7 +535,22 @@ export function getImageBackgroundColorStyles(theme: Pick<Theme, "palette">): {
   };
 }
 
-const UTILITY_CLASS_PREFIX_DEFAULT = "MuiTiptap-";
+/**
+ * The default prefix for all styled component names (used by consumers in `styleOverrides`)
+ * and utility classes generated for mui-tiptap components.
+ */
+const COMPONENT_NAME_AND_UTILITY_CLASS_PREFIX = "MuiTiptap-";
+
+/**
+ * Get the component name for a given component, used with `styled` to specify
+ * the component name used in the MUI `theme` and `styleOverrides`.
+ *
+ * @param name The name without the prefix, ex: "RichTextContent".
+ * @returns The full component name, ex: "MuiTiptap-RichTextContent".
+ */
+export function getComponentName(name: string): string {
+  return `${COMPONENT_NAME_AND_UTILITY_CLASS_PREFIX}${name}`;
+}
 
 /**
  * Get a utility class of the form "MuiTiptap-Foo-root" for the <Foo />
@@ -553,7 +568,7 @@ const UTILITY_CLASS_PREFIX_DEFAULT = "MuiTiptap-";
  * directly, since we instead use tss-react to generate CSS).
  */
 export function getUtilityClass(componentName: string, slot: string): string {
-  return `${UTILITY_CLASS_PREFIX_DEFAULT}${componentName}-${slot}`;
+  return `${COMPONENT_NAME_AND_UTILITY_CLASS_PREFIX}${componentName}-${slot}`;
 }
 
 /**
@@ -568,7 +583,7 @@ export function getUtilityClass(componentName: string, slot: string): string {
  */
 export function getUtilityClasses<T extends string>(
   componentName: string,
-  slots: T[],
+  slots: ReadonlyArray<T>,
 ): Record<T, string> {
   const result: Record<string, string> = {};
 

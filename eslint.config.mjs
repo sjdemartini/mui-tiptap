@@ -188,6 +188,10 @@ export default tseslint.config(
         },
       ],
 
+      // Not necessary due to TS validation, and noisy when using
+      // `useThemeProps` before destructuring:
+      "react/prop-types": "off",
+
       "react-refresh/only-export-components": [
         "warn",
         {
