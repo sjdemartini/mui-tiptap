@@ -9,11 +9,28 @@ updates:
     ignore:
       - dependency-name: "@emotion/*"
         update-types: ["version-update:semver-patch"]
+
       - dependency-name: "@mui/*"
         update-types: ["version-update:semver-patch"]
+
       - dependency-name: "@tiptap/*"
+
+      - dependency-name: "@types/react"
+        update-types: ["version-update:semver-major"]
+
+      - dependency-name: "@types/react-dom"
+        update-types: ["version-update:semver-major"]
+
+      - dependency-name: "react"
+        update-types: ["version-update:semver-major"]
+
+      - dependency-name: "react-dom"
+        update-types: ["version-update:semver-major"]
+
       - dependency-name: "prosemirror-*"
+
       - dependency-name: "y-*"
+
       - dependency-name: "yjs"
 
     groups:
@@ -28,3 +45,9 @@ updates:
       mui:
         patterns:
           - "@mui/*"
+      react:
+        patterns:
+          - "@types/react"
+          - "@types/react-dom"
+          - "react"
+          - "react-dom"
