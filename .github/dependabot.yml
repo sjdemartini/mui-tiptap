@@ -10,3 +10,10 @@ updates:
       - dependency-name: "@emotion/*"
       - dependency-name: "@tiptap/*"
       - dependency-name: "yjs"
+
+    groups:
+      eslint:
+        patterns:
+          - "@eslint*"
+          - "eslint*"
+          - "typescript-eslint"
