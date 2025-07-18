@@ -59,3 +59,8 @@ updates:
           - "@types/react-dom"
           - "react"
           - "react-dom"
+      vite:
+        patterns:
+          - "@vitejs/*"
+          - "@vitest/*"
+          - "vite*"
