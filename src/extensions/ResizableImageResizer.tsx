@@ -66,7 +66,10 @@ export function ResizableImageResizer({
   }, [setMouseDown]);
 
   const handleMouseDown = useCallback(
-    (_event: React.MouseEvent) => {
+    (event: React.MouseEvent) => {
+      // Ensure this click event doesn't trigger dragging of the image itself
+      event.preventDefault();
+      event.stopPropagation();
       setMouseDown(true);
     },
     [setMouseDown],
