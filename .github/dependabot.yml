@@ -15,6 +15,9 @@ updates:
 
       - dependency-name: "@tiptap/*"
 
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
+
       - dependency-name: "@types/react"
         update-types: ["version-update:semver-major"]
 
