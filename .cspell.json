@@ -19,7 +19,10 @@
     "selectednode",
     "strikethrough",
     "tinycolor",
-    "Tiptap"
+    "Tiptap",
+    "vite",
+    "vitejs",
+    "vitest"
   ],
   "flagWords": [],
   "ignorePaths": [
