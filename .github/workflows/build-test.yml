@@ -1,5 +1,8 @@
 name: build-test
 
+permissions:
+  contents: read
+
 # Run this for pushes to the main branch and for pull requests, and allow this
 # to be called from other workflows
 on:
