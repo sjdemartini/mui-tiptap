@@ -6,6 +6,8 @@ on:
 jobs:
   # Re-run the usual tests and build steps to ensure things are stable for release
   build-test:
+    permissions:
+      contents: read
     uses: ./.github/workflows/build-test.yml # use the callable built-test to run tests
 
   # Then release to npm
