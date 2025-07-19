@@ -74,27 +74,27 @@ const useStyles = makeStyles({ name: { MenuSelectHeading } })((theme) => {
     },
 
     headingOption1: {
-      fontSize: editorStyles["& h1"].fontSize as string,
+      fontSize: editorStyles["& h1"].fontSize,
     },
 
     headingOption2: {
-      fontSize: editorStyles["& h2"].fontSize as string,
+      fontSize: editorStyles["& h2"].fontSize,
     },
 
     headingOption3: {
-      fontSize: editorStyles["& h3"].fontSize as string,
+      fontSize: editorStyles["& h3"].fontSize,
     },
 
     headingOption4: {
-      fontSize: editorStyles["& h4"].fontSize as string,
+      fontSize: editorStyles["& h4"].fontSize,
     },
 
     headingOption5: {
-      fontSize: editorStyles["& h5"].fontSize as string,
+      fontSize: editorStyles["& h5"].fontSize,
     },
 
     headingOption6: {
-      fontSize: editorStyles["& h6"].fontSize as string,
+      fontSize: editorStyles["& h6"].fontSize,
     },
   };
 });
