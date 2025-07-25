@@ -70,7 +70,7 @@ const MenuBarRoot = styled(Collapse, {
     ? {}
     : {
         position: "sticky" as const,
-        top: ownerState.stickyOffset ?? 0,
+        top: ownerState.stickyOffset,
         zIndex: Z_INDEXES.MENU_BAR,
         background: theme.palette.background.default,
       }),

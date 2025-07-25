@@ -42,18 +42,13 @@ export type TableBubbleMenuProps = {
   classes?: Partial<TableBubbleMenuClasses>;
 } & Partial<Omit<ControlledBubbleMenuProps, "open" | "editor" | "children">>;
 
-type TableBubbleMenuOwnerState = object;
-
 const componentName = getComponentName("TableBubbleMenu");
 
 const TableBubbleMenuControls = styled(TableMenuControls, {
   name: componentName,
   slot: "controls",
-  overridesResolver: (
-    props: { ownerState?: TableBubbleMenuOwnerState },
-    styles,
-  ) => [styles.controls],
-})<{ ownerState: TableBubbleMenuOwnerState }>(({ theme }) => ({
+  overridesResolver: (props, styles) => [styles.controls],
+})(({ theme }) => ({
   maxWidth: "90vw",
   padding: theme.spacing(0.5, 1),
 }));
@@ -86,8 +81,6 @@ export default function TableBubbleMenu(inProps: TableBubbleMenuProps) {
   } = props;
 
   const editor = useRichTextEditorContext();
-
-  const ownerState = useMemo(() => ({}), []);
 
   // Because the user interactions with the table menu bar buttons unfocus the
   // editor (since it's not part of the editor content), we'll debounce our
@@ -164,11 +157,7 @@ export default function TableBubbleMenu(inProps: TableBubbleMenuProps) {
   }
 
   const controls = (
-    <TableBubbleMenuControls
-      className={controlsClasses}
-      labels={labels}
-      ownerState={ownerState}
-    />
+    <TableBubbleMenuControls className={controlsClasses} labels={labels} />
   );
 
   return (
