@@ -108,18 +108,13 @@ export type ControlledBubbleMenuProps = Omit<
   PaperProps?: Partial<PaperProps>;
 };
 
-interface ControlledBubbleMenuOwnerState {}
-
 const componentName = getComponentName("ControlledBubbleMenu");
 
 const ControlledBubbleMenuRoot = styled(Popper, {
   name: componentName,
   slot: "root",
-  overridesResolver: (
-    props: { ownerState?: ControlledBubbleMenuOwnerState },
-    styles,
-  ) => [styles.root],
-})<{ ownerState: ControlledBubbleMenuOwnerState }>(({ theme }) => ({
+  overridesResolver: (props, styles) => [styles.root],
+})(({ theme }) => ({
   // Ensure the bubble menu is above modals, in case the editor is rendered in
   // a modal, consistent with recommendations here
   // https://github.com/mui/material-ui/issues/14216. See
@@ -130,11 +125,8 @@ const ControlledBubbleMenuRoot = styled(Popper, {
 const ControlledBubbleMenuPaper = styled(Paper, {
   name: componentName,
   slot: "paper",
-  overridesResolver: (
-    props: { ownerState?: ControlledBubbleMenuOwnerState },
-    styles,
-  ) => [styles.paper],
-})<{ ownerState: ControlledBubbleMenuOwnerState }>(({ theme }) => ({
+  overridesResolver: (props, styles) => [styles.paper],
+})(({ theme }) => ({
   backgroundColor: theme.palette.background.default,
 }));
 
@@ -186,8 +178,6 @@ export default function ControlledBubbleMenu(
   } = props;
 
   const theme = useTheme();
-
-  const ownerState = useMemo(() => ({}), []);
 
   const defaultAnchorEl = useCallback(() => {
     // The logic here is taken from the positioning implementation in Tiptap's BubbleMenuPlugin
@@ -280,7 +270,6 @@ export default function ControlledBubbleMenu(
       container={container}
       disablePortal={disablePortal}
       transition
-      ownerState={ownerState}
       {...popperProps}
     >
       {({ TransitionProps }) => (
@@ -299,7 +288,6 @@ export default function ControlledBubbleMenu(
             elevation={7}
             {...PaperProps}
             className={paperClasses}
-            ownerState={ownerState}
           >
             {children}
           </ControlledBubbleMenuPaper>
