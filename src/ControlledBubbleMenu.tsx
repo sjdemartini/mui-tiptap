@@ -2,21 +2,23 @@ import {
   Fade,
   Paper,
   Popper,
+  styled,
   useTheme,
+  useThemeProps,
   type PaperProps,
   type PopperProps,
+  type SxProps,
 } from "@mui/material";
 import { isNodeSelection, posToDOMRect, type Editor } from "@tiptap/core";
-import { useCallback } from "react";
-import { makeStyles } from "tss-react/mui";
-import type { Except } from "type-fest";
-import { getUtilityClasses } from "./styles";
+import { clsx } from "clsx";
+import { useCallback, useMemo, type ReactNode } from "react";
+import {
+  controlledBubbleMenuClasses,
+  type ControlledBubbleMenuClasses,
+} from "./ControlledBubbleMenu.classes";
+import { getComponentName } from "./styles";
 
-export type ControlledBubbleMenuClasses = ReturnType<
-  typeof useStyles
->["classes"];
-
-export type ControlledBubbleMenuProps = Except<
+export type ControlledBubbleMenuProps = Omit<
   PopperProps,
   | "children"
   | "transition"
@@ -25,13 +27,15 @@ export type ControlledBubbleMenuProps = Except<
   | "container"
   | "disablePortal"
   | "placement"
+  | "className"
+  | "classes"
 > & {
   /** The editor instance. */
   editor: Editor;
   /** Whether the bubble menu is open. */
   open: PopperProps["open"];
   /** The content of the bubble menu. */
-  children: React.ReactNode;
+  children: ReactNode;
   /**
    * To override the anchor element to which the bubble menu is positioned.
    * By default, uses the current cursor position and selection.
@@ -95,6 +99,8 @@ export type ControlledBubbleMenuProps = Except<
   className?: string;
   /** Override or extend existing styles. */
   classes?: Partial<ControlledBubbleMenuClasses>;
+  /** Provide custom styles. */
+  sx?: SxProps;
   /**
    * Override the default props for the Paper containing the bubble menu
    * content.
@@ -102,21 +108,34 @@ export type ControlledBubbleMenuProps = Except<
   PaperProps?: Partial<PaperProps>;
 };
 
-const controlledBubbleMenuClasses: ControlledBubbleMenuClasses =
-  getUtilityClasses("ControlledBubbleMenu", ["root", "paper"]);
+interface ControlledBubbleMenuOwnerState {}
 
-const useStyles = makeStyles({ name: { ControlledBubbleMenu } })((theme) => ({
-  root: {
-    // Ensure the bubble menu is above modals, in case the editor is rendered in
-    // a modal, consistent with recommendations here
-    // https://github.com/mui/material-ui/issues/14216. See
-    // https://github.com/sjdemartini/mui-tiptap/issues/265.
-    zIndex: theme.zIndex.tooltip,
-  },
+const componentName = getComponentName("ControlledBubbleMenu");
 
-  paper: {
-    backgroundColor: theme.palette.background.default,
-  },
+const ControlledBubbleMenuRoot = styled(Popper, {
+  name: componentName,
+  slot: "root",
+  overridesResolver: (
+    props: { ownerState?: ControlledBubbleMenuOwnerState },
+    styles,
+  ) => [styles.root],
+})<{ ownerState: ControlledBubbleMenuOwnerState }>(({ theme }) => ({
+  // Ensure the bubble menu is above modals, in case the editor is rendered in
+  // a modal, consistent with recommendations here
+  // https://github.com/mui/material-ui/issues/14216. See
+  // https://github.com/sjdemartini/mui-tiptap/issues/265.
+  zIndex: theme.zIndex.tooltip,
+}));
+
+const ControlledBubbleMenuPaper = styled(Paper, {
+  name: componentName,
+  slot: "paper",
+  overridesResolver: (
+    props: { ownerState?: ControlledBubbleMenuOwnerState },
+    styles,
+  ) => [styles.paper],
+})<{ ownerState: ControlledBubbleMenuOwnerState }>(({ theme }) => ({
+  backgroundColor: theme.palette.background.default,
 }));
 
 // The `BubbleMenu` React component provided by Tiptap in @tiptap/react and the
@@ -138,33 +157,37 @@ const useStyles = makeStyles({ name: { ControlledBubbleMenu } })((theme) => ({
 // properly responds to all changes in React props, and it uses MUI's Popper
 // rather than relying on tippy, so we inherently get "Portal" behavior and
 // don't have to worry about visual clipping.
-export default function ControlledBubbleMenu({
-  editor,
-  open,
-  className,
-  classes: overrideClasses = {},
-  sx,
-  children,
-  anchorEl,
-  container,
-  disablePortal,
-  placement = "top",
-  fallbackPlacements = [
-    "top",
-    "bottom",
-    "top-start",
-    "bottom-start",
-    "top-end",
-    "bottom-end",
-  ],
-  flipPadding = 8,
-  PaperProps,
-  ...popperProps
-}: ControlledBubbleMenuProps) {
-  const { classes, cx } = useStyles(undefined, {
-    props: { classes: overrideClasses },
-  });
+export default function ControlledBubbleMenu(
+  inProps: ControlledBubbleMenuProps,
+) {
+  const props = useThemeProps({ props: inProps, name: componentName });
+  const {
+    editor,
+    open,
+    className,
+    classes = {},
+    sx,
+    children,
+    anchorEl,
+    container,
+    disablePortal,
+    placement = "top",
+    fallbackPlacements = [
+      "top",
+      "bottom",
+      "top-start",
+      "bottom-start",
+      "top-end",
+      "bottom-end",
+    ],
+    flipPadding = 8,
+    PaperProps,
+    ...popperProps
+  } = props;
+
   const theme = useTheme();
+
+  const ownerState = useMemo(() => ({}), []);
 
   const defaultAnchorEl = useCallback(() => {
     // The logic here is taken from the positioning implementation in Tiptap's BubbleMenuPlugin
@@ -188,8 +211,23 @@ export default function ControlledBubbleMenu({
     };
   }, [editor]);
 
+  const rootClasses = useMemo(
+    () => clsx([controlledBubbleMenuClasses.root, className, classes.root]),
+    [className, classes.root],
+  );
+
+  const paperClasses = useMemo(
+    () =>
+      clsx([
+        controlledBubbleMenuClasses.paper,
+        classes.paper,
+        PaperProps?.className,
+      ]),
+    [classes.paper, PaperProps?.className],
+  );
+
   return (
-    <Popper
+    <ControlledBubbleMenuRoot
       open={open}
       placement={placement}
       modifiers={[
@@ -237,11 +275,12 @@ export default function ControlledBubbleMenu({
         // which is probably not worth it
       ]}
       anchorEl={anchorEl ?? defaultAnchorEl}
-      className={cx(controlledBubbleMenuClasses.root, classes.root, className)}
+      className={rootClasses}
       sx={sx}
       container={container}
       disablePortal={disablePortal}
       transition
+      ownerState={ownerState}
       {...popperProps}
     >
       {({ TransitionProps }) => (
@@ -256,19 +295,16 @@ export default function ControlledBubbleMenu({
             exit: 0,
           }}
         >
-          <Paper
+          <ControlledBubbleMenuPaper
             elevation={7}
             {...PaperProps}
-            className={cx(
-              controlledBubbleMenuClasses.paper,
-              classes.paper,
-              PaperProps?.className,
-            )}
+            className={paperClasses}
+            ownerState={ownerState}
           >
             {children}
-          </Paper>
+          </ControlledBubbleMenuPaper>
         </Fade>
       )}
-    </Popper>
+    </ControlledBubbleMenuRoot>
   );
 }
