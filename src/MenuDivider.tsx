@@ -26,18 +26,13 @@ export type MenuDividerProps = Omit<
   sx?: SxProps;
 };
 
-type MenuDividerOwnerState = object;
-
 const componentName = getComponentName("MenuDivider");
 
 const MenuDividerRoot = styled(Divider, {
   name: componentName,
   slot: "root",
-  overridesResolver: (
-    props: { ownerState?: MenuDividerOwnerState },
-    styles,
-  ) => [styles.root],
-})<{ ownerState: MenuDividerOwnerState }>(({ theme }) => ({
+  overridesResolver: (props, styles) => [styles.root],
+})(({ theme }) => ({
   height: 18,
   margin: theme.spacing(0, 0.5),
 }));
@@ -45,8 +40,6 @@ const MenuDividerRoot = styled(Divider, {
 export default function MenuDivider(inProps: MenuDividerProps) {
   const props = useThemeProps({ props: inProps, name: componentName });
   const { className, classes = {}, sx, ...dividerProps } = props;
-
-  const ownerState = useMemo(() => ({}), []);
 
   const rootClasses = useMemo(
     () => clsx([menuDividerClasses.root, className, classes.root]),
@@ -57,7 +50,6 @@ export default function MenuDivider(inProps: MenuDividerProps) {
     <MenuDividerRoot
       orientation="vertical"
       {...dividerProps}
-      ownerState={ownerState}
       className={rootClasses}
       sx={sx}
     />
