@@ -1,16 +1,19 @@
-import { makeStyles } from "tss-react/mui";
-import type { Except } from "type-fest";
+import { styled, useThemeProps, type SxProps } from "@mui/material";
+import { clsx } from "clsx";
+import { useMemo, type ReactNode } from "react";
 import FieldContainer, { type FieldContainerProps } from "./FieldContainer";
 import MenuBar, { type MenuBarProps } from "./MenuBar";
 import RichTextContent, { type RichTextContentProps } from "./RichTextContent";
+import {
+  richTextFieldClasses,
+  type RichTextFieldClasses,
+} from "./RichTextField.classes";
 import { useRichTextEditorContext } from "./context";
 import useDebouncedFocus from "./hooks/useDebouncedFocus";
-import { getUtilityClasses } from "./styles";
+import { getComponentName } from "./styles";
 import DebounceRender from "./utils/DebounceRender";
 
-export type RichTextFieldClasses = ReturnType<typeof useStyles>["classes"];
-
-export type RichTextFieldProps = Except<
+export type RichTextFieldProps = Omit<
   FieldContainerProps,
   "children" | "className" | "classes" | "focused" | "disabled"
 > & {
@@ -32,14 +35,14 @@ export type RichTextFieldProps = Except<
    * Any additional content to render inside the outlined field, below the
    * editor content.
    */
-  footer?: React.ReactNode;
+  footer?: ReactNode;
   /**
    * The controls content to show inside the menu bar. Typically will be set to
    * a <MenuControlsContainer> containing several MenuButton* components,
    * depending on what controls you want to include in the menu bar (and what
    * extensions you've enabled).
    */
-  controls?: React.ReactNode;
+  controls?: ReactNode;
   /**
    * If true, the controls rendered via `controls` will not be debounced. If not
    * debounced, then upon every editor interaction (caret movement, character
@@ -52,6 +55,8 @@ export type RichTextFieldProps = Except<
   disableDebounceRenderControls?: boolean;
   /** Override or extend existing styles. */
   classes?: Partial<RichTextFieldClasses>;
+  /** Provide custom styles. */
+  sx?: SxProps;
   /**
    * Override any props for the child MenuBar component (rendered if `controls`
    * is provided).
@@ -63,49 +68,50 @@ export type RichTextFieldProps = Except<
   RichTextContentProps?: Partial<RichTextContentProps>;
 };
 
-const richTextFieldClasses: RichTextFieldClasses = getUtilityClasses(
-  "RichTextField",
-  ["root", "standard", "outlined", "menuBar", "menuBarContent", "content"],
-);
+interface RichTextFieldOwnerState {
+  variant: "outlined" | "standard";
+}
 
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-const useStyles = makeStyles<void, "menuBar" | "menuBarContent" | "content">({
-  name: { RichTextField },
-  uniqId: "E2Alw3", // https://docs.tss-react.dev/nested-selectors#ssr
-})((theme, _params, classes) => {
-  return {
-    // This first class is added to allow convenient user overrides. Users can
-    // similarly override the other classes below.
-    root: {},
+const componentName = getComponentName("RichTextField");
 
-    standard: {
-      // We don't need horizontal spacing when not using the outlined variant
-      [`& .${classes.content}`]: {
-        padding: theme.spacing(1.5, 0),
-      },
+const RichTextFieldRoot = styled(FieldContainer, {
+  name: componentName,
+  slot: "root",
+  overridesResolver: (
+    props: { ownerState?: RichTextFieldOwnerState },
+    styles,
+  ) => [
+    styles.root,
+    props.ownerState?.variant === "outlined" && styles.outlined,
+    props.ownerState?.variant === "standard" && styles.standard,
+  ],
+})<{ ownerState: RichTextFieldOwnerState }>(({ theme, ownerState }) => ({
+  // This first class is added to allow convenient user overrides. Users can
+  // similarly override the other classes below.
 
-      [`& .${classes.menuBarContent}`]: {
-        padding: theme.spacing(1, 0),
-      },
+  ...(ownerState.variant === "standard" && {
+    // We don't need horizontal spacing when not using the outlined variant
+    [`& .${richTextFieldClasses.content}`]: {
+      padding: theme.spacing(1.5, 0),
     },
 
-    outlined: {
-      // Add padding around the input area and menu bar, since they're
-      // contained in the outline
-      [`& .${classes.content}`]: {
-        padding: theme.spacing(1.5),
-      },
+    [`& .${richTextFieldClasses.menuBarContent}`]: {
+      padding: theme.spacing(1, 0),
+    },
+  }),
 
-      [`& .${classes.menuBarContent}`]: {
-        padding: theme.spacing(1, 1.5),
-      },
+  ...(ownerState.variant === "outlined" && {
+    // Add padding around the input area and menu bar, since they're
+    // contained in the outline
+    [`& .${richTextFieldClasses.content}`]: {
+      padding: theme.spacing(1.5),
     },
 
-    menuBar: {},
-    menuBarContent: {},
-    content: {},
-  };
-});
+    [`& .${richTextFieldClasses.menuBarContent}`]: {
+      padding: theme.spacing(1, 1.5),
+    },
+  }),
+}));
 
 /**
  * Renders the Tiptap rich text editor content and a controls menu bar.
@@ -116,60 +122,83 @@ const useStyles = makeStyles<void, "menuBar" | "menuBarContent" | "content">({
  * Must be a child of the RichTextEditorProvider so that the `editor` context is
  * available.
  */
-export default function RichTextField({
-  variant = "outlined",
-  controls,
-  disableDebounceRenderControls = false,
-  disabled,
-  className,
-  classes: overrideClasses = {},
-  footer,
-  MenuBarProps,
-  RichTextContentProps,
-  ...fieldContainerProps
-}: RichTextFieldProps) {
-  const { classes, cx } = useStyles(undefined, {
-    props: { classes: overrideClasses },
-  });
+export default function RichTextField(inProps: RichTextFieldProps) {
+  const props = useThemeProps({ props: inProps, name: componentName });
+  const {
+    variant = "outlined",
+    controls,
+    disableDebounceRenderControls = false,
+    disabled = false,
+    className,
+    classes = {},
+    footer,
+    MenuBarProps,
+    RichTextContentProps,
+    sx,
+    ...fieldContainerProps
+  } = props;
+
   const editor = useRichTextEditorContext();
+
+  const ownerState = useMemo(() => ({ variant }), [variant]);
 
   // Because the user interactions with the editor menu bar buttons unfocus the editor
   // (since it's not part of the editor content), we'll debounce our visual focused
   // state so that the (outlined) field focus styles don't "flash" whenever that happens
   const isFieldFocused = useDebouncedFocus({ editor });
 
-  return (
-    <FieldContainer
-      {...fieldContainerProps}
-      variant={variant}
-      focused={!disabled && isFieldFocused}
-      disabled={disabled}
-      className={cx(
+  const rootClasses = useMemo(
+    () =>
+      clsx([
         richTextFieldClasses.root,
+        className,
         classes.root,
         variant === "outlined"
           ? [richTextFieldClasses.outlined, classes.outlined]
           : [richTextFieldClasses.standard, classes.standard],
-        className,
-      )}
+      ]),
+    [className, classes.root, classes.outlined, classes.standard, variant],
+  );
+
+  const menuBarClasses = useMemo(
+    () => ({
+      ...MenuBarProps?.classes,
+      root: clsx([
+        richTextFieldClasses.menuBar,
+        classes.menuBar,
+        MenuBarProps?.classes?.root,
+      ]),
+      content: clsx([
+        richTextFieldClasses.menuBarContent,
+        classes.menuBarContent,
+        MenuBarProps?.classes?.content,
+      ]),
+    }),
+    [MenuBarProps?.classes, classes.menuBar, classes.menuBarContent],
+  );
+
+  const contentClasses = useMemo(
+    () =>
+      clsx([
+        richTextFieldClasses.content,
+        classes.content,
+        RichTextContentProps?.className,
+      ]),
+    [classes.content, RichTextContentProps?.className],
+  );
+
+  return (
+    <RichTextFieldRoot
+      {...fieldContainerProps}
+      variant={variant}
+      focused={!disabled && isFieldFocused}
+      disabled={disabled}
+      className={rootClasses}
+      ownerState={ownerState}
+      sx={sx}
     >
       {controls && (
-        <MenuBar
-          {...MenuBarProps}
-          classes={{
-            ...MenuBarProps?.classes,
-            root: cx(
-              richTextFieldClasses.menuBar,
-              classes.menuBar,
-              MenuBarProps?.classes?.root,
-            ),
-            content: cx(
-              richTextFieldClasses.content,
-              classes.menuBarContent,
-              MenuBarProps?.classes?.content,
-            ),
-          }}
-        >
+        <MenuBar {...MenuBarProps} classes={menuBarClasses}>
           {disableDebounceRenderControls ? (
             controls
           ) : (
@@ -178,16 +207,9 @@ export default function RichTextField({
         </MenuBar>
       )}
 
-      <RichTextContent
-        {...RichTextContentProps}
-        className={cx(
-          richTextFieldClasses.content,
-          classes.content,
-          RichTextContentProps?.className,
-        )}
-      />
+      <RichTextContent {...RichTextContentProps} className={contentClasses} />
 
       {footer}
-    </FieldContainer>
+    </RichTextFieldRoot>
   );
 }

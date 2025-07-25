@@ -1,15 +1,20 @@
+import { styled, useThemeProps } from "@mui/material";
 import { findParentNodeClosestToPos, posToDOMRect } from "@tiptap/core";
+import { clsx } from "clsx";
 import { useMemo } from "react";
-import { makeStyles } from "tss-react/mui";
-import type { Except } from "type-fest";
 import ControlledBubbleMenu, {
   type ControlledBubbleMenuProps,
 } from "./ControlledBubbleMenu";
+import {
+  tableBubbleMenuClasses,
+  type TableBubbleMenuClasses,
+} from "./TableBubbleMenu.classes";
 import { useRichTextEditorContext } from "./context";
 import TableMenuControls, {
   type TableMenuControlsProps,
 } from "./controls/TableMenuControls";
 import { useDebouncedFocus } from "./hooks";
+import { getComponentName } from "./styles";
 import DebounceRender, {
   type DebounceRenderProps,
 } from "./utils/DebounceRender";
@@ -27,21 +32,30 @@ export type TableBubbleMenuProps = {
    * Override the props/options used with debounce rendering such as the wait
    * interval, if `disableDebounce` is not true.
    */
-  DebounceProps?: Except<DebounceRenderProps, "children">;
+  DebounceProps?: Omit<DebounceRenderProps, "children">;
   /**
    * Override the default labels for any of the menu buttons. If any is omitted,
    * it falls back to the default mui-tiptap label for that label.
    */
   labels?: TableMenuControlsProps["labels"];
-} & Partial<Except<ControlledBubbleMenuProps, "open" | "editor" | "children">>;
+  /** Override or extend existing styles. */
+  classes?: Partial<TableBubbleMenuClasses>;
+} & Partial<Omit<ControlledBubbleMenuProps, "open" | "editor" | "children">>;
 
-const useStyles = makeStyles({
-  name: { TableBubbleMenu },
-})((theme) => ({
-  controls: {
-    maxWidth: "90vw",
-    padding: theme.spacing(0.5, 1),
-  },
+type TableBubbleMenuOwnerState = object;
+
+const componentName = getComponentName("TableBubbleMenu");
+
+const TableBubbleMenuControls = styled(TableMenuControls, {
+  name: componentName,
+  slot: "controls",
+  overridesResolver: (
+    props: { ownerState?: TableBubbleMenuOwnerState },
+    styles,
+  ) => [styles.controls],
+})<{ ownerState: TableBubbleMenuOwnerState }>(({ theme }) => ({
+  maxWidth: "90vw",
+  padding: theme.spacing(0.5, 1),
 }));
 
 /**
@@ -53,7 +67,7 @@ const useStyles = makeStyles({
  * `@tiptap/extension-table` extension.
  *
  * If you're using `RichTextEditor`, include this component via
- * `RichTextEditor`’s `children` render-prop. Otherwise, include the
+ * `RichTextEditor`'s `children` render-prop. Otherwise, include the
  * `TableBubbleMenu` as a child of the component where you call `useEditor` and
  * render your `RichTextField` or `RichTextContent`. (The bubble menu itself
  * will be positioned appropriately no matter where you put it in your React
@@ -61,14 +75,19 @@ const useStyles = makeStyles({
  * update, which will happen if it's a child of the component using
  * `useEditor`).
  */
-export default function TableBubbleMenu({
-  disableDebounce = false,
-  DebounceProps,
-  labels,
-  ...controlledBubbleMenuProps
-}: TableBubbleMenuProps) {
+export default function TableBubbleMenu(inProps: TableBubbleMenuProps) {
+  const props = useThemeProps({ props: inProps, name: componentName });
+  const {
+    disableDebounce = false,
+    DebounceProps,
+    labels,
+    classes = {},
+    ...controlledBubbleMenuProps
+  } = props;
+
   const editor = useRichTextEditorContext();
-  const { classes } = useStyles();
+
+  const ownerState = useMemo(() => ({}), []);
 
   // Because the user interactions with the table menu bar buttons unfocus the
   // editor (since it's not part of the editor content), we'll debounce our
@@ -135,12 +154,21 @@ export default function TableBubbleMenu({
     [editor],
   );
 
+  const controlsClasses = useMemo(
+    () => clsx([tableBubbleMenuClasses.controls, classes.controls]),
+    [classes.controls],
+  );
+
   if (!editor?.isEditable) {
     return null;
   }
 
   const controls = (
-    <TableMenuControls className={classes.controls} labels={labels} />
+    <TableBubbleMenuControls
+      className={controlsClasses}
+      labels={labels}
+      ownerState={ownerState}
+    />
   );
 
   return (

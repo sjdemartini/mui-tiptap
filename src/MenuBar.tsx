@@ -1,11 +1,19 @@
-import { Collapse, type CollapseProps } from "@mui/material";
-import { makeStyles } from "tss-react/mui";
-import type { Except } from "type-fest";
-import { Z_INDEXES, getUtilityClasses } from "./styles";
+import {
+  Collapse,
+  styled,
+  useThemeProps,
+  type CollapseProps,
+  type SxProps,
+} from "@mui/material";
+import { clsx } from "clsx";
+import { useMemo, type ReactNode } from "react";
+import { menuBarClasses, type MenuBarClasses } from "./MenuBar.classes";
+import { Z_INDEXES, getComponentName } from "./styles";
 
-export type MenuBarClasses = ReturnType<typeof useStyles>["classes"];
-
-export type MenuBarProps = Except<CollapseProps, "children" | "in"> & {
+export type MenuBarProps = Omit<
+  CollapseProps,
+  "children" | "in" | "className" | "classes"
+> & {
   /**
    * Whether to hide the menu bar. When changing between false/true, uses the
    * collapse animation. By default false
@@ -30,81 +38,108 @@ export type MenuBarProps = Except<CollapseProps, "children" | "in"> & {
    */
   unmountOnExit?: boolean;
   /** The set of controls (buttons, etc) to include in the menu bar. */
-  children?: React.ReactNode;
+  children?: ReactNode;
   /** Class applied to the outermost `root` element. */
   className?: string;
   /** Override or extend existing styles. */
   classes?: Partial<MenuBarClasses>;
+  /** Provide custom styles. */
+  sx?: SxProps;
 };
 
-const menuBarClasses: MenuBarClasses = getUtilityClasses("MenuBar", [
-  "root",
-  "sticky",
-  "nonSticky",
-  "content",
-]);
+interface MenuBarOwnerState {
+  disableSticky: boolean;
+  stickyOffset: number;
+}
 
-const useStyles = makeStyles<{ stickyOffset?: number }>({
-  name: { MenuBar },
-})((theme, { stickyOffset }) => {
-  return {
-    root: {
-      borderBottomColor: theme.palette.divider,
-      borderBottomStyle: "solid",
-      borderBottomWidth: 1,
-    },
+const componentName = getComponentName("MenuBar");
 
-    sticky: {
-      position: "sticky",
-      top: stickyOffset ?? 0,
-      zIndex: Z_INDEXES.MENU_BAR,
-      background: theme.palette.background.default,
-    },
+const MenuBarRoot = styled(Collapse, {
+  name: componentName,
+  slot: "root",
+  overridesResolver: (props: { ownerState?: MenuBarOwnerState }, styles) => [
+    styles.root,
+    props.ownerState?.disableSticky ? styles.nonSticky : styles.sticky,
+  ],
+})<{ ownerState: MenuBarOwnerState }>(({ theme, ownerState }) => ({
+  borderBottomColor: theme.palette.divider,
+  borderBottomStyle: "solid",
+  borderBottomWidth: 1,
 
-    nonSticky: {},
+  ...(ownerState.disableSticky
+    ? {}
+    : {
+        position: "sticky" as const,
+        top: ownerState.stickyOffset ?? 0,
+        zIndex: Z_INDEXES.MENU_BAR,
+        background: theme.palette.background.default,
+      }),
+}));
 
-    content: {},
-  };
-});
+const MenuBarContent = styled("div", {
+  name: componentName,
+  slot: "content",
+  overridesResolver: (props: { ownerState?: MenuBarOwnerState }, styles) => [
+    styles.content,
+  ],
+})<{ ownerState: MenuBarOwnerState }>(() => ({}));
 
 /**
  * A collapsible, optionally-sticky container for showing editor controls atop
  * the editor content.
  */
-export default function MenuBar({
-  hide,
-  disableSticky,
-  stickyOffset,
-  children,
-  className,
-  classes: overrideClasses,
-  unmountOnExit = true,
-  ...collapseProps
-}: MenuBarProps) {
-  const { classes, cx } = useStyles(
-    { stickyOffset },
-    {
-      props: { classes: overrideClasses },
-    },
+export default function MenuBar(inProps: MenuBarProps) {
+  const props = useThemeProps({ props: inProps, name: componentName });
+  const {
+    hide = false,
+    disableSticky = false,
+    stickyOffset = 0,
+    children,
+    className,
+    classes = {},
+    unmountOnExit = true,
+    sx,
+    ...collapseProps
+  } = props;
+
+  const ownerState = useMemo(
+    () => ({ disableSticky, stickyOffset }),
+    [disableSticky, stickyOffset],
   );
+
+  const rootClasses = useMemo(
+    () =>
+      clsx([
+        menuBarClasses.root,
+        className,
+        classes.root,
+        disableSticky
+          ? [menuBarClasses.nonSticky, classes.nonSticky]
+          : [menuBarClasses.sticky, classes.sticky],
+      ]),
+    [className, classes.root, classes.sticky, classes.nonSticky, disableSticky],
+  );
+
+  const contentClasses = useMemo(
+    () => clsx([menuBarClasses.content, classes.content]),
+    [classes.content],
+  );
+
   return (
-    <Collapse
+    <MenuBarRoot
       {...collapseProps}
       in={!hide}
       unmountOnExit={unmountOnExit}
       // Note that we have to apply the sticky CSS classes to the container
       // (rather than the menu bar itself) in order for it to behave
       // properly
-      className={cx(
-        menuBarClasses.root,
-        classes.root,
-        disableSticky
-          ? [menuBarClasses.nonSticky, classes.nonSticky]
-          : [menuBarClasses.sticky, classes.sticky],
-        className,
-      )}
+      className={rootClasses}
+      ownerState={ownerState}
+      sx={sx}
     >
-      <div className={classes.content}>{children}</div>
-    </Collapse>
+      <MenuBarContent className={contentClasses} ownerState={ownerState}>
+        {children}
+      </MenuBarContent>
+    </MenuBarRoot>
   );
 }

@@ -1,12 +1,22 @@
-import { Box, type BoxProps } from "@mui/material";
-import type React from "react";
-import { makeStyles } from "tss-react/mui";
-import type { Except } from "type-fest";
-import { Z_INDEXES, getUtilityClasses } from "./styles";
+import {
+  Box,
+  styled,
+  useThemeProps,
+  type BoxProps,
+  type SxProps,
+} from "@mui/material";
+import { clsx } from "clsx";
+import { useMemo, type ReactNode } from "react";
+import {
+  fieldContainerClasses,
+  type FieldContainerClasses,
+} from "./FieldContainer.classes";
+import { Z_INDEXES, getComponentName } from "./styles";
 
-export type FieldContainerClasses = ReturnType<typeof useStyles>["classes"];
-
-export type FieldContainerProps = Except<BoxProps, "children"> & {
+export type FieldContainerProps = Omit<
+  BoxProps,
+  "children" | "className" | "classes"
+> & {
   /**
    * Which style to use for the field. "outlined" shows a border around the children,
    * which updates its appearance depending on hover/focus states, like MUI's
@@ -14,105 +24,116 @@ export type FieldContainerProps = Except<BoxProps, "children"> & {
    */
   variant?: "outlined" | "standard";
   /** The content to render inside the container. */
-  children: React.ReactNode;
+  children: ReactNode;
   /** Class applied to the `root` element. */
   className?: string;
   /** Override or extend existing styles. */
   classes?: Partial<FieldContainerClasses>;
   focused?: boolean;
   disabled?: boolean;
+  /** Provide custom styles. */
+  sx?: SxProps;
 };
 
-const fieldContainerClasses: FieldContainerClasses = getUtilityClasses(
-  "FieldContainer",
-  ["root", "outlined", "standard", "focused", "disabled", "notchedOutline"],
-);
+interface FieldContainerOwnerState {
+  variant: "outlined" | "standard";
+  focused: boolean;
+  disabled: boolean;
+}
 
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-const useStyles = makeStyles<void, "focused" | "disabled" | "notchedOutline">({
-  name: { FieldContainer },
-  uniqId: "Os7ZPW", // https://docs.tss-react.dev/nested-selectors#ssr
-})((theme, _params, classes) => {
+const componentName = getComponentName("FieldContainer");
+
+const FieldContainerRoot = styled(Box, {
+  name: componentName,
+  slot: "root",
+  overridesResolver: (
+    props: { ownerState?: FieldContainerOwnerState },
+    styles,
+  ) => [
+    styles.root,
+    props.ownerState?.variant === "outlined" && styles.outlined,
+    props.ownerState?.variant === "standard" && styles.standard,
+    props.ownerState?.focused && styles.focused,
+    props.ownerState?.disabled && styles.disabled,
+  ],
+})<{ ownerState: FieldContainerOwnerState }>(({ theme, ownerState }) => ({
   // Based on the concept behind and styles of OutlinedInput and NotchedOutline
   // styles here, to imitate outlined input appearance in material-ui
   // https://github.com/mui-org/material-ui/blob/a4972c5931e637611f6421ed2a5cc3f78207cbb2/packages/material-ui/src/OutlinedInput/OutlinedInput.js#L9-L37
   // https://github.com/mui/material-ui/blob/a4972c5931e637611f6421ed2a5cc3f78207cbb2/packages/material-ui/src/OutlinedInput/NotchedOutline.js
-  return {
-    root: {},
 
-    // Class/styles applied to the root element if the component is using the
-    // "outlined" variant
-    outlined: {
-      borderRadius: theme.shape.borderRadius,
-      padding: 1, //
-      position: "relative",
+  ...(ownerState.variant === "outlined" && {
+    borderRadius: theme.shape.borderRadius,
+    padding: 1,
+    position: "relative" as const,
 
-      [`&:hover .${classes.notchedOutline}`]: {
-        borderColor: theme.palette.text.primary,
-      },
+    [`&:hover .${fieldContainerClasses.notchedOutline}`]: {
+      borderColor: theme.palette.text.primary,
+    },
 
-      [`&.${classes.focused} .${classes.notchedOutline}`]: {
+    [`&.${fieldContainerClasses.focused} .${fieldContainerClasses.notchedOutline}`]:
+      {
         borderColor: theme.palette.primary.main,
         borderWidth: 2,
       },
 
-      [`&.${classes.disabled} .${classes.notchedOutline}`]: {
+    [`&.${fieldContainerClasses.disabled} .${fieldContainerClasses.notchedOutline}`]:
+      {
         borderColor: theme.palette.action.disabled,
       },
-    },
+  }),
+}));
 
-    // Class/styles applied to the root element if the component is using the
-    // "standard" variant
-    standard: {},
-
-    // Class/styles applied to the root element if the component is focused (if the
-    // `focused` prop is true)
-    focused: {},
-
-    // Styles applied to the root element if the component is disabled (if the
-    // `disabled` prop is true)
-    disabled: {},
-
-    notchedOutline: {
-      position: "absolute",
-      inset: 0,
-      borderRadius: "inherit",
-      borderColor:
-        theme.palette.mode === "light"
-          ? "rgba(0, 0, 0, 0.23)"
-          : "rgba(255, 255, 255, 0.23)",
-      borderStyle: "solid",
-      borderWidth: 1,
-      pointerEvents: "none",
-      overflow: "hidden",
-      zIndex: Z_INDEXES.NOTCHED_OUTLINE,
-    },
-  };
-});
+const FieldContainerNotchedOutline = styled("div", {
+  name: componentName,
+  slot: "notchedOutline",
+  overridesResolver: (
+    props: { ownerState?: FieldContainerOwnerState },
+    styles,
+  ) => [styles.notchedOutline],
+})<{ ownerState: FieldContainerOwnerState }>(({ theme }) => ({
+  position: "absolute",
+  inset: 0,
+  borderRadius: "inherit",
+  borderColor:
+    theme.palette.mode === "light"
+      ? "rgba(0, 0, 0, 0.23)"
+      : "rgba(255, 255, 255, 0.23)",
+  borderStyle: "solid",
+  borderWidth: 1,
+  pointerEvents: "none",
+  overflow: "hidden",
+  zIndex: Z_INDEXES.NOTCHED_OUTLINE,
+}));
 
 /**
  * Renders an element with classes and styles that correspond to the state and
  * style-variant of a user-input field, the content of which should be passed in as
  * `children`.
  */
-export default function FieldContainer({
-  variant = "outlined",
-  children,
-  focused,
-  disabled,
-  classes: overrideClasses = {},
-  className,
-  ...boxProps
-}: FieldContainerProps) {
-  const { classes, cx } = useStyles(undefined, {
-    props: { classes: overrideClasses },
-  });
+export default function FieldContainer(inProps: FieldContainerProps) {
+  const props = useThemeProps({ props: inProps, name: componentName });
+  const {
+    variant = "outlined",
+    children,
+    focused = false,
+    disabled = false,
+    classes = {},
+    className,
+    sx,
+    ...boxProps
+  } = props;
 
-  return (
-    <Box
-      {...boxProps}
-      className={cx(
+  const ownerState = useMemo(
+    () => ({ variant, focused, disabled }),
+    [variant, focused, disabled],
+  );
+
+  const rootClasses = useMemo(
+    () =>
+      clsx([
         fieldContainerClasses.root,
+        className,
         classes.root,
         variant === "outlined"
           ? [fieldContainerClasses.outlined, classes.outlined]
@@ -122,20 +143,41 @@ export default function FieldContainer({
         // in this order
         focused && [fieldContainerClasses.focused, classes.focused],
         disabled && [fieldContainerClasses.disabled, classes.disabled],
-        className,
-      )}
+      ]),
+    [
+      className,
+      classes.root,
+      classes.outlined,
+      classes.standard,
+      classes.focused,
+      classes.disabled,
+      variant,
+      focused,
+      disabled,
+    ],
+  );
+
+  const notchedOutlineClasses = useMemo(
+    () => clsx([fieldContainerClasses.notchedOutline, classes.notchedOutline]),
+    [classes.notchedOutline],
+  );
+
+  return (
+    <FieldContainerRoot
+      {...(boxProps as any)}
+      className={rootClasses}
+      sx={sx}
+      ownerState={ownerState}
     >
       {children}
 
       {variant === "outlined" && (
-        <div
-          className={cx(
-            fieldContainerClasses.notchedOutline,
-            classes.notchedOutline,
-          )}
+        <FieldContainerNotchedOutline
+          ownerState={ownerState}
+          className={notchedOutlineClasses}
           aria-hidden
         />
       )}
-    </Box>
+    </FieldContainerRoot>
   );
 }
