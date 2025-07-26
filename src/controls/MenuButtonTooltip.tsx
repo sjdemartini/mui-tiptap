@@ -1,6 +1,20 @@
-import { Tooltip, Typography, alpha, type TooltipProps } from "@mui/material";
-import { makeStyles } from "tss-react/mui";
+import {
+  Tooltip,
+  Typography,
+  alpha,
+  styled,
+  useThemeProps,
+  type SxProps,
+  type TooltipProps,
+} from "@mui/material";
+import { clsx } from "clsx";
+import { getComponentName } from "../styles";
 import { getModShortcutKey } from "../utils/platform";
+import {
+  menuButtonTooltipClasses,
+  type MenuButtonTooltipClassKey,
+  type MenuButtonTooltipClasses,
+} from "./MenuButtonTooltip.classes";
 
 export type MenuButtonTooltipProps = {
   /**
@@ -29,75 +43,132 @@ export type MenuButtonTooltipProps = {
    * intermediary element since Tooltip requires a non-disabled child element in
    * order to render, and we want to allow tooltips to show up even when buttons
    * are disabled.
+   *
+   * @deprecated Use `classes.contentWrapper` instead.
    */
   contentWrapperClassName?: string;
   /** The menu element for which we're showing a tooltip when hovering. */
   children: React.ReactNode;
+  /** Optional additional className to provide to the root element. */
+  className?: string;
+  /** Override or extend existing styles. */
+  classes?: Partial<MenuButtonTooltipClasses>;
+  /** Provide custom styles. */
+  sx?: SxProps;
 } & Pick<TooltipProps, "open" | "onOpen" | "onClose">;
 
-const useStyles = makeStyles({ name: { MenuButtonTooltip } })((theme) => ({
-  titleContainer: {
-    textAlign: "center",
-  },
+const componentName = getComponentName("MenuButtonTooltip");
 
-  label: {
-    fontSize: theme.typography.pxToRem(13),
-  },
+const MenuButtonTooltipTitleContainer = styled("div", {
+  name: componentName,
+  slot: "titleContainer" satisfies MenuButtonTooltipClassKey,
+  overridesResolver: (props, styles) => styles.tooltip,
+})(() => ({
+  textAlign: "center",
+}));
 
-  shortcutKey: {
-    fontSize: theme.typography.pxToRem(12),
-    border: `1px solid ${alpha(theme.palette.text.secondary, 0.2)}`,
-    backgroundColor: alpha(theme.palette.background.paper, 0.3),
-    height: "19px",
-    lineHeight: "19px",
-    padding: "0 4px",
-    minWidth: 17,
-    borderRadius: theme.shape.borderRadius,
-    display: "inline-block",
+const MenuButtonTooltipLabel = styled("div", {
+  name: componentName,
+  slot: "label" satisfies MenuButtonTooltipClassKey,
+  overridesResolver: (props, styles) => styles.label,
+})(({ theme }) => ({
+  fontSize: theme.typography.pxToRem(13),
+}));
 
-    "&:not(:first-of-type)": {
-      marginLeft: 1,
-    },
+const MenuButtonTooltipShortcutKey = styled("span", {
+  name: componentName,
+  slot: "shortcutKey" satisfies MenuButtonTooltipClassKey,
+  overridesResolver: (props, styles) => styles.shortcutKey,
+})(({ theme }) => ({
+  fontSize: theme.typography.pxToRem(12),
+  border: `1px solid ${alpha(theme.palette.text.secondary, 0.2)}`,
+  backgroundColor: alpha(theme.palette.background.paper, 0.3),
+  height: "19px",
+  lineHeight: "19px",
+  padding: "0 4px",
+  minWidth: 17,
+  borderRadius: theme.shape.borderRadius,
+  display: "inline-block",
+
+  "&:not(:first-of-type)": {
+    marginLeft: 1,
   },
 }));
 
-export default function MenuButtonTooltip({
-  label,
-  shortcutKeys,
-  placement = "top",
-  contentWrapperClassName,
-  children,
-  ...otherTooltipProps
-}: MenuButtonTooltipProps) {
-  const { classes } = useStyles();
+const MenuButtonTooltipContentWrapper = styled("span", {
+  name: componentName,
+  slot: "contentWrapper" satisfies MenuButtonTooltipClassKey,
+  overridesResolver: (props, styles) => styles.contentWrapper,
+})({});
+
+export default function MenuButtonTooltip(inProps: MenuButtonTooltipProps) {
+  const props = useThemeProps({ props: inProps, name: componentName });
+  const {
+    label,
+    shortcutKeys,
+    placement = "top",
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
+    contentWrapperClassName,
+    children,
+    className,
+    classes = {},
+    sx,
+    ...otherTooltipProps
+  } = props;
+
   return (
     <Tooltip
       title={
         label || (shortcutKeys && shortcutKeys.length > 0) ? (
-          <div className={classes.titleContainer}>
-            <div className={classes.label}>{label}</div>
+          <MenuButtonTooltipTitleContainer
+            className={clsx([
+              menuButtonTooltipClasses.titleContainer,
+              classes.titleContainer,
+            ])}
+          >
+            <MenuButtonTooltipLabel
+              className={clsx([menuButtonTooltipClasses.label, classes.label])}
+            >
+              {label}
+            </MenuButtonTooltipLabel>
 
             {shortcutKeys && shortcutKeys.length > 0 && (
               <Typography variant="body2" component="div">
                 {shortcutKeys.map((shortcutKey, index) => (
-                  <span className={classes.shortcutKey} key={index}>
+                  <MenuButtonTooltipShortcutKey
+                    className={clsx([
+                      menuButtonTooltipClasses.shortcutKey,
+                      classes.shortcutKey,
+                    ])}
+                    key={index}
+                  >
                     {shortcutKey === "mod" ? getModShortcutKey() : shortcutKey}
-                  </span>
+                  </MenuButtonTooltipShortcutKey>
                 ))}
               </Typography>
             )}
-          </div>
+          </MenuButtonTooltipTitleContainer>
         ) : (
           ""
         )
       }
       placement={placement}
       arrow
+      className={className}
+      sx={sx}
       {...otherTooltipProps}
     >
       {/* Use a span around the children so we show a tooltip even if the
       element inside is disabled */}
-      <span className={contentWrapperClassName}>{children}</span>
+      <MenuButtonTooltipContentWrapper
+        className={clsx([
+          menuButtonTooltipClasses.contentWrapper,
+          classes.contentWrapper,
+          contentWrapperClassName,
+        ])}
+      >
+        {children}
+      </MenuButtonTooltipContentWrapper>
     </Tooltip>
   );
 }

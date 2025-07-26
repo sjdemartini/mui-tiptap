@@ -1,12 +1,15 @@
-import { TextField } from "@mui/material";
+import { TextField, styled, useThemeProps } from "@mui/material";
+import { clsx } from "clsx";
 import { useEffect, useRef } from "react";
 import { HexAlphaColorPicker, HexColorPicker } from "react-colorful";
-import { makeStyles } from "tss-react/mui";
-import { getUtilityClasses } from "../styles";
+import { getComponentName } from "../styles";
 import { colorToHex as colorToHexDefault } from "../utils/color";
+import {
+  colorPickerClasses,
+  type ColorPickerClassKey,
+  type ColorPickerClasses,
+} from "./ColorPicker.classes";
 import { ColorSwatchButton } from "./ColorSwatchButton";
-
-export type ColorPickerClasses = ReturnType<typeof useStyles>["classes"];
 
 export type ColorChangeSource = "gradient" | "text" | "swatch";
 
@@ -121,47 +124,65 @@ export type ColorPickerProps = {
   classes?: Partial<ColorPickerClasses>;
 };
 
-const colorPickerUtilityClasses: ColorPickerClasses = getUtilityClasses(
-  "ColorPicker",
-  ["gradientPicker", "colorTextInput", "swatchContainer"],
-);
+const componentName = getComponentName("ColorPicker");
 
-const useStyles = makeStyles({ name: { ColorPicker } })((theme) => ({
-  gradientPicker: {
-    // Increase specificity to override the styles
-    "&&": {
-      width: "100%",
-    },
+const StyledHexColorPicker = styled(HexColorPicker, {
+  name: componentName,
+  slot: "gradientPicker" satisfies ColorPickerClassKey,
+  overridesResolver: (props, styles) => styles.gradientPicker,
+})(() => ({
+  // Increase specificity to override the styles
+  "&&": {
+    width: "100%",
   },
+}));
 
-  colorTextInput: {
-    marginTop: theme.spacing(1),
+const StyledHexAlphaColorPicker = styled(HexAlphaColorPicker, {
+  name: componentName,
+  slot: "gradientPicker" satisfies ColorPickerClassKey,
+  overridesResolver: (props, styles) => styles.gradientPicker,
+})(() => ({
+  // Increase specificity to override the styles
+  "&&": {
+    width: "100%",
   },
+}));
 
-  swatchContainer: {
-    display: "flex",
-    flexWrap: "wrap",
-    gap: 5,
-    marginTop: theme.spacing(1),
-  },
+const ColorPickerColorTextInput = styled(TextField, {
+  name: componentName,
+  slot: "colorTextInput" satisfies ColorPickerClassKey,
+  overridesResolver: (props, styles) => styles.colorTextInput,
+})(({ theme }) => ({
+  marginTop: theme.spacing(1),
+}));
+
+const ColorPickerSwatchContainer = styled("div", {
+  name: componentName,
+  slot: "swatchContainer" satisfies ColorPickerClassKey,
+  overridesResolver: (props, styles) => styles.swatchContainer,
+})(({ theme }) => ({
+  display: "flex",
+  flexWrap: "wrap",
+  gap: 5,
+  marginTop: theme.spacing(1),
 }));
 
 /**
  * Component for the user to choose a color from a gradient-based hue/saturation
  * (and optionally alpha) color-picker or from the given swatch colors.
  */
-export function ColorPicker({
-  value,
-  onChange,
-  swatchColors,
-  colorToHex = colorToHexDefault,
-  disableAlpha = false,
-  labels = {},
-  classes: overrideClasses = {},
-}: ColorPickerProps) {
-  const { classes, cx } = useStyles(undefined, {
-    props: { classes: overrideClasses },
-  });
+export function ColorPicker(inProps: ColorPickerProps) {
+  const props = useThemeProps({ props: inProps, name: componentName });
+  const {
+    value,
+    onChange,
+    swatchColors,
+    colorToHex = colorToHexDefault,
+    disableAlpha = false,
+    labels = {},
+    classes = {},
+  } = props;
+
   const { textFieldPlaceholder = 'Ex: "#7cb5ec"' } = labels;
 
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -182,46 +203,47 @@ export function ColorPicker({
   );
 
   const colorValueAsHex = colorToHex(value);
+
   return (
     <>
       {/* Fall back to black with the HexColorPickers if there isn't a (valid)
       color value provided. This ensures consistent visual behavior and should
       be intuitive. */}
       {disableAlpha ? (
-        <HexColorPicker
+        <StyledHexColorPicker
           color={colorValueAsHex ?? "#000000"}
-          className={cx(
-            colorPickerUtilityClasses.gradientPicker,
+          className={clsx([
+            colorPickerClasses.gradientPicker,
             classes.gradientPicker,
-          )}
+          ])}
           onChange={(color) => {
             onChange(color, "gradient");
           }}
         />
       ) : (
-        <HexAlphaColorPicker
+        <StyledHexAlphaColorPicker
           color={colorValueAsHex ?? "#000000"}
-          className={cx(
-            colorPickerUtilityClasses.gradientPicker,
+          className={clsx([
+            colorPickerClasses.gradientPicker,
             classes.gradientPicker,
-          )}
+          ])}
           onChange={(color) => {
             onChange(color, "gradient");
           }}
         />
       )}
 
-      <TextField
+      <ColorPickerColorTextInput
         placeholder={textFieldPlaceholder}
         variant="outlined"
         size="small"
         defaultValue={value || ""}
         inputRef={inputRef}
         spellCheck={false}
-        className={cx(
-          colorPickerUtilityClasses.colorTextInput,
+        className={clsx([
+          colorPickerClasses.colorTextInput,
           classes.colorTextInput,
-        )}
+        ])}
         onChange={(event) => {
           const newColor = event.target.value;
           const newHexColor = colorToHex(newColor);
@@ -233,11 +255,11 @@ export function ColorPicker({
       />
 
       {swatchColorObjects.length > 0 && (
-        <div
-          className={cx(
-            colorPickerUtilityClasses.swatchContainer,
+        <ColorPickerSwatchContainer
+          className={clsx([
+            colorPickerClasses.swatchContainer,
             classes.swatchContainer,
-          )}
+          ])}
         >
           {swatchColorObjects.map((swatchColor) => (
             <ColorSwatchButton
@@ -260,7 +282,7 @@ export function ColorPicker({
               }
             />
           ))}
-        </div>
+        </ColorPickerSwatchContainer>
       )}
     </>
   );

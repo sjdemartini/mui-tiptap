@@ -1,14 +1,20 @@
 import FormatSize from "@mui/icons-material/FormatSize";
-import { MenuItem } from "@mui/material";
+import { MenuItem, styled, useThemeProps, type SxProps } from "@mui/material";
 import type { Editor } from "@tiptap/core";
+import { clsx } from "clsx";
 import type { ReactNode } from "react";
-import { makeStyles } from "tss-react/mui";
 import type { Except } from "type-fest";
 import { useRichTextEditorContext } from "../context";
 import type { FontSizeAttrs } from "../extensions/FontSize";
+import { getComponentName } from "../styles";
 import { getAttributesForEachSelected } from "../utils/getAttributesForEachSelected";
 import { MENU_BUTTON_FONT_SIZE_DEFAULT } from "./MenuButton";
 import MenuSelect, { type MenuSelectProps } from "./MenuSelect";
+import {
+  menuSelectFontSizeClasses,
+  type MenuSelectFontSizeClassKey,
+  type MenuSelectFontSizeClasses,
+} from "./MenuSelectFontSize.classes";
 
 export type FontSizeSelectOptionObject = {
   /**
@@ -38,7 +44,7 @@ export type FontSizeSelectOption = string | FontSizeSelectOptionObject;
 
 export type MenuSelectFontSizeProps = Except<
   MenuSelectProps<string>,
-  "value" | "children"
+  "value" | "children" | "classes"
 > & {
   /**
    * Override the list of the size option strings shown in the dropdown.
@@ -68,10 +74,20 @@ export type MenuSelectFontSizeProps = Except<
   emptyLabel?: React.ReactNode;
   /** @deprecated Use `emptyLabel` prop instead. */
   emptyValue?: React.ReactNode;
+  /** Override or extend existing styles. */
+  classes?: Partial<MenuSelectFontSizeClasses>;
+  /** Provide custom styles. */
+  sx?: SxProps;
 };
 
-const useStyles = makeStyles({ name: { MenuSelectFontSize } })({
-  selectInput: {
+const componentName = getComponentName("MenuSelectFontSize");
+
+const MenuSelectFontSizeRoot = styled(MenuSelect<string>, {
+  name: componentName,
+  slot: "root" satisfies MenuSelectFontSizeClassKey,
+  overridesResolver: (props, styles) => styles.root,
+})(() => ({
+  [`& .${menuSelectFontSizeClasses.selectInput}`]: {
     // We use a fixed width so that the Select element won't change sizes as
     // the selected option changes (which would shift other elements in the
     // menu bar), since the options may be different sizes
@@ -83,10 +99,10 @@ const useStyles = makeStyles({ name: { MenuSelectFontSize } })({
     alignItems: "center",
   },
 
-  fontSizeIcon: {
+  [`& .${menuSelectFontSizeClasses.menuButtonIcon}`]: {
     fontSize: MENU_BUTTON_FONT_SIZE_DEFAULT,
   },
-});
+}));
 
 const DEFAULT_FONT_SIZE_SELECT_OPTIONS: MenuSelectFontSizeProps["options"] = [
   "8px",
@@ -125,26 +141,29 @@ function stripPxFromValue(value: string): string {
 const MULTIPLE_SIZES_SELECTED_VALUE = "MULTIPLE";
 
 /** A font-size selector for use with the mui-tiptap FontSize extension.  */
-export default function MenuSelectFontSize({
-  options = DEFAULT_FONT_SIZE_SELECT_OPTIONS,
-  // eslint-disable-next-line @typescript-eslint/no-deprecated
-  sizeOptions,
-  hideUnsetOption = false,
-  unsetOptionLabel = "Default",
-  // eslint-disable-next-line @typescript-eslint/no-deprecated
-  unsetOptionContent,
-  emptyLabel,
-  // eslint-disable-next-line @typescript-eslint/no-deprecated
-  emptyValue,
-  ...menuSelectProps
-}: MenuSelectFontSizeProps) {
-  const { classes, cx } = useStyles();
+export default function MenuSelectFontSize(inProps: MenuSelectFontSizeProps) {
+  const props = useThemeProps({ props: inProps, name: componentName });
+  const {
+    options: propOptions = DEFAULT_FONT_SIZE_SELECT_OPTIONS,
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
+    sizeOptions,
+    hideUnsetOption = false,
+    unsetOptionLabel: propUnsetOptionLabel = "Default",
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
+    unsetOptionContent,
+    emptyLabel: propEmptyLabel,
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
+    emptyValue,
+    classes = {},
+    sx,
+    ...menuSelectProps
+  } = props;
   const editor = useRichTextEditorContext();
 
   // Handle deprecated legacy names for some props:
-  emptyLabel = emptyValue ?? emptyLabel;
-  unsetOptionLabel = unsetOptionContent ?? unsetOptionLabel;
-  options = sizeOptions ?? options;
+  const emptyLabel = emptyValue ?? propEmptyLabel;
+  const unsetOptionLabel = unsetOptionContent ?? propUnsetOptionLabel;
+  const options = sizeOptions ?? propOptions;
   const optionObjects: FontSizeSelectOptionObject[] = (options ?? []).map(
     (option) => (typeof option === "string" ? { value: option } : option),
   );
@@ -197,7 +216,7 @@ export default function MenuSelectFontSize({
   }
 
   return (
-    <MenuSelect<string>
+    <MenuSelectFontSizeRoot
       onChange={(event) => {
         const value = event.target.value;
         if (value) {
@@ -216,7 +235,16 @@ export default function MenuSelectFontSize({
           // this does, so it's visually similar to other menu button controls,
           // more intuitive, and more meaningful and compact than some other
           // placeholder value here
-          return emptyLabel ?? <FormatSize className={classes.fontSizeIcon} />;
+          return (
+            emptyLabel ?? (
+              <FormatSize
+                className={clsx([
+                  menuSelectFontSizeClasses.menuButtonIcon,
+                  classes.menuButtonIcon,
+                ])}
+              />
+            )
+          );
         }
         return stripPxFromValue(value);
       }}
@@ -229,11 +257,18 @@ export default function MenuSelectFontSize({
       value={currentFontSize || ""}
       inputProps={{
         ...menuSelectProps.inputProps,
-        className: cx(
+        className: clsx([
+          menuSelectFontSizeClasses.selectInput,
           classes.selectInput,
           menuSelectProps.inputProps?.className,
-        ),
+        ]),
       }}
+      className={clsx([
+        menuSelectFontSizeClasses.root,
+        classes.root,
+        menuSelectProps.className,
+      ])}
+      sx={sx}
     >
       {!hideUnsetOption && (
         // Allow users to unset the font size
@@ -253,6 +288,6 @@ export default function MenuSelectFontSize({
           {option.label ?? stripPxFromValue(option.value)}
         </MenuItem>
       ))}
-    </MenuSelect>
+    </MenuSelectFontSizeRoot>
   );
 }

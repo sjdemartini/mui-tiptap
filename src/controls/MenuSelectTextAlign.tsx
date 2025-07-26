@@ -2,10 +2,17 @@ import FormatAlignCenterIcon from "@mui/icons-material/FormatAlignCenter";
 import FormatAlignJustifyIcon from "@mui/icons-material/FormatAlignJustify";
 import FormatAlignLeftIcon from "@mui/icons-material/FormatAlignLeft";
 import FormatAlignRightIcon from "@mui/icons-material/FormatAlignRight";
-import { MenuItem, type SelectChangeEvent } from "@mui/material";
+import {
+  MenuItem,
+  styled,
+  useThemeProps,
+  type SelectChangeEvent,
+  type SxProps,
+} from "@mui/material";
+import { clsx } from "clsx";
 import { useCallback, useMemo } from "react";
-import { makeStyles } from "tss-react/mui";
 import { useRichTextEditorContext } from "../context";
+import { getComponentName } from "../styles";
 import MenuButtonTooltip, {
   type MenuButtonTooltipProps,
 } from "./MenuButtonTooltip";
@@ -17,6 +24,11 @@ import type { TextAlignOptions } from "@tiptap/extension-text-align";
 import type { Except } from "type-fest";
 import { MENU_BUTTON_FONT_SIZE_DEFAULT } from "./MenuButton";
 import MenuSelect, { type MenuSelectProps } from "./MenuSelect";
+import {
+  menuSelectTextAlignClasses,
+  type MenuSelectTextAlignClassKey,
+  type MenuSelectTextAlignClasses,
+} from "./MenuSelectTextAlign.classes";
 
 export type TextAlignSelectOption = {
   /**
@@ -43,7 +55,7 @@ export type TextAlignSelectOption = {
 
 export type MenuSelectTextAlignProps = Except<
   MenuSelectProps<string>,
-  "children"
+  "children" | "classes"
 > & {
   /**
    * Override the options shown for text alignment. Use this to change the
@@ -76,10 +88,20 @@ export type MenuSelectTextAlignProps = Except<
    * font size, for instance).
    */
   emptyLabel?: React.ReactNode;
+  /** Override or extend existing styles. */
+  classes?: Partial<MenuSelectTextAlignClasses>;
+  /** Provide custom styles. */
+  sx?: SxProps;
 };
 
-const useStyles = makeStyles({ name: { MenuSelectTextAlign } })((theme) => ({
-  selectInput: {
+const componentName = getComponentName("MenuSelectTextAlign");
+
+const MenuSelectTextAlignRoot = styled(MenuSelect<string>, {
+  name: componentName,
+  slot: "root" satisfies MenuSelectTextAlignClassKey,
+  overridesResolver: (props, styles) => styles.root,
+})(({ theme }) => ({
+  [`& .${menuSelectTextAlignClasses.selectInput}`]: {
     // We use a fixed width equal to the size of the menu button icon so that
     // the Select element won't change sizes even if we show the "blank"
     // interface when the selected content contains multiple different text
@@ -87,12 +109,7 @@ const useStyles = makeStyles({ name: { MenuSelectTextAlign } })((theme) => ({
     width: MENU_BUTTON_FONT_SIZE_DEFAULT,
   },
 
-  menuItem: {
-    paddingLeft: 0,
-    paddingRight: 0,
-  },
-
-  menuOption: {
+  [`& .${menuSelectTextAlignClasses.menuOption}`]: {
     // These styles ensure the item fills its MenuItem container, and the
     // tooltip appears in the same place when hovering over the item generally
     // (not just the text of the item)
@@ -101,7 +118,7 @@ const useStyles = makeStyles({ name: { MenuSelectTextAlign } })((theme) => ({
     justifyContent: "center",
   },
 
-  menuButtonIcon: {
+  [`& .${menuSelectTextAlignClasses.menuButtonIcon}`]: {
     fontSize: MENU_BUTTON_FONT_SIZE_DEFAULT,
     // For consistency with toggle button default icon color and the Select
     // dropdown arrow icon color
@@ -110,6 +127,15 @@ const useStyles = makeStyles({ name: { MenuSelectTextAlign } })((theme) => ({
     color: theme.palette.action.active,
   },
 }));
+
+const MenuSelectTextAlignMenuItem = styled(MenuItem, {
+  name: componentName,
+  slot: "menuItem" satisfies MenuSelectTextAlignClassKey,
+  overridesResolver: (props, styles) => styles.menuItem,
+})({
+  paddingLeft: 0,
+  paddingRight: 0,
+});
 
 const DEFAULT_ALIGNMENT_OPTIONS: TextAlignSelectOption[] = [
   {
@@ -138,22 +164,26 @@ const DEFAULT_ALIGNMENT_OPTIONS: TextAlignSelectOption[] = [
   },
 ];
 
-export default function MenuSelectTextAlign({
-  options = DEFAULT_ALIGNMENT_OPTIONS,
-  emptyLabel = "",
-  // eslint-disable-next-line @typescript-eslint/no-deprecated
-  alignmentOptions,
-  ...menuSelectProps
-}: MenuSelectTextAlignProps) {
-  const { classes, cx } = useStyles();
+export default function MenuSelectTextAlign(inProps: MenuSelectTextAlignProps) {
+  const props = useThemeProps({ props: inProps, name: componentName });
+  const {
+    options: propOptions = DEFAULT_ALIGNMENT_OPTIONS,
+    emptyLabel = "",
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
+    alignmentOptions,
+    classes = {},
+    sx,
+    ...menuSelectProps
+  } = props;
+
   const editor = useRichTextEditorContext();
 
   // Handle the deprecated name for the `options` prop if present
-  options =
+  const options =
     alignmentOptions?.map((option) => ({
       ...option,
       value: option.alignment,
-    })) ?? options;
+    })) ?? propOptions;
 
   const handleAlignmentSelect: (event: SelectChangeEvent) => void = useCallback(
     (event) => {
@@ -188,7 +218,7 @@ export default function MenuSelectTextAlign({
     ) ?? "";
 
   return (
-    <MenuSelect<string>
+    <MenuSelectTextAlignRoot
       onChange={handleAlignmentSelect}
       disabled={
         !editor?.isEditable ||
@@ -206,7 +236,10 @@ export default function MenuSelectTextAlign({
           );
           content = alignmentOptionForValue ? (
             <alignmentOptionForValue.IconComponent
-              className={classes.menuButtonIcon}
+              className={clsx([
+                menuSelectTextAlignClasses.menuButtonIcon,
+                classes.menuButtonIcon,
+              ])}
             />
           ) : (
             value
@@ -214,7 +247,16 @@ export default function MenuSelectTextAlign({
         } else {
           content = emptyLabel;
         }
-        return <span className={classes.menuOption}>{content}</span>;
+        return (
+          <span
+            className={clsx([
+              menuSelectTextAlignClasses.menuOption,
+              classes.menuOption,
+            ])}
+          >
+            {content}
+          </span>
+        );
       }}
       aria-label="Text alignments"
       tooltipTitle="Align"
@@ -223,35 +265,53 @@ export default function MenuSelectTextAlign({
       {...menuSelectProps}
       inputProps={{
         ...menuSelectProps.inputProps,
-        className: cx(
+        className: clsx([
+          menuSelectTextAlignClasses.selectInput,
           classes.selectInput,
           menuSelectProps.inputProps?.className,
-        ),
+        ]),
       }}
+      className={clsx([
+        menuSelectTextAlignClasses.root,
+        classes.root,
+        menuSelectProps.className,
+      ])}
+      sx={sx}
     >
       {options
         .filter((alignmentOption) =>
           enabledAlignments.has(alignmentOption.value),
         )
         .map((alignmentOption) => (
-          <MenuItem
+          <MenuSelectTextAlignMenuItem
             key={alignmentOption.value}
             value={alignmentOption.value}
             disabled={!editor?.can().setTextAlign(alignmentOption.value)}
-            className={classes.menuItem}
+            className={clsx([
+              menuSelectTextAlignClasses.menuItem,
+              classes.menuItem,
+            ])}
           >
             <MenuButtonTooltip
               label={alignmentOption.label ?? ""}
               shortcutKeys={alignmentOption.shortcutKeys}
               placement="right"
-              contentWrapperClassName={classes.menuOption}
+              classes={{
+                contentWrapper: clsx([
+                  menuSelectTextAlignClasses.menuOption,
+                  classes.menuOption,
+                ]),
+              }}
             >
               <alignmentOption.IconComponent
-                className={classes.menuButtonIcon}
+                className={clsx([
+                  menuSelectTextAlignClasses.menuButtonIcon,
+                  classes.menuButtonIcon,
+                ])}
               />
             </MenuButtonTooltip>
-          </MenuItem>
+          </MenuSelectTextAlignMenuItem>
         ))}
-    </MenuSelect>
+    </MenuSelectTextAlignRoot>
   );
 }

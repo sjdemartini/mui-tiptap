@@ -7,6 +7,7 @@ import ControlledBubbleMenu, {
 } from "./ControlledBubbleMenu";
 import {
   tableBubbleMenuClasses,
+  type TableBubbleMenuClassKey,
   type TableBubbleMenuClasses,
 } from "./TableBubbleMenu.classes";
 import { useRichTextEditorContext } from "./context";
@@ -40,14 +41,16 @@ export type TableBubbleMenuProps = {
   labels?: TableMenuControlsProps["labels"];
   /** Override or extend existing styles. */
   classes?: Partial<TableBubbleMenuClasses>;
-} & Partial<Omit<ControlledBubbleMenuProps, "open" | "editor" | "children">>;
+} & Partial<
+  Omit<ControlledBubbleMenuProps, "open" | "editor" | "children" | "classes">
+>;
 
 const componentName = getComponentName("TableBubbleMenu");
 
-const TableBubbleMenuControls = styled(TableMenuControls, {
+const TableBubbleMenuContent = styled(TableMenuControls, {
   name: componentName,
-  slot: "controls",
-  overridesResolver: (props, styles) => [styles.controls],
+  slot: "content" satisfies TableBubbleMenuClassKey,
+  overridesResolver: (props, styles) => styles.content,
 })(({ theme }) => ({
   maxWidth: "90vw",
   padding: theme.spacing(0.5, 1),
@@ -151,9 +154,9 @@ export default function TableBubbleMenu(inProps: TableBubbleMenuProps) {
     return null;
   }
 
-  const controls = (
-    <TableBubbleMenuControls
-      className={clsx([tableBubbleMenuClasses.controls, classes.controls])}
+  const controlsContent = (
+    <TableBubbleMenuContent
+      className={clsx([tableBubbleMenuClasses.content, classes.content])}
       labels={labels}
     />
   );
@@ -194,6 +197,10 @@ export default function TableBubbleMenu(inProps: TableBubbleMenuProps) {
       // overlapping the main menu bar.
       flipPadding={{ top: 35, left: 8, right: 8, bottom: -Infinity }}
       {...controlledBubbleMenuProps}
+      classes={{
+        root: clsx([tableBubbleMenuClasses.root, classes.root]),
+        paper: clsx([tableBubbleMenuClasses.paper, classes.paper]),
+      }}
     >
       {/* We debounce rendering of the controls to improve performance, since
       otherwise it will be expensive to re-render (since it relies on several
@@ -201,9 +208,9 @@ export default function TableBubbleMenu(inProps: TableBubbleMenuProps) {
       interaction like caret movement and typing). See DebounceRender.tsx for
       more notes on this rationale and approach. */}
       {disableDebounce ? (
-        controls
+        controlsContent
       ) : (
-        <DebounceRender {...DebounceProps}>{controls}</DebounceRender>
+        <DebounceRender {...DebounceProps}>{controlsContent}</DebounceRender>
       )}
     </ControlledBubbleMenu>
   );

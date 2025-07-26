@@ -7,7 +7,11 @@ import {
 } from "@mui/material";
 import { clsx } from "clsx";
 import type { ReactNode } from "react";
-import { menuBarClasses, type MenuBarClasses } from "./MenuBar.classes";
+import {
+  menuBarClasses,
+  type MenuBarClassKey,
+  type MenuBarClasses,
+} from "./MenuBar.classes";
 import { Z_INDEXES, getComponentName } from "./styles";
 
 export type MenuBarProps = Omit<
@@ -59,7 +63,7 @@ const componentName = getComponentName("MenuBar");
 
 const MenuBarRoot = styled(Collapse, {
   name: componentName,
-  slot: "root",
+  slot: "root" satisfies MenuBarClassKey,
   overridesResolver: (props: { ownerState: MenuBarOwnerState }, styles) => [
     styles.root,
     props.ownerState.disableSticky ? styles.nonSticky : styles.sticky,
@@ -81,7 +85,7 @@ const MenuBarRoot = styled(Collapse, {
 
 const MenuBarContent = styled("div", {
   name: componentName,
-  slot: "content",
+  slot: "content" satisfies MenuBarClassKey,
   overridesResolver: (props, styles) => styles.content,
 })<{ ownerState: MenuBarOwnerState }>({});
 

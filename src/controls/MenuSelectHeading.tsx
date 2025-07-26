@@ -1,18 +1,29 @@
 /// <reference types="@tiptap/extension-paragraph" />
-import { MenuItem, type SelectChangeEvent } from "@mui/material";
+import {
+  MenuItem,
+  styled,
+  useThemeProps,
+  type SelectChangeEvent,
+  type SxProps,
+} from "@mui/material";
 import type { Heading, Level } from "@tiptap/extension-heading";
+import { clsx } from "clsx";
 import { useCallback, useMemo, type ReactNode } from "react";
-import { makeStyles } from "tss-react/mui";
 import type { Except } from "type-fest";
 import { useRichTextEditorContext } from "../context";
-import { getEditorStyles } from "../styles";
+import { getComponentName, getEditorStyles } from "../styles";
 import { getAttributesForEachSelected } from "../utils/getAttributesForEachSelected";
 import MenuButtonTooltip from "./MenuButtonTooltip";
 import MenuSelect, { type MenuSelectProps } from "./MenuSelect";
+import {
+  menuSelectHeadingClasses,
+  type MenuSelectHeadingClassKey,
+  type MenuSelectHeadingClasses,
+} from "./MenuSelectHeading.classes";
 
 export type MenuSelectHeadingProps = Except<
   MenuSelectProps<HeadingOptionValue | "">,
-  "value" | "children"
+  "value" | "children" | "classes"
 > & {
   /**
    * Override the default labels for the select options. For any value that
@@ -47,19 +58,29 @@ export type MenuSelectHeadingProps = Except<
    * default false.
    */
   hideShortcuts?: boolean;
+  /** Override or extend existing styles. */
+  classes?: Partial<MenuSelectHeadingClasses>;
+  /** Provide custom styles. */
+  sx?: SxProps;
 };
 
-const useStyles = makeStyles({ name: { MenuSelectHeading } })((theme) => {
-  const editorStyles = getEditorStyles(theme);
+const componentName = getComponentName("MenuSelectHeading");
+
+const MenuSelectHeadingRoot = styled(MenuSelect<HeadingOptionValue | "">, {
+  name: componentName,
+  slot: "root" satisfies MenuSelectHeadingClassKey,
+  overridesResolver: (props, styles) => styles.root,
+})((theme) => {
+  const editorStyles = getEditorStyles(theme.theme);
   return {
-    selectInput: {
+    [`& .${menuSelectHeadingClasses.selectInput}`]: {
       // We use a fixed width so that the Select element won't change sizes as
       // the selected option changes (which would shift other elements in the
       // menu bar)
       width: 77,
     },
 
-    menuOption: {
+    [`& .${menuSelectHeadingClasses.menuOption}`]: {
       // These styles ensure the item fills its MenuItem container, and the
       // tooltip appears in the same place when hovering over the item generally
       // (not just the text of the item)
@@ -67,33 +88,33 @@ const useStyles = makeStyles({ name: { MenuSelectHeading } })((theme) => {
       width: "100%",
     },
 
-    headingOption: {
+    [`& .${menuSelectHeadingClasses.headingOption}`]: {
       marginBlockStart: 0,
       marginBlockEnd: 0,
       fontWeight: "bold",
     },
 
-    headingOption1: {
+    [`& .${menuSelectHeadingClasses.headingOption1}`]: {
       fontSize: editorStyles["& h1"].fontSize,
     },
 
-    headingOption2: {
+    [`& .${menuSelectHeadingClasses.headingOption2}`]: {
       fontSize: editorStyles["& h2"].fontSize,
     },
 
-    headingOption3: {
+    [`& .${menuSelectHeadingClasses.headingOption3}`]: {
       fontSize: editorStyles["& h3"].fontSize,
     },
 
-    headingOption4: {
+    [`& .${menuSelectHeadingClasses.headingOption4}`]: {
       fontSize: editorStyles["& h4"].fontSize,
     },
 
-    headingOption5: {
+    [`& .${menuSelectHeadingClasses.headingOption5}`]: {
       fontSize: editorStyles["& h5"].fontSize,
     },
 
-    headingOption6: {
+    [`& .${menuSelectHeadingClasses.headingOption6}`]: {
       fontSize: editorStyles["& h6"].fontSize,
     },
   };
@@ -129,12 +150,15 @@ const LEVEL_TO_HEADING_OPTION_VALUE = {
   6: HEADING_OPTION_VALUES.Heading6,
 } as const;
 
-export default function MenuSelectHeading({
-  labels,
-  hideShortcuts = false,
-  ...menuSelectProps
-}: MenuSelectHeadingProps) {
-  const { classes, cx } = useStyles();
+export default function MenuSelectHeading(inProps: MenuSelectHeadingProps) {
+  const props = useThemeProps({ props: inProps, name: componentName });
+  const {
+    labels,
+    hideShortcuts = false,
+    classes = {},
+    sx,
+    ...menuSelectProps
+  } = props;
   const editor = useRichTextEditorContext();
 
   const handleHeadingType: (
@@ -223,7 +247,7 @@ export default function MenuSelectHeading({
     // need it to support "" as a possible value in the `renderValue` function
     // below since we have `displayEmpty=true`, and the types don't properly
     // handle that scenario.
-    <MenuSelect<HeadingOptionValue | "">
+    <MenuSelectHeadingRoot
       onChange={handleHeadingType}
       disabled={
         !editor?.isEditable ||
@@ -261,11 +285,18 @@ export default function MenuSelectHeading({
       value={selectedValue}
       inputProps={{
         ...menuSelectProps.inputProps,
-        className: cx(
+        className: clsx([
+          menuSelectHeadingClasses.selectInput,
           classes.selectInput,
           menuSelectProps.inputProps?.className,
-        ),
+        ]),
       }}
+      className={clsx([
+        menuSelectHeadingClasses.root,
+        classes.root,
+        menuSelectProps.className,
+      ])}
+      sx={sx}
     >
       <MenuItem
         value={HEADING_OPTION_VALUES.Paragraph}
@@ -275,7 +306,14 @@ export default function MenuSelectHeading({
           label=""
           shortcutKeys={hideShortcuts ? undefined : ["mod", "alt", "0"]}
           placement="right"
-          contentWrapperClassName={classes.menuOption}
+          classes={{
+            contentWrapper: clsx([
+              menuSelectHeadingClasses.menuOption,
+              classes.menuOption,
+              menuSelectHeadingClasses.paragraphOption,
+              classes.paragraphOption,
+            ]),
+          }}
         >
           {labels?.paragraph ?? HEADING_OPTION_VALUES.Paragraph}
         </MenuButtonTooltip>
@@ -290,11 +328,16 @@ export default function MenuSelectHeading({
             label=""
             shortcutKeys={hideShortcuts ? undefined : ["mod", "alt", "1"]}
             placement="right"
-            contentWrapperClassName={cx(
-              classes.menuOption,
-              classes.headingOption,
-              classes.headingOption1,
-            )}
+            classes={{
+              contentWrapper: clsx([
+                menuSelectHeadingClasses.menuOption,
+                classes.menuOption,
+                menuSelectHeadingClasses.headingOption,
+                classes.headingOption,
+                menuSelectHeadingClasses.headingOption1,
+                classes.headingOption1,
+              ]),
+            }}
           >
             {labels?.heading1 ?? HEADING_OPTION_VALUES.Heading1}
           </MenuButtonTooltip>
@@ -310,11 +353,16 @@ export default function MenuSelectHeading({
             label=""
             shortcutKeys={hideShortcuts ? undefined : ["mod", "alt", "2"]}
             placement="right"
-            contentWrapperClassName={cx(
-              classes.menuOption,
-              classes.headingOption,
-              classes.headingOption2,
-            )}
+            classes={{
+              contentWrapper: clsx([
+                menuSelectHeadingClasses.menuOption,
+                classes.menuOption,
+                menuSelectHeadingClasses.headingOption,
+                classes.headingOption,
+                menuSelectHeadingClasses.headingOption2,
+                classes.headingOption2,
+              ]),
+            }}
           >
             {labels?.heading2 ?? HEADING_OPTION_VALUES.Heading2}
           </MenuButtonTooltip>
@@ -330,11 +378,16 @@ export default function MenuSelectHeading({
             label=""
             shortcutKeys={hideShortcuts ? undefined : ["mod", "alt", "3"]}
             placement="right"
-            contentWrapperClassName={cx(
-              classes.menuOption,
-              classes.headingOption,
-              classes.headingOption3,
-            )}
+            classes={{
+              contentWrapper: clsx([
+                menuSelectHeadingClasses.menuOption,
+                classes.menuOption,
+                menuSelectHeadingClasses.headingOption,
+                classes.headingOption,
+                menuSelectHeadingClasses.headingOption3,
+                classes.headingOption3,
+              ]),
+            }}
           >
             {labels?.heading3 ?? HEADING_OPTION_VALUES.Heading3}
           </MenuButtonTooltip>
@@ -350,11 +403,16 @@ export default function MenuSelectHeading({
             label=""
             shortcutKeys={hideShortcuts ? undefined : ["mod", "alt", "4"]}
             placement="right"
-            contentWrapperClassName={cx(
-              classes.menuOption,
-              classes.headingOption,
-              classes.headingOption4,
-            )}
+            classes={{
+              contentWrapper: clsx([
+                menuSelectHeadingClasses.menuOption,
+                classes.menuOption,
+                menuSelectHeadingClasses.headingOption,
+                classes.headingOption,
+                menuSelectHeadingClasses.headingOption4,
+                classes.headingOption4,
+              ]),
+            }}
           >
             {labels?.heading4 ?? HEADING_OPTION_VALUES.Heading4}
           </MenuButtonTooltip>
@@ -370,11 +428,16 @@ export default function MenuSelectHeading({
             label=""
             shortcutKeys={hideShortcuts ? undefined : ["mod", "alt", "5"]}
             placement="right"
-            contentWrapperClassName={cx(
-              classes.menuOption,
-              classes.headingOption,
-              classes.headingOption5,
-            )}
+            classes={{
+              contentWrapper: clsx([
+                menuSelectHeadingClasses.menuOption,
+                classes.menuOption,
+                menuSelectHeadingClasses.headingOption,
+                classes.headingOption,
+                menuSelectHeadingClasses.headingOption5,
+                classes.headingOption5,
+              ]),
+            }}
           >
             {labels?.heading5 ?? HEADING_OPTION_VALUES.Heading5}
           </MenuButtonTooltip>
@@ -390,16 +453,21 @@ export default function MenuSelectHeading({
             label=""
             shortcutKeys={hideShortcuts ? undefined : ["mod", "alt", "6"]}
             placement="right"
-            contentWrapperClassName={cx(
-              classes.menuOption,
-              classes.headingOption,
-              classes.headingOption6,
-            )}
+            classes={{
+              contentWrapper: clsx([
+                menuSelectHeadingClasses.menuOption,
+                classes.menuOption,
+                menuSelectHeadingClasses.headingOption,
+                classes.headingOption,
+                menuSelectHeadingClasses.headingOption6,
+                classes.headingOption6,
+              ]),
+            }}
           >
             {labels?.heading6 ?? HEADING_OPTION_VALUES.Heading6}
           </MenuButtonTooltip>
         </MenuItem>
       )}
-    </MenuSelect>
+    </MenuSelectHeadingRoot>
   );
 }

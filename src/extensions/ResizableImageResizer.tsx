@@ -1,39 +1,57 @@
+import { styled, useThemeProps, type SxProps } from "@mui/material";
+import { clsx } from "clsx";
 import {
   useCallback,
   useEffect,
   type Dispatch,
   type SetStateAction,
 } from "react";
-import { makeStyles } from "tss-react/mui";
+import { getComponentName } from "../styles";
+import {
+  resizableImageResizerClasses,
+  type ResizableImageResizerClassKey,
+  type ResizableImageResizerClasses,
+} from "./ResizableImageResizer.classes";
 
 type ResizableImageResizerProps = {
   className?: string;
   onResize: (event: MouseEvent) => void;
   mouseDown: boolean;
   setMouseDown: Dispatch<SetStateAction<boolean>>;
+  /** Override or extend existing styles. */
+  classes?: Partial<ResizableImageResizerClasses>;
+  /** Provide custom styles. */
+  sx?: SxProps;
 };
 
-const useStyles = makeStyles({ name: { ResizableImageResizer } })((theme) => ({
-  root: {
-    position: "absolute",
-    // The `outline` styles of the selected image add 3px to the edges, so we'll
-    // position this offset by 3px outside to the bottom right
-    bottom: -3,
-    right: -3,
-    width: 12,
-    height: 12,
-    background: theme.palette.primary.main,
-    cursor: "nwse-resize",
-  },
+const componentName = getComponentName("ResizableImageResizer");
+
+const ResizableImageResizerRoot = styled("div", {
+  name: componentName,
+  slot: "root" satisfies ResizableImageResizerClassKey,
+  overridesResolver: (props, styles) => styles.root,
+})(({ theme }) => ({
+  position: "absolute",
+  // The `outline` styles of the selected image add 3px to the edges, so we'll
+  // position this offset by 3px outside to the bottom right
+  bottom: -3,
+  right: -3,
+  width: 12,
+  height: 12,
+  background: theme.palette.primary.main,
+  cursor: "nwse-resize",
 }));
 
-export function ResizableImageResizer({
-  onResize,
-  className,
-  mouseDown,
-  setMouseDown,
-}: ResizableImageResizerProps) {
-  const { classes, cx } = useStyles();
+export function ResizableImageResizer(inProps: ResizableImageResizerProps) {
+  const props = useThemeProps({ props: inProps, name: componentName });
+  const {
+    onResize,
+    className,
+    mouseDown,
+    setMouseDown,
+    classes = {},
+    sx,
+  } = props;
 
   useEffect(() => {
     if (!mouseDown) {
@@ -80,14 +98,19 @@ export function ResizableImageResizer({
     // closest, as described here https://stackoverflow.com/a/43022983/4543977,
     // but we don't do keyboard-based resizing at this time so it doesn't make
     // sense to have it keyboard focusable)
-    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-    <div
+
+    <ResizableImageResizerRoot
       // TODO(Steven DeMartini): Add keyboard support and better accessibility
       // here, and allow users to override the aria-label when that happens to
       // support localization.
       // aria-label="resize image"
-      className={cx(classes.root, className)}
+      className={clsx([
+        resizableImageResizerClasses.root,
+        className,
+        classes.root,
+      ])}
       onMouseDown={handleMouseDown}
+      sx={sx}
     />
   );
 }

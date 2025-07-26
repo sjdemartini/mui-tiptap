@@ -1,6 +1,6 @@
 /// <reference types="@tiptap/extension-link" />
-import { makeStyles } from "tss-react/mui";
-import type { Except } from "type-fest";
+import { styled, useThemeProps, type SxProps } from "@mui/material";
+import { clsx } from "clsx";
 import ControlledBubbleMenu, {
   type ControlledBubbleMenuProps,
 } from "../ControlledBubbleMenu";
@@ -9,16 +9,22 @@ import {
   LinkMenuState,
   type LinkBubbleMenuHandlerStorage,
 } from "../extensions/LinkBubbleMenuHandler";
+import { getComponentName } from "../styles";
 import EditLinkMenuContent, {
   type EditLinkMenuContentProps,
 } from "./EditLinkMenuContent";
+import {
+  linkBubbleMenuClasses,
+  type LinkBubbleMenuClassKey,
+  type LinkBubbleMenuClasses,
+} from "./LinkBubbleMenu.classes";
 import ViewLinkMenuContent, {
   type ViewLinkMenuContentProps,
 } from "./ViewLinkMenuContent";
 
 export interface LinkBubbleMenuProps
   extends Partial<
-    Except<ControlledBubbleMenuProps, "open" | "editor" | "children">
+    Omit<ControlledBubbleMenuProps, "open" | "editor" | "children" | "classes">
   > {
   /**
    * Override the default text content/labels in this interface. For any value
@@ -27,12 +33,20 @@ export interface LinkBubbleMenuProps
   labels?: ViewLinkMenuContentProps["labels"] &
     EditLinkMenuContentProps["labels"];
   formatHref?: EditLinkMenuContentProps["formatHref"];
+  /** Override or extend existing styles. */
+  classes?: Partial<LinkBubbleMenuClasses>;
+  /** Provide custom styles. */
+  sx?: SxProps;
 }
 
-const useStyles = makeStyles({ name: { LinkBubbleMenu } })((theme) => ({
-  content: {
-    padding: theme.spacing(1.5, 2, 0.5),
-  },
+const componentName = getComponentName("LinkBubbleMenu");
+
+const LinkBubbleMenuContent = styled("div", {
+  name: componentName,
+  slot: "content" satisfies LinkBubbleMenuClassKey,
+  overridesResolver: (props, styles) => styles.content,
+})(({ theme }) => ({
+  padding: theme.spacing(1.5, 2, 0.5),
 }));
 
 /**
@@ -44,7 +58,7 @@ const useStyles = makeStyles({ name: { LinkBubbleMenu } })((theme) => ({
  * Pairs well with the `<MenuButtonEditLink />` component.
  *
  * If you're using `RichTextEditor`, include this component via
- * `RichTextEditor`’s `children` render-prop. Otherwise, include the
+ * `RichTextEditor`'s `children` render-prop. Otherwise, include the
  * `LinkBubbleMenu` as a child of the component where you call `useEditor` and
  * render your `RichTextField` or `RichTextContent`. (The bubble menu itself
  * will be positioned appropriately no matter where you put it in your React
@@ -52,12 +66,16 @@ const useStyles = makeStyles({ name: { LinkBubbleMenu } })((theme) => ({
  * update, which will happen if it's a child of the component using
  * `useEditor`).
  */
-export default function LinkBubbleMenu({
-  labels,
-  formatHref,
-  ...controlledBubbleMenuProps
-}: LinkBubbleMenuProps) {
-  const { classes } = useStyles();
+export default function LinkBubbleMenu(inProps: LinkBubbleMenuProps) {
+  const props = useThemeProps({ props: inProps, name: componentName });
+  const {
+    labels,
+    formatHref,
+    classes = {},
+    sx,
+    ...controlledBubbleMenuProps
+  } = props;
+
   const editor = useRichTextEditorContext();
 
   if (!editor?.isEditable) {
@@ -148,8 +166,17 @@ export default function LinkBubbleMenu({
       open={menuState !== LinkMenuState.HIDDEN}
       {...handlerStorage.bubbleMenuOptions}
       {...controlledBubbleMenuProps}
+      classes={{
+        root: clsx([linkBubbleMenuClasses.root, classes.root]),
+        paper: clsx([linkBubbleMenuClasses.paper, classes.paper]),
+      }}
+      sx={sx}
     >
-      <div className={classes.content}>{linkMenuContent}</div>
+      <LinkBubbleMenuContent
+        className={clsx([linkBubbleMenuClasses.content, classes.content])}
+      >
+        {linkMenuContent}
+      </LinkBubbleMenuContent>
     </ControlledBubbleMenu>
   );
 }

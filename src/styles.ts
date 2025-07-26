@@ -1,12 +1,12 @@
 import {
   alpha,
   darken,
+  keyframes,
   lighten,
   type CSSObject,
   type Theme,
 } from "@mui/material";
 import omit from "lodash/omit";
-import { keyframes } from "tss-react";
 
 type StyleRules = Record<string, CSSObject>;
 
@@ -564,8 +564,7 @@ export function getComponentName(name: string): string {
  * https://mui.com/base-ui/getting-started/customization/#applying-custom-css-rules).
  *
  * A utility class is just used for targeting elements and overriding styles in
- * nested components (rather than us delivering CSS for the utility class
- * directly, since we instead use tss-react to generate CSS).
+ * nested components.
  */
 export function getUtilityClass(componentName: string, slot: string): string {
   return `${COMPONENT_NAME_AND_UTILITY_CLASS_PREFIX}${componentName}-${slot}`;
@@ -576,8 +575,7 @@ export function getUtilityClass(componentName: string, slot: string): string {
  * that component.
  *
  * These returned utility classes are used for targeting and overriding styles
- * in nested components (rather than us delivering CSS for the utility classes
- * directly, since we instead use tss-react to generate CSS).
+ * in nested components.
  *
  * Ex: {"root": "MuiTiptap-Foo-root"} for the <Foo /> component.
  */

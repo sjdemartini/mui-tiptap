@@ -1,17 +1,29 @@
 import {
   ToggleButton,
+  styled,
   toggleButtonClasses,
+  useThemeProps,
+  type SxProps,
   type ToggleButtonProps,
 } from "@mui/material";
+import { clsx } from "clsx";
 import type { ReactNode, RefObject } from "react";
-import { makeStyles } from "tss-react/mui";
 import type { Except, SetOptional } from "type-fest";
+import { getComponentName } from "../styles";
+import {
+  menuButtonClasses,
+  type MenuButtonClassKey,
+  type MenuButtonClasses,
+} from "./MenuButton.classes";
 import MenuButtonTooltip, {
   type MenuButtonTooltipProps,
 } from "./MenuButtonTooltip";
 
 export interface MenuButtonProps
-  extends SetOptional<Except<ToggleButtonProps, "ref" | "children">, "value"> {
+  extends SetOptional<
+    Except<ToggleButtonProps, "ref" | "children" | "className" | "classes">,
+    "value"
+  > {
   /**
    * The label that will be displayed in a tooltip when hovering. Also used as
    * the underlying ToggleButton `value` if a separate `value` prop is not
@@ -45,40 +57,54 @@ export interface MenuButtonProps
   children?: ReactNode;
   /** Attaches a `ref` to the ToggleButton's root button element. */
   buttonRef?: RefObject<HTMLButtonElement>;
+  /** Optional additional className to provide to the root element. */
+  className?: string;
+  /** Override or extend existing styles. */
+  classes?: Partial<MenuButtonClasses>;
+  /** Provide custom styles. */
+  sx?: SxProps;
 }
 
 export const MENU_BUTTON_FONT_SIZE_DEFAULT = "1.25rem";
 
-const useStyles = makeStyles({ name: { MenuButton } })({
-  root: {
-    // Use && for additional specificity, since MUI's conditional "disabled"
-    // styles also set the border
-    [`&& .${toggleButtonClasses.root}`]: {
-      border: "none",
-      padding: 5,
-    },
-  },
+const componentName = getComponentName("MenuButton");
 
-  menuButtonIcon: {
-    fontSize: MENU_BUTTON_FONT_SIZE_DEFAULT,
+const MenuButtonRoot = styled("span", {
+  name: componentName,
+  slot: "root" satisfies MenuButtonClassKey,
+  overridesResolver: (props, styles) => styles.root,
+})(() => ({
+  // Use && for additional specificity, since MUI's conditional "disabled"
+  // styles also set the border
+  [`&& .${toggleButtonClasses.root}`]: {
+    border: "none",
+    padding: 5,
   },
-});
+}));
 
 /**
  * A general-purpose base component for showing an editor control for use in a
  * menu.
  */
-export default function MenuButton({
-  tooltipLabel,
-  tooltipShortcutKeys,
-  IconComponent,
-  buttonRef,
-  children,
-  ...toggleButtonProps
-}: MenuButtonProps) {
-  const { classes } = useStyles();
+export default function MenuButton(inProps: MenuButtonProps) {
+  const props = useThemeProps({ props: inProps, name: componentName });
+  const {
+    tooltipLabel,
+    tooltipShortcutKeys,
+    IconComponent,
+    buttonRef,
+    children,
+    className,
+    classes = {},
+    sx,
+    ...toggleButtonProps
+  } = props;
+
   return (
-    <span className={classes.root}>
+    <MenuButtonRoot
+      className={clsx([menuButtonClasses.root, className, classes.root])}
+      sx={sx}
+    >
       <MenuButtonTooltip
         label={tooltipLabel}
         shortcutKeys={tooltipShortcutKeys}
@@ -91,10 +117,16 @@ export default function MenuButton({
         >
           {children ??
             (IconComponent && (
-              <IconComponent className={classes.menuButtonIcon} />
+              <IconComponent
+                className={clsx([
+                  menuButtonClasses.menuButtonIcon,
+                  classes.menuButtonIcon,
+                ])}
+                style={{ fontSize: MENU_BUTTON_FONT_SIZE_DEFAULT }}
+              />
             ))}
         </ToggleButton>
       </MenuButtonTooltip>
-    </span>
+    </MenuButtonRoot>
   );
 }

@@ -1,10 +1,17 @@
+import { styled, useThemeProps, type SxProps } from "@mui/material";
 import type { NodeViewProps } from "@tiptap/core";
 import type { Node as ProseMirrorNode } from "@tiptap/pm/model";
 import { NodeViewWrapper } from "@tiptap/react";
+import { clsx } from "clsx";
 import throttle from "lodash/throttle";
 import { useMemo, useRef, useState } from "react";
-import { makeStyles } from "tss-react/mui";
+import { getComponentName } from "../styles";
 import type ResizableImage from "./ResizableImage";
+import {
+  resizableImageComponentClasses,
+  type ResizableImageComponentClassKey,
+  type ResizableImageComponentClasses,
+} from "./ResizableImageComponent.classes";
 import { ResizableImageResizer } from "./ResizableImageResizer";
 
 // Based on
@@ -29,52 +36,85 @@ interface ResizableImageNode extends ProseMirrorNode {
 interface Props extends NodeViewProps {
   node: ResizableImageNode;
   extension: typeof ResizableImage;
+  /** Override or extend existing styles. */
+  classes?: Partial<ResizableImageComponentClasses>;
+  /** Provide custom styles. */
+  sx?: SxProps;
+}
+
+interface ResizableImageComponentOwnerState extends Pick<Props, "selected"> {
+  selectedOrResizing: boolean;
 }
 
 const IMAGE_MINIMUM_WIDTH_PIXELS = 15;
 
-const useStyles = makeStyles({ name: { ResizableImageComponent } })(
-  (theme) => ({
-    imageContainer: {
-      // Use inline-flex so that the container is only as big as the inner img
-      display: "inline-flex",
-      // Use relative position so that the resizer is positioned relative to
-      // the img dimensions (via their common container)
-      position: "relative",
-    },
+const componentName = getComponentName("ResizableImageComponent");
 
-    image: {
-      // We need display:block in order for the container element to be
-      // sized properly (no extra space below the image)
-      display: "block",
-    },
+const ResizableImageComponentImageContainer = styled("div", {
+  name: componentName,
+  slot: "imageContainer" satisfies ResizableImageComponentClassKey,
+  overridesResolver: (props, styles) => styles.imageContainer,
+})(() => ({
+  // Use inline-flex so that the container is only as big as the inner img
+  display: "inline-flex",
+  // Use relative position so that the resizer is positioned relative to
+  // the img dimensions (via their common container)
+  position: "relative",
+}));
 
-    imageSelected: {
+const ResizableImageComponentImage = styled("img", {
+  name: componentName,
+  slot: "image" satisfies ResizableImageComponentClassKey,
+  overridesResolver: (
+    props: { ownerState: ResizableImageComponentOwnerState },
+    styles,
+  ) => [
+    styles.image,
+    props.ownerState.selectedOrResizing && styles.imageSelected,
+  ],
+})<{ ownerState: ResizableImageComponentOwnerState }>(
+  ({ theme, ownerState }) => ({
+    // We need display:block in order for the container element to be
+    // sized properly (no extra space below the image)
+    display: "block",
+
+    ...(ownerState.selectedOrResizing && {
       // This "selected" state outline style is copied from our standard editor
       // styles (which are kept there as well so they appear even if not using our
       // custom resizable image).
       outline: `3px solid ${theme.palette.primary.main}`,
-    },
-
-    resizer: {
-      // As described here https://github.com/ueberdosis/tiptap/issues/3775,
-      // updates to editor isEditable do not trigger re-rendering of node views.
-      // Even editor state changes external to a given ReactNodeView component
-      // will not trigger re-render (which is probably a good thing most of the
-      // time, in terms of performance). As such, we always render the resizer
-      // component with React (and so in the DOM), but hide it with CSS when the
-      // editor is not editable. This also means its mouse event listeners will
-      // also not fire, as intended.
-      '.ProseMirror[contenteditable="false"] &': {
-        display: "none",
-      },
-    },
+    }),
   }),
 );
 
-function ResizableImageComponent(props: Props) {
-  const { node, selected, updateAttributes, extension } = props;
-  const { classes, cx } = useStyles();
+const ResizableImageComponentResizer = styled(ResizableImageResizer, {
+  name: componentName,
+  slot: "resizer" satisfies ResizableImageComponentClassKey,
+  overridesResolver: (props, styles) => styles.resizer,
+})(() => ({
+  // As described here https://github.com/ueberdosis/tiptap/issues/3775,
+  // updates to editor isEditable do not trigger re-rendering of node views.
+  // Even editor state changes external to a given ReactNodeView component
+  // will not trigger re-render (which is probably a good thing most of the
+  // time, in terms of performance). As such, we always render the resizer
+  // component with React (and so in the DOM), but hide it with CSS when the
+  // editor is not editable. This also means its mouse event listeners will
+  // also not fire, as intended.
+  '.ProseMirror[contenteditable="false"] &': {
+    display: "none",
+  },
+}));
+
+function ResizableImageComponent(inProps: Props) {
+  const props = useThemeProps({ props: inProps, name: componentName });
+  const {
+    node,
+    selected,
+    updateAttributes,
+    extension,
+    classes = {},
+    sx,
+  } = props;
   const { attrs } = node;
 
   const imageRef = useRef<HTMLImageElement | null>(null);
@@ -88,6 +128,11 @@ function ResizableImageComponent(props: Props) {
   // https://github.com/sjdemartini/mui-tiptap/issues/211
   const [resizerMouseDown, setResizerMouseDown] = useState(false);
   const selectedOrResizing = selected || resizerMouseDown;
+
+  const ownerState: ResizableImageComponentOwnerState = {
+    selected,
+    selectedOrResizing,
+  };
 
   const handleResize = useMemo(
     () =>
@@ -153,6 +198,7 @@ function ResizableImageComponent(props: Props) {
       // extension option is enabled, to ensure it can appear alongside other
       // inline elements like text.
       as={extension.options.inline ? "span" : "div"}
+      sx={sx}
     >
       {/* We need a separate inner image container here in order to (1) have the
       node view wrapper take up the full width of its parent div created by
@@ -160,8 +206,13 @@ function ResizableImageComponent(props: Props) {
       elements), and (2) still allow for this image container to take up exactly
       the size of the `img` being rendered, which allows for positioning the
       resize handle at the edge of the img. */}
-      <div className={classes.imageContainer}>
-        <img
+      <ResizableImageComponentImageContainer
+        className={clsx([
+          resizableImageComponentClasses.imageContainer,
+          classes.imageContainer,
+        ])}
+      >
+        <ResizableImageComponentImage
           ref={imageRef}
           src={attrs.src}
           height="auto"
@@ -170,14 +221,18 @@ function ResizableImageComponent(props: Props) {
             alt: attrs.alt || undefined,
             title: attrs.title || undefined,
           }}
-          className={cx(
+          className={clsx([
+            resizableImageComponentClasses.image,
             classes.image,
             // For consistency with the standard Image extension selection
             // class/UI:
             selectedOrResizing && "ProseMirror-selectednode",
             // We'll only show the outline when the editor content is selected
-            selectedOrResizing && classes.imageSelected,
-          )}
+            selectedOrResizing && [
+              resizableImageComponentClasses.imageSelected,
+              classes.imageSelected,
+            ],
+          ])}
           style={{
             // If no width has been specified, we use auto max-width
             maxWidth: attrs.width ? undefined : "auto",
@@ -185,6 +240,7 @@ function ResizableImageComponent(props: Props) {
             // initial render (so auto-height works before the image loads)
             aspectRatio: attrs.aspectRatio ?? undefined,
           }}
+          ownerState={ownerState}
           // To make this image act as the drag handle for moving it within the
           // document, add the data-drag-handle used by Tiptap
           // (https://tiptap.dev/guide/node-views/react#dragging)
@@ -211,16 +267,19 @@ function ResizableImageComponent(props: Props) {
         />
 
         {selectedOrResizing && (
-          <ResizableImageResizer
+          <ResizableImageComponentResizer
             onResize={handleResize}
-            className={classes.resizer}
+            className={clsx([
+              resizableImageComponentClasses.resizer,
+              classes.resizer,
+            ])}
             mouseDown={resizerMouseDown}
             setMouseDown={setResizerMouseDown}
           />
         )}
 
         {ChildComponent && <ChildComponent {...props} />}
-      </div>
+      </ResizableImageComponentImageContainer>
     </NodeViewWrapper>
   );
 }

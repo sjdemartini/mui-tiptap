@@ -9,6 +9,7 @@ import { clsx } from "clsx";
 import type { ReactNode } from "react";
 import {
   fieldContainerClasses,
+  type FieldContainerClassKey,
   type FieldContainerClasses,
 } from "./FieldContainer.classes";
 import { Z_INDEXES, getComponentName } from "./styles";
@@ -42,7 +43,7 @@ const componentName = getComponentName("FieldContainer");
 
 const FieldContainerRoot = styled(Box, {
   name: componentName,
-  slot: "root",
+  slot: "root" satisfies FieldContainerClassKey,
   overridesResolver: (
     props: { ownerState: FieldContainerOwnerState },
     styles,
@@ -80,9 +81,9 @@ const FieldContainerRoot = styled(Box, {
   }),
 }));
 
-const FieldContainerNotchedOutline = styled("div", {
+const FieldContainerNotchedOutline = styled("fieldset", {
   name: componentName,
-  slot: "notchedOutline",
+  slot: "notchedOutline" satisfies FieldContainerClassKey,
   overridesResolver: (props, styles) => styles.notchedOutline,
 })<{ ownerState: FieldContainerOwnerState }>(({ theme }) => ({
   position: "absolute",

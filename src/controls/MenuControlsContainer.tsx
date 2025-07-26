@@ -1,14 +1,26 @@
-import { Box, type BoxProps } from "@mui/material";
-import { makeStyles } from "tss-react/mui";
+import { Box, styled, useThemeProps, type BoxProps } from "@mui/material";
+import { clsx } from "clsx";
 import type { Except } from "type-fest";
+import { getComponentName } from "../styles";
 import DebounceRender, {
   type DebounceRenderProps,
 } from "../utils/DebounceRender";
+import {
+  menuControlsContainerClasses,
+  type MenuControlsContainerClassKey,
+  type MenuControlsContainerClasses,
+} from "./MenuControlsContainer.classes";
 
-export type MenuControlsContainerProps = Except<BoxProps, "children"> & {
+export type MenuControlsContainerProps = Except<
+  BoxProps,
+  "children" | "className" | "classes"
+> & {
   /** The set of controls (buttons, etc) to include in the menu bar. */
   children?: React.ReactNode;
+  /** Class applied to the `root` element. */
   className?: string;
+  /** Override or extend existing styles. */
+  classes?: Partial<MenuControlsContainerClasses>;
   /**
    * If true, the rendering of the children content here will be debounced, as a
    * way to improve performance. If this component is rendered in the same
@@ -23,37 +35,52 @@ export type MenuControlsContainerProps = Except<BoxProps, "children"> & {
    * Override the props/options used with debounce rendering such as the wait
    * interval, if `debounced` is true.
    */
-  DebounceProps?: Except<DebounceRenderProps, "children">;
+  DebounceProps?: Partial<Except<DebounceRenderProps, "children">>;
 };
 
-const useStyles = makeStyles({
-  name: { MenuControlsContainer: MenuControlsContainer },
-})((theme) => {
-  return {
-    root: {
-      display: "flex",
-      rowGap: theme.spacing(0.3),
-      columnGap: theme.spacing(0.3),
-      alignItems: "center",
-      flexWrap: "wrap",
-    },
-  };
-});
+const componentName = getComponentName("MenuControlsContainer");
+
+const MenuControlsContainerRoot = styled(Box, {
+  name: componentName,
+  slot: "root" satisfies MenuControlsContainerClassKey,
+  overridesResolver: (props, styles) => styles.root,
+})(({ theme }) => ({
+  display: "flex",
+  rowGap: theme.spacing(0.3),
+  columnGap: theme.spacing(0.3),
+  alignItems: "center",
+  flexWrap: "wrap",
+}));
 
 /** Provides consistent spacing between different editor controls components. */
-export default function MenuControlsContainer({
-  children,
-  className,
-  debounced,
-  DebounceProps,
-  ...boxProps
-}: MenuControlsContainerProps) {
-  const { classes, cx } = useStyles();
+export default function MenuControlsContainer(
+  inProps: MenuControlsContainerProps,
+) {
+  const props = useThemeProps({ props: inProps, name: componentName });
+  const {
+    children,
+    className,
+    classes = {},
+    sx,
+    debounced,
+    DebounceProps,
+    ...boxProps
+  } = props;
+
   const content = (
-    <Box {...boxProps} className={cx(classes.root, className)}>
+    <MenuControlsContainerRoot
+      {...boxProps}
+      className={clsx([
+        menuControlsContainerClasses.root,
+        className,
+        classes.root,
+      ])}
+      sx={sx}
+    >
       {children}
-    </Box>
+    </MenuControlsContainerRoot>
   );
+
   return debounced ? (
     <DebounceRender {...DebounceProps}>{content}</DebounceRender>
   ) : (

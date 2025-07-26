@@ -6,6 +6,7 @@ import MenuBar, { type MenuBarProps } from "./MenuBar";
 import RichTextContent, { type RichTextContentProps } from "./RichTextContent";
 import {
   richTextFieldClasses,
+  type RichTextFieldClassKey,
   type RichTextFieldClasses,
 } from "./RichTextField.classes";
 import { useRichTextEditorContext } from "./context";
@@ -78,7 +79,7 @@ const componentName = getComponentName("RichTextField");
 
 const RichTextFieldRoot = styled(FieldContainer, {
   name: componentName,
-  slot: "root",
+  slot: "root" satisfies RichTextFieldClassKey,
   overridesResolver: (
     props: { ownerState: RichTextFieldOwnerState },
     styles,

@@ -4,6 +4,7 @@ import { clsx } from "clsx";
 import { useMemo } from "react";
 import {
   richTextContentClasses,
+  type RichTextContentClassKey,
   type RichTextContentClasses,
 } from "./RichTextContent.classes";
 import { useRichTextEditorContext } from "./context";
@@ -43,7 +44,7 @@ const componentName = getComponentName("RichTextContent");
 
 const RichTextContentRoot = styled(EditorContent, {
   name: componentName,
-  slot: "root",
+  slot: "root" satisfies RichTextContentClassKey,
   overridesResolver: (
     props: { ownerState: RichTextContentOwnerState },
     styles,
