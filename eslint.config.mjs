@@ -150,6 +150,13 @@ export default tseslint.config(
 
       "no-restricted-imports": "off",
 
+      "@typescript-eslint/no-empty-object-type": [
+        "error",
+        {
+          allowInterfaces: "with-single-extends",
+        },
+      ],
+
       "@typescript-eslint/no-restricted-imports": [
         "error",
         {
