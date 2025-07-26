@@ -6,7 +6,7 @@ import {
   type SxProps,
 } from "@mui/material";
 import { clsx } from "clsx";
-import { useMemo, type ReactNode } from "react";
+import type { ReactNode } from "react";
 import {
   fieldContainerClasses,
   type FieldContainerClasses,
@@ -35,11 +35,8 @@ export type FieldContainerProps = Omit<
   sx?: SxProps;
 };
 
-interface FieldContainerOwnerState {
-  variant: "outlined" | "standard";
-  focused: boolean;
-  disabled: boolean;
-}
+interface FieldContainerOwnerState
+  extends Pick<FieldContainerProps, "variant" | "focused" | "disabled"> {}
 
 const componentName = getComponentName("FieldContainer");
 
@@ -47,25 +44,24 @@ const FieldContainerRoot = styled(Box, {
   name: componentName,
   slot: "root",
   overridesResolver: (
-    props: { ownerState?: FieldContainerOwnerState },
+    props: { ownerState: FieldContainerOwnerState },
     styles,
   ) => [
     styles.root,
-    props.ownerState?.variant === "outlined" && styles.outlined,
-    props.ownerState?.variant === "standard" && styles.standard,
-    props.ownerState?.focused && styles.focused,
-    props.ownerState?.disabled && styles.disabled,
+    props.ownerState.variant === "outlined" && styles.outlined,
+    props.ownerState.variant === "standard" && styles.standard,
+    props.ownerState.focused && styles.focused,
+    props.ownerState.disabled && styles.disabled,
   ],
 })<{ ownerState: FieldContainerOwnerState }>(({ theme, ownerState }) => ({
   // Based on the concept behind and styles of OutlinedInput and NotchedOutline
   // styles here, to imitate outlined input appearance in material-ui
   // https://github.com/mui-org/material-ui/blob/a4972c5931e637611f6421ed2a5cc3f78207cbb2/packages/material-ui/src/OutlinedInput/OutlinedInput.js#L9-L37
   // https://github.com/mui/material-ui/blob/a4972c5931e637611f6421ed2a5cc3f78207cbb2/packages/material-ui/src/OutlinedInput/NotchedOutline.js
-
   ...(ownerState.variant === "outlined" && {
     borderRadius: theme.shape.borderRadius,
     padding: 1,
-    position: "relative" as const,
+    position: "relative",
 
     [`&:hover .${fieldContainerClasses.notchedOutline}`]: {
       borderColor: theme.palette.text.primary,
@@ -87,10 +83,7 @@ const FieldContainerRoot = styled(Box, {
 const FieldContainerNotchedOutline = styled("div", {
   name: componentName,
   slot: "notchedOutline",
-  overridesResolver: (
-    props: { ownerState?: FieldContainerOwnerState },
-    styles,
-  ) => [styles.notchedOutline],
+  overridesResolver: (props, styles) => styles.notchedOutline,
 })<{ ownerState: FieldContainerOwnerState }>(({ theme }) => ({
   position: "absolute",
   inset: 0,
@@ -116,22 +109,20 @@ export default function FieldContainer(inProps: FieldContainerProps) {
   const {
     variant = "outlined",
     children,
-    focused = false,
-    disabled = false,
+    focused,
+    disabled,
     classes = {},
     className,
     sx,
     ...boxProps
   } = props;
 
-  const ownerState = useMemo(
-    () => ({ variant, focused, disabled }),
-    [variant, focused, disabled],
-  );
+  const ownerState: FieldContainerOwnerState = { variant, focused, disabled };
 
-  const rootClasses = useMemo(
-    () =>
-      clsx([
+  return (
+    <FieldContainerRoot
+      {...boxProps}
+      className={clsx([
         fieldContainerClasses.root,
         className,
         classes.root,
@@ -143,29 +134,7 @@ export default function FieldContainer(inProps: FieldContainerProps) {
         // in this order
         focused && [fieldContainerClasses.focused, classes.focused],
         disabled && [fieldContainerClasses.disabled, classes.disabled],
-      ]),
-    [
-      className,
-      classes.root,
-      classes.outlined,
-      classes.standard,
-      classes.focused,
-      classes.disabled,
-      variant,
-      focused,
-      disabled,
-    ],
-  );
-
-  const notchedOutlineClasses = useMemo(
-    () => clsx([fieldContainerClasses.notchedOutline, classes.notchedOutline]),
-    [classes.notchedOutline],
-  );
-
-  return (
-    <FieldContainerRoot
-      {...(boxProps as any)}
-      className={rootClasses}
+      ])}
       sx={sx}
       ownerState={ownerState}
     >
@@ -174,7 +143,10 @@ export default function FieldContainer(inProps: FieldContainerProps) {
       {variant === "outlined" && (
         <FieldContainerNotchedOutline
           ownerState={ownerState}
-          className={notchedOutlineClasses}
+          className={clsx([
+            fieldContainerClasses.notchedOutline,
+            classes.notchedOutline,
+          ])}
           aria-hidden
         />
       )}

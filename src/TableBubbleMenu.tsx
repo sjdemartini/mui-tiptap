@@ -147,17 +147,15 @@ export default function TableBubbleMenu(inProps: TableBubbleMenuProps) {
     [editor],
   );
 
-  const controlsClasses = useMemo(
-    () => clsx([tableBubbleMenuClasses.controls, classes.controls]),
-    [classes.controls],
-  );
-
   if (!editor?.isEditable) {
     return null;
   }
 
   const controls = (
-    <TableBubbleMenuControls className={controlsClasses} labels={labels} />
+    <TableBubbleMenuControls
+      className={clsx([tableBubbleMenuClasses.controls, classes.controls])}
+      labels={labels}
+    />
   );
 
   return (
