@@ -6,7 +6,7 @@ import {
   type SxProps,
 } from "@mui/material";
 import { clsx } from "clsx";
-import { useMemo, type ReactNode } from "react";
+import type { ReactNode } from "react";
 import { menuBarClasses, type MenuBarClasses } from "./MenuBar.classes";
 import { Z_INDEXES, getComponentName } from "./styles";
 
@@ -47,9 +47,12 @@ export type MenuBarProps = Omit<
   sx?: SxProps;
 };
 
-interface MenuBarOwnerState {
-  disableSticky: boolean;
-  stickyOffset: number;
+interface MenuBarOwnerState
+  extends Pick<
+    MenuBarProps,
+    "hide" | "disableSticky" | "stickyOffset" | "unmountOnExit"
+  > {
+  stickyOffset: NonNullable<MenuBarProps["stickyOffset"]>;
 }
 
 const componentName = getComponentName("MenuBar");
@@ -57,9 +60,9 @@ const componentName = getComponentName("MenuBar");
 const MenuBarRoot = styled(Collapse, {
   name: componentName,
   slot: "root",
-  overridesResolver: (props: { ownerState?: MenuBarOwnerState }, styles) => [
+  overridesResolver: (props: { ownerState: MenuBarOwnerState }, styles) => [
     styles.root,
-    props.ownerState?.disableSticky ? styles.nonSticky : styles.sticky,
+    props.ownerState.disableSticky ? styles.nonSticky : styles.sticky,
   ],
 })<{ ownerState: MenuBarOwnerState }>(({ theme, ownerState }) => ({
   borderBottomColor: theme.palette.divider,
@@ -69,7 +72,7 @@ const MenuBarRoot = styled(Collapse, {
   ...(ownerState.disableSticky
     ? {}
     : {
-        position: "sticky" as const,
+        position: "sticky",
         top: ownerState.stickyOffset,
         zIndex: Z_INDEXES.MENU_BAR,
         background: theme.palette.background.default,
@@ -79,10 +82,8 @@ const MenuBarRoot = styled(Collapse, {
 const MenuBarContent = styled("div", {
   name: componentName,
   slot: "content",
-  overridesResolver: (props: { ownerState?: MenuBarOwnerState }, styles) => [
-    styles.content,
-  ],
-})<{ ownerState: MenuBarOwnerState }>(() => ({}));
+  overridesResolver: (props, styles) => styles.content,
+})<{ ownerState: MenuBarOwnerState }>({});
 
 /**
  * A collapsible, optionally-sticky container for showing editor controls atop
@@ -91,8 +92,8 @@ const MenuBarContent = styled("div", {
 export default function MenuBar(inProps: MenuBarProps) {
   const props = useThemeProps({ props: inProps, name: componentName });
   const {
-    hide = false,
-    disableSticky = false,
+    hide,
+    disableSticky,
     stickyOffset = 0,
     children,
     className,
@@ -102,28 +103,12 @@ export default function MenuBar(inProps: MenuBarProps) {
     ...collapseProps
   } = props;
 
-  const ownerState = useMemo(
-    () => ({ disableSticky, stickyOffset }),
-    [disableSticky, stickyOffset],
-  );
-
-  const rootClasses = useMemo(
-    () =>
-      clsx([
-        menuBarClasses.root,
-        className,
-        classes.root,
-        disableSticky
-          ? [menuBarClasses.nonSticky, classes.nonSticky]
-          : [menuBarClasses.sticky, classes.sticky],
-      ]),
-    [className, classes.root, classes.sticky, classes.nonSticky, disableSticky],
-  );
-
-  const contentClasses = useMemo(
-    () => clsx([menuBarClasses.content, classes.content]),
-    [classes.content],
-  );
+  const ownerState: MenuBarOwnerState = {
+    hide,
+    disableSticky,
+    stickyOffset,
+    unmountOnExit,
+  };
 
   return (
     <MenuBarRoot
@@ -133,11 +118,21 @@ export default function MenuBar(inProps: MenuBarProps) {
       // Note that we have to apply the sticky CSS classes to the container
       // (rather than the menu bar itself) in order for it to behave
       // properly
-      className={rootClasses}
+      className={clsx([
+        menuBarClasses.root,
+        classes.root,
+        disableSticky
+          ? [menuBarClasses.nonSticky, classes.nonSticky]
+          : [menuBarClasses.sticky, classes.sticky],
+        className,
+      ])}
       ownerState={ownerState}
       sx={sx}
     >
-      <MenuBarContent className={contentClasses} ownerState={ownerState}>
+      <MenuBarContent
+        className={clsx([menuBarClasses.content, classes.content])}
+        ownerState={ownerState}
+      >
         {children}
       </MenuBarContent>
     </MenuBarRoot>

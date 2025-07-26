@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { isNodeSelection, posToDOMRect, type Editor } from "@tiptap/core";
 import { clsx } from "clsx";
-import { useCallback, useMemo, type ReactNode } from "react";
+import { useCallback, type ReactNode } from "react";
 import {
   controlledBubbleMenuClasses,
   type ControlledBubbleMenuClasses,
@@ -113,7 +113,7 @@ const componentName = getComponentName("ControlledBubbleMenu");
 const ControlledBubbleMenuRoot = styled(Popper, {
   name: componentName,
   slot: "root",
-  overridesResolver: (props, styles) => [styles.root],
+  overridesResolver: (props, styles) => styles.root,
 })(({ theme }) => ({
   // Ensure the bubble menu is above modals, in case the editor is rendered in
   // a modal, consistent with recommendations here
@@ -125,7 +125,7 @@ const ControlledBubbleMenuRoot = styled(Popper, {
 const ControlledBubbleMenuPaper = styled(Paper, {
   name: componentName,
   slot: "paper",
-  overridesResolver: (props, styles) => [styles.paper],
+  overridesResolver: (props, styles) => styles.paper,
 })(({ theme }) => ({
   backgroundColor: theme.palette.background.default,
 }));
@@ -201,21 +201,6 @@ export default function ControlledBubbleMenu(
     };
   }, [editor]);
 
-  const rootClasses = useMemo(
-    () => clsx([controlledBubbleMenuClasses.root, className, classes.root]),
-    [className, classes.root],
-  );
-
-  const paperClasses = useMemo(
-    () =>
-      clsx([
-        controlledBubbleMenuClasses.paper,
-        classes.paper,
-        PaperProps?.className,
-      ]),
-    [classes.paper, PaperProps?.className],
-  );
-
   return (
     <ControlledBubbleMenuRoot
       open={open}
@@ -265,7 +250,11 @@ export default function ControlledBubbleMenu(
         // which is probably not worth it
       ]}
       anchorEl={anchorEl ?? defaultAnchorEl}
-      className={rootClasses}
+      className={clsx([
+        controlledBubbleMenuClasses.root,
+        className,
+        classes.root,
+      ])}
       sx={sx}
       container={container}
       disablePortal={disablePortal}
@@ -287,7 +276,11 @@ export default function ControlledBubbleMenu(
           <ControlledBubbleMenuPaper
             elevation={7}
             {...PaperProps}
-            className={paperClasses}
+            className={clsx([
+              controlledBubbleMenuClasses.paper,
+              classes.paper,
+              PaperProps?.className,
+            ])}
           >
             {children}
           </ControlledBubbleMenuPaper>

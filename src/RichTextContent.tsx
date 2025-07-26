@@ -34,9 +34,9 @@ export type RichTextContentProps = {
   sx?: SxProps;
 };
 
-interface RichTextContentOwnerState {
+interface RichTextContentOwnerState
+  extends Pick<RichTextContentProps, "disableDefaultStyles"> {
   editable: boolean;
-  disableDefaultStyles: boolean;
 }
 
 const componentName = getComponentName("RichTextContent");
@@ -45,11 +45,11 @@ const RichTextContentRoot = styled(EditorContent, {
   name: componentName,
   slot: "root",
   overridesResolver: (
-    props: { ownerState?: RichTextContentOwnerState },
+    props: { ownerState: RichTextContentOwnerState },
     styles,
   ) => [
     styles.root,
-    props.ownerState?.editable ? styles.editable : styles.readonly,
+    props.ownerState.editable ? styles.editable : styles.readonly,
   ],
 })<{ ownerState: RichTextContentOwnerState }>(({ theme, ownerState }) =>
   ownerState.disableDefaultStyles
@@ -79,10 +79,10 @@ export default function RichTextContent(inProps: RichTextContentProps) {
   const editor = useRichTextEditorContext();
   const editable = !!editor?.isEditable;
 
-  const ownerState = useMemo(
-    () => ({ editable, disableDefaultStyles }),
-    [editable, disableDefaultStyles],
-  );
+  const ownerState: RichTextContentOwnerState = {
+    editable,
+    disableDefaultStyles,
+  };
 
   const editorClasses = useMemo(
     () =>

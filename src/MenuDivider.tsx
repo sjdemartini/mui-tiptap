@@ -6,7 +6,6 @@ import {
   type SxProps,
 } from "@mui/material";
 import { clsx } from "clsx";
-import { useMemo } from "react";
 import {
   menuDividerClasses,
   type MenuDividerClasses,
@@ -31,7 +30,7 @@ const componentName = getComponentName("MenuDivider");
 const MenuDividerRoot = styled(Divider, {
   name: componentName,
   slot: "root",
-  overridesResolver: (props, styles) => [styles.root],
+  overridesResolver: (props, styles) => styles.root,
 })(({ theme }) => ({
   height: 18,
   margin: theme.spacing(0, 0.5),
@@ -41,16 +40,11 @@ export default function MenuDivider(inProps: MenuDividerProps) {
   const props = useThemeProps({ props: inProps, name: componentName });
   const { className, classes = {}, sx, ...dividerProps } = props;
 
-  const rootClasses = useMemo(
-    () => clsx([menuDividerClasses.root, className, classes.root]),
-    [className, classes.root],
-  );
-
   return (
     <MenuDividerRoot
       orientation="vertical"
       {...dividerProps}
-      className={rootClasses}
+      className={clsx([menuDividerClasses.root, className, classes.root])}
       sx={sx}
     />
   );
