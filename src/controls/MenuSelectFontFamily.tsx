@@ -1,12 +1,18 @@
 /// <reference types="@tiptap/extension-font-family" />
-import { MenuItem } from "@mui/material";
+import { MenuItem, styled, useThemeProps, type SxProps } from "@mui/material";
 import type { Editor } from "@tiptap/core";
+import { clsx } from "clsx";
 import type { ReactNode } from "react";
-import { makeStyles } from "tss-react/mui";
 import type { Except } from "type-fest";
 import { useRichTextEditorContext } from "../context";
+import { getComponentName } from "../styles";
 import { getAttributesForEachSelected } from "../utils/getAttributesForEachSelected";
 import MenuSelect, { type MenuSelectProps } from "./MenuSelect";
+import {
+  menuSelectFontFamilyClasses,
+  type MenuSelectFontFamilyClassKey,
+  type MenuSelectFontFamilyClasses,
+} from "./MenuSelectFontFamily.classes";
 
 export type FontFamilySelectOption = {
   /**
@@ -31,7 +37,7 @@ export type FontFamilySelectOption = {
 
 export type MenuSelectFontFamilyProps = Except<
   MenuSelectProps<string>,
-  "value" | "children"
+  "value" | "children" | "classes"
 > & {
   /**
    * Provide the list of font families to show as options.
@@ -58,10 +64,20 @@ export type MenuSelectFontFamilyProps = Except<
    * default shows "Font".
    */
   emptyLabel?: React.ReactNode;
+  /** Override or extend existing styles. */
+  classes?: Partial<MenuSelectFontFamilyClasses>;
+  /** Provide custom styles. */
+  sx?: SxProps;
 };
 
-const useStyles = makeStyles({ name: { MenuSelectFontFamily } })({
-  selectInput: {
+const componentName = getComponentName("MenuSelectFontFamily");
+
+const MenuSelectFontFamilyRoot = styled(MenuSelect<string>, {
+  name: componentName,
+  slot: "root" satisfies MenuSelectFontFamilyClassKey,
+  overridesResolver: (props, styles) => styles.root,
+})({
+  [`& .${menuSelectFontFamilyClasses.selectInput}`]: {
     // We use a fixed width so that the Select element won't change sizes as
     // the selected option changes
     width: 55,
@@ -84,14 +100,19 @@ interface TextStyleAttrs extends ReturnType<Editor["getAttributes"]> {
 const MULTIPLE_FAMILIES_SELECTED_VALUE = "MULTIPLE";
 
 /** A font-family selector for use with the Tiptap FontFamily extension.  */
-export default function MenuSelectFontFamily({
-  options,
-  hideUnsetOption = false,
-  unsetOptionLabel = "Default",
-  emptyLabel = "Font",
-  ...menuSelectProps
-}: MenuSelectFontFamilyProps) {
-  const { classes, cx } = useStyles();
+export default function MenuSelectFontFamily(
+  inProps: MenuSelectFontFamilyProps,
+) {
+  const props = useThemeProps({ props: inProps, name: componentName });
+  const {
+    options,
+    hideUnsetOption = false,
+    unsetOptionLabel = "Default",
+    emptyLabel = "Font",
+    classes = {},
+    sx,
+    ...menuSelectProps
+  } = props;
   const editor = useRichTextEditorContext();
 
   // Determine if all of the selected content shares the same set font family.
@@ -142,7 +163,7 @@ export default function MenuSelectFontFamily({
   }
 
   return (
-    <MenuSelect<string>
+    <MenuSelectFontFamilyRoot
       onChange={(event) => {
         const value = event.target.value;
         if (value) {
@@ -170,11 +191,18 @@ export default function MenuSelectFontFamily({
       value={currentFontFamily || ""}
       inputProps={{
         ...menuSelectProps.inputProps,
-        className: cx(
+        className: clsx([
+          menuSelectFontFamilyClasses.selectInput,
           classes.selectInput,
           menuSelectProps.inputProps?.className,
-        ),
+        ]),
       }}
+      className={clsx([
+        menuSelectFontFamilyClasses.root,
+        classes.root,
+        menuSelectProps.className,
+      ])}
+      sx={sx}
     >
       {!hideUnsetOption && (
         // Allow users to unset the font-family
@@ -196,6 +224,6 @@ export default function MenuSelectFontFamily({
           </span>
         </MenuItem>
       ))}
-    </MenuSelect>
+    </MenuSelectFontFamilyRoot>
   );
 }

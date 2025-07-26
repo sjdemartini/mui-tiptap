@@ -1,10 +1,23 @@
-import { Button, DialogActions, Link } from "@mui/material";
+import {
+  Button,
+  DialogActions,
+  Link,
+  styled,
+  useThemeProps,
+  type SxProps,
+} from "@mui/material";
 import { getMarkRange, getMarkType, type Editor } from "@tiptap/core";
+import { clsx } from "clsx";
 import truncate from "lodash/truncate";
 import type { ReactNode } from "react";
-import { makeStyles } from "tss-react/mui";
 import useKeyDown from "../hooks/useKeyDown";
+import { getComponentName } from "../styles";
 import truncateMiddle from "../utils/truncateMiddle";
+import {
+  viewLinkMenuContentClasses,
+  type ViewLinkMenuContentClassKey,
+  type ViewLinkMenuContentClasses,
+} from "./ViewLinkMenuContent.classes";
 
 export type ViewLinkMenuContentProps = {
   editor: Editor;
@@ -18,23 +31,41 @@ export type ViewLinkMenuContentProps = {
     /** Content shown in the button used to remove the link. */
     viewLinkRemoveButtonLabel?: ReactNode;
   };
+  /** Override or extend existing styles. */
+  classes?: Partial<ViewLinkMenuContentClasses>;
+  /** Provide custom styles. */
+  sx?: SxProps;
 };
 
-const useStyles = makeStyles({ name: { ViewLinkMenuContent } })({
-  linkPreviewText: {
-    overflowWrap: "anywhere",
-  },
+const componentName = getComponentName("ViewLinkMenuContent");
+
+const ViewLinkMenuContentRoot = styled("div", {
+  name: componentName,
+  slot: "root" satisfies ViewLinkMenuContentClassKey,
+  overridesResolver: (props, styles) => styles.root,
+})({});
+
+const ViewLinkMenuContentLinkPreviewText = styled("div", {
+  name: componentName,
+  slot: "linkPreviewText" satisfies ViewLinkMenuContentClassKey,
+  overridesResolver: (props, styles) => styles.linkPreviewText,
+})({
+  overflowWrap: "anywhere",
 });
 
 /** Shown when a user is viewing the details of an existing Link for Tiptap. */
-export default function ViewLinkMenuContent({
-  editor,
-  onCancel,
-  onEdit,
-  onRemove,
-  labels,
-}: ViewLinkMenuContentProps) {
-  const { classes } = useStyles();
+export default function ViewLinkMenuContent(inProps: ViewLinkMenuContentProps) {
+  const props = useThemeProps({ props: inProps, name: componentName });
+  const {
+    editor,
+    onCancel,
+    onEdit,
+    onRemove,
+    labels,
+    classes = {},
+    sx,
+  } = props;
+
   const linkRange = getMarkRange(
     editor.state.selection.$to,
     getMarkType("link", editor.schema),
@@ -50,21 +81,34 @@ export default function ViewLinkMenuContent({
   useKeyDown("Escape", onCancel);
 
   return (
-    <>
-      <div className={classes.linkPreviewText}>
+    <ViewLinkMenuContentRoot
+      className={clsx([viewLinkMenuContentClasses.root, classes.root])}
+      sx={sx}
+    >
+      <ViewLinkMenuContentLinkPreviewText
+        className={clsx([
+          viewLinkMenuContentClasses.linkPreviewText,
+          classes.linkPreviewText,
+        ])}
+      >
         {truncate(linkText, {
           length: 50,
           omission: "…",
         })}
-      </div>
+      </ViewLinkMenuContentLinkPreviewText>
 
-      <div className={classes.linkPreviewText}>
+      <ViewLinkMenuContentLinkPreviewText
+        className={clsx([
+          viewLinkMenuContentClasses.linkPreviewText,
+          classes.linkPreviewText,
+        ])}
+      >
         <Link href={currentHref} target="_blank" rel="noopener">
           {/* We truncate in the middle, since the beginning and end of a URL are often the most
             important parts */}
           {truncateMiddle(currentHref, 50)}
         </Link>
-      </div>
+      </ViewLinkMenuContentLinkPreviewText>
 
       <DialogActions sx={{ px: 0 }}>
         <Button
@@ -84,6 +128,6 @@ export default function ViewLinkMenuContent({
           {labels?.viewLinkRemoveButtonLabel ?? "Remove"}
         </Button>
       </DialogActions>
-    </>
+    </ViewLinkMenuContentRoot>
   );
 }

@@ -8,6 +8,7 @@ import {
 import { clsx } from "clsx";
 import {
   menuDividerClasses,
+  type MenuDividerClassKey,
   type MenuDividerClasses,
 } from "./MenuDivider.classes";
 import { getComponentName } from "./styles";
@@ -29,7 +30,7 @@ const componentName = getComponentName("MenuDivider");
 
 const MenuDividerRoot = styled(Divider, {
   name: componentName,
-  slot: "root",
+  slot: "root" satisfies MenuDividerClassKey,
   overridesResolver: (props, styles) => styles.root,
 })(({ theme }) => ({
   height: 18,

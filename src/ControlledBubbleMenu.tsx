@@ -14,6 +14,7 @@ import { clsx } from "clsx";
 import { useCallback, type ReactNode } from "react";
 import {
   controlledBubbleMenuClasses,
+  type ControlledBubbleMenuClassKey,
   type ControlledBubbleMenuClasses,
 } from "./ControlledBubbleMenu.classes";
 import { getComponentName } from "./styles";
@@ -112,7 +113,7 @@ const componentName = getComponentName("ControlledBubbleMenu");
 
 const ControlledBubbleMenuRoot = styled(Popper, {
   name: componentName,
-  slot: "root",
+  slot: "root" satisfies ControlledBubbleMenuClassKey,
   overridesResolver: (props, styles) => styles.root,
 })(({ theme }) => ({
   // Ensure the bubble menu is above modals, in case the editor is rendered in
@@ -124,7 +125,7 @@ const ControlledBubbleMenuRoot = styled(Popper, {
 
 const ControlledBubbleMenuPaper = styled(Paper, {
   name: componentName,
-  slot: "paper",
+  slot: "paper" satisfies ControlledBubbleMenuClassKey,
   overridesResolver: (props, styles) => styles.paper,
 })(({ theme }) => ({
   backgroundColor: theme.palette.background.default,
