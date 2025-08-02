@@ -22,7 +22,7 @@ importers:
         version: 4.9.18(@emotion/react@11.14.0(@types/react@18.3.23)(react@18.3.1))(@mui/material@7.2.0(@emotion/react@11.14.0(@types/react@18.3.23)(react@18.3.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@18.3.23)(react@18.3.1))(@types/react@18.3.23)(react@18.3.1))(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react@18.3.23)(react@18.3.1)
       type-fest:
         specifier: ^3.12.0
-        version: 3.12.0
+        version: 3.13.1
     devDependencies:
       '@emotion/react':
         specifier: ^11.11.0
@@ -3566,8 +3566,8 @@ packages:
     resolution: {integrity: sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==}
     engines: {node: '>= 0.8.0'}
 
-  type-fest@3.12.0:
-    resolution: {integrity: sha512-qj9wWsnFvVEMUDbESiilKeXeHL7FwwiFcogfhfyjmvT968RXSvnl23f1JOClTHYItsi7o501C/7qVllscUP3oA==}
+  type-fest@3.13.1:
+    resolution: {integrity: sha512-tLq3bSNx+xSpwvAJnzrK0Ep5CLNWjvFTOp71URMaAEWBfRb9nnJiBoUe0tF8bI4ZFO3omgBR6NvnbzVUT3Ly4g==}
     engines: {node: '>=14.16'}
 
   typed-array-buffer@1.0.3:
@@ -7390,7 +7390,7 @@ snapshots:
     dependencies:
       prelude-ls: 1.2.1
 
-  type-fest@3.12.0: {}
+  type-fest@3.13.1: {}
 
   typed-array-buffer@1.0.3:
     dependencies:
