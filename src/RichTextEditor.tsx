@@ -15,7 +15,19 @@ import RichTextField, { type RichTextFieldProps } from "./RichTextField";
 // (https://github.com/ueberdosis/tiptap/commit/df5609cdff27f97e11860579a7af852cf3e50ce5#diff-13acb5e551812e195c1140c10ba5ac298a0005996d07756cfd77c2d4194cb350R16),
 // as well as Tiptap <2.5 where `useEditor` used the `EditorOptions` type and
 // `UseEditorOptions` didn't yet exist.
-export type UseEditorOptions = NonNullable<Parameters<typeof useEditor>[0]>;
+type BaseUseEditorOptions = NonNullable<Parameters<typeof useEditor>[0]>;
+export type UseEditorOptions =
+  "shouldRerenderOnTransaction" extends keyof BaseUseEditorOptions
+    ? BaseUseEditorOptions
+    : BaseUseEditorOptions & {
+        /**
+         * In Tiptap v3 and later v2 versions, this controls whether React
+         * rerenders on every transaction. It's added here as a shim for older
+         * Tiptap v2 versions that don't include it in the type, where the
+         * parameter will be ignored.
+         */
+        shouldRerenderOnTransaction?: boolean;
+      };
 
 export interface RichTextEditorProps
   extends SetRequired<Partial<UseEditorOptions>, "extensions"> {
@@ -102,14 +114,12 @@ const RichTextEditor = forwardRef<RichTextEditorRef, RichTextEditorProps>(
     }: RichTextEditorProps,
     ref,
   ) {
-    const editor = useEditor(
-      {
-        shouldRerenderOnTransaction,
-        editable,
-        ...editorOptions,
-      },
-      editorDependencies,
-    );
+    const mergedEditorOptions = {
+      editable,
+      shouldRerenderOnTransaction,
+      ...editorOptions,
+    } satisfies UseEditorOptions;
+    const editor = useEditor(mergedEditorOptions, editorDependencies);
 
     // Allow consumers of this component to access the editor via ref
     useImperativeHandle<RichTextEditorRef, RichTextEditorRef>(
