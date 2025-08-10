@@ -26,9 +26,9 @@ jobs:
       matrix:
         node-version: [20]
         # Test across different versions of Tiptap to ensure compatibility: the
-        # version used in our lockfile, an older version we support, and the
-        # latest v2 version.
-        tiptap-version: [null, 2.0.4, "^2.10.0"]
+        # version used in our lockfile, an older version we support, the latest
+        # v2 version, and the latest v3 major.
+        tiptap-version: [null, 2.0.4, "^2.10.0", "^3.0.0"]
         include:
           - tiptap-version: 2.0.4
             # Specify the version of y-prosemirror to use to ensure proper peer

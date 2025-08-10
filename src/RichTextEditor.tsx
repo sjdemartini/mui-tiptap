@@ -92,13 +92,20 @@ const RichTextEditor = forwardRef<RichTextEditorRef, RichTextEditorProps>(
       editorDependencies = [],
       // We default to `editable=true` just like `useEditor` does
       editable = true,
+      // In Tiptap v3, shouldRerenderOnTransaction is `false` by default, but
+      // this package currently relies on rerenders to keep controls/children
+      // reactive, as was the behavior in v2. Enabling here preserves v2
+      // behavior without requiring consumer changes, and including it should be
+      // harmless in v2 versions that predate this option.
+      shouldRerenderOnTransaction = true,
       ...editorOptions
     }: RichTextEditorProps,
     ref,
   ) {
     const editor = useEditor(
       {
-        editable: editable,
+        shouldRerenderOnTransaction,
+        editable,
         ...editorOptions,
       },
       editorDependencies,
