@@ -53,20 +53,26 @@ export default function App() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             mui-tiptap
           </Typography>
-          <Button
-            onClick={() => {
-              setDialogOpen(true);
-            }}
-          >
-            View in a dialog
-          </Button>
-          <IconButton onClick={togglePaletteMode} color="inherit">
-            {theme.palette.mode === "dark" ? (
-              <Brightness7Icon />
-            ) : (
-              <Brightness4Icon />
-            )}
-          </IconButton>
+
+          <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
+            <Button
+              onClick={() => {
+                setDialogOpen(true);
+              }}
+              variant="text"
+              size="small"
+              color="inherit"
+            >
+              View in a dialog
+            </Button>
+            <IconButton onClick={togglePaletteMode} color="inherit">
+              {theme.palette.mode === "dark" ? (
+                <Brightness7Icon />
+              ) : (
+                <Brightness4Icon />
+              )}
+            </IconButton>
+          </Box>
         </Toolbar>
       </AppBar>
 
