@@ -122,7 +122,14 @@ const RichTextEditor = forwardRef<RichTextEditorRef, RichTextEditorProps>(
 
     // Update editable state if/when it changes
     useEffect(() => {
-      if (!editor || editor.isDestroyed || editor.isEditable === editable) {
+      if (
+        // Tiptap v2 allowed `useEditor` to return undefined, so we keep the
+        // defensive check here.
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        !editor ||
+        editor.isDestroyed ||
+        editor.isEditable === editable
+      ) {
         return;
       }
       // We use queueMicrotask to avoid any flushSync console errors as

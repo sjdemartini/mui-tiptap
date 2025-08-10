@@ -34,6 +34,9 @@ function RichTextReadOnlyInternal({
   const previousContent = useRef(editorOptions.content);
   useEffect(() => {
     if (
+      // Tiptap v2 allowed `useEditor` to return undefined, so we keep the
+      // defensive check here.
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       !editor ||
       editor.isDestroyed ||
       editorOptions.content === undefined ||
