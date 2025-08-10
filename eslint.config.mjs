@@ -36,7 +36,10 @@ export default tseslint.config(
     },
 
     linterOptions: {
-      reportUnusedDisableDirectives: "warn",
+      // If we're testing against Tiptap v2, we also disable some rules below,
+      // leaving some "unused" directives, so don't warn about them.
+      reportUnusedDisableDirectives:
+        process.env.TIPTAP_MAJOR === "2" ? "off" : "warn",
     },
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -193,6 +196,13 @@ export default tseslint.config(
       ],
 
       "tss-unused-classes/unused-classes": "warn",
+
+      // Conditionally relax rules when testing against Tiptap v2 in CI
+      ...(process.env.TIPTAP_MAJOR === "2"
+        ? {
+            "@typescript-eslint/no-unnecessary-condition": "off",
+          }
+        : {}),
     },
   },
 );

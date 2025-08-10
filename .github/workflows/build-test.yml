@@ -37,6 +37,10 @@ jobs:
             y-prosemirror-version: 1.0.20
           - tiptap-version: "^2.10.0"
             y-prosemirror-version: ^1.2.15
+    env:
+      # Note that we also use this env var in our eslint config, to ignore some
+      # overly strict lints when testing builds against older Tiptap versions.
+      TIPTAP_MAJOR: ${{ (startsWith(matrix.tiptap-version, '2.') || startsWith(matrix.tiptap-version, '^2')) && '2' || '3' }}
 
     steps:
       - name: Checkout repo
@@ -56,7 +60,7 @@ jobs:
       - name: Dependencies audit
         run: pnpm audit --audit-level=high
 
-      - if: ${{ matrix.tiptap-version != null && (startsWith(matrix.tiptap-version, '2.') || startsWith(matrix.tiptap-version, '^2')) }}
+      - if: ${{ env.TIPTAP_MAJOR == '2' }}
         name: Swap out v3-specific dependencies for v2 versions
         run: |
           pnpm remove -D "@tiptap/extension-collaboration-caret"
