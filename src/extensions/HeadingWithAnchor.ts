@@ -32,10 +32,11 @@ export type HeadingWithAnchorOptions = HeadingOptions & {
 const HeadingWithAnchor = Heading.extend<HeadingWithAnchorOptions>({
   addOptions() {
     return {
-      // Tiptap claims this.parent can be undefined, so disable this eslint rule
-      // https://tiptap.dev/guide/custom-extensions/#extend-existing-attributes
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-      ...this.parent?.(),
+      // Tiptap claims and TS indicates that `this.parent` can be undefined
+      // (https://tiptap.dev/docs/editor/extensions/custom-extensions/extend-existing#extend-existing-attributes),
+      // but `Heading` does define `addOptions`, so add a type cast
+      // (https://github.com/ueberdosis/tiptap/blob/7b4e6f5d11f8213e43d8eab4299f407f79eeb515/packages/extension-heading/src/heading.ts#L50-L55).
+      ...(this.parent?.() as HeadingOptions),
       scrollToAnchorOnMount: true,
     };
   },
@@ -96,7 +97,7 @@ export function scrollToCurrentHeadingAnchor(editor: Editor) {
 
   // We'll only scroll if the given hash points to an element that's part of our
   // editor content (i.e., ignore external anchors)
-  if (elementForHash && editor.options.element.contains(elementForHash)) {
+  if (elementForHash && editor.options.element?.contains(elementForHash)) {
     elementForHash.scrollIntoView({
       behavior: "smooth",
       block: "start",

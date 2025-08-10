@@ -37,10 +37,11 @@ export type ResizableImageOptions = ImageOptions & {
 const ResizableImage = Image.extend<ResizableImageOptions>({
   addOptions() {
     return {
-      // Tiptap claims this.parent can be undefined, so disable this eslint rule
-      // https://tiptap.dev/guide/custom-extensions/#extend-existing-attributes
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-      ...this.parent?.(),
+      // Tiptap claims and TS indicates that `this.parent` can be undefined
+      // (https://tiptap.dev/docs/editor/extensions/custom-extensions/extend-existing#extend-existing-attributes),
+      // but `Image` does define `addOptions`, so add a type cast
+      // https://github.com/ueberdosis/tiptap/blob/d230f7ecf311f4b2212258b30b1f54437d3902d7/packages/extension-image/src/image.ts#L63-L69
+      ...(this.parent?.() as ImageOptions),
 
       // By default, allow all images where `src` is non-empty
       isAllowedImgSrc: (src: string | null) => {
