@@ -29,11 +29,6 @@ jobs:
         # version used in our lockfile, an older version we support, the latest
         # v2 version, and the latest v3 major.
         tiptap-version: [null, 2.0.4, "^2.10.0", "^3.0.0"]
-        include:
-          - tiptap-version: 2.0.4
-            # Specify the version of y-prosemirror to use to ensure proper peer
-            # dependency compatibility and resolution.
-            y-prosemirror-version: 1.0.20
 
     steps:
       - name: Checkout repo
@@ -53,6 +48,13 @@ jobs:
       - name: Dependencies audit
         run: pnpm audit --audit-level=high
 
+      - if: ${{ matrix.tiptap-version != null && (startsWith(matrix.tiptap-version, '2.') || startsWith(matrix.tiptap-version, '^2')) }}
+        name: Swap out v3-specific dependencies for v2 versions
+        run: |
+          pnpm remove -D "@tiptap/extension-collaboration-caret"
+          pnpm remove -D "@tiptap/y-tiptap"
+          pnpm add -D "@tiptap/extension-collaboration-cursor@${{ matrix.tiptap-version }}"
+
       - if: ${{ matrix.tiptap-version != null }}
         name: Override tiptap version to ${{ matrix.tiptap-version }}
         # So that we can update all tiptap packages at once, we use
@@ -64,10 +66,6 @@ jobs:
           pnpm update -D "@tiptap/*@${{ matrix.tiptap-version }}"
           pnpm add -D "@tiptap/extension-floating-menu@${{ matrix.tiptap-version }}" "@tiptap/extension-bubble-menu@${{ matrix.tiptap-version }}"
           pnpm dedupe
-
-      - if: ${{ matrix.y-prosemirror-version }}
-        name: Override y-prosemirror version to ${{ matrix.y-prosemirror-version }}
-        run: pnpm add -D "y-prosemirror@${{ matrix.y-prosemirror-version }}"
 
       - name: Check for duplicate dependencies
         run: pnpm dedupe --check
