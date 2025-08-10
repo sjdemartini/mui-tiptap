@@ -3,16 +3,24 @@ name: build-test
 permissions:
   contents: read
 
-# Run this for pushes to the main branch and for pull requests, and allow this
-# to be called from other workflows
+# Run this for pushes (from collaborators) and for any pull requests, and allow
+# this to be called from other workflows.
 on:
   push:
-    branches: ["main"]
+    # Scope to only branches (no tags) to avoid duplicate runs for pushes of
+    # tags, handled by `release.yml` with a `workflow_call`.
+    branches:
+      - "**"
   pull_request:
   workflow_call:
 
 jobs:
   build_and_test:
+    # Dedupe PRs from branches created by collaborators within this repo:
+    # - Always run for internal branch `push` (for/before a PR) and
+    # `workflow_call` (releases).
+    # - For `pull_request`, only run when the PR originates from a fork.
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.repository }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
