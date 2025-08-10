@@ -29,6 +29,14 @@ jobs:
         # version used in our lockfile, an older version we support, the latest
         # v2 version, and the latest v3 major.
         tiptap-version: [null, 2.0.4, "^2.10.0", "^3.0.0"]
+        include:
+          # Specify the version of y-prosemirror to use to ensure proper peer
+          # dependency compatibility and resolution on older Tiptap versions.
+          # This package is not a peer in Tiptap v3.
+          - tiptap-version: 2.0.4
+            y-prosemirror-version: 1.0.20
+          - tiptap-version: "^2.10.0"
+            y-prosemirror-version: ^1.2.15
 
     steps:
       - name: Checkout repo
@@ -54,6 +62,10 @@ jobs:
           pnpm remove -D "@tiptap/extension-collaboration-caret"
           pnpm remove -D "@tiptap/y-tiptap"
           pnpm add -D "@tiptap/extension-collaboration-cursor@${{ matrix.tiptap-version }}"
+
+      - if: ${{ matrix.y-prosemirror-version }}
+        name: Install y-prosemirror peer dependency ${{ matrix.y-prosemirror-version }}
+        run: pnpm add -D "y-prosemirror@${{ matrix.y-prosemirror-version }}"
 
       - if: ${{ matrix.tiptap-version != null }}
         name: Override tiptap version to ${{ matrix.tiptap-version }}
