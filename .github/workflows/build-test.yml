@@ -83,7 +83,9 @@ jobs:
           pnpm add -D "@tiptap/extension-floating-menu@${{ matrix.tiptap-version }}" "@tiptap/extension-bubble-menu@${{ matrix.tiptap-version }}"
           pnpm dedupe
 
-      - name: Check for duplicate dependencies
+      # For our current lockfile-managed dependencies, ensure no duplicates
+      - if: ${{ matrix.tiptap-version == null }}
+        name: Check for duplicate dependencies
         run: pnpm dedupe --check
 
       - if: ${{ matrix.tiptap-version == '2.0.4' }}
