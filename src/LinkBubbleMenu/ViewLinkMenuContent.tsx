@@ -1,7 +1,7 @@
 import { Button, DialogActions, Link } from "@mui/material";
 import { getMarkRange, getMarkType, type Editor } from "@tiptap/core";
 import truncate from "lodash/truncate";
-import type { ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 import { makeStyles } from "tss-react/mui";
 import useKeyDown from "../hooks/useKeyDown";
 import truncateMiddle from "../utils/truncateMiddle";
@@ -46,6 +46,16 @@ export default function ViewLinkMenuContent({
   const currentHref =
     (editor.getAttributes("link").href as string | undefined) ?? "";
 
+  // Focus on the first interactive element in the popover when it opens, so
+  // users can use their keyboard to navigate the menu.
+  // (https://accessibleweb.com/question-answer/where-should-keyboard-focus-go-in-modals/).
+  // Without this change, the keyboard focus would still be in the editor, which
+  // means you'd have to use the mouse to interact with the popper menu.
+  const linkRef = useRef<HTMLAnchorElement | null>(null);
+  useEffect(() => {
+    linkRef.current?.focus();
+  }, []);
+
   // If the user presses escape, we should cancel
   useKeyDown("Escape", onCancel);
 
@@ -59,7 +69,7 @@ export default function ViewLinkMenuContent({
       </div>
 
       <div className={classes.linkPreviewText}>
-        <Link href={currentHref} target="_blank" rel="noopener">
+        <Link ref={linkRef} href={currentHref} target="_blank" rel="noopener">
           {/* We truncate in the middle, since the beginning and end of a URL are often the most
             important parts */}
           {truncateMiddle(currentHref, 50)}
