@@ -144,26 +144,23 @@ const MULTIPLE_SIZES_SELECTED_VALUE = "MULTIPLE";
 export default function MenuSelectFontSize(inProps: MenuSelectFontSizeProps) {
   const props = useThemeProps({ props: inProps, name: componentName });
   const {
-    options: propOptions = DEFAULT_FONT_SIZE_SELECT_OPTIONS,
+    // Handle deprecated legacy names for some props
     // eslint-disable-next-line @typescript-eslint/no-deprecated
     sizeOptions,
-    hideUnsetOption = false,
-    unsetOptionLabel: propUnsetOptionLabel = "Default",
+    options = sizeOptions ?? DEFAULT_FONT_SIZE_SELECT_OPTIONS,
     // eslint-disable-next-line @typescript-eslint/no-deprecated
     unsetOptionContent,
-    emptyLabel: propEmptyLabel,
+    unsetOptionLabel = unsetOptionContent ?? "Default",
     // eslint-disable-next-line @typescript-eslint/no-deprecated
     emptyValue,
+    emptyLabel = emptyValue,
+    hideUnsetOption = false,
     classes = {},
     sx,
     ...menuSelectProps
   } = props;
   const editor = useRichTextEditorContext();
 
-  // Handle deprecated legacy names for some props:
-  const emptyLabel = emptyValue ?? propEmptyLabel;
-  const unsetOptionLabel = unsetOptionContent ?? propUnsetOptionLabel;
-  const options = sizeOptions ?? propOptions;
   const optionObjects: FontSizeSelectOptionObject[] = (options ?? []).map(
     (option) => (typeof option === "string" ? { value: option } : option),
   );

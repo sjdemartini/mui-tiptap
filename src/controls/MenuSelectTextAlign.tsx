@@ -167,23 +167,20 @@ const DEFAULT_ALIGNMENT_OPTIONS: TextAlignSelectOption[] = [
 export default function MenuSelectTextAlign(inProps: MenuSelectTextAlignProps) {
   const props = useThemeProps({ props: inProps, name: componentName });
   const {
-    options: propOptions = DEFAULT_ALIGNMENT_OPTIONS,
     emptyLabel = "",
+    // Handle the deprecated name for the `options` prop if present
     // eslint-disable-next-line @typescript-eslint/no-deprecated
     alignmentOptions,
+    options = alignmentOptions?.map((option) => ({
+      ...option,
+      value: option.alignment,
+    })) ?? DEFAULT_ALIGNMENT_OPTIONS,
     classes = {},
     sx,
     ...menuSelectProps
   } = props;
 
   const editor = useRichTextEditorContext();
-
-  // Handle the deprecated name for the `options` prop if present
-  const options =
-    alignmentOptions?.map((option) => ({
-      ...option,
-      value: option.alignment,
-    })) ?? propOptions;
 
   const handleAlignmentSelect: (event: SelectChangeEvent) => void = useCallback(
     (event) => {
