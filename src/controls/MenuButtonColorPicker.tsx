@@ -73,7 +73,7 @@ export interface MenuButtonColorPickerProps
 }
 
 const useStyles = makeStyles({ name: { MenuButtonColorPicker } })((theme) => ({
-  menuButtonIcon: {
+  icon: {
     fontSize: MENU_BUTTON_FONT_SIZE_DEFAULT,
   },
 
@@ -121,9 +121,7 @@ export function MenuButtonColorPicker({
       >
         {children ?? (
           <>
-            {IconComponent && (
-              <IconComponent className={classes.menuButtonIcon} />
-            )}
+            {IconComponent && <IconComponent className={classes.icon} />}
 
             {/* We only show the color indicator if a color has been set. (It's
             effectively "transparent" otherwise, indicating no color has been
@@ -132,7 +130,7 @@ export function MenuButtonColorPicker({
             {!hideColorIndicator && colorValue && (
               <FormatColorBar
                 className={cx(
-                  classes.menuButtonIcon,
+                  classes.icon,
                   classes.colorIndicatorIcon,
                   menuButtonProps.disabled &&
                     classes.colorIndicatorIconDisabled,

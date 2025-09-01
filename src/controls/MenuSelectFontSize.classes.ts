@@ -5,8 +5,8 @@ export interface MenuSelectFontSizeClasses {
   root: string;
   /** Styles applied to the Select input element. */
   selectInput: string;
-  /** Styles applied to the menu button icon. */
-  menuButtonIcon: string;
+  /** Styles applied to the icon shown when no font size is set. */
+  icon: string;
 }
 
 export type MenuSelectFontSizeClassKey = keyof MenuSelectFontSizeClasses;
@@ -14,7 +14,7 @@ export type MenuSelectFontSizeClassKey = keyof MenuSelectFontSizeClasses;
 const menuSelectFontSizeClassKeys = [
   "root",
   "selectInput",
-  "menuButtonIcon",
+  "icon",
 ] as const satisfies ReadonlyArray<MenuSelectFontSizeClassKey>;
 
 export const menuSelectFontSizeClasses: MenuSelectFontSizeClasses =

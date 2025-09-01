@@ -80,6 +80,10 @@ const MenuButtonRoot = styled("span", {
     border: "none",
     padding: 5,
   },
+
+  [`& .${menuButtonClasses.icon}`]: {
+    fontSize: MENU_BUTTON_FONT_SIZE_DEFAULT,
+  },
 }));
 
 /**
@@ -118,11 +122,7 @@ export default function MenuButton(inProps: MenuButtonProps) {
           {children ??
             (IconComponent && (
               <IconComponent
-                className={clsx([
-                  menuButtonClasses.menuButtonIcon,
-                  classes.menuButtonIcon,
-                ])}
-                style={{ fontSize: MENU_BUTTON_FONT_SIZE_DEFAULT }}
+                className={clsx([menuButtonClasses.icon, classes.icon])}
               />
             ))}
         </ToggleButton>
