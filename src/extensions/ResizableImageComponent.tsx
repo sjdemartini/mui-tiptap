@@ -12,7 +12,7 @@ import {
   type ResizableImageComponentClassKey,
   type ResizableImageComponentClasses,
 } from "./ResizableImageComponent.classes";
-import { ResizableImageResizer } from "./ResizableImageResizer";
+import ResizableImageResizer from "./ResizableImageResizer";
 
 // Based on
 // https://github.com/ueberdosis/tiptap/blob/ab4a0e2507b4b92c46d293a0bb06bb00a04af6e0/packages/extension-image/src/image.ts#L47-L59
@@ -33,7 +33,7 @@ interface ResizableImageNode extends ProseMirrorNode {
   attrs: ResizableImageNodeAttributes;
 }
 
-interface Props extends NodeViewProps {
+export interface ResizableImageComponentProps extends NodeViewProps {
   node: ResizableImageNode;
   extension: typeof ResizableImage;
   /** Override or extend existing styles. */
@@ -42,7 +42,8 @@ interface Props extends NodeViewProps {
   sx?: SxProps;
 }
 
-interface ResizableImageComponentOwnerState extends Pick<Props, "selected"> {
+interface ResizableImageComponentOwnerState
+  extends Pick<ResizableImageComponentProps, "selected"> {
   selectedOrResizing: boolean;
 }
 
@@ -105,7 +106,7 @@ const ResizableImageComponentResizer = styled(ResizableImageResizer, {
   },
 }));
 
-function ResizableImageComponent(inProps: Props) {
+function ResizableImageComponent(inProps: ResizableImageComponentProps) {
   const props = useThemeProps({ props: inProps, name: componentName });
   const {
     node,

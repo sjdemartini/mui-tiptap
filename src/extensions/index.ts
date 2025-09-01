@@ -8,13 +8,23 @@ export {
   scrollToCurrentHeadingAnchor,
   type HeadingWithAnchorOptions,
 } from "./HeadingWithAnchor";
-export { default as HeadingWithAnchorComponent } from "./HeadingWithAnchorComponent";
+export {
+  default as HeadingWithAnchorComponent,
+  type HeadingWithAnchorComponentProps,
+} from "./HeadingWithAnchorComponent";
 export { headingWithAnchorComponentClasses } from "./HeadingWithAnchorComponent.classes";
 export {
   default as LinkBubbleMenuHandler,
   type LinkBubbleMenuHandlerStorage,
 } from "./LinkBubbleMenuHandler";
 export { default as ResizableImage } from "./ResizableImage";
-export { default as ResizableImageComponent } from "./ResizableImageComponent";
+export {
+  default as ResizableImageComponent,
+  type ResizableImageComponentProps,
+} from "./ResizableImageComponent";
 export { resizableImageComponentClasses } from "./ResizableImageComponent.classes";
+export {
+  default as ResizableImageResizer,
+  type ResizableImageResizerProps,
+} from "./ResizableImageResizer";
 export { default as TableImproved } from "./TableImproved";

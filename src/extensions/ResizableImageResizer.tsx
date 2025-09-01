@@ -13,7 +13,7 @@ import {
   type ResizableImageResizerClasses,
 } from "./ResizableImageResizer.classes";
 
-type ResizableImageResizerProps = {
+export type ResizableImageResizerProps = {
   className?: string;
   onResize: (event: MouseEvent) => void;
   mouseDown: boolean;
@@ -42,7 +42,9 @@ const ResizableImageResizerRoot = styled("div", {
   cursor: "nwse-resize",
 }));
 
-export function ResizableImageResizer(inProps: ResizableImageResizerProps) {
+export default function ResizableImageResizer(
+  inProps: ResizableImageResizerProps,
+) {
   const props = useThemeProps({ props: inProps, name: componentName });
   const {
     onResize,

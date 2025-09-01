@@ -16,6 +16,7 @@
     "preminor",
     "prepatch",
     "prosemirror",
+    "resizer",
     "selectednode",
     "strikethrough",
     "tinycolor",
