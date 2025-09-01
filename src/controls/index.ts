@@ -2,6 +2,7 @@ export * from "./ColorPicker";
 export * from "./ColorPickerPopper";
 export * from "./ColorSwatchButton";
 export { default as MenuButton, type MenuButtonProps } from "./MenuButton";
+export { menuButtonClasses } from "./MenuButton.classes";
 export {
   default as MenuButtonAddImage,
   type MenuButtonAddImageProps,
@@ -130,26 +131,32 @@ export {
   default as MenuControlsContainer,
   type MenuControlsContainerProps,
 } from "./MenuControlsContainer";
+export { menuControlsContainerClasses } from "./MenuControlsContainer.classes";
 export { default as MenuSelect, type MenuSelectProps } from "./MenuSelect";
+export { menuSelectClasses } from "./MenuSelect.classes";
 export {
   default as MenuSelectFontFamily,
   type FontFamilySelectOption,
   type MenuSelectFontFamilyProps,
 } from "./MenuSelectFontFamily";
+export { menuSelectFontFamilyClasses } from "./MenuSelectFontFamily.classes";
 export {
   default as MenuSelectFontSize,
   type MenuSelectFontSizeProps,
 } from "./MenuSelectFontSize";
+export { menuSelectFontSizeClasses } from "./MenuSelectFontSize.classes";
 export {
   default as MenuSelectHeading,
   type HeadingOptionValue,
   type MenuSelectHeadingProps,
 } from "./MenuSelectHeading";
+export { menuSelectHeadingClasses } from "./MenuSelectHeading.classes";
 export {
   default as MenuSelectTextAlign,
   type MenuSelectTextAlignProps,
   type TextAlignSelectOption,
 } from "./MenuSelectTextAlign";
+export { menuSelectTextAlignClasses } from "./MenuSelectTextAlign.classes";
 export {
   default as TableMenuControls,
   type TableMenuControlsProps,
