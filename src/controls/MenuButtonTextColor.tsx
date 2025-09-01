@@ -3,8 +3,7 @@ import type { Editor } from "@tiptap/core";
 import { useRichTextEditorContext } from "../context";
 import { FormatColorTextNoBar } from "../icons";
 import { getAttributesForEachSelected } from "../utils";
-import {
-  MenuButtonColorPicker,
+import MenuButtonColorPicker, {
   type MenuButtonColorPickerProps,
 } from "./MenuButtonColorPicker";
 
