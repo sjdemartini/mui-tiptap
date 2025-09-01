@@ -39,12 +39,12 @@ export type MenuButtonTooltipProps = {
   /** Where the tooltip should be placed. By default "top" (above). */
   placement?: TooltipProps["placement"];
   /**
+   * @deprecated Use `classes.contentWrapper` instead.
+   *
    * Class applied to the element that contains the children content. We add an
    * intermediary element since Tooltip requires a non-disabled child element in
    * order to render, and we want to allow tooltips to show up even when buttons
    * are disabled.
-   *
-   * @deprecated Use `classes.contentWrapper` instead.
    */
   contentWrapperClassName?: string;
   /** The menu element for which we're showing a tooltip when hovering. */
@@ -154,14 +154,17 @@ export default function MenuButtonTooltip(inProps: MenuButtonTooltipProps) {
       }
       placement={placement}
       arrow
-      className={className}
       sx={sx}
       {...otherTooltipProps}
     >
       {/* Use a span around the children so we show a tooltip even if the
-      element inside is disabled */}
+      element inside is disabled.
+      https://mui.com/material-ui/react-tooltip/#disabled-elements */}
       <MenuButtonTooltipContentWrapper
         className={clsx([
+          // Applying className here is equivalent to if we applied it to the
+          // Tooltip above, since it just forwards the value to its root child.
+          className,
           menuButtonTooltipClasses.contentWrapper,
           classes.contentWrapper,
           contentWrapperClassName,

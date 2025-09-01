@@ -58,17 +58,15 @@ const MenuSelectRoot = styled(Select, {
   },
 
   [`& .${selectClasses.select}`]: {
-    // Increase specificity to override MUI's styles
-    "&&&": {
-      paddingLeft: theme.spacing(1),
-      paddingRight: theme.spacing(3),
-    },
-  },
-
-  [`& .${selectClasses.nativeInput}`]: {
     paddingTop: "3px",
     paddingBottom: "3px",
     fontSize: "0.9em",
+  },
+
+  // Increase specificity to override MUI's styles
+  [`&&& .${selectClasses.select}`]: {
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(3),
   },
 
   [`& .${selectClasses.icon}`]: {
@@ -81,6 +79,14 @@ const MenuSelectRoot = styled(Select, {
   // `styled` wrapper, per https://stackoverflow.com/a/72163115,
   // https://github.com/mui/material-ui/blob/7e90b18d0e21ece648e5074970900b05fea03989/docs/data/material/guides/typescript/typescript.md#complications-with-the-component-prop
 })) as unknown as typeof Select;
+
+const MenuSelectTooltip = styled(MenuButtonTooltip, {
+  name: componentName,
+  slot: "tooltip" satisfies MenuSelectClassKey,
+  overridesResolver: (props, styles) => styles.tooltip,
+})({
+  display: "inline-flex",
+});
 
 /** A Select that is styled to work well with other menu bar controls. */
 export default function MenuSelect<T>(inProps: MenuSelectProps<T>) {
@@ -142,20 +148,13 @@ export default function MenuSelect<T>(inProps: MenuSelectProps<T>) {
   );
 
   return tooltipTitle ? (
-    <MenuButtonTooltip
+    <MenuSelectTooltip
       label={tooltipTitle}
       open={tooltipOpen}
-      classes={{
-        contentWrapper: clsx([menuSelectClasses.tooltip, classes.tooltip]),
-      }}
-      sx={{
-        [`& .${menuSelectClasses.tooltip}`]: {
-          display: "inline-flex",
-        },
-      }}
+      className={clsx([menuSelectClasses.tooltip, classes.tooltip])}
     >
       {select}
-    </MenuButtonTooltip>
+    </MenuSelectTooltip>
   ) : (
     select
   );
