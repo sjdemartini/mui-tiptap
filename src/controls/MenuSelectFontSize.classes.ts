@@ -11,11 +11,9 @@ export interface MenuSelectFontSizeClasses {
 
 export type MenuSelectFontSizeClassKey = keyof MenuSelectFontSizeClasses;
 
-const menuSelectFontSizeClassKeys = [
-  "root",
-  "selectInput",
-  "icon",
-] as const satisfies ReadonlyArray<MenuSelectFontSizeClassKey>;
-
 export const menuSelectFontSizeClasses: MenuSelectFontSizeClasses =
-  getUtilityClasses("MenuSelectFontSize", menuSelectFontSizeClassKeys);
+  getUtilityClasses("MenuSelectFontSize", [
+    "root",
+    "selectInput",
+    "icon",
+  ] satisfies MenuSelectFontSizeClassKey[]);

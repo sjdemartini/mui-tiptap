@@ -9,10 +9,8 @@ export interface MenuSelectFontFamilyClasses {
 
 export type MenuSelectFontFamilyClassKey = keyof MenuSelectFontFamilyClasses;
 
-const menuSelectFontFamilyClassKeys = [
-  "root",
-  "selectInput",
-] as const satisfies ReadonlyArray<MenuSelectFontFamilyClassKey>;
-
 export const menuSelectFontFamilyClasses: MenuSelectFontFamilyClasses =
-  getUtilityClasses("MenuSelectFontFamily", menuSelectFontFamilyClassKeys);
+  getUtilityClasses("MenuSelectFontFamily", [
+    "root",
+    "selectInput",
+  ] satisfies MenuSelectFontFamilyClassKey[]);

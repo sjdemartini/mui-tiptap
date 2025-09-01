@@ -11,11 +11,9 @@ export interface MenuButtonColorPickerClasses {
 
 export type MenuButtonColorPickerClassKey = keyof MenuButtonColorPickerClasses;
 
-const menuButtonColorPickerClassKeys = [
-  "icon",
-  "colorIndicatorIcon",
-  "colorIndicatorIconDisabled",
-] as const satisfies ReadonlyArray<MenuButtonColorPickerClassKey>;
-
 export const menuButtonColorPickerClasses: MenuButtonColorPickerClasses =
-  getUtilityClasses("MenuButtonColorPicker", menuButtonColorPickerClassKeys);
+  getUtilityClasses("MenuButtonColorPicker", [
+    "icon",
+    "colorIndicatorIcon",
+    "colorIndicatorIconDisabled",
+  ] satisfies MenuButtonColorPickerClassKey[]);

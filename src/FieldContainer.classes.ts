@@ -17,16 +17,14 @@ export interface FieldContainerClasses {
 
 export type FieldContainerClassKey = keyof FieldContainerClasses;
 
-const fieldContainerClassKeys = [
-  "root",
-  "outlined",
-  "standard",
-  "focused",
-  "disabled",
-  "notchedOutline",
-] as const satisfies ReadonlyArray<FieldContainerClassKey>;
-
 export const fieldContainerClasses: FieldContainerClasses = getUtilityClasses(
   "FieldContainer",
-  fieldContainerClassKeys,
+  [
+    "root",
+    "outlined",
+    "standard",
+    "focused",
+    "disabled",
+    "notchedOutline",
+  ] satisfies FieldContainerClassKey[],
 );

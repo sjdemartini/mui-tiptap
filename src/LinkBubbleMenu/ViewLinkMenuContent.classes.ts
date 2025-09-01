@@ -9,10 +9,8 @@ export interface ViewLinkMenuContentClasses {
 
 export type ViewLinkMenuContentClassKey = keyof ViewLinkMenuContentClasses;
 
-const viewLinkMenuContentClassKeys = [
-  "root",
-  "linkPreviewText",
-] as const satisfies ReadonlyArray<ViewLinkMenuContentClassKey>;
-
 export const viewLinkMenuContentClasses: ViewLinkMenuContentClasses =
-  getUtilityClasses("ViewLinkMenuContent", viewLinkMenuContentClassKeys);
+  getUtilityClasses("ViewLinkMenuContent", [
+    "root",
+    "linkPreviewText",
+  ] satisfies ViewLinkMenuContentClassKey[]);

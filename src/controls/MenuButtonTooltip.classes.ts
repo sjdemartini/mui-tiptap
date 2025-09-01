@@ -26,12 +26,10 @@ export interface MenuButtonTooltipClasses {
 
 export type MenuButtonTooltipClassKey = keyof MenuButtonTooltipClasses;
 
-const menuButtonTooltipClassKeys = [
-  "titleContainer",
-  "label",
-  "shortcutKey",
-  "contentWrapper",
-] as const satisfies ReadonlyArray<MenuButtonTooltipClassKey>;
-
 export const menuButtonTooltipClasses: MenuButtonTooltipClasses =
-  getUtilityClasses("MenuButtonTooltip", menuButtonTooltipClassKeys);
+  getUtilityClasses("MenuButtonTooltip", [
+    "titleContainer",
+    "label",
+    "shortcutKey",
+    "contentWrapper",
+  ] satisfies MenuButtonTooltipClassKey[]);

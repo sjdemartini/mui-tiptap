@@ -13,14 +13,9 @@ export interface MenuBarClasses {
 
 export type MenuBarClassKey = keyof MenuBarClasses;
 
-const menuBarClassKeys = [
+export const menuBarClasses: MenuBarClasses = getUtilityClasses("MenuBar", [
   "root",
   "sticky",
   "nonSticky",
   "content",
-] as const satisfies ReadonlyArray<MenuBarClassKey>;
-
-export const menuBarClasses: MenuBarClasses = getUtilityClasses(
-  "MenuBar",
-  menuBarClassKeys,
-);
+] satisfies MenuBarClassKey[]);

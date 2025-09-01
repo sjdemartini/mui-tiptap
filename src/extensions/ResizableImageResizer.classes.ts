@@ -7,9 +7,7 @@ export interface ResizableImageResizerClasses {
 
 export type ResizableImageResizerClassKey = keyof ResizableImageResizerClasses;
 
-const resizableImageResizerClassKeys = [
-  "root",
-] as const satisfies ReadonlyArray<ResizableImageResizerClassKey>;
-
 export const resizableImageResizerClasses: ResizableImageResizerClasses =
-  getUtilityClasses("ResizableImageResizer", resizableImageResizerClassKeys);
+  getUtilityClasses("ResizableImageResizer", [
+    "root",
+  ] satisfies ResizableImageResizerClassKey[]);

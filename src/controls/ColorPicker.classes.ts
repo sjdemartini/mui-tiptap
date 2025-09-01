@@ -11,13 +11,11 @@ export interface ColorPickerClasses {
 
 export type ColorPickerClassKey = keyof ColorPickerClasses;
 
-const colorPickerClassKeys = [
-  "gradientPicker",
-  "colorTextInput",
-  "swatchContainer",
-] as const satisfies ReadonlyArray<ColorPickerClassKey>;
-
 export const colorPickerClasses: ColorPickerClasses = getUtilityClasses(
   "ColorPicker",
-  colorPickerClassKeys,
+  [
+    "gradientPicker",
+    "colorTextInput",
+    "swatchContainer",
+  ] satisfies ColorPickerClassKey[],
 );

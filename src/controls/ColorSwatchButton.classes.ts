@@ -11,11 +11,9 @@ export interface ColorSwatchButtonClasses {
 
 export type ColorSwatchButtonClassKey = keyof ColorSwatchButtonClasses;
 
-const colorSwatchButtonClassKeys = [
-  "root",
-  "activeIcon",
-  "colorNotSet",
-] as const satisfies ReadonlyArray<ColorSwatchButtonClassKey>;
-
 export const colorSwatchButtonClasses: ColorSwatchButtonClasses =
-  getUtilityClasses("ColorSwatchButton", colorSwatchButtonClassKeys);
+  getUtilityClasses("ColorSwatchButton", [
+    "root",
+    "activeIcon",
+    "colorNotSet",
+  ] satisfies ColorSwatchButtonClassKey[]);

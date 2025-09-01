@@ -17,16 +17,14 @@ export interface RichTextFieldClasses {
 
 export type RichTextFieldClassKey = keyof RichTextFieldClasses;
 
-const richTextFieldClassKeys = [
-  "root",
-  "standard",
-  "outlined",
-  "menuBar",
-  "menuBarContent",
-  "content",
-] as const satisfies ReadonlyArray<RichTextFieldClassKey>;
-
 export const richTextFieldClasses: RichTextFieldClasses = getUtilityClasses(
   "RichTextField",
-  richTextFieldClassKeys,
+  [
+    "root",
+    "standard",
+    "outlined",
+    "menuBar",
+    "menuBarContent",
+    "content",
+  ] satisfies RichTextFieldClassKey[],
 );

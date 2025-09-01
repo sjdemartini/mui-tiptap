@@ -14,15 +14,10 @@ export interface ResizableImageComponentClasses {
 export type ResizableImageComponentClassKey =
   keyof ResizableImageComponentClasses;
 
-const resizableImageComponentClassKeys = [
-  "imageContainer",
-  "image",
-  "imageSelected",
-  "resizer",
-] as const satisfies ReadonlyArray<ResizableImageComponentClassKey>;
-
 export const resizableImageComponentClasses: ResizableImageComponentClasses =
-  getUtilityClasses(
-    "ResizableImageComponent",
-    resizableImageComponentClassKeys,
-  );
+  getUtilityClasses("ResizableImageComponent", [
+    "imageContainer",
+    "image",
+    "imageSelected",
+    "resizer",
+  ] satisfies ResizableImageComponentClassKey[]);

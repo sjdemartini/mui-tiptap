@@ -11,13 +11,7 @@ export interface LinkBubbleMenuClasses {
 
 export type LinkBubbleMenuClassKey = keyof LinkBubbleMenuClasses;
 
-const linkBubbleMenuClassKeys = [
-  "root",
-  "paper",
-  "content",
-] as const satisfies ReadonlyArray<LinkBubbleMenuClassKey>;
-
 export const linkBubbleMenuClasses: LinkBubbleMenuClasses = getUtilityClasses(
   "LinkBubbleMenu",
-  linkBubbleMenuClassKeys,
+  ["root", "paper", "content"] satisfies LinkBubbleMenuClassKey[],
 );

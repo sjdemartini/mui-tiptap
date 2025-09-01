@@ -9,12 +9,7 @@ export interface MenuButtonClasses {
 
 export type MenuButtonClassKey = keyof MenuButtonClasses;
 
-const menuButtonClassKeys = [
-  "root",
-  "icon",
-] as const satisfies ReadonlyArray<MenuButtonClassKey>;
-
 export const menuButtonClasses: MenuButtonClasses = getUtilityClasses(
   "MenuButton",
-  menuButtonClassKeys,
+  ["root", "icon"] satisfies MenuButtonClassKey[],
 );

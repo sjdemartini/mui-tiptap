@@ -7,9 +7,7 @@ export interface ColorPickerPopperClasses {
 
 export type ColorPickerPopperClassKey = keyof ColorPickerPopperClasses;
 
-const colorPickerPopperClassKeys = [
-  "root",
-] as const satisfies ReadonlyArray<ColorPickerPopperClassKey>;
-
 export const colorPickerPopperClasses: ColorPickerPopperClasses =
-  getUtilityClasses("ColorPickerPopper", colorPickerPopperClassKeys);
+  getUtilityClasses("ColorPickerPopper", [
+    "root",
+  ] satisfies ColorPickerPopperClassKey[]);

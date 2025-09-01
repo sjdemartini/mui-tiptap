@@ -7,9 +7,7 @@ export interface MenuControlsContainerClasses {
 
 export type MenuControlsContainerClassKey = keyof MenuControlsContainerClasses;
 
-const menuControlsContainerClassKeys = [
-  "root",
-] as const satisfies ReadonlyArray<MenuControlsContainerClassKey>;
-
 export const menuControlsContainerClasses: MenuControlsContainerClasses =
-  getUtilityClasses("MenuControlsContainer", menuControlsContainerClassKeys);
+  getUtilityClasses("MenuControlsContainer", [
+    "root",
+  ] satisfies MenuControlsContainerClassKey[]);

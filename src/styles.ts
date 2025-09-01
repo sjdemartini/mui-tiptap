@@ -581,7 +581,7 @@ export function getUtilityClass(componentName: string, slot: string): string {
  */
 export function getUtilityClasses<T extends string>(
   componentName: string,
-  slots: ReadonlyArray<T>,
+  slots: T[],
 ): Record<T, string> {
   const result: Record<string, string> = {};
 
