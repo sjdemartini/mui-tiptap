@@ -30,7 +30,7 @@ interface HeadingNode extends ProseMirrorNode {
   attrs: HeadingNodeAttributes;
 }
 
-interface Props extends NodeViewProps {
+export interface HeadingWithAnchorComponentProps extends NodeViewProps {
   node: HeadingNode;
   extension: typeof Heading;
   /** Override or extend existing styles. */
@@ -113,7 +113,9 @@ const HeadingWithAnchorComponentLinkIcon = styled(LinkIcon, {
   },
 }));
 
-export default function HeadingWithAnchorComponent(inProps: Props) {
+export default function HeadingWithAnchorComponent(
+  inProps: HeadingWithAnchorComponentProps,
+) {
   const props = useThemeProps({ props: inProps, name: componentName });
   const { editor, node, extension, classes = {}, sx } = props;
 
