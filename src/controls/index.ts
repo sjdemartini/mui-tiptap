@@ -46,7 +46,10 @@ export {
   default as MenuButtonCodeBlock,
   type MenuButtonCodeBlockProps,
 } from "./MenuButtonCodeBlock";
-export * from "./MenuButtonColorPicker";
+export {
+  default as MenuButtonColorPicker,
+  type MenuButtonColorPickerProps,
+} from "./MenuButtonColorPicker";
 export {
   default as MenuButtonEditLink,
   type MenuButtonEditLinkProps,

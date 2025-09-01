@@ -6,11 +6,21 @@ import {
   Popper,
   Stack,
   Tooltip,
+  styled,
+  useThemeProps,
   type PopperProps,
+  type SxProps,
+  type Theme,
 } from "@mui/material";
+import { clsx } from "clsx";
 import { useEffect, useState } from "react";
-import { makeStyles } from "tss-react/mui";
+import { getComponentName } from "../styles";
 import { ColorPicker } from "./ColorPicker";
+import {
+  colorPickerPopperClasses,
+  type ColorPickerPopperClassKey,
+  type ColorPickerPopperClasses,
+} from "./ColorPickerPopper.classes";
 import type { MenuButtonColorPickerProps } from "./MenuButtonColorPicker";
 
 export interface ColorPickerPopperBodyProps
@@ -27,8 +37,13 @@ export interface ColorPickerPopperBodyProps
 }
 
 export interface ColorPickerPopperProps
-  extends PopperProps,
-    ColorPickerPopperBodyProps {}
+  extends Omit<PopperProps, "classes">,
+    ColorPickerPopperBodyProps {
+  /** Override or extend existing styles. */
+  classes?: Partial<ColorPickerPopperClasses>;
+  /** Provide custom styles. */
+  sx?: SxProps<Theme>;
+}
 
 // NOTE: This component's state logic is able to be kept simple because the
 // component is unmounted whenever the outer Popper is not open, so we don't
@@ -105,39 +120,52 @@ export function ColorPickerPopperBody({
   );
 }
 
-const useStyles = makeStyles({ name: { ColorPickerPopper } })((theme) => ({
-  root: {
-    // Ensure the popper is above modals, in case the editor is rendered in a
-    // modal, consistent with recommendations here
-    // https://github.com/mui/material-ui/issues/14216. See
-    // https://github.com/sjdemartini/mui-tiptap/issues/206.
-    zIndex: theme.zIndex.tooltip,
-    // This width seems to work well to allow exactly 8 swatches, as well as the
-    // default button content
-    width: 235,
-  },
+const componentName = getComponentName("ColorPickerPopper");
+
+const ColorPickerPopperRoot = styled(Popper, {
+  name: componentName,
+  slot: "root" satisfies ColorPickerPopperClassKey,
+  overridesResolver: (props, styles) => styles.root,
+})(({ theme }) => ({
+  // Ensure the popper is above modals, in case the editor is rendered in a
+  // modal, consistent with recommendations here
+  // https://github.com/mui/material-ui/issues/14216. See
+  // https://github.com/sjdemartini/mui-tiptap/issues/206.
+  zIndex: theme.zIndex.tooltip,
+  // This width seems to work well to allow exactly 8 swatches, as well as the
+  // default button content
+  width: 235,
 }));
 
 /**
  * Renders the ColorPicker inside of a Popper interface, for use with the
  * MenuButtonColorPicker.
  */
-export function ColorPickerPopper({
-  value,
-  onSave,
-  onCancel,
-  swatchColors,
-  ColorPickerProps,
-  labels,
-  ...popperProps
-}: ColorPickerPopperProps) {
-  const { classes, cx } = useStyles();
+export function ColorPickerPopper(inProps: ColorPickerPopperProps) {
+  const props = useThemeProps({ props: inProps, name: componentName });
+  const {
+    value,
+    onSave,
+    onCancel,
+    swatchColors,
+    ColorPickerProps,
+    labels,
+    classes = {},
+    sx,
+    ...popperProps
+  } = props;
+
   return (
-    <Popper
+    <ColorPickerPopperRoot
       transition
       placement="bottom-start"
       {...popperProps}
-      className={cx(classes.root, popperProps.className)}
+      className={clsx([
+        colorPickerPopperClasses.root,
+        classes.root,
+        popperProps.className,
+      ])}
+      sx={sx}
     >
       {({ TransitionProps }) => (
         <Fade {...TransitionProps} timeout={100}>
@@ -166,6 +194,6 @@ export function ColorPickerPopper({
           </div>
         </Fade>
       )}
-    </Popper>
+    </ColorPickerPopperRoot>
   );
 }
