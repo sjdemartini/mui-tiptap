@@ -9,8 +9,8 @@ export interface MenuSelectTextAlignClasses {
   menuItem: string;
   /** Styles applied to the content wrapper inside each menu item. */
   menuOption: string;
-  /** Styles applied to the menu button icon. */
-  menuButtonIcon: string;
+  /** Styles applied to the menu option icon. */
+  icon: string;
 }
 
 export type MenuSelectTextAlignClassKey = keyof MenuSelectTextAlignClasses;
@@ -20,7 +20,7 @@ const menuSelectTextAlignClassKeys = [
   "selectInput",
   "menuItem",
   "menuOption",
-  "menuButtonIcon",
+  "icon",
 ] as const satisfies ReadonlyArray<MenuSelectTextAlignClassKey>;
 
 export const menuSelectTextAlignClasses: MenuSelectTextAlignClasses =

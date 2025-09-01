@@ -99,7 +99,7 @@ const MenuSelectFontSizeRoot = styled(MenuSelect<string>, {
     alignItems: "center",
   },
 
-  [`& .${menuSelectFontSizeClasses.menuButtonIcon}`]: {
+  [`& .${menuSelectFontSizeClasses.icon}`]: {
     fontSize: MENU_BUTTON_FONT_SIZE_DEFAULT,
   },
 }));
@@ -235,10 +235,7 @@ export default function MenuSelectFontSize(inProps: MenuSelectFontSizeProps) {
           return (
             emptyLabel ?? (
               <FormatSize
-                className={clsx([
-                  menuSelectFontSizeClasses.menuButtonIcon,
-                  classes.menuButtonIcon,
-                ])}
+                className={clsx([menuSelectFontSizeClasses.icon, classes.icon])}
               />
             )
           );

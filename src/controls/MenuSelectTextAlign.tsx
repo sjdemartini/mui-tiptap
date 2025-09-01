@@ -6,8 +6,10 @@ import {
   MenuItem,
   styled,
   useThemeProps,
+  type CSSObject,
   type SelectChangeEvent,
   type SxProps,
+  type Theme,
 } from "@mui/material";
 import { clsx } from "clsx";
 import { useCallback, useMemo } from "react";
@@ -96,6 +98,30 @@ export type MenuSelectTextAlignProps = Except<
 
 const componentName = getComponentName("MenuSelectTextAlign");
 
+const sharedChildrenStyles = (theme: Theme): Record<string, CSSObject> => ({
+  // TODO(Steven DeMartini): Once we support `slots`, we can use a `styled`
+  // component to apply these styles directly to the menuOption, rather than
+  // using a child selector, by overriding the component for the
+  // MenuButtonTooltip's contentWrapper slot.
+  [`& .${menuSelectTextAlignClasses.menuOption}`]: {
+    // These styles ensure the item fills its MenuItem container, and the
+    // tooltip appears in the same place when hovering over the item generally
+    // (not just the text of the item)
+    display: "flex",
+    width: "100%",
+    justifyContent: "center",
+  },
+
+  [`& .${menuSelectTextAlignClasses.icon}`]: {
+    fontSize: MENU_BUTTON_FONT_SIZE_DEFAULT,
+    // For consistency with toggle button default icon color and the Select
+    // dropdown arrow icon color
+    // https://github.com/mui/material-ui/blob/2cb9664b16d5a862a3796add7c8e3b088b47acb5/packages/mui-material/src/ToggleButton/ToggleButton.js#L60,
+    // https://github.com/mui/material-ui/blob/0b7beb93c9015da6e35c2a31510f679126cf0de1/packages/mui-material/src/NativeSelect/NativeSelectInput.js#L96
+    color: theme.palette.action.active,
+  },
+});
+
 const MenuSelectTextAlignRoot = styled(MenuSelect<string>, {
   name: componentName,
   slot: "root" satisfies MenuSelectTextAlignClassKey,
@@ -109,33 +135,19 @@ const MenuSelectTextAlignRoot = styled(MenuSelect<string>, {
     width: MENU_BUTTON_FONT_SIZE_DEFAULT,
   },
 
-  [`& .${menuSelectTextAlignClasses.menuOption}`]: {
-    // These styles ensure the item fills its MenuItem container, and the
-    // tooltip appears in the same place when hovering over the item generally
-    // (not just the text of the item)
-    display: "flex",
-    width: "100%",
-    justifyContent: "center",
-  },
-
-  [`& .${menuSelectTextAlignClasses.menuButtonIcon}`]: {
-    fontSize: MENU_BUTTON_FONT_SIZE_DEFAULT,
-    // For consistency with toggle button default icon color and the Select
-    // dropdown arrow icon color
-    // https://github.com/mui/material-ui/blob/2cb9664b16d5a862a3796add7c8e3b088b47acb5/packages/mui-material/src/ToggleButton/ToggleButton.js#L60,
-    // https://github.com/mui/material-ui/blob/0b7beb93c9015da6e35c2a31510f679126cf0de1/packages/mui-material/src/NativeSelect/NativeSelectInput.js#L96
-    color: theme.palette.action.active,
-  },
+  ...sharedChildrenStyles(theme),
 }));
 
 const MenuSelectTextAlignMenuItem = styled(MenuItem, {
   name: componentName,
   slot: "menuItem" satisfies MenuSelectTextAlignClassKey,
   overridesResolver: (props, styles) => styles.menuItem,
-})({
+})(({ theme }) => ({
   paddingLeft: 0,
   paddingRight: 0,
-});
+
+  ...sharedChildrenStyles(theme),
+}));
 
 const DEFAULT_ALIGNMENT_OPTIONS: TextAlignSelectOption[] = [
   {
@@ -233,10 +245,7 @@ export default function MenuSelectTextAlign(inProps: MenuSelectTextAlignProps) {
           );
           content = alignmentOptionForValue ? (
             <alignmentOptionForValue.IconComponent
-              className={clsx([
-                menuSelectTextAlignClasses.menuButtonIcon,
-                classes.menuButtonIcon,
-              ])}
+              className={clsx([menuSelectTextAlignClasses.icon, classes.icon])}
             />
           ) : (
             value
@@ -302,8 +311,8 @@ export default function MenuSelectTextAlign(inProps: MenuSelectTextAlignProps) {
             >
               <alignmentOption.IconComponent
                 className={clsx([
-                  menuSelectTextAlignClasses.menuButtonIcon,
-                  classes.menuButtonIcon,
+                  menuSelectTextAlignClasses.icon,
+                  classes.icon,
                 ])}
               />
             </MenuButtonTooltip>
