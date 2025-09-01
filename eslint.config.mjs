@@ -6,7 +6,6 @@ import jsxA11y from "eslint-plugin-jsx-a11y";
 import reactPlugin from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
-import tssUnusedClasses from "eslint-plugin-tss-unused-classes";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 
@@ -32,7 +31,6 @@ export default tseslint.config(
     plugins: {
       "react-hooks": reactHooks,
       "react-refresh": reactRefresh,
-      "tss-unused-classes": tssUnusedClasses,
     },
 
     linterOptions: {
@@ -205,8 +203,6 @@ export default tseslint.config(
           allowConstantExport: true,
         },
       ],
-
-      "tss-unused-classes/unused-classes": "warn",
 
       // Conditionally relax rules when testing against Tiptap v2 in CI
       ...(process.env.TIPTAP_MAJOR === "2"
