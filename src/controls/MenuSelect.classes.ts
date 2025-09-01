@@ -9,12 +9,7 @@ export interface MenuSelectClasses {
 
 export type MenuSelectClassKey = keyof MenuSelectClasses;
 
-const menuSelectClassKeys = [
-  "root",
-  "tooltip",
-] as const satisfies ReadonlyArray<MenuSelectClassKey>;
-
 export const menuSelectClasses: MenuSelectClasses = getUtilityClasses(
   "MenuSelect",
-  menuSelectClassKeys,
+  ["root", "tooltip"] satisfies MenuSelectClassKey[],
 );

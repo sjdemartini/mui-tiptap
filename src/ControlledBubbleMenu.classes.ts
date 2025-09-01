@@ -9,10 +9,8 @@ export interface ControlledBubbleMenuClasses {
 
 export type ControlledBubbleMenuClassKey = keyof ControlledBubbleMenuClasses;
 
-const controlledBubbleMenuClassKeys = [
-  "root",
-  "paper",
-] as const satisfies ReadonlyArray<ControlledBubbleMenuClassKey>;
-
 export const controlledBubbleMenuClasses: ControlledBubbleMenuClasses =
-  getUtilityClasses("ControlledBubbleMenu", controlledBubbleMenuClassKeys);
+  getUtilityClasses("ControlledBubbleMenu", [
+    "root",
+    "paper",
+  ] satisfies ControlledBubbleMenuClassKey[]);

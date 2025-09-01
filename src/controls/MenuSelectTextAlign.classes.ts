@@ -15,13 +15,11 @@ export interface MenuSelectTextAlignClasses {
 
 export type MenuSelectTextAlignClassKey = keyof MenuSelectTextAlignClasses;
 
-const menuSelectTextAlignClassKeys = [
-  "root",
-  "selectInput",
-  "menuItem",
-  "menuOption",
-  "icon",
-] as const satisfies ReadonlyArray<MenuSelectTextAlignClassKey>;
-
 export const menuSelectTextAlignClasses: MenuSelectTextAlignClasses =
-  getUtilityClasses("MenuSelectTextAlign", menuSelectTextAlignClassKeys);
+  getUtilityClasses("MenuSelectTextAlign", [
+    "root",
+    "selectInput",
+    "menuItem",
+    "menuOption",
+    "icon",
+  ] satisfies MenuSelectTextAlignClassKey[]);

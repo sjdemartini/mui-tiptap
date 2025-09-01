@@ -14,15 +14,10 @@ export interface HeadingWithAnchorComponentClasses {
 export type HeadingWithAnchorComponentClassKey =
   keyof HeadingWithAnchorComponentClasses;
 
-const headingWithAnchorComponentClassKeys = [
-  "root",
-  "container",
-  "link",
-  "linkIcon",
-] as const satisfies ReadonlyArray<HeadingWithAnchorComponentClassKey>;
-
 export const headingWithAnchorComponentClasses: HeadingWithAnchorComponentClasses =
-  getUtilityClasses(
-    "HeadingWithAnchorComponent",
-    headingWithAnchorComponentClassKeys,
-  );
+  getUtilityClasses("HeadingWithAnchorComponent", [
+    "root",
+    "container",
+    "link",
+    "linkIcon",
+  ] satisfies HeadingWithAnchorComponentClassKey[]);

@@ -11,13 +11,7 @@ export interface TableBubbleMenuClasses {
 
 export type TableBubbleMenuClassKey = keyof TableBubbleMenuClasses;
 
-const tableBubbleMenuClassKeys = [
-  "root",
-  "paper",
-  "content",
-] as const satisfies ReadonlyArray<TableBubbleMenuClassKey>;
-
 export const tableBubbleMenuClasses: TableBubbleMenuClasses = getUtilityClasses(
   "TableBubbleMenu",
-  tableBubbleMenuClassKeys,
+  ["root", "paper", "content"] satisfies TableBubbleMenuClassKey[],
 );

@@ -30,19 +30,17 @@ export interface MenuSelectHeadingClasses {
 
 export type MenuSelectHeadingClassKey = keyof MenuSelectHeadingClasses;
 
-const menuSelectHeadingClassKeys = [
-  "root",
-  "selectInput",
-  "menuOption",
-  "paragraphOption",
-  "headingOption",
-  "headingOption1",
-  "headingOption2",
-  "headingOption3",
-  "headingOption4",
-  "headingOption5",
-  "headingOption6",
-] as const satisfies ReadonlyArray<MenuSelectHeadingClassKey>;
-
 export const menuSelectHeadingClasses: MenuSelectHeadingClasses =
-  getUtilityClasses("MenuSelectHeading", menuSelectHeadingClassKeys);
+  getUtilityClasses("MenuSelectHeading", [
+    "root",
+    "selectInput",
+    "menuOption",
+    "paragraphOption",
+    "headingOption",
+    "headingOption1",
+    "headingOption2",
+    "headingOption3",
+    "headingOption4",
+    "headingOption5",
+    "headingOption6",
+  ] satisfies MenuSelectHeadingClassKey[]);

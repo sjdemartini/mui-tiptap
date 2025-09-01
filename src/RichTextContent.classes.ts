@@ -11,13 +11,7 @@ export interface RichTextContentClasses {
 
 export type RichTextContentClassKey = keyof RichTextContentClasses;
 
-const richTextContentClassKeys = [
-  "root",
-  "readonly",
-  "editable",
-] as const satisfies ReadonlyArray<RichTextContentClassKey>;
-
 export const richTextContentClasses: RichTextContentClasses = getUtilityClasses(
   "RichTextContent",
-  richTextContentClassKeys,
+  ["root", "readonly", "editable"] satisfies RichTextContentClassKey[],
 );
