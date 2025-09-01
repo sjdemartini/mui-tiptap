@@ -98,10 +98,14 @@ const MenuSelectFontSizeRoot = styled(MenuSelect<string>, {
     display: "flex",
     alignItems: "center",
   },
+}));
 
-  [`& .${menuSelectFontSizeClasses.icon}`]: {
-    fontSize: MENU_BUTTON_FONT_SIZE_DEFAULT,
-  },
+const MenuSelectFontSizeIcon = styled(FormatSize, {
+  name: componentName,
+  slot: "icon" satisfies MenuSelectFontSizeClassKey,
+  overridesResolver: (props, styles) => styles.icon,
+})(() => ({
+  fontSize: MENU_BUTTON_FONT_SIZE_DEFAULT,
 }));
 
 const DEFAULT_FONT_SIZE_SELECT_OPTIONS: MenuSelectFontSizeProps["options"] = [
@@ -234,7 +238,7 @@ export default function MenuSelectFontSize(inProps: MenuSelectFontSizeProps) {
           // placeholder value here
           return (
             emptyLabel ?? (
-              <FormatSize
+              <MenuSelectFontSizeIcon
                 className={clsx([menuSelectFontSizeClasses.icon, classes.icon])}
               />
             )

@@ -9,7 +9,6 @@ import {
   type CSSObject,
   type SelectChangeEvent,
   type SxProps,
-  type Theme,
 } from "@mui/material";
 import { clsx } from "clsx";
 import { useCallback, useMemo } from "react";
@@ -98,11 +97,12 @@ export type MenuSelectTextAlignProps = Except<
 
 const componentName = getComponentName("MenuSelectTextAlign");
 
-const sharedChildrenStyles = (theme: Theme): Record<string, CSSObject> => ({
-  // TODO(Steven DeMartini): Once we support `slots`, we can use a `styled`
-  // component to apply these styles directly to the menuOption, rather than
-  // using a child selector, by overriding the component for the
-  // MenuButtonTooltip's contentWrapper slot.
+// TODO(Steven DeMartini): Once we support `slots`
+// (https://github.com/sjdemartini/mui-tiptap/issues/382), we can use a `styled`
+// component to apply these styles directly to the menuOption, rather than using
+// a child selector, by overriding the component for the MenuButtonTooltip's
+// contentWrapper slot.
+const sharedChildrenStyles: Record<string, CSSObject> = {
   [`& .${menuSelectTextAlignClasses.menuOption}`]: {
     // These styles ensure the item fills its MenuItem container, and the
     // tooltip appears in the same place when hovering over the item generally
@@ -111,22 +111,28 @@ const sharedChildrenStyles = (theme: Theme): Record<string, CSSObject> => ({
     width: "100%",
     justifyContent: "center",
   },
+};
 
-  [`& .${menuSelectTextAlignClasses.icon}`]: {
-    fontSize: MENU_BUTTON_FONT_SIZE_DEFAULT,
-    // For consistency with toggle button default icon color and the Select
-    // dropdown arrow icon color
-    // https://github.com/mui/material-ui/blob/2cb9664b16d5a862a3796add7c8e3b088b47acb5/packages/mui-material/src/ToggleButton/ToggleButton.js#L60,
-    // https://github.com/mui/material-ui/blob/0b7beb93c9015da6e35c2a31510f679126cf0de1/packages/mui-material/src/NativeSelect/NativeSelectInput.js#L96
-    color: theme.palette.action.active,
-  },
-});
+// We can use an arbitrary component here ("span"), since we use `as` below with
+// the alignment option's `IconComponent`.
+const MenuSelectTextAlignIcon = styled("span", {
+  name: componentName,
+  slot: "icon" satisfies MenuSelectTextAlignClassKey,
+  overridesResolver: (props, styles) => styles.icon,
+})(({ theme }) => ({
+  fontSize: MENU_BUTTON_FONT_SIZE_DEFAULT,
+  // For consistency with toggle button default icon color and the Select
+  // dropdown arrow icon color
+  // https://github.com/mui/material-ui/blob/2cb9664b16d5a862a3796add7c8e3b088b47acb5/packages/mui-material/src/ToggleButton/ToggleButton.js#L60,
+  // https://github.com/mui/material-ui/blob/0b7beb93c9015da6e35c2a31510f679126cf0de1/packages/mui-material/src/NativeSelect/NativeSelectInput.js#L96
+  color: theme.palette.action.active,
+}));
 
 const MenuSelectTextAlignRoot = styled(MenuSelect<string>, {
   name: componentName,
   slot: "root" satisfies MenuSelectTextAlignClassKey,
   overridesResolver: (props, styles) => styles.root,
-})(({ theme }) => ({
+})({
   [`& .${menuSelectTextAlignClasses.selectInput}`]: {
     // We use a fixed width equal to the size of the menu button icon so that
     // the Select element won't change sizes even if we show the "blank"
@@ -135,19 +141,19 @@ const MenuSelectTextAlignRoot = styled(MenuSelect<string>, {
     width: MENU_BUTTON_FONT_SIZE_DEFAULT,
   },
 
-  ...sharedChildrenStyles(theme),
-}));
+  ...sharedChildrenStyles,
+});
 
 const MenuSelectTextAlignMenuItem = styled(MenuItem, {
   name: componentName,
   slot: "menuItem" satisfies MenuSelectTextAlignClassKey,
   overridesResolver: (props, styles) => styles.menuItem,
-})(({ theme }) => ({
+})({
   paddingLeft: 0,
   paddingRight: 0,
 
-  ...sharedChildrenStyles(theme),
-}));
+  ...sharedChildrenStyles,
+});
 
 const DEFAULT_ALIGNMENT_OPTIONS: TextAlignSelectOption[] = [
   {
@@ -244,7 +250,8 @@ export default function MenuSelectTextAlign(inProps: MenuSelectTextAlignProps) {
             (option) => option.value === value,
           );
           content = alignmentOptionForValue ? (
-            <alignmentOptionForValue.IconComponent
+            <MenuSelectTextAlignIcon
+              as={alignmentOptionForValue.IconComponent}
               className={clsx([menuSelectTextAlignClasses.icon, classes.icon])}
             />
           ) : (
@@ -309,7 +316,8 @@ export default function MenuSelectTextAlign(inProps: MenuSelectTextAlignProps) {
                 ]),
               }}
             >
-              <alignmentOption.IconComponent
+              <MenuSelectTextAlignIcon
+                as={alignmentOption.IconComponent}
                 className={clsx([
                   menuSelectTextAlignClasses.icon,
                   classes.icon,

@@ -80,10 +80,16 @@ const MenuButtonRoot = styled("span", {
     border: "none",
     padding: 5,
   },
+}));
 
-  [`& .${menuButtonClasses.icon}`]: {
-    fontSize: MENU_BUTTON_FONT_SIZE_DEFAULT,
-  },
+// We can use an arbitrary component here ("span"), since we use `as` below with
+// the `IconComponent` prop.
+const MenuButtonIcon = styled("span", {
+  name: componentName,
+  slot: "icon" satisfies MenuButtonClassKey,
+  overridesResolver: (props, styles) => styles.icon,
+})(() => ({
+  fontSize: MENU_BUTTON_FONT_SIZE_DEFAULT,
 }));
 
 /**
@@ -121,7 +127,8 @@ export default function MenuButton(inProps: MenuButtonProps) {
         >
           {children ??
             (IconComponent && (
-              <IconComponent
+              <MenuButtonIcon
+                as={IconComponent}
                 className={clsx([menuButtonClasses.icon, classes.icon])}
               />
             ))}
