@@ -16,6 +16,10 @@ export interface MenuButtonTooltipClasses {
    * We add an intermediary element since Tooltip requires a non-disabled child
    * element in order to render, and we want to allow tooltips to show up even
    * when buttons are disabled.
+   *
+   * This is effectively the "root" element that is rendered in the DOM at the
+   * location of the MenuButtonTooltip, so will also receive the `className`
+   * prop's class name. The tooltip itself will render in a portal.
    */
   contentWrapper: string;
 }
