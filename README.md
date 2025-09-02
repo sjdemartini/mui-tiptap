@@ -58,6 +58,7 @@
     - [`TableImproved`](#tableimproved)
   - [Components](#components)
     - [Controls components](#controls-components)
+- [Style customization](#style-customization)
 - [Localization](#localization)
 - [Tips and suggestions](#tips-and-suggestions)
   - [Choosing your editor `extensions`](#choosing-your-editor-extensions)
@@ -326,6 +327,51 @@ Typically you will define your controls (for `RichTextEditor`’s `renderControl
   {/* Add more controls of your choosing here */}
 </MenuControlsContainer>
 ```
+
+## Style customization
+
+You can override styles in several different ways, following standard [MUI conventions](https://mui.com/material-ui/customization/how-to-customize/). Most notably:
+
+1. Use the `sx` prop with any mui-tiptap component. Example:
+
+   ```tsx
+   <RichTextEditor {...otherProps} sx={{ backgroundColor: "#222" }} />
+   ```
+
+2. Use theme overrides (https://mui.com/material-ui/customization/theme-components/). Example:
+
+   ```ts
+   const theme = createTheme({
+     components: {
+       // Override the behavior for the mui-tiptap `FieldContainer`
+       "MuiTiptap-FieldContainer": {
+         defaultProps: {
+           // If no `variant` value is set, use "standard"
+           variant: "standard",
+         },
+         styleOverrides: {
+           // Apply this background color to the `root` slot
+           root: { backgroundColor: "#222" },
+           // Apply this border style to the `notchedOutline` slot
+           notchedOutline: { borderStyle: "dashed" },
+         },
+         variants: [
+           // When the `disabled` prop is `true`, show a red outline
+           {
+             props: { disabled: true },
+             style: { outline: "1px solid red" },
+           },
+         ],
+       },
+     },
+   });
+   ```
+
+3. Apply styles based on utility class names of mui-tiptap components. These are useful for applying CSS externally, or for nested component styling when using `sx` or `styleOverrides`.
+
+   For instance, for the `RichTextField` component, the `"MuiTiptap-RichTextField-root"` class name is applied to its root element, a separate class will be included on that element based on the current variant (like `"MuiTiptap-RichTextField-outlined"`), and its inner content element gets the `"MuiTiptap-RichTextField-content"` class.
+
+   You can import helper objects from mui-tiptap to avoid hard-coding these, like `import { richTextFieldClasses } from "mui-tiptap";`, and access them like `richTextFieldClasses.content` for the `"MuiTiptap-RichTextField-content"` value.
 
 ## Localization
 
