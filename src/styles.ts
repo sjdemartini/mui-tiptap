@@ -424,8 +424,10 @@ export function getEditorStyles(
     },
 
     // These styles were based on Tiptap's example here
-    // https://tiptap.dev/api/extensions/collaboration-cursor
-    "& .collaboration-cursor__caret": {
+    // https://tiptap.dev/docs/editor/extensions/functionality/collaboration-caret.
+    // We handle both Tiptap v2 "tiptap/extension-collaboration-cursor" and v3
+    // "tiptap/extension-collaboration-caret" class names.
+    "& .collaboration-cursor__caret, & .collaboration-carets__caret": {
       borderLeft: "1px solid #0d0d0d",
       borderRight: "1px solid #0d0d0d",
       marginLeft: "-1px",
@@ -448,20 +450,21 @@ export function getEditorStyles(
       },
 
       // When hovering, show the user's name
-      "&:hover .collaboration-cursor__label": {
-        opacity: 1,
-        // This transition will be used when fading in (after starting to hover), so
-        // keep it brief and with no delay
-        transition: theme.transitions.create("opacity", {
-          delay: 0,
-          duration: 100,
-          easing: "linear",
-        }),
-      },
+      "&:hover .collaboration-cursor__label, &:hover .collaboration-carets__label":
+        {
+          opacity: 1,
+          // This transition will be used when fading in (after starting to hover), so
+          // keep it brief and with no delay
+          transition: theme.transitions.create("opacity", {
+            delay: 0,
+            duration: 100,
+            easing: "linear",
+          }),
+        },
     },
 
     // Render the user name above the caret
-    "& .collaboration-cursor__label": {
+    "& .collaboration-cursor__label, & .collaboration-carets__label": {
       borderRadius: "3px 3px 3px 0",
       color: "#0d0d0d",
       fontSize: 12,
@@ -482,7 +485,7 @@ export function getEditorStyles(
       // behind it
       pointerEvents: "none",
       // Hide the user name by default, so we can transition it in when hovering over
-      // the cursor caret
+      // the caret
       opacity: 0,
       // This transition will be used when fading out after no longer hovering, so
       // delay it a bit longer than default so the name doesn't immediately disappear
@@ -492,7 +495,7 @@ export function getEditorStyles(
         easing: "linear",
       }),
       // So that we initially show the user name above the caret on first render
-      // (e.g. when a user clicks to move their cursor, and on page load), use
+      // (e.g. when a user clicks to move their caret, and on page load), use
       // an animation to delay updating the opacity. We'll then use transitions
       // based on :hover selectors (above) on the caret to let users view the
       // name again while hovering thereafter. We start at fully visible, then
