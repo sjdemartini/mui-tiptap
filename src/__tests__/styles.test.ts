@@ -18,11 +18,8 @@ describe("getComponentName()", () => {
 describe("getUtilityClass()", () => {
   it("returns utility class with component name and slot", () => {
     expect(getUtilityClass("Foo", "root")).toBe("MuiTiptap-Foo-root");
-    expect(getUtilityClass("MenuButton", "disabled")).toBe(
-      "MuiTiptap-MenuButton-disabled",
-    );
-    expect(getUtilityClass("ColorPicker", "popper")).toBe(
-      "MuiTiptap-ColorPicker-popper",
+    expect(getUtilityClass("RichTextField", "content")).toBe(
+      "MuiTiptap-RichTextField-content",
     );
   });
 
