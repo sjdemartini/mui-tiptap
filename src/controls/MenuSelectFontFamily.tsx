@@ -5,7 +5,7 @@ import { clsx } from "clsx";
 import type { ReactNode } from "react";
 import type { Except } from "type-fest";
 import { useRichTextEditorContext } from "../context";
-import { getComponentName } from "../styles";
+import { getUtilityComponentName } from "../styles";
 import { getAttributesForEachSelected } from "../utils/getAttributesForEachSelected";
 import MenuSelect, { type MenuSelectProps } from "./MenuSelect";
 import {
@@ -70,7 +70,7 @@ export type MenuSelectFontFamilyProps = Except<
   sx?: SxProps;
 };
 
-const componentName = getComponentName("MenuSelectFontFamily");
+const componentName = getUtilityComponentName("MenuSelectFontFamily");
 
 const MenuSelectFontFamilyRoot = styled(MenuSelect<string>, {
   name: componentName,

@@ -8,7 +8,7 @@ import {
   type TooltipProps,
 } from "@mui/material";
 import { clsx } from "clsx";
-import { getComponentName } from "../styles";
+import { getUtilityComponentName } from "../styles";
 import { getModShortcutKey } from "../utils/platform";
 import {
   menuButtonTooltipClasses,
@@ -57,7 +57,7 @@ export type MenuButtonTooltipProps = {
   sx?: SxProps;
 } & Pick<TooltipProps, "open" | "onOpen" | "onClose">;
 
-const componentName = getComponentName("MenuButtonTooltip");
+const componentName = getUtilityComponentName("MenuButtonTooltip");
 
 const MenuButtonTooltipTitleContainer = styled("div", {
   name: componentName,

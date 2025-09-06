@@ -13,7 +13,7 @@ import {
 import { clsx } from "clsx";
 import { useCallback, useMemo } from "react";
 import { useRichTextEditorContext } from "../context";
-import { getComponentName } from "../styles";
+import { getUtilityComponentName } from "../styles";
 import MenuButtonTooltip, {
   type MenuButtonTooltipProps,
 } from "./MenuButtonTooltip";
@@ -95,7 +95,7 @@ export type MenuSelectTextAlignProps = Except<
   sx?: SxProps;
 };
 
-const componentName = getComponentName("MenuSelectTextAlign");
+const componentName = getUtilityComponentName("MenuSelectTextAlign");
 
 // TODO(Steven DeMartini): Once we support `slots`
 // (https://github.com/sjdemartini/mui-tiptap/issues/382), we can use a `styled`

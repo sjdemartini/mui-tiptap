@@ -17,7 +17,7 @@ import {
   type ControlledBubbleMenuClassKey,
   type ControlledBubbleMenuClasses,
 } from "./ControlledBubbleMenu.classes";
-import { getComponentName } from "./styles";
+import { getUtilityComponentName } from "./styles";
 
 export type ControlledBubbleMenuProps = Omit<
   PopperProps,
@@ -109,7 +109,7 @@ export type ControlledBubbleMenuProps = Omit<
   PaperProps?: Partial<PaperProps>;
 };
 
-const componentName = getComponentName("ControlledBubbleMenu");
+const componentName = getUtilityComponentName("ControlledBubbleMenu");
 
 const ControlledBubbleMenuRoot = styled(Popper, {
   name: componentName,

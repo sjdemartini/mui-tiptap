@@ -11,7 +11,7 @@ import { clsx } from "clsx";
 import { useCallback, useMemo, type ReactNode } from "react";
 import type { Except } from "type-fest";
 import { useRichTextEditorContext } from "../context";
-import { getComponentName, getEditorStyles } from "../styles";
+import { getEditorStyles, getUtilityComponentName } from "../styles";
 import { getAttributesForEachSelected } from "../utils/getAttributesForEachSelected";
 import MenuButtonTooltip from "./MenuButtonTooltip";
 import MenuSelect, { type MenuSelectProps } from "./MenuSelect";
@@ -64,7 +64,7 @@ export type MenuSelectHeadingProps = Except<
   sx?: SxProps;
 };
 
-const componentName = getComponentName("MenuSelectHeading");
+const componentName = getUtilityComponentName("MenuSelectHeading");
 
 const MenuSelectHeadingRoot = styled(MenuSelect<HeadingOptionValue | "">, {
   name: componentName,

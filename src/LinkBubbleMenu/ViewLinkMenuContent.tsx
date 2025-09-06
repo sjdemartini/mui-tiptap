@@ -11,7 +11,7 @@ import { clsx } from "clsx";
 import truncate from "lodash/truncate";
 import type { ReactNode } from "react";
 import useKeyDown from "../hooks/useKeyDown";
-import { getComponentName } from "../styles";
+import { getUtilityComponentName } from "../styles";
 import truncateMiddle from "../utils/truncateMiddle";
 import {
   viewLinkMenuContentClasses,
@@ -37,7 +37,7 @@ export type ViewLinkMenuContentProps = {
   sx?: SxProps;
 };
 
-const componentName = getComponentName("ViewLinkMenuContent");
+const componentName = getUtilityComponentName("ViewLinkMenuContent");
 
 const ViewLinkMenuContentRoot = styled("div", {
   name: componentName,

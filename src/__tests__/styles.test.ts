@@ -1,17 +1,19 @@
 import { describe, expect, it } from "vitest";
 import {
-  getComponentName,
   getUtilityClass,
   getUtilityClasses,
+  getUtilityComponentName,
 } from "../styles";
 
-describe("getComponentName()", () => {
+describe("getUtilityComponentName()", () => {
   it("returns component name with MuiTiptap prefix", () => {
-    expect(getComponentName("RichTextContent")).toBe(
+    expect(getUtilityComponentName("RichTextContent")).toBe(
       "MuiTiptap-RichTextContent",
     );
-    expect(getComponentName("MenuButton")).toBe("MuiTiptap-MenuButton");
-    expect(getComponentName("ColorPicker")).toBe("MuiTiptap-ColorPicker");
+    expect(getUtilityComponentName("MenuButton")).toBe("MuiTiptap-MenuButton");
+    expect(getUtilityComponentName("ColorPicker")).toBe(
+      "MuiTiptap-ColorPicker",
+    );
   });
 });
 

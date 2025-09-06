@@ -9,7 +9,7 @@ import {
 import { clsx } from "clsx";
 import type { ReactNode, RefObject } from "react";
 import type { Except, SetOptional } from "type-fest";
-import { getComponentName } from "../styles";
+import { getUtilityComponentName } from "../styles";
 import {
   menuButtonClasses,
   type MenuButtonClassKey,
@@ -67,7 +67,7 @@ export interface MenuButtonProps
 
 export const MENU_BUTTON_FONT_SIZE_DEFAULT = "1.25rem";
 
-const componentName = getComponentName("MenuButton");
+const componentName = getUtilityComponentName("MenuButton");
 
 const MenuButtonRoot = styled("span", {
   name: componentName,

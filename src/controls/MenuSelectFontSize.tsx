@@ -6,7 +6,7 @@ import type { ReactNode } from "react";
 import type { Except } from "type-fest";
 import { useRichTextEditorContext } from "../context";
 import type { FontSizeAttrs } from "../extensions/FontSize";
-import { getComponentName } from "../styles";
+import { getUtilityComponentName } from "../styles";
 import { getAttributesForEachSelected } from "../utils/getAttributesForEachSelected";
 import { MENU_BUTTON_FONT_SIZE_DEFAULT } from "./MenuButton";
 import MenuSelect, { type MenuSelectProps } from "./MenuSelect";
@@ -80,7 +80,7 @@ export type MenuSelectFontSizeProps = Except<
   sx?: SxProps;
 };
 
-const componentName = getComponentName("MenuSelectFontSize");
+const componentName = getUtilityComponentName("MenuSelectFontSize");
 
 const MenuSelectFontSizeRoot = styled(MenuSelect<string>, {
   name: componentName,

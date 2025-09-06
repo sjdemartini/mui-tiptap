@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import { clsx } from "clsx";
 import { useEffect, useState } from "react";
-import { getComponentName } from "../styles";
+import { getUtilityComponentName } from "../styles";
 import { ColorPicker } from "./ColorPicker";
 import {
   colorPickerPopperClasses,
@@ -120,7 +120,7 @@ export function ColorPickerPopperBody({
   );
 }
 
-const componentName = getComponentName("ColorPickerPopper");
+const componentName = getUtilityComponentName("ColorPickerPopper");
 
 const ColorPickerPopperRoot = styled(Popper, {
   name: componentName,

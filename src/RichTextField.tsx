@@ -11,7 +11,7 @@ import {
 } from "./RichTextField.classes";
 import { useRichTextEditorContext } from "./context";
 import useDebouncedFocus from "./hooks/useDebouncedFocus";
-import { getComponentName } from "./styles";
+import { getUtilityComponentName } from "./styles";
 import DebounceRender from "./utils/DebounceRender";
 
 export type RichTextFieldProps = Omit<
@@ -75,7 +75,7 @@ interface RichTextFieldOwnerState
     "variant" | "disabled" | "disableDebounceRenderControls"
   > {}
 
-const componentName = getComponentName("RichTextField");
+const componentName = getUtilityComponentName("RichTextField");
 
 const RichTextFieldRoot = styled(FieldContainer, {
   name: componentName,
