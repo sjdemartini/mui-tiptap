@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { clsx } from "clsx";
 import { useState } from "react";
-import { getComponentName } from "../styles";
+import { getUtilityComponentName } from "../styles";
 import MenuButtonTooltip from "./MenuButtonTooltip";
 import {
   menuSelectClasses,
@@ -28,7 +28,7 @@ export interface MenuSelectProps<T>
   sx?: SxProps;
 }
 
-const componentName = getComponentName("MenuSelect");
+const componentName = getUtilityComponentName("MenuSelect");
 
 const MenuSelectRoot = styled(Select, {
   name: componentName,

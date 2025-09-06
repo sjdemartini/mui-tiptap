@@ -9,7 +9,7 @@ import {
   LinkMenuState,
   type LinkBubbleMenuHandlerStorage,
 } from "../extensions/LinkBubbleMenuHandler";
-import { getComponentName } from "../styles";
+import { getUtilityComponentName } from "../styles";
 import EditLinkMenuContent, {
   type EditLinkMenuContentProps,
 } from "./EditLinkMenuContent";
@@ -39,7 +39,7 @@ export interface LinkBubbleMenuProps
   sx?: SxProps;
 }
 
-const componentName = getComponentName("LinkBubbleMenu");
+const componentName = getUtilityComponentName("LinkBubbleMenu");
 
 const LinkBubbleMenuContent = styled("div", {
   name: componentName,

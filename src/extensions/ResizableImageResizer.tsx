@@ -6,7 +6,7 @@ import {
   type Dispatch,
   type SetStateAction,
 } from "react";
-import { getComponentName } from "../styles";
+import { getUtilityComponentName } from "../styles";
 import {
   resizableImageResizerClasses,
   type ResizableImageResizerClassKey,
@@ -24,7 +24,7 @@ export type ResizableImageResizerProps = {
   sx?: SxProps;
 };
 
-const componentName = getComponentName("ResizableImageResizer");
+const componentName = getUtilityComponentName("ResizableImageResizer");
 
 const ResizableImageResizerRoot = styled("div", {
   name: componentName,

@@ -8,7 +8,7 @@ import {
   type RichTextContentClasses,
 } from "./RichTextContent.classes";
 import { useRichTextEditorContext } from "./context";
-import { getComponentName, getEditorStyles } from "./styles";
+import { getEditorStyles, getUtilityComponentName } from "./styles";
 
 export type RichTextContentProps = {
   /** Optional ref to provide to the EditorContent DOM element. */
@@ -40,7 +40,7 @@ interface RichTextContentOwnerState
   editable: boolean;
 }
 
-const componentName = getComponentName("RichTextContent");
+const componentName = getUtilityComponentName("RichTextContent");
 
 const RichTextContentRoot = styled(EditorContent, {
   name: componentName,

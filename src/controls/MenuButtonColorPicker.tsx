@@ -3,7 +3,7 @@ import { clsx } from "clsx";
 import { useState, type ReactNode } from "react";
 import type { Except } from "type-fest";
 import { FormatColorBar } from "../icons";
-import { getComponentName } from "../styles";
+import { getUtilityComponentName } from "../styles";
 import type { ColorPickerProps, SwatchColorOption } from "./ColorPicker";
 import { ColorPickerPopper } from "./ColorPickerPopper";
 import MenuButton, {
@@ -83,7 +83,7 @@ export interface MenuButtonColorPickerProps
 interface MenuButtonColorPickerOwnerState
   extends Pick<MenuButtonColorPickerProps, "disabled"> {}
 
-const componentName = getComponentName("MenuButtonColorPicker");
+const componentName = getUtilityComponentName("MenuButtonColorPicker");
 
 // We can use an arbitrary component here ("span"), since we use `as` below with
 // the `IconComponent` prop.

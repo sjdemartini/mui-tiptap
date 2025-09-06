@@ -542,13 +542,13 @@ export function getImageBackgroundColorStyles(theme: Pick<Theme, "palette">): {
 const COMPONENT_NAME_AND_UTILITY_CLASS_PREFIX = "MuiTiptap-";
 
 /**
- * Get the component name for a given component, used with `styled` to specify
- * the component name used in the MUI `theme` and `styleOverrides`.
+ * Get the utility name for a given component, used with `styled` to specify the
+ * component name used in the MUI `theme` and `styleOverrides`.
  *
  * @param name The name without the prefix, ex: "RichTextContent".
  * @returns The full component name, ex: "MuiTiptap-RichTextContent".
  */
-export function getComponentName(name: string): string {
+export function getUtilityComponentName(name: string): string {
   return `${COMPONENT_NAME_AND_UTILITY_CLASS_PREFIX}${name}`;
 }
 
@@ -567,7 +567,7 @@ export function getComponentName(name: string): string {
  * nested components.
  */
 export function getUtilityClass(componentName: string, slot: string): string {
-  return `${COMPONENT_NAME_AND_UTILITY_CLASS_PREFIX}${componentName}-${slot}`;
+  return `${getUtilityComponentName(componentName)}-${slot}`;
 }
 
 /**

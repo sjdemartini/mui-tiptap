@@ -10,7 +10,7 @@ import type { Node as ProseMirrorNode } from "@tiptap/pm/model";
 import { NodeViewContent, NodeViewWrapper } from "@tiptap/react";
 import { clsx } from "clsx";
 import { useMemo } from "react";
-import { getComponentName } from "../styles";
+import { getUtilityComponentName } from "../styles";
 import slugify from "../utils/slugify";
 import {
   headingWithAnchorComponentClasses,
@@ -39,7 +39,7 @@ export interface HeadingWithAnchorComponentProps extends NodeViewProps {
   sx?: SxProps;
 }
 
-const componentName = getComponentName("HeadingWithAnchorComponent");
+const componentName = getUtilityComponentName("HeadingWithAnchorComponent");
 
 const HeadingWithAnchorComponentRoot = styled(NodeViewWrapper, {
   name: componentName,

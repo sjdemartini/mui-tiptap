@@ -2,7 +2,7 @@ import { TextField, styled, useThemeProps } from "@mui/material";
 import { clsx } from "clsx";
 import { useEffect, useRef } from "react";
 import { HexAlphaColorPicker, HexColorPicker } from "react-colorful";
-import { getComponentName } from "../styles";
+import { getUtilityComponentName } from "../styles";
 import { colorToHex as colorToHexDefault } from "../utils/color";
 import {
   colorPickerClasses,
@@ -124,7 +124,7 @@ export type ColorPickerProps = {
   classes?: Partial<ColorPickerClasses>;
 };
 
-const componentName = getComponentName("ColorPicker");
+const componentName = getUtilityComponentName("ColorPicker");
 
 const StyledHexColorPicker = styled(HexColorPicker, {
   name: componentName,

@@ -1,7 +1,7 @@
 import { Box, styled, useThemeProps, type BoxProps } from "@mui/material";
 import { clsx } from "clsx";
 import type { Except } from "type-fest";
-import { getComponentName } from "../styles";
+import { getUtilityComponentName } from "../styles";
 import DebounceRender, {
   type DebounceRenderProps,
 } from "../utils/DebounceRender";
@@ -38,7 +38,7 @@ export type MenuControlsContainerProps = Except<
   DebounceProps?: Partial<Except<DebounceRenderProps, "children">>;
 };
 
-const componentName = getComponentName("MenuControlsContainer");
+const componentName = getUtilityComponentName("MenuControlsContainer");
 
 const MenuControlsContainerRoot = styled(Box, {
   name: componentName,

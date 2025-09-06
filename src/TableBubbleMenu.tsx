@@ -15,7 +15,7 @@ import TableMenuControls, {
   type TableMenuControlsProps,
 } from "./controls/TableMenuControls";
 import { useDebouncedFocus } from "./hooks";
-import { getComponentName } from "./styles";
+import { getUtilityComponentName } from "./styles";
 import DebounceRender, {
   type DebounceRenderProps,
 } from "./utils/DebounceRender";
@@ -45,7 +45,7 @@ export type TableBubbleMenuProps = {
   Omit<ControlledBubbleMenuProps, "open" | "editor" | "children" | "classes">
 >;
 
-const componentName = getComponentName("TableBubbleMenu");
+const componentName = getUtilityComponentName("TableBubbleMenu");
 
 const TableBubbleMenuContent = styled(TableMenuControls, {
   name: componentName,

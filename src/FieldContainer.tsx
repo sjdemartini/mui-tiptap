@@ -12,7 +12,7 @@ import {
   type FieldContainerClassKey,
   type FieldContainerClasses,
 } from "./FieldContainer.classes";
-import { Z_INDEXES, getComponentName } from "./styles";
+import { Z_INDEXES, getUtilityComponentName } from "./styles";
 
 export type FieldContainerProps = Omit<
   BoxProps,
@@ -39,7 +39,7 @@ export type FieldContainerProps = Omit<
 interface FieldContainerOwnerState
   extends Pick<FieldContainerProps, "variant" | "focused" | "disabled"> {}
 
-const componentName = getComponentName("FieldContainer");
+const componentName = getUtilityComponentName("FieldContainer");
 
 const FieldContainerRoot = styled(Box, {
   name: componentName,

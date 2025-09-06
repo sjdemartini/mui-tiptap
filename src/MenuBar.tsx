@@ -12,7 +12,7 @@ import {
   type MenuBarClassKey,
   type MenuBarClasses,
 } from "./MenuBar.classes";
-import { Z_INDEXES, getComponentName } from "./styles";
+import { Z_INDEXES, getUtilityComponentName } from "./styles";
 
 export type MenuBarProps = Omit<
   CollapseProps,
@@ -59,7 +59,7 @@ interface MenuBarOwnerState
   stickyOffset: NonNullable<MenuBarProps["stickyOffset"]>;
 }
 
-const componentName = getComponentName("MenuBar");
+const componentName = getUtilityComponentName("MenuBar");
 
 const MenuBarRoot = styled(Collapse, {
   name: componentName,

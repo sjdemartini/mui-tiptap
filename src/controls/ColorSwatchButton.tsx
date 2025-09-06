@@ -6,10 +6,10 @@ import {
   type ComponentPropsWithoutRef,
   type ElementRef,
 } from "react";
-import { getComponentName } from "../styles";
+import { getUtilityComponentName } from "../styles";
 import {
-  ColorSwatchButtonClassKey,
   colorSwatchButtonClasses,
+  type ColorSwatchButtonClassKey,
   type ColorSwatchButtonClasses,
 } from "./ColorSwatchButton.classes";
 
@@ -50,7 +50,7 @@ interface ColorSwatchButtonOwnerState
   colorNotSet: boolean;
 }
 
-const componentName = getComponentName("ColorSwatchButton");
+const componentName = getUtilityComponentName("ColorSwatchButton");
 
 const ColorSwatchButtonRoot = styled("button", {
   name: componentName,

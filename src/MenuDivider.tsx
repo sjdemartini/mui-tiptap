@@ -11,7 +11,7 @@ import {
   type MenuDividerClassKey,
   type MenuDividerClasses,
 } from "./MenuDivider.classes";
-import { getComponentName } from "./styles";
+import { getUtilityComponentName } from "./styles";
 
 // The orientation of our menu dividers will always be vertical
 export type MenuDividerProps = Omit<
@@ -26,7 +26,7 @@ export type MenuDividerProps = Omit<
   sx?: SxProps;
 };
 
-const componentName = getComponentName("MenuDivider");
+const componentName = getUtilityComponentName("MenuDivider");
 
 const MenuDividerRoot = styled(Divider, {
   name: componentName,

@@ -5,7 +5,7 @@ import { NodeViewWrapper } from "@tiptap/react";
 import { clsx } from "clsx";
 import throttle from "lodash/throttle";
 import { useMemo, useRef, useState } from "react";
-import { getComponentName } from "../styles";
+import { getUtilityComponentName } from "../styles";
 import type ResizableImage from "./ResizableImage";
 import {
   resizableImageComponentClasses,
@@ -49,7 +49,7 @@ interface ResizableImageComponentOwnerState
 
 const IMAGE_MINIMUM_WIDTH_PIXELS = 15;
 
-const componentName = getComponentName("ResizableImageComponent");
+const componentName = getUtilityComponentName("ResizableImageComponent");
 
 const ResizableImageComponentImageContainer = styled("div", {
   name: componentName,
