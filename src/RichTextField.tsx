@@ -92,6 +92,9 @@ const RichTextFieldRoot = styled(FieldContainer, {
   // This first class is added to allow convenient user overrides. Users can
   // similarly override the other classes below.
 
+  // TODO(Steven DeMartini): We could seemingly switch to using `styled()`
+  // wrappers for the content and menu bar elements, and apply the styles
+  // directly rather than with nested selectors.
   ...(ownerState.variant === "standard" && {
     // We don't need horizontal spacing when not using the outlined variant
     [`& .${richTextFieldClasses.content}`]: {
