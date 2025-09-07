@@ -11,8 +11,13 @@ import { useRichTextEditorContext } from "./context";
 import { getEditorStyles, getUtilityComponentName } from "./styles";
 
 export type RichTextContentProps = {
-  /** Optional ref to provide to the EditorContent DOM element. */
-  innerRef?: EditorContentProps["innerRef"];
+  /**
+   * Optional ref to provide to the EditorContent DOM element.
+   *
+   * Only available in Tiptap >= 2.2.0, hence the conditional type
+   * (https://github.com/ueberdosis/tiptap/commit/fd8d4c090183a0d6106250a4a1c3f522283244e7).
+   */
+  innerRef?: EditorContentProps extends { innerRef?: infer T } ? T : never;
   /**
    * Whether to disable all default styles applied to the rich text content.
    *
@@ -101,7 +106,8 @@ export default function RichTextContent(inProps: RichTextContentProps) {
   return (
     <RichTextContentRoot
       editor={editor}
-      innerRef={innerRef}
+      // Use spread for innerRef to avoid TS errors in Tiptap < 2.2.0
+      {...{ innerRef }}
       ownerState={ownerState}
       className={editorClasses}
       sx={sx}
