@@ -64,20 +64,12 @@ const FieldContainerRoot = styled(Box, {
     padding: 1,
     position: "relative",
 
-    [`&:hover .${fieldContainerClasses.notchedOutline}`]: {
-      borderColor: theme.palette.text.primary,
-    },
-
-    [`&.${fieldContainerClasses.focused} .${fieldContainerClasses.notchedOutline}`]:
-      {
-        borderColor: theme.palette.primary.main,
-        borderWidth: 2,
-      },
-
-    [`&.${fieldContainerClasses.disabled} .${fieldContainerClasses.notchedOutline}`]:
-      {
-        borderColor: theme.palette.action.disabled,
-      },
+    ...(!ownerState.focused &&
+      !ownerState.disabled && {
+        [`&:hover .${fieldContainerClasses.notchedOutline}`]: {
+          borderColor: theme.palette.text.primary,
+        },
+      }),
   }),
 }));
 
@@ -85,7 +77,7 @@ const FieldContainerNotchedOutline = styled("fieldset", {
   name: componentName,
   slot: "notchedOutline" satisfies FieldContainerClassKey,
   overridesResolver: (props, styles) => styles.notchedOutline,
-})<{ ownerState: FieldContainerOwnerState }>(({ theme }) => ({
+})<{ ownerState: FieldContainerOwnerState }>(({ theme, ownerState }) => ({
   position: "absolute",
   inset: 0,
   borderRadius: "inherit",
@@ -98,6 +90,15 @@ const FieldContainerNotchedOutline = styled("fieldset", {
   pointerEvents: "none",
   overflow: "hidden",
   zIndex: Z_INDEXES.NOTCHED_OUTLINE,
+
+  ...(ownerState.focused && {
+    borderColor: theme.palette.primary.main,
+    borderWidth: 2,
+  }),
+
+  ...(ownerState.disabled && {
+    borderColor: theme.palette.action.disabled,
+  }),
 }));
 
 /**

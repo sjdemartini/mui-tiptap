@@ -4,6 +4,11 @@ export {
 } from "./ControlledBubbleMenu";
 export { controlledBubbleMenuClasses } from "./ControlledBubbleMenu.classes";
 export {
+  default as FieldContainer,
+  type FieldContainerProps,
+} from "./FieldContainer";
+export { fieldContainerClasses } from "./FieldContainer.classes";
+export {
   default as LinkBubbleMenu,
   type LinkBubbleMenuProps,
 } from "./LinkBubbleMenu";
