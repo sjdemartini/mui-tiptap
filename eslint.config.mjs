@@ -6,12 +6,22 @@ import jsxA11y from "eslint-plugin-jsx-a11y";
 import reactPlugin from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
+import { defineConfig } from "eslint/config";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 
-export default tseslint.config(
+export default defineConfig(
   {
     ignores: ["**/dist/**", "coverage/**", "**/node_modules/**"],
+  },
+  // Configuration for ESLint config file itself (needs Node.js globals)
+  {
+    files: ["eslint.config.mjs"],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+      },
+    },
   },
   {
     files: ["**/*.{js,jsx,mjs,cjs,ts,tsx}"],
