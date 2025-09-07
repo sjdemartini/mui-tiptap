@@ -332,13 +332,38 @@ Typically you will define your controls (for `RichTextEditor`’s `renderControl
 
 You can override styles in several different ways, following standard [MUI conventions](https://mui.com/material-ui/customization/how-to-customize/). Most notably:
 
-1. Use the `sx` prop with any mui-tiptap component. Example:
+1. Use the [`sx` prop](https://mui.com/system/getting-started/the-sx-prop/) with any mui-tiptap component. Example:
 
    ```tsx
    <RichTextEditor {...otherProps} sx={{ backgroundColor: "#222" }} />
    ```
 
-2. Use theme overrides (https://mui.com/material-ui/customization/theme-components/). Example:
+2. Use class names when rendering a mui-tiptap component, with the `className` and/or `classes` props. `className` applies a class to the root of the component, and `classes` allows for passing class names for various slots and states of the component.
+
+   For example, if you have CSS specified externally like
+
+   ```css
+   .custom-border {
+     border-color: #222;
+   }
+   .custom-content {
+     background-color: #eee;
+   }
+   ```
+
+   you can apply it when rendering a component, such as:
+
+   ```tsx
+   <MenuBar className="custom-border" />
+   ```
+
+   or
+
+   ```tsx
+   <MenuBar classes={{ root: "custom-border", content: "custom-content" }} />
+   ```
+
+3. Use theme overrides (https://mui.com/material-ui/customization/theme-components/). Example:
 
    ```ts
    const theme = createTheme({
@@ -367,7 +392,7 @@ You can override styles in several different ways, following standard [MUI conve
    });
    ```
 
-3. Apply styles based on utility class names of mui-tiptap components. These are useful for applying CSS externally, or for nested component styling when using `sx` or `styleOverrides`.
+4. Apply styles based on utility class names of mui-tiptap components. These are useful for applying CSS externally, or for nested component styling when using `sx` or `styleOverrides`.
 
    For instance, for the `RichTextField` component, the `"MuiTiptap-RichTextField-root"` class name is applied to its root element, a separate class will be included on that element based on the current variant (like `"MuiTiptap-RichTextField-outlined"`), and its inner content element gets the `"MuiTiptap-RichTextField-content"` class.
 
