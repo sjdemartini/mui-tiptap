@@ -8,8 +8,8 @@ import { getUtilityComponentName } from "../styles";
 import MenuButtonTooltip from "./MenuButtonTooltip";
 import {
   menuSelectClasses,
-  type MenuSelectClassKey,
   type MenuSelectClasses,
+  type MenuSelectClassKey,
 } from "./MenuSelect.classes";
 
 export interface MenuSelectProps<T>
