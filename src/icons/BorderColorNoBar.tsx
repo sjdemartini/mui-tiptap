@@ -1,4 +1,4 @@
-import { createSvgIcon } from "@mui/material";
+import { createSvgIcon } from "@mui/material/utils";
 
 /**
  * A modified version of the BorderColor icon from @mui/icons-material, with

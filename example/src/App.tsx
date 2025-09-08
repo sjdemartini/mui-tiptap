@@ -1,17 +1,18 @@
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import CssBaseline from "@mui/material/CssBaseline";
+import IconButton from "@mui/material/IconButton";
 import {
-  AppBar,
-  Box,
-  CssBaseline,
-  IconButton,
   ThemeProvider,
-  Toolbar,
-  Typography,
   createTheme,
-  useMediaQuery,
   type PaletteMode,
-} from "@mui/material";
+} from "@mui/material/styles";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import useMediaQuery from "@mui/material/useMediaQuery";
+
 import { useCallback, useMemo, useState } from "react";
 import PageContentWithEditor from "./PageContentWithEditor";
 

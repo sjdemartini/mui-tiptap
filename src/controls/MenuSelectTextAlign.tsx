@@ -2,14 +2,14 @@ import FormatAlignCenterIcon from "@mui/icons-material/FormatAlignCenter";
 import FormatAlignJustifyIcon from "@mui/icons-material/FormatAlignJustify";
 import FormatAlignLeftIcon from "@mui/icons-material/FormatAlignLeft";
 import FormatAlignRightIcon from "@mui/icons-material/FormatAlignRight";
+import MenuItem from "@mui/material/MenuItem";
+import type { SelectChangeEvent } from "@mui/material/Select";
 import {
-  MenuItem,
   styled,
   useThemeProps,
   type CSSObject,
-  type SelectChangeEvent,
   type SxProps,
-} from "@mui/material";
+} from "@mui/material/styles";
 import { clsx } from "clsx";
 import { useCallback, useMemo } from "react";
 import { useRichTextEditorContext } from "../context";

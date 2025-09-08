@@ -1,11 +1,8 @@
-import {
-  ToggleButton,
-  styled,
+import { styled, useThemeProps, type SxProps } from "@mui/material/styles";
+import ToggleButton, {
   toggleButtonClasses,
-  useThemeProps,
-  type SxProps,
   type ToggleButtonProps,
-} from "@mui/material";
+} from "@mui/material/ToggleButton";
 import { clsx } from "clsx";
 import type { ReactNode, RefObject } from "react";
 import type { Except, SetOptional } from "type-fest";

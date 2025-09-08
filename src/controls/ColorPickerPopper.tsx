@@ -1,17 +1,17 @@
+import Button from "@mui/material/Button";
+import ClickAwayListener from "@mui/material/ClickAwayListener";
+import Fade from "@mui/material/Fade";
+import Paper from "@mui/material/Paper";
+import Popper, { type PopperProps } from "@mui/material/Popper";
+import Stack from "@mui/material/Stack";
+import Tooltip from "@mui/material/Tooltip";
 import {
-  Button,
-  ClickAwayListener,
-  Fade,
-  Paper,
-  Popper,
-  Stack,
-  Tooltip,
   styled,
   useThemeProps,
-  type PopperProps,
   type SxProps,
   type Theme,
-} from "@mui/material";
+} from "@mui/material/styles";
+
 import { clsx } from "clsx";
 import { useEffect, useState } from "react";
 import { getUtilityComponentName } from "../styles";

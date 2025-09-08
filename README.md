@@ -107,7 +107,7 @@ yarn add @mui/material @mui/icons-material @emotion/react @emotion/styled @tipta
 The simplest way to render a rich text editor is to use the `RichTextEditor` component:
 
 ```tsx
-import { Button } from "@mui/material";
+import Button from "@mui/material/Button";
 import StarterKit from "@tiptap/starter-kit";
 import {
   MenuButtonBold,

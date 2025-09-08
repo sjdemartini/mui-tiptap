@@ -1,4 +1,5 @@
-import { styled, useThemeProps, type PopperProps } from "@mui/material";
+import type { PopperProps } from "@mui/material/Popper";
+import { styled, useThemeProps } from "@mui/material/styles";
 import { clsx } from "clsx";
 import { useState, type ReactNode } from "react";
 import type { Except } from "type-fest";
