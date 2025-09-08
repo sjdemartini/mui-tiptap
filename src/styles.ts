@@ -6,7 +6,7 @@ import {
   type CSSObject,
   type Theme,
 } from "@mui/material/styles";
-import omit from "es-toolkit/compat/omit";
+import { omit } from "es-toolkit";
 
 type StyleRules = Record<string, CSSObject>;
 
@@ -53,7 +53,7 @@ export function getEditorStyles(
   return {
     // Include all of the body1 text styles except for line-height, since we want a
     // little less height (falling back to the default line-height)
-    ...omit(theme.typography.body1, ["lineHeight"]),
+    ...omit(theme.typography.body1 ?? {}, ["lineHeight"]),
 
     "&:focus": {
       outline: "none",
@@ -94,27 +94,27 @@ export function getEditorStyles(
     },
 
     "& h2": {
-      ...omit(theme.typography.h4, ["lineHeight"]),
+      ...omit(theme.typography.h4 ?? {}, ["lineHeight"]),
       fontWeight: 500,
     },
 
     "& h3": {
-      ...omit(theme.typography.h5, ["lineHeight"]),
+      ...omit(theme.typography.h5 ?? {}, ["lineHeight"]),
       fontWeight: 500,
     },
 
     "& h4": {
-      ...omit(theme.typography.h6, ["lineHeight"]),
+      ...omit(theme.typography.h6 ?? {}, ["lineHeight"]),
       fontWeight: 500,
     },
 
     "& h5": {
-      ...omit(theme.typography.subtitle1, ["lineHeight"]),
+      ...omit(theme.typography.subtitle1 ?? {}, ["lineHeight"]),
       fontWeight: 500,
     },
 
     "& h6": {
-      ...omit(theme.typography.subtitle2, ["lineHeight"]),
+      ...omit(theme.typography.subtitle2 ?? {}, ["lineHeight"]),
       fontWeight: 500,
     },
 
