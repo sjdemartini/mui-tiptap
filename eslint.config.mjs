@@ -180,6 +180,11 @@ export default defineConfig(
               message:
                 "Please use second-level default path imports rather than top-level named imports. See https://github.com/sjdemartini/mui-tiptap/issues/154",
             },
+            {
+              name: "@mui/material",
+              message:
+                "Please use second-level default path imports rather than top-level named imports. See https://github.com/sjdemartini/mui-tiptap/issues/434",
+            },
           ],
 
           patterns: [
