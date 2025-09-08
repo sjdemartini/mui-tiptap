@@ -1,5 +1,5 @@
 import type { Editor } from "@tiptap/core";
-import debounce from "lodash/debounce";
+import debounce from "es-toolkit/compat/debounce";
 import { useEffect, useMemo, useState } from "react";
 
 export type UseDebouncedFocusOptions = {
