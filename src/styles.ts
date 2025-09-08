@@ -6,7 +6,7 @@ import {
   type CSSObject,
   type Theme,
 } from "@mui/material";
-import omit from "lodash/omit";
+import omit from "es-toolkit/compat/omit";
 
 type StyleRules = Record<string, CSSObject>;
 
