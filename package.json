@@ -77,7 +77,7 @@
   "dependencies": {
     "clsx": "^2.1.1",
     "encodeurl": "^2.0.0",
-    "lodash": "^4.17.21",
+    "es-toolkit": "^1.39.3",
     "react-colorful": "^5.6.1"
   },
   "peerDependencies": {
@@ -146,7 +146,6 @@
     "@tiptap/suggestion": "^3.1.0",
     "@tiptap/y-tiptap": "^3.0.0",
     "@types/encodeurl": "^1.0.3",
-    "@types/lodash": "^4.14.195",
     "@types/node": "^22.9.0",
     "@types/react": "^18.2.12",
     "@types/react-dom": "^18.2.5",

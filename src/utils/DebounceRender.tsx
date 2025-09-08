@@ -1,6 +1,8 @@
-import type { DebounceSettings, DebouncedFunc } from "lodash";
-import debounce from "lodash/debounce";
+import type { DebouncedFunc } from "es-toolkit/compat";
+import debounce from "es-toolkit/compat/debounce";
 import { Component } from "react";
+
+type DebounceSettings = NonNullable<Parameters<typeof debounce>[2]>;
 
 export type DebounceRenderProps = {
   /**
@@ -9,8 +11,8 @@ export type DebounceRenderProps = {
    */
   wait?: number;
   /**
-   * Options to use for lodash's debounce call. Any changes to this prop after
-   * initial render are ignored.
+   * Options to use for the es-toolkit `debounce` invocation. Any changes to
+   * this prop after initial render are ignored.
    */
   options?: DebounceSettings;
   /** Content to render at debounced intervals as props change */
