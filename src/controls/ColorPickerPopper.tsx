@@ -11,7 +11,6 @@ import {
   type SxProps,
   type Theme,
 } from "@mui/material/styles";
-
 import { clsx } from "clsx";
 import { useEffect, useState } from "react";
 import { getUtilityComponentName } from "../styles";

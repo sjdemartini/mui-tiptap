@@ -12,7 +12,6 @@ import {
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import useMediaQuery from "@mui/material/useMediaQuery";
-
 import { useCallback, useMemo, useState } from "react";
 import PageContentWithEditor from "./PageContentWithEditor";
 
