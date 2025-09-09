@@ -29,6 +29,16 @@ jobs:
         # version used in our lockfile, an older version we support, the latest
         # v2 version, and the latest v3 major.
         tiptap-version: [null, 2.0.4, "^2.10.0", "^3.0.0"]
+        # Test with current TypeScript (from package.json) and an older version
+        # for backward compatibility. We only test the old TS version against
+        # the current repo Tiptap version and one older version to avoid
+        # excessive matrix combinations.
+        typescript-version: [null, 4.9]
+        exclude:
+          - tiptap-version: "^2.10.0"
+            typescript-version: 4.9
+          - tiptap-version: "^3.0.0"
+            typescript-version: 4.9
         include:
           # Specify the version of y-prosemirror to use to ensure proper peer
           # dependency compatibility and resolution on older Tiptap versions.
@@ -56,6 +66,10 @@ jobs:
           cache: "pnpm"
 
       - run: pnpm install
+
+      - if: ${{ matrix.typescript-version != null }}
+        name: Install TypeScript ${{ matrix.typescript-version }}
+        run: pnpm add -D "typescript@${{ matrix.typescript-version }}"
 
       - name: Dependencies audit
         run: pnpm audit --audit-level=high
