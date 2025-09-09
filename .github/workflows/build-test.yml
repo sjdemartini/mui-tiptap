@@ -26,14 +26,15 @@ jobs:
     strategy:
       matrix:
         node-version: [20]
-        # Test across different versions of Tiptap to ensure compatibility: the
+        # Run against different versions of Tiptap to ensure compatibility: the
         # version used in our lockfile, an older version we support, the latest
         # v2 version, and the latest v3 major.
         tiptap-version: [null, 2.0.4, "^2.10.0", "^3.0.0"]
-        # Test with current TypeScript (from package.json) and an older version
-        # for backward compatibility. We only test the old TS version against
-        # the current repo Tiptap version and one older version to avoid
-        # excessive matrix combinations.
+        # Run against this package's TS version, as well as the minimum TS
+        # version that MUI supports, based on DefinitelyType's support window
+        # (https://mui.com/material-ui/getting-started/supported-platforms/#typescript).
+        # We skip testing against some combinations of TS+Tiptap versions to
+        # avoid excessive CI runs.
         typescript-version: [null, 4.9]
         exclude:
           - tiptap-version: "^2.10.0"
@@ -70,7 +71,10 @@ jobs:
 
       - if: ${{ matrix.typescript-version != null }}
         name: Install TypeScript ${{ matrix.typescript-version }}
-        run: pnpm add -D "typescript@${{ matrix.typescript-version }}"
+        # Install in both projects for consistent linting
+        run: |
+          pnpm add -D "typescript@${{ matrix.typescript-version }}"
+          pnpm --dir example add -D "typescript@${{ matrix.typescript-version }}"
 
       - name: Dependencies audit
         run: pnpm audit --audit-level=high
