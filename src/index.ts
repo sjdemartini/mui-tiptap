@@ -1,13 +1,17 @@
+export { RichTextEditorContext, useRichTextEditorContext } from "./context";
 export {
   default as ControlledBubbleMenu,
   type ControlledBubbleMenuProps,
 } from "./ControlledBubbleMenu";
 export { controlledBubbleMenuClasses } from "./ControlledBubbleMenu.classes";
+export * from "./controls";
+export * from "./extensions";
 export {
   default as FieldContainer,
   type FieldContainerProps,
 } from "./FieldContainer";
 export { fieldContainerClasses } from "./FieldContainer.classes";
+export * from "./hooks";
 export {
   default as LinkBubbleMenu,
   type LinkBubbleMenuProps,
@@ -41,17 +45,13 @@ export {
   type RichTextReadOnlyProps,
 } from "./RichTextReadOnly";
 export {
-  default as TableBubbleMenu,
-  type TableBubbleMenuProps,
-} from "./TableBubbleMenu";
-export { tableBubbleMenuClasses } from "./TableBubbleMenu.classes";
-export { RichTextEditorContext, useRichTextEditorContext } from "./context";
-export * from "./controls";
-export * from "./extensions";
-export * from "./hooks";
-export {
   Z_INDEXES,
   getEditorStyles,
   getImageBackgroundColorStyles,
 } from "./styles";
+export {
+  default as TableBubbleMenu,
+  type TableBubbleMenuProps,
+} from "./TableBubbleMenu";
+export { tableBubbleMenuClasses } from "./TableBubbleMenu.classes";
 export * from "./utils";

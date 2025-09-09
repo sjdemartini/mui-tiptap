@@ -1,5 +1,5 @@
-export { default as DebounceRender } from "./DebounceRender";
 export * from "./color";
+export { default as DebounceRender } from "./DebounceRender";
 export { getAttributesForEachSelected } from "./getAttributesForEachSelected";
 export { getAttributesForMarks } from "./getAttributesForMarks";
 export { getAttributesForNodes } from "./getAttributesForNodes";

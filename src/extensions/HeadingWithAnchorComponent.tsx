@@ -183,7 +183,7 @@ export default function HeadingWithAnchorComponent(
           />
         </HeadingWithAnchorComponentLink>
         {/* This is the editable content of the header: */}
-        <NodeViewContent as="span" />
+        <NodeViewContent<"span"> as="span" />
       </HeadingWithAnchorComponentContainer>
     </HeadingWithAnchorComponentRoot>
   );
