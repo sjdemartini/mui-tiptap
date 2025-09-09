@@ -107,6 +107,13 @@ jobs:
         name: Check for duplicate dependencies
         run: pnpm dedupe --check
 
+      - if: ${{ env.TIPTAP_MAJOR == '2' }}
+        name: Resolve known inconsequential TS differences in Tiptap v2
+        # NodeViewContent wasn't generic in Tiptap v2, so remove the generic
+        # syntax
+        run: |
+          sed -i 's/NodeViewContent<"span">/NodeViewContent/g' src/extensions/HeadingWithAnchorComponent.tsx
+
       - if: ${{ matrix.tiptap-version == '2.0.4' }}
         name: Resolve known inconsequential TS differences in Tiptap 2.0.4
         # 1) Delete the `@ts-expect-error` comments where needed, as older
