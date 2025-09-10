@@ -16,6 +16,7 @@ on:
 
 jobs:
   build_and_test:
+    name: tiptap=${{ matrix.tiptap-version || 'current' }}, TS=${{ matrix.typescript-version || 'current' }}
     # Dedupe PRs from branches created by collaborators within this repo:
     # - Always run for internal branch `push` (for/before a PR) and
     # `workflow_call` (releases).
@@ -25,10 +26,21 @@ jobs:
     strategy:
       matrix:
         node-version: [20]
-        # Test across different versions of Tiptap to ensure compatibility: the
+        # Run against different versions of Tiptap to ensure compatibility: the
         # version used in our lockfile, an older version we support, the latest
         # v2 version, and the latest v3 major.
         tiptap-version: [null, 2.0.4, "^2.10.0", "^3.0.0"]
+        # Run against this package's TS version, as well as the minimum TS
+        # version that MUI supports, based on DefinitelyType's support window
+        # (https://mui.com/material-ui/getting-started/supported-platforms/#typescript).
+        # We skip testing against some combinations of TS+Tiptap versions to
+        # avoid excessive CI runs.
+        typescript-version: [null, 4.9]
+        exclude:
+          - tiptap-version: "^2.10.0"
+            typescript-version: 4.9
+          - tiptap-version: "^3.0.0"
+            typescript-version: 4.9
         include:
           # Specify the version of y-prosemirror to use to ensure proper peer
           # dependency compatibility and resolution on older Tiptap versions.
@@ -56,6 +68,13 @@ jobs:
           cache: "pnpm"
 
       - run: pnpm install
+
+      - if: ${{ matrix.typescript-version != null }}
+        name: Install TypeScript ${{ matrix.typescript-version }}
+        # Install in both projects for consistent linting
+        run: |
+          pnpm add -D "typescript@${{ matrix.typescript-version }}"
+          pnpm --dir example add -D "typescript@${{ matrix.typescript-version }}"
 
       - name: Dependencies audit
         run: pnpm audit --audit-level=high
@@ -87,6 +106,13 @@ jobs:
       - if: ${{ matrix.tiptap-version == null }}
         name: Check for duplicate dependencies
         run: pnpm dedupe --check
+
+      - if: ${{ env.TIPTAP_MAJOR == '2' }}
+        name: Resolve known inconsequential TS differences in Tiptap v2
+        # NodeViewContent wasn't generic in Tiptap v2, so remove the generic
+        # syntax
+        run: |
+          sed -i 's/NodeViewContent<"span">/NodeViewContent/g' src/extensions/HeadingWithAnchorComponent.tsx
 
       - if: ${{ matrix.tiptap-version == '2.0.4' }}
         name: Resolve known inconsequential TS differences in Tiptap 2.0.4
@@ -126,7 +152,10 @@ jobs:
         # also like to type-check.
         run: pnpm run type:check
 
-      - name: Format check
+      # prettier's organize-imports plugin depends on TypeScript, so we only run
+      # format-checking against the current TS version
+      - if: ${{ matrix.typescript-version == null }}
+        name: Format check
         run: pnpm run format:check
 
       - name: Lint check
