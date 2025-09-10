@@ -3,7 +3,7 @@ import type { NodeViewProps } from "@tiptap/core";
 import type { Node as ProseMirrorNode } from "@tiptap/pm/model";
 import { NodeViewWrapper } from "@tiptap/react";
 import { clsx } from "clsx";
-import throttle from "lodash/throttle";
+import throttle from "es-toolkit/compat/throttle";
 import { useMemo, useRef, useState } from "react";
 import { getUtilityComponentName } from "../styles";
 import type ResizableImage from "./ResizableImage";

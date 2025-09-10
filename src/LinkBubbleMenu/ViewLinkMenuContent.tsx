@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import { getMarkRange, getMarkType, type Editor } from "@tiptap/core";
 import { clsx } from "clsx";
-import truncate from "lodash/truncate";
+import truncate from "es-toolkit/compat/truncate";
 import type { ReactNode } from "react";
 import useKeyDown from "../hooks/useKeyDown";
 import { getUtilityComponentName } from "../styles";

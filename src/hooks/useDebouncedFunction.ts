@@ -1,6 +1,8 @@
-import type { DebouncedFunc, DebounceSettings } from "lodash";
-import debounce from "lodash/debounce";
+import type { DebouncedFunc } from "es-toolkit/compat";
+import debounce from "es-toolkit/compat/debounce";
 import { useEffect, useMemo, useRef } from "react";
+
+type DebounceSettings = NonNullable<Parameters<typeof debounce>[2]>;
 
 /* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-argument */
 /**
@@ -9,11 +11,11 @@ import { useEffect, useMemo, useRef } from "react";
  * The approach here ensures we use a `ref` for the `func`, with a stable return
  * value, somewhat similar to
  * https://www.developerway.com/posts/debouncing-in-react. It also provides
- * effectively the same API as the lodash function itself.
+ * effectively the same API as the es-toolkit `debounce` function itself.
  *
  * @param func The function to debounce.
  * @param wait ms to wait between calls.
- * @param options lodash debounce options.
+ * @param options debounce options.
  * @returns debounced version of `func`.
  */
 export default function useDebouncedFunction<T extends (...args: any) => any>(
