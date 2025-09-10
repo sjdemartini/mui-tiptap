@@ -1,16 +1,16 @@
-import { styled, useThemeProps, type SxProps } from "@mui/material/styles";
 import ToggleButton, {
   toggleButtonClasses,
   type ToggleButtonProps,
 } from "@mui/material/ToggleButton";
+import { styled, useThemeProps, type SxProps } from "@mui/material/styles";
 import { clsx } from "clsx";
 import type { ReactNode, RefObject } from "react";
 import type { Except, SetOptional } from "type-fest";
 import { getUtilityComponentName } from "../styles";
 import {
   menuButtonClasses,
-  type MenuButtonClasses,
   type MenuButtonClassKey,
+  type MenuButtonClasses,
 } from "./MenuButton.classes";
 import MenuButtonTooltip, {
   type MenuButtonTooltipProps,
