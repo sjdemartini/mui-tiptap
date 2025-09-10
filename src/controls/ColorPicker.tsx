@@ -1,4 +1,5 @@
-import { TextField, styled, useThemeProps } from "@mui/material";
+import TextField from "@mui/material/TextField";
+import { styled, useThemeProps } from "@mui/material/styles";
 import { clsx } from "clsx";
 import { useEffect, useRef } from "react";
 import { HexAlphaColorPicker, HexColorPicker } from "react-colorful";

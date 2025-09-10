@@ -1,10 +1,5 @@
-import {
-  Collapse,
-  styled,
-  useThemeProps,
-  type CollapseProps,
-  type SxProps,
-} from "@mui/material";
+import Collapse, { type CollapseProps } from "@mui/material/Collapse";
+import { styled, useThemeProps, type SxProps } from "@mui/material/styles";
 import { clsx } from "clsx";
 import type { ReactNode } from "react";
 import {

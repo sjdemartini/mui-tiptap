@@ -1,4 +1,4 @@
-import { styled, useThemeProps, type SxProps } from "@mui/material";
+import { styled, useThemeProps, type SxProps } from "@mui/material/styles";
 import type { NodeViewProps } from "@tiptap/core";
 import type { Node as ProseMirrorNode } from "@tiptap/pm/model";
 import { NodeViewWrapper } from "@tiptap/react";

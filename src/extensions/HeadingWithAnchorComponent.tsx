@@ -1,5 +1,5 @@
 import LinkIcon from "@mui/icons-material/Link";
-import { styled, useThemeProps, type SxProps } from "@mui/material";
+import { styled, useThemeProps, type SxProps } from "@mui/material/styles";
 import {
   getText,
   getTextSerializersFromSchema,

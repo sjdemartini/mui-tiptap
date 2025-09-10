@@ -1,4 +1,7 @@
-import { Button, DialogActions, TextField, Typography } from "@mui/material";
+import Button from "@mui/material/Button";
+import DialogActions from "@mui/material/DialogActions";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
 import { getMarkRange, getMarkType, type Editor } from "@tiptap/core";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import useKeyDown from "../hooks/useKeyDown";

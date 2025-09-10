@@ -1,4 +1,4 @@
-import { createSvgIcon } from "@mui/material";
+import { createSvgIcon } from "@mui/material/utils";
 
 const LayoutColumnFill = createSvgIcon(
   // From https://remixicon.com/ (https://github.com/Remix-Design/RemixIcon)

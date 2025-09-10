@@ -1,11 +1,7 @@
 /// <reference types="@tiptap/extension-paragraph" />
-import {
-  MenuItem,
-  styled,
-  useThemeProps,
-  type SelectChangeEvent,
-  type SxProps,
-} from "@mui/material";
+import MenuItem from "@mui/material/MenuItem";
+import type { SelectChangeEvent } from "@mui/material/Select";
+import { styled, useThemeProps, type SxProps } from "@mui/material/styles";
 import type { Heading, Level } from "@tiptap/extension-heading";
 import { clsx } from "clsx";
 import { useCallback, useMemo, type ReactNode } from "react";

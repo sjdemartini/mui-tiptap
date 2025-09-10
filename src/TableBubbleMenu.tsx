@@ -1,4 +1,4 @@
-import { styled, useThemeProps } from "@mui/material";
+import { styled, useThemeProps } from "@mui/material/styles";
 import { findParentNodeClosestToPos, posToDOMRect } from "@tiptap/core";
 import { clsx } from "clsx";
 import { useMemo } from "react";

@@ -5,7 +5,7 @@ import {
   lighten,
   type CSSObject,
   type Theme,
-} from "@mui/material";
+} from "@mui/material/styles";
 import omit from "lodash/omit";
 
 type StyleRules = Record<string, CSSObject>;

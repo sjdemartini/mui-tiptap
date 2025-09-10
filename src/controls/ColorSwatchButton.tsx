@@ -1,5 +1,10 @@
 import Check from "@mui/icons-material/Check";
-import { styled, useTheme, useThemeProps, type SxProps } from "@mui/material";
+import {
+  styled,
+  useTheme,
+  useThemeProps,
+  type SxProps,
+} from "@mui/material/styles";
 import { clsx } from "clsx";
 import {
   forwardRef,

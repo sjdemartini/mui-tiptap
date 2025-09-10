@@ -1,12 +1,11 @@
+import Tooltip, { type TooltipProps } from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
 import {
-  Tooltip,
-  Typography,
   alpha,
   styled,
   useThemeProps,
   type SxProps,
-  type TooltipProps,
-} from "@mui/material";
+} from "@mui/material/styles";
 import { clsx } from "clsx";
 import { getUtilityComponentName } from "../styles";
 import { getModShortcutKey } from "../utils/platform";

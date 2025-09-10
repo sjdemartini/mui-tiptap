@@ -1,4 +1,4 @@
-import { rgbToHex } from "@mui/material";
+import { rgbToHex } from "@mui/material/styles";
 
 /**
  * Convert a color string to a color in hex string format (e.g. "#ff0000"), or

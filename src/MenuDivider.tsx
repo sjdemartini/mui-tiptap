@@ -1,10 +1,5 @@
-import {
-  Divider,
-  styled,
-  useThemeProps,
-  type DividerProps,
-  type SxProps,
-} from "@mui/material";
+import Divider, { type DividerProps } from "@mui/material/Divider";
+import { styled, useThemeProps, type SxProps } from "@mui/material/styles";
 import { clsx } from "clsx";
 import {
   menuDividerClasses,

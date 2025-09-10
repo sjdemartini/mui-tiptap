@@ -1,4 +1,4 @@
-import { createSvgIcon } from "@mui/material";
+import { createSvgIcon } from "@mui/material/utils";
 
 /**
  * A horizontal bar that is used as a color indicator, matching position and

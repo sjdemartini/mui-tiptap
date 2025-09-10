@@ -1,4 +1,4 @@
-import { createSvgIcon } from "@mui/material";
+import { createSvgIcon } from "@mui/material/utils";
 
 const Table = createSvgIcon(
   // From https://boxicons.com/ (https://github.com/atisawd/boxicons)
