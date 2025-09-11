@@ -123,20 +123,12 @@ jobs:
         # older versions was incorrect (as Tiptap itself did here
         # https://github.com/ueberdosis/tiptap/blob/b0198eb14b98db5ca691bd9bfe698ffaddbc4ded/packages/extension-table/src/table.ts#L253,
         # and we did prior to updating to newer Tiptap).
-        # 3) Restore an older version of the demo SuggestionList, since it
-        # relied on local typing overrides awaiting fixes published in Tiptap
-        # 2.5.0. This ensures `type:check` passes, though isn't part of the
-        # build anyway.
         run: |
           sed -i '/@ts-expect-error/d' src/extensions/HeadingWithAnchor.ts src/extensions/ResizableImage.ts
 
           sed -i '/View: this.options.View/i\
                         // @ts-expect-error incorrect type\
           ' src/extensions/TableImproved.ts
-
-          git fetch origin tag v1.16.0 --no-tags
-          git restore --source v1.16.0 src/demo/SuggestionList.tsx
-          pnpm exec prettier --write src/demo/SuggestionList.tsx
 
       - name: Build
         run: pnpm run build
@@ -146,10 +138,12 @@ jobs:
         # need to install the dependencies for the example project too.
         run: pnpm run example:install
 
-      - name: Type check
+      - if: ${{ env.TIPTAP_MAJOR != '2' }}
+        name: Type check
         # Though this largely happens as part of `pnpm run build`, there are
         # some files that are not part of the publishable build but which we'd
-        # also like to type-check.
+        # also like to type-check. As such, we only bother doing this for the
+        # newer Tiptap versions.
         run: pnpm run type:check
 
       # prettier's organize-imports plugin depends on TypeScript, so we only run
