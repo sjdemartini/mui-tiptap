@@ -12,7 +12,15 @@ import tseslint from "typescript-eslint";
 
 export default defineConfig(
   {
-    ignores: ["**/dist/**", "coverage/**", "**/node_modules/**"],
+    ignores: [
+      "**/dist/**",
+      "coverage/**",
+      "**/node_modules/**",
+      // When testing for backwards compatibility with Tiptap v2, only lint the
+      // package itself and not the demo code, which uses some incompatible
+      // syntax/types.
+      ...(process.env.TIPTAP_MAJOR === "2" ? ["src/demo/**"] : []),
+    ],
   },
   // Configuration for ESLint config file itself (needs Node.js globals)
   {
