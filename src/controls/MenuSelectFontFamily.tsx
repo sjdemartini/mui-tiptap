@@ -4,7 +4,6 @@ import { styled, useThemeProps, type SxProps } from "@mui/material/styles";
 import type { Editor } from "@tiptap/core";
 import { clsx } from "clsx";
 import type { ReactNode } from "react";
-import type { Except } from "type-fest";
 import { useRichTextEditorContext } from "../context";
 import { getUtilityComponentName } from "../styles";
 import { getAttributesForEachSelected } from "../utils/getAttributesForEachSelected";
@@ -36,7 +35,7 @@ export type FontFamilySelectOption = {
   label?: ReactNode;
 };
 
-export type MenuSelectFontFamilyProps = Except<
+export type MenuSelectFontFamilyProps = Omit<
   MenuSelectProps<string>,
   "value" | "children" | "classes"
 > & {

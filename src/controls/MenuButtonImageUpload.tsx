@@ -1,6 +1,5 @@
 import type { Editor } from "@tiptap/core";
 import { useRef, type ComponentPropsWithoutRef } from "react";
-import type { SetOptional } from "type-fest";
 import { useRichTextEditorContext } from "../context";
 import {
   insertImages as insertImagesDefault,
@@ -10,8 +9,15 @@ import MenuButtonAddImage, {
   type MenuButtonAddImageProps,
 } from "./MenuButtonAddImage";
 
-export interface MenuButtonImageUploadProps
-  extends SetOptional<MenuButtonAddImageProps, "onClick"> {
+export type MenuButtonImageUploadProps = Omit<
+  MenuButtonAddImageProps,
+  "onClick"
+> & {
+  /**
+   * Optionally override the click handler for adding images. By default, uses a
+   * file input dialog to trigger a file upload.
+   */
+  onClick?: MenuButtonAddImageProps["onClick"];
   /**
    * Take an array of user-selected files to upload, and return an array of
    * image node attributes. Typically will be an async function (i.e. will
@@ -43,7 +49,7 @@ export interface MenuButtonImageUploadProps
    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept).
    */
   inputProps?: Partial<ComponentPropsWithoutRef<"input">>;
-}
+};
 
 /**
  * Render a button for uploading one or more images to insert into the editor

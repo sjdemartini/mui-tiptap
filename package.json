@@ -78,8 +78,7 @@
     "clsx": "^2.1.1",
     "encodeurl": "^2.0.0",
     "lodash": "^4.17.21",
-    "react-colorful": "^5.6.1",
-    "type-fest": "^3.12.0"
+    "react-colorful": "^5.6.1"
   },
   "peerDependencies": {
     "@emotion/react": "^11.4.1",

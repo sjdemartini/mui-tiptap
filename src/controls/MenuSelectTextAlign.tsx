@@ -22,7 +22,6 @@ import MenuButtonTooltip, {
 // without needing to list extension-text-align as a peer dependency.
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { TextAlignOptions } from "@tiptap/extension-text-align";
-import type { Except } from "type-fest";
 import { MENU_BUTTON_FONT_SIZE_DEFAULT } from "./MenuButton";
 import MenuSelect, { type MenuSelectProps } from "./MenuSelect";
 import {
@@ -54,7 +53,7 @@ export type TextAlignSelectOption = {
   shortcutKeys?: MenuButtonTooltipProps["shortcutKeys"];
 };
 
-export type MenuSelectTextAlignProps = Except<
+export type MenuSelectTextAlignProps = Omit<
   MenuSelectProps<string>,
   "children" | "classes"
 > & {

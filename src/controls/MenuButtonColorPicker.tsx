@@ -2,7 +2,6 @@ import type { PopperProps } from "@mui/material/Popper";
 import { styled, useThemeProps } from "@mui/material/styles";
 import { clsx } from "clsx";
 import { useState, type ReactNode } from "react";
-import type { Except } from "type-fest";
 import { FormatColorBar } from "../icons";
 import { getUtilityComponentName } from "../styles";
 import type { ColorPickerProps, SwatchColorOption } from "./ColorPicker";
@@ -17,11 +16,13 @@ import {
   type MenuButtonColorPickerClasses,
 } from "./MenuButtonColorPicker.classes";
 
-export interface MenuButtonColorPickerProps
-  // Omit the default `color`, `value`, and `onChange` toggle button props so
-  // that "color" can't be confused for the `value` prop, and so that we can use
-  // our own types for `value` and `onChange`.
-  extends Except<MenuButtonProps, "color" | "value" | "onChange" | "classes"> {
+// Omit the default `color`, `value`, and `onChange` toggle button props so
+// that "color" can't be confused for the `value` prop, and so that we can use
+// our own types for `value` and `onChange`.
+export type MenuButtonColorPickerProps = Omit<
+  MenuButtonProps,
+  "color" | "value" | "onChange" | "classes"
+> & {
   /** The current CSS color string value. */
   value: string | undefined;
   /** Callback when the color changes. */
@@ -79,7 +80,7 @@ export interface MenuButtonColorPickerProps
   };
   /** Override or extend existing styles. */
   classes?: Partial<MenuButtonColorPickerClasses>;
-}
+};
 
 interface MenuButtonColorPickerOwnerState
   extends Pick<MenuButtonColorPickerProps, "disabled"> {}

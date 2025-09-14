@@ -5,7 +5,6 @@ import ToggleButton, {
 import { styled, useThemeProps, type SxProps } from "@mui/material/styles";
 import { clsx } from "clsx";
 import type { ReactNode, RefObject } from "react";
-import type { Except, SetOptional } from "type-fest";
 import { getUtilityComponentName } from "../styles";
 import {
   menuButtonClasses,
@@ -16,11 +15,15 @@ import MenuButtonTooltip, {
   type MenuButtonTooltipProps,
 } from "./MenuButtonTooltip";
 
-export interface MenuButtonProps
-  extends SetOptional<
-    Except<ToggleButtonProps, "ref" | "children" | "className" | "classes">,
-    "value"
-  > {
+export type MenuButtonProps = Omit<
+  ToggleButtonProps,
+  "ref" | "children" | "className" | "classes" | "value"
+> & {
+  /**
+   * The `value` for the toggle button. If not provided, uses the tooltipLabel
+   * as the value.
+   */
+  value?: ToggleButtonProps["value"]; // Unlike ToggleButtonProps, optional
   /**
    * The label that will be displayed in a tooltip when hovering. Also used as
    * the underlying ToggleButton `value` if a separate `value` prop is not
@@ -60,7 +63,7 @@ export interface MenuButtonProps
   classes?: Partial<MenuButtonClasses>;
   /** Provide custom styles. */
   sx?: SxProps;
-}
+};
 
 export const MENU_BUTTON_FONT_SIZE_DEFAULT = "1.25rem";
 
