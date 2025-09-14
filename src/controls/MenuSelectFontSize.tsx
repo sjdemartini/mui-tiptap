@@ -4,7 +4,6 @@ import { styled, useThemeProps, type SxProps } from "@mui/material/styles";
 import type { Editor } from "@tiptap/core";
 import { clsx } from "clsx";
 import type { ReactNode } from "react";
-import type { Except } from "type-fest";
 import { useRichTextEditorContext } from "../context";
 import type { FontSizeAttrs } from "../extensions/FontSize";
 import { getUtilityComponentName } from "../styles";
@@ -43,7 +42,7 @@ export type FontSizeSelectOptionObject = {
  */
 export type FontSizeSelectOption = string | FontSizeSelectOptionObject;
 
-export type MenuSelectFontSizeProps = Except<
+export type MenuSelectFontSizeProps = Omit<
   MenuSelectProps<string>,
   "value" | "children" | "classes"
 > & {

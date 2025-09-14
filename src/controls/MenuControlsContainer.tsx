@@ -1,7 +1,6 @@
 import Box, { type BoxProps } from "@mui/material/Box";
 import { styled, useThemeProps } from "@mui/material/styles";
 import { clsx } from "clsx";
-import type { Except } from "type-fest";
 import { getUtilityComponentName } from "../styles";
 import DebounceRender, {
   type DebounceRenderProps,
@@ -12,7 +11,7 @@ import {
   type MenuControlsContainerClasses,
 } from "./MenuControlsContainer.classes";
 
-export type MenuControlsContainerProps = Except<
+export type MenuControlsContainerProps = Omit<
   BoxProps,
   "children" | "className" | "classes"
 > & {
@@ -36,7 +35,7 @@ export type MenuControlsContainerProps = Except<
    * Override the props/options used with debounce rendering such as the wait
    * interval, if `debounced` is true.
    */
-  DebounceProps?: Partial<Except<DebounceRenderProps, "children">>;
+  DebounceProps?: Partial<Omit<DebounceRenderProps, "children">>;
 };
 
 const componentName = getUtilityComponentName("MenuControlsContainer");

@@ -32,11 +32,6 @@ updates:
 
       - dependency-name: "prosemirror-*"
 
-      # Newer versions of type-fest would require a newer TS version than MUI's
-      # minimum TS version.
-      - dependency-name: "type-fest"
-        update-types: ["version-update:semver-major"]
-
       - dependency-name: "y-*"
 
       - dependency-name: "yjs"

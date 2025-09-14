@@ -1,15 +1,16 @@
 import AddPhotoAlternate from "@mui/icons-material/AddPhotoAlternate";
-import type { SetRequired } from "type-fest";
 import { useRichTextEditorContext } from "../context";
 import MenuButton, { type MenuButtonProps } from "./MenuButton";
 
-/**
- * You must provide your own `onClick` handler.
- */
-export type MenuButtonAddImageProps = SetRequired<
-  Partial<MenuButtonProps>,
-  "onClick"
->;
+export type MenuButtonAddImageProps = Partial<MenuButtonProps> & {
+  /**
+   * Click handler for adding images. You must provide your own implementation
+   * in order to specify *how* the image is added. For instance, you might open
+   * a popup for the user to provide an image URL, or you might trigger a file
+   * upload via file input dialog (e.g. see MenuButtonImageUpload).
+   */
+  onClick: NonNullable<MenuButtonProps["onClick"]>;
+};
 
 /**
  * Render a button for adding an image to the editor content. You must provide

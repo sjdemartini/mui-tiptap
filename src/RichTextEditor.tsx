@@ -5,7 +5,6 @@ import {
   useImperativeHandle,
   type DependencyList,
 } from "react";
-import type { Except, SetRequired } from "type-fest";
 import RichTextEditorProvider from "./RichTextEditorProvider";
 import RichTextField, { type RichTextFieldProps } from "./RichTextField";
 
@@ -29,8 +28,12 @@ export type UseEditorOptions =
         shouldRerenderOnTransaction?: boolean;
       };
 
-export interface RichTextEditorProps
-  extends SetRequired<Partial<UseEditorOptions>, "extensions"> {
+export type RichTextEditorProps = Partial<UseEditorOptions> & {
+  /**
+   * Extensions to use for the editor, which determine what functionality to
+   * enable.
+   */
+  extensions: NonNullable<UseEditorOptions["extensions"]>;
   /**
    * Render the controls content to show inside the menu bar atop the editor
    * content. Typically you will want to render a <MenuControlsContainer>
@@ -51,7 +54,7 @@ export interface RichTextEditorProps
    * is controlled via `renderControls`, as this ensures proper re-rendering as
    * the editor changes).
    */
-  RichTextFieldProps?: Except<RichTextFieldProps, "controls">;
+  RichTextFieldProps?: Omit<RichTextFieldProps, "controls">;
   /**
    * A convenience prop alternative to `RichTextFieldProps.sx` for applying
    * styles to the rich text field.
@@ -74,7 +77,7 @@ export interface RichTextEditorProps
   editorDependencies?: DependencyList;
   /** Class applied to the root element. */
   className?: string;
-}
+};
 
 export type RichTextEditorRef = {
   editor: Editor | null;

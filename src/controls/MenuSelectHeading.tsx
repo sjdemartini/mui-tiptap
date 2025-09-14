@@ -5,7 +5,6 @@ import { styled, useThemeProps, type SxProps } from "@mui/material/styles";
 import type { Heading, Level } from "@tiptap/extension-heading";
 import { clsx } from "clsx";
 import { useCallback, useMemo, type ReactNode } from "react";
-import type { Except } from "type-fest";
 import { useRichTextEditorContext } from "../context";
 import { getEditorStyles, getUtilityComponentName } from "../styles";
 import { getAttributesForEachSelected } from "../utils/getAttributesForEachSelected";
@@ -17,7 +16,7 @@ import {
   type MenuSelectHeadingClasses,
 } from "./MenuSelectHeading.classes";
 
-export type MenuSelectHeadingProps = Except<
+export type MenuSelectHeadingProps = Omit<
   MenuSelectProps<HeadingOptionValue | "">,
   "value" | "children" | "classes"
 > & {
