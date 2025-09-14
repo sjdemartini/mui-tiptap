@@ -1,4 +1,5 @@
-import { Box, styled, useThemeProps, type BoxProps } from "@mui/material";
+import Box, { type BoxProps } from "@mui/material/Box";
+import { styled, useThemeProps } from "@mui/material/styles";
 import { clsx } from "clsx";
 import type { Except } from "type-fest";
 import { getUtilityComponentName } from "../styles";

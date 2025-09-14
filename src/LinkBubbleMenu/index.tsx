@@ -1,5 +1,5 @@
 /// <reference types="@tiptap/extension-link" />
-import { styled, useThemeProps, type SxProps } from "@mui/material";
+import { styled, useThemeProps, type SxProps } from "@mui/material/styles";
 import { clsx } from "clsx";
 import ControlledBubbleMenu, {
   type ControlledBubbleMenuProps,

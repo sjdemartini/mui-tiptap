@@ -1,11 +1,7 @@
-import {
-  Button,
-  DialogActions,
-  Link,
-  styled,
-  useThemeProps,
-  type SxProps,
-} from "@mui/material";
+import Button from "@mui/material/Button";
+import DialogActions from "@mui/material/DialogActions";
+import Link from "@mui/material/Link";
+import { styled, useThemeProps, type SxProps } from "@mui/material/styles";
 import { getMarkRange, getMarkType, type Editor } from "@tiptap/core";
 import { clsx } from "clsx";
 import truncate from "lodash/truncate";

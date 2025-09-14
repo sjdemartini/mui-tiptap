@@ -1,5 +1,6 @@
 import FormatSize from "@mui/icons-material/FormatSize";
-import { MenuItem, styled, useThemeProps, type SxProps } from "@mui/material";
+import MenuItem from "@mui/material/MenuItem";
+import { styled, useThemeProps, type SxProps } from "@mui/material/styles";
 import type { Editor } from "@tiptap/core";
 import { clsx } from "clsx";
 import type { ReactNode } from "react";

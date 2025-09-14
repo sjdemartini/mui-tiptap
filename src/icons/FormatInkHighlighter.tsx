@@ -1,4 +1,4 @@
-import { createSvgIcon } from "@mui/material";
+import { createSvgIcon } from "@mui/material/utils";
 
 const FormatInkHighlighter = createSvgIcon(
   // Part of Material Symbols (and so unfortunately not in @mui/icons-material),

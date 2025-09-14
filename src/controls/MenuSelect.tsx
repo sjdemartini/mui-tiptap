@@ -1,21 +1,15 @@
-import {
-  Select,
-  outlinedInputClasses,
-  selectClasses,
-  styled,
-  svgIconClasses,
-  useThemeProps,
-  type SelectProps,
-  type SxProps,
-} from "@mui/material";
+import { outlinedInputClasses } from "@mui/material/OutlinedInput";
+import Select, { selectClasses, type SelectProps } from "@mui/material/Select";
+import { styled, useThemeProps, type SxProps } from "@mui/material/styles";
+import { svgIconClasses } from "@mui/material/SvgIcon";
 import { clsx } from "clsx";
 import { useState } from "react";
 import { getUtilityComponentName } from "../styles";
 import MenuButtonTooltip from "./MenuButtonTooltip";
 import {
   menuSelectClasses,
-  type MenuSelectClassKey,
   type MenuSelectClasses,
+  type MenuSelectClassKey,
 } from "./MenuSelect.classes";
 
 export interface MenuSelectProps<T>

@@ -1,14 +1,12 @@
+import Fade from "@mui/material/Fade";
+import Paper, { type PaperProps } from "@mui/material/Paper";
+import Popper, { type PopperProps } from "@mui/material/Popper";
 import {
-  Fade,
-  Paper,
-  Popper,
   styled,
   useTheme,
   useThemeProps,
-  type PaperProps,
-  type PopperProps,
   type SxProps,
-} from "@mui/material";
+} from "@mui/material/styles";
 import { isNodeSelection, posToDOMRect, type Editor } from "@tiptap/core";
 import { clsx } from "clsx";
 import { useCallback, type ReactNode } from "react";
