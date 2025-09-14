@@ -106,8 +106,9 @@ export default function RichTextContent(inProps: RichTextContentProps) {
   return (
     <RichTextContentRoot
       editor={editor}
-      // Use spread for innerRef to avoid TS errors in Tiptap < 2.2.0
-      {...{ innerRef }}
+      // Use spread for innerRef to avoid TS errors in Tiptap < 2.2.0, and only
+      // include if present
+      {...(innerRef ? { innerRef } : {})}
       ownerState={ownerState}
       className={editorClasses}
       sx={sx}
