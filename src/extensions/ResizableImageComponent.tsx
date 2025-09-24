@@ -219,8 +219,8 @@ function ResizableImageComponent(inProps: ResizableImageComponentProps) {
           height="auto"
           width={attrs.width ? attrs.width : undefined}
           {...{
-            alt: attrs.alt || undefined,
-            title: attrs.title || undefined,
+            alt: attrs.alt ?? undefined,
+            title: attrs.title ?? undefined,
           }}
           className={clsx([
             resizableImageComponentClasses.image,
