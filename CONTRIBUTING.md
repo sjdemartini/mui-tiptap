@@ -24,6 +24,18 @@ This package uses Vite with Hot Module Replacement (HMR), so file edits should r
 
 To instead test a "built" version of this package which is installed into an "external" module, you can run `pnpm example`, which runs a server with the separate application in the `example/` directory.
 
+### Running checks locally
+
+To run checks locally (and apply auto-fixes where possible), use the following commands:
+
+```bash
+pnpm run type:check
+pnpm run format:check  # Fix with `pnpm run format`
+pnpm run lint:check  # Auto-fix with `pnpm run lint`
+pnpm run spell:check
+pnpm run md-link:check
+```
+
 ### Adding a new icon
 
 When the `@mui/icons-material` icon set is insufficient, it can be helpful to browse a larger set of free open-source icons and add what’s needed directly to `mui-tiptap`. This also avoids any additional third-party JS dependencies.
