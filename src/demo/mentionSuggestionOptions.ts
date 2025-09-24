@@ -1,6 +1,7 @@
+import { computePosition, flip, shift } from "@floating-ui/dom";
+import type { Editor } from "@tiptap/core";
 import type { MentionOptions } from "@tiptap/extension-mention";
-import { ReactRenderer } from "@tiptap/react";
-import tippy, { type Instance as TippyInstance } from "tippy.js";
+import { ReactRenderer, posToDOMRect } from "@tiptap/react";
 import SuggestionList, { type SuggestionListRef } from "./SuggestionList";
 
 export type MentionSuggestion = {
@@ -8,27 +9,30 @@ export type MentionSuggestion = {
   mentionLabel: string;
 };
 
-/**
- * Workaround for the current typing incompatibility between Tippy.js and Tiptap
- * Suggestion utility.
- *
- * @see https://github.com/ueberdosis/tiptap/issues/2795#issuecomment-1160623792
- *
- * Adopted from
- * https://github.com/Doist/typist/blob/a1726a6be089e3e1452def641dfcfc622ac3e942/stories/typist-editor/constants/suggestions.ts#L169-L186
- */
-const DOM_RECT_FALLBACK: DOMRect = {
-  bottom: 0,
-  height: 0,
-  left: 0,
-  right: 0,
-  top: 0,
-  width: 0,
-  x: 0,
-  y: 0,
-  toJSON() {
-    return {};
-  },
+const updatePosition = (editor: Editor, element: Element) => {
+  if (!(element instanceof HTMLElement)) {
+    // Defensive, to appease TypeScript
+    return;
+  }
+  const virtualElement = {
+    getBoundingClientRect: () =>
+      posToDOMRect(
+        editor.view,
+        editor.state.selection.from,
+        editor.state.selection.to,
+      ),
+  };
+
+  void computePosition(virtualElement, element, {
+    placement: "bottom-start",
+    strategy: "absolute",
+    middleware: [shift(), flip()],
+  }).then(({ x, y, strategy }) => {
+    element.style.width = "max-content";
+    element.style.position = strategy;
+    element.style.left = `${x.toFixed(0)}px`;
+    element.style.top = `${y.toFixed(0)}px`;
+  });
 };
 
 export const mentionSuggestionOptions: MentionOptions["suggestion"] = {
@@ -80,61 +84,58 @@ export const mentionSuggestionOptions: MentionOptions["suggestion"] = {
     ),
 
   render: () => {
-    let component: ReactRenderer<SuggestionListRef> | undefined;
-    let popup: TippyInstance | undefined;
+    let reactRenderer: ReactRenderer<SuggestionListRef> | undefined;
 
     return {
       onStart: (props) => {
-        component = new ReactRenderer(SuggestionList, {
+        if (!props.clientRect) {
+          return;
+        }
+
+        reactRenderer = new ReactRenderer(SuggestionList, {
           props,
           editor: props.editor,
         });
 
-        popup = tippy("body", {
-          getReferenceClientRect: () =>
-            props.clientRect?.() ?? DOM_RECT_FALLBACK,
-          appendTo: () => document.body,
-          content: component.element,
-          showOnCreate: true,
-          interactive: true,
-          trigger: "manual",
-          placement: "bottom-start",
-        })[0];
+        if (!(reactRenderer.element instanceof HTMLElement)) {
+          // Defensive, to appease TypeScript
+          return;
+        }
+        reactRenderer.element.style.position = "absolute";
+        document.body.appendChild(reactRenderer.element);
+        updatePosition(props.editor, reactRenderer.element);
       },
 
       onUpdate(props) {
-        component?.updateProps(props);
+        reactRenderer?.updateProps(props);
 
-        popup?.setProps({
-          getReferenceClientRect: () =>
-            props.clientRect?.() ?? DOM_RECT_FALLBACK,
-        });
+        if (!props.clientRect || !reactRenderer) {
+          return;
+        }
+
+        updatePosition(props.editor, reactRenderer.element);
       },
 
       onKeyDown(props) {
         if (props.event.key === "Escape") {
-          popup?.hide();
+          reactRenderer?.destroy();
+          reactRenderer?.element.remove();
           return true;
         }
 
-        if (!component?.ref) {
-          return false;
-        }
-
-        return component.ref.onKeyDown(props);
+        return reactRenderer?.ref?.onKeyDown(props) ?? false;
       },
 
       onExit() {
-        popup?.destroy();
-        component?.destroy();
-
-        // Remove references to the old popup and component upon destruction/exit.
-        // (This should prevent redundant calls to `popup.destroy()`, which Tippy
-        // warns in the console is a sign of a memory leak, as the `suggestion`
-        // plugin seems to call `onExit` both when a suggestion menu is closed after
-        // a user chooses an option, *and* when the editor itself is destroyed.)
-        popup = undefined;
-        component = undefined;
+        reactRenderer?.destroy();
+        reactRenderer?.element.remove();
+        // Remove references to the old reactRenderer upon destruction/exit.
+        // (This should prevent memory leaks and redundant calls to `destroy()`,
+        // since based on original testing with Tiptap v2, the `suggestion`
+        // plugin seems to call `onExit` both when a suggestion menu is closed
+        // after a user chooses an option, *and* when the editor itself is
+        // destroyed.)
+        reactRenderer = undefined;
       },
     };
   },
