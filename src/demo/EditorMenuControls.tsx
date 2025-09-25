@@ -28,6 +28,7 @@ import {
   MenuSelectFontFamily,
   MenuSelectFontSize,
   MenuSelectHeading,
+  MenuSelectLineHeight,
   MenuSelectTextAlign,
   isTouchDevice,
 } from "../";
@@ -52,6 +53,10 @@ export default function EditorMenuControls() {
       <MenuDivider />
 
       <MenuSelectFontSize />
+
+      <MenuDivider />
+
+      <MenuSelectLineHeight />
 
       <MenuDivider />
 

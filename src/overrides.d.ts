@@ -43,6 +43,8 @@ import type { MenuSelectFontSizeProps } from "./controls/MenuSelectFontSize";
 import type { MenuSelectFontSizeClassKey } from "./controls/MenuSelectFontSize.classes";
 import type { MenuSelectHeadingProps } from "./controls/MenuSelectHeading";
 import type { MenuSelectHeadingClassKey } from "./controls/MenuSelectHeading.classes";
+import type { MenuSelectLineHeightProps } from "./controls/MenuSelectLineHeight";
+import type { MenuSelectLineHeightClassKey } from "./controls/MenuSelectLineHeight.classes";
 import type { MenuSelectTextAlignProps } from "./controls/MenuSelectTextAlign";
 import type { MenuSelectTextAlignClassKey } from "./controls/MenuSelectTextAlign.classes";
 import type { HeadingWithAnchorComponentProps } from "./extensions/HeadingWithAnchorComponent";
@@ -77,6 +79,7 @@ declare module "@mui/material/styles" {
     "MuiTiptap-MenuSelectFontFamily": MenuSelectFontFamilyClassKey;
     "MuiTiptap-MenuSelectFontSize": MenuSelectFontSizeClassKey;
     "MuiTiptap-MenuSelectHeading": MenuSelectHeadingClassKey;
+    "MuiTiptap-MenuSelectLineHeight": MenuSelectLineHeightClassKey;
     "MuiTiptap-MenuSelectTextAlign": MenuSelectTextAlignClassKey;
     "MuiTiptap-ResizableImageComponent": ResizableImageComponentClassKey;
     "MuiTiptap-ResizableImageResizer": ResizableImageResizerClassKey;
@@ -104,6 +107,7 @@ declare module "@mui/material/styles" {
     "MuiTiptap-MenuSelectFontFamily": Partial<MenuSelectFontFamilyProps>;
     "MuiTiptap-MenuSelectFontSize": Partial<MenuSelectFontSizeProps>;
     "MuiTiptap-MenuSelectHeading": Partial<MenuSelectHeadingProps>;
+    "MuiTiptap-MenuSelectLineHeight": Partial<MenuSelectLineHeightProps>;
     "MuiTiptap-MenuSelectTextAlign": Partial<MenuSelectTextAlignProps>;
     "MuiTiptap-ResizableImageComponent": Partial<ResizableImageComponentProps>;
     "MuiTiptap-ResizableImageResizer": Partial<ResizableImageResizerProps>;
@@ -198,6 +202,11 @@ declare module "@mui/material/styles" {
       defaultProps?: ComponentsPropsList["MuiTiptap-MenuSelectHeading"];
       styleOverrides?: ComponentsOverrides<Theme>["MuiTiptap-MenuSelectHeading"];
       variants?: ComponentsVariants["MuiTiptap-MenuSelectHeading"];
+    };
+    "MuiTiptap-MenuSelectLineHeight"?: {
+      defaultProps?: ComponentsPropsList["MuiTiptap-MenuSelectLineHeight"];
+      styleOverrides?: ComponentsOverrides<Theme>["MuiTiptap-MenuSelectLineHeight"];
+      variants?: ComponentsVariants["MuiTiptap-MenuSelectLineHeight"];
     };
     "MuiTiptap-MenuSelectTextAlign"?: {
       defaultProps?: ComponentsPropsList["MuiTiptap-MenuSelectTextAlign"];

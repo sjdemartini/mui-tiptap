@@ -30,7 +30,7 @@ import { TaskItem } from "@tiptap/extension-task-item";
 import { TaskList } from "@tiptap/extension-task-list";
 import { Text } from "@tiptap/extension-text";
 import { TextAlign } from "@tiptap/extension-text-align";
-import { TextStyle } from "@tiptap/extension-text-style";
+import { LineHeight, TextStyle } from "@tiptap/extension-text-style";
 import { Underline } from "@tiptap/extension-underline";
 import { useMemo } from "react";
 import {
@@ -156,6 +156,7 @@ export default function useExtensions({
         types: ["heading", "paragraph", "image"],
       }),
       TextStyle,
+      LineHeight,
       Color,
       FontFamily,
       FontSize,

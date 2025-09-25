@@ -152,6 +152,12 @@ export {
 } from "./MenuSelectHeading";
 export { menuSelectHeadingClasses } from "./MenuSelectHeading.classes";
 export {
+  default as MenuSelectLineHeight,
+  type LineHeightSelectOption,
+  type MenuSelectLineHeightProps,
+} from "./MenuSelectLineHeight";
+export { menuSelectLineHeightClasses } from "./MenuSelectLineHeight.classes";
+export {
   default as MenuSelectTextAlign,
   type MenuSelectTextAlignProps,
   type TextAlignSelectOption,
