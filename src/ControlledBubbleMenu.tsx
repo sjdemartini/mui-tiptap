@@ -43,26 +43,20 @@ export type ControlledBubbleMenuProps = Omit<
   /**
    * To override the HTML element into which the bubble menu Popper portal
    * children (DOM content) are appended. Uses MUI's Popper default if not
-   * provided (the body of the top-level document object).
-   *
-   * Can be useful to override with a reference to a modal/dialog's element
-   * (like the `ref` of a MUI <Dialog />), for instance, so that this bubble
-   * menu can still appear on top of that, without needing to use messy z-index
-   * overrides.
+   * provided (the body of the top-level document object). Can be useful if you
+   * have specialized stacking context or portal needs.
    *
    * Example:
    *
-   * <Dialog open={open} ref={dialogRef}>
    *   <RichTextEditor ...>
    *     {() => (
    *       <>
-   *         <MyControlledBubbleMenu container={dialogRef.current} />
-   *         <LinkBubbleMenu container={dialogRef.current} />
-   *         <TableBubbleMenu container={dialogRef.current} />
+   *         <MyControlledBubbleMenu container={containerRef.current} />
+   *         <LinkBubbleMenu container={containerRef.current} />
+   *         <TableBubbleMenu container={containerRef.current} />
    *       </>
    *     )}
    *   </RichTextEditor>
-   * </Dialog>
    */
   container?: PopperProps["container"];
   /**
