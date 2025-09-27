@@ -97,7 +97,7 @@ export function scrollToCurrentHeadingAnchor(editor: Editor) {
 
   // We'll only scroll if the given hash points to an element that's part of our
   // editor content (i.e., ignore external anchors)
-  if (elementForHash && editor.options.element?.contains(elementForHash)) {
+  if (elementForHash && editor.view.dom.contains(elementForHash)) {
     elementForHash.scrollIntoView({
       behavior: "smooth",
       block: "start",
