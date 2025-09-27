@@ -6,6 +6,8 @@ updates:
     directory: "/"
     schedule:
       interval: "monthly"
+    cooldown:
+      default-days: 5
     ignore:
       - dependency-name: "@emotion/*"
         update-types: ["version-update:semver-patch"]
