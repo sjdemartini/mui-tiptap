@@ -3,16 +3,25 @@ name: build-test
 permissions:
   contents: read
 
-# Run this for pushes (from collaborators) and for any pull requests, and allow
-# this to be called from other workflows.
 on:
+  # Run for pushes (from collaborators)
   push:
     # Scope to only branches (no tags) to avoid duplicate runs for pushes of
     # tags, handled by `release.yml` with a `workflow_call`.
     branches:
       - "**"
+
+  # Run for any pull requests
   pull_request:
+
+  # Allow this to be called from other workflows
   workflow_call:
+
+  # Run weekly on Sundays at 9 AM UTC to proactively catch new `pnpm audit`
+  # issues, external breaking changes (since we test against the latest Tiptap
+  # version), etc.
+  schedule:
+    - cron: "0 9 * * 0"
 
 jobs:
   build_and_test:
