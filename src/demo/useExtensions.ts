@@ -156,10 +156,10 @@ export default function useExtensions({
         types: ["heading", "paragraph", "image"],
       }),
       TextStyle,
-      LineHeight,
       Color,
       FontFamily,
       FontSize,
+      LineHeight,
       Highlight.configure({ multicolor: true }),
       HorizontalRule,
 

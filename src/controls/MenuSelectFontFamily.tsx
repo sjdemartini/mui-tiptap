@@ -92,11 +92,13 @@ interface TextStyleAttrs extends ReturnType<Editor["getAttributes"]> {
   fontFamily?: string | null;
 }
 
-// Use this as a sentinel value so we can handle the case that the user's
-// selection includes multiple different font families. There won't be a visible
-// "option" in the Select for this value, and this will allow the user to set
-// the current font family to "Default" or to any of the multiple values, and
-// have it take effect. See more comments around `currentFontFamily` below.
+/**
+ * Use this as a sentinel value so we can handle the case that the user's
+ * selection includes multiple different font families. There won't be a visible
+ * "option" in the Select for this value, and this will allow the user to set
+ * the current font family to "Default" or to any of the multiple values, and
+ * have it take effect. See more comments around `currentFontFamily` below.
+ */
 const MULTIPLE_FAMILIES_SELECTED_VALUE = "MULTIPLE";
 
 /** A font-family selector for use with the Tiptap FontFamily extension.  */

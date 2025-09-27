@@ -7,6 +7,8 @@ export interface MenuSelectLineHeightClasses {
   selectInput: string;
   /** Styles applied to the icon shown when no line height is set. */
   icon: string;
+  /** Styles applied to the custom spacing dialog. */
+  customSpacingDialog: string;
 }
 
 export type MenuSelectLineHeightClassKey = keyof MenuSelectLineHeightClasses;
@@ -16,4 +18,5 @@ export const menuSelectLineHeightClasses: MenuSelectLineHeightClasses =
     "root",
     "selectInput",
     "icon",
+    "customSpacingDialog",
   ] satisfies MenuSelectLineHeightClassKey[]);

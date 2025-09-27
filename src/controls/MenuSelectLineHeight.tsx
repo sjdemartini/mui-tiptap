@@ -1,10 +1,16 @@
 /// <reference types="@tiptap/extension-text-style" />
 import FormatLineSpacing from "@mui/icons-material/FormatLineSpacing";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
 import MenuItem from "@mui/material/MenuItem";
+import TextField from "@mui/material/TextField";
 import { styled, useThemeProps, type SxProps } from "@mui/material/styles";
 import type { Editor } from "@tiptap/core";
 import { clsx } from "clsx";
-import type { ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useRichTextEditorContext } from "../context";
 import { getUtilityComponentName } from "../styles";
 import { getAttributesForEachSelected } from "../utils/getAttributesForEachSelected";
@@ -61,11 +67,22 @@ export type MenuSelectLineHeightProps = Omit<
    */
   hideUnsetOption?: boolean;
   /**
+   * If true, hides the "Custom spacing" option that opens a dialog for entering
+   * a custom line-height value. By default false.
+   */
+  hideCustomSpacingOption?: boolean;
+  /**
    * What to render in the Select when either no line-height is currently set for
    * the selected text, or when multiple different values are set. By default,
    * uses the FormatLineSpacing MUI icon.
    */
   emptyLabel?: React.ReactNode;
+  /**
+   * Override the label content shown for the "Custom spacing" MenuItem option that
+   * opens a dialog for entering a custom line-height value. If not provided,
+   * uses "Custom spacing…" as the displayed text.
+   */
+  customSpacingLabel?: ReactNode;
   /** Override or extend existing styles. */
   classes?: Partial<MenuSelectLineHeightClasses>;
   /** Provide custom styles. */
@@ -100,8 +117,19 @@ const MenuSelectLineHeightIcon = styled(FormatLineSpacing, {
   fontSize: MENU_BUTTON_FONT_SIZE_DEFAULT,
 }));
 
+const CustomSpacingDialogRoot = styled(Dialog, {
+  name: componentName,
+  slot: "customSpacingDialog" satisfies MenuSelectLineHeightClassKey,
+  overridesResolver: (props, styles) => styles.customSpacingDialog,
+})({});
+
 const DEFAULT_LINE_HEIGHT_SELECT_OPTIONS: MenuSelectLineHeightProps["options"] =
-  ["1", "1.15", "1.25", "1.5", "1.75", "2", "2.5", "3"];
+  [
+    { value: "1", label: "Single" },
+    "1.15",
+    "1.5",
+    { value: "2", label: "Double" },
+  ];
 
 // We can return any textStyle attributes when calling
 // `getAttributes("textStyle")`, but may return line-height attributes here, so
@@ -110,14 +138,35 @@ interface TextStyleAttrs extends ReturnType<Editor["getAttributes"]> {
   lineHeight?: string | null;
 }
 
-// Use this as a sentinel value so we can handle the case that the user's
-// selection includes multiple different line heights. There won't be a visible
-// "option" in the Select for this value, and this will allow the user to set
-// the current line height to "Default" or to any of the multiple values, and have
-// it take effect. See more comments around `currentLineHeight` below.
+/**
+ * Use this as a sentinel value so we can handle the case that the user's
+ * selection includes multiple different line heights. There won't be a visible
+ * "option" in the Select for this value, and this will allow the user to set
+ * the current line height to "Default" or to any of the multiple values, and
+ * have it take effect. See more comments around `currentLineHeight` below.
+ */
 const MULTIPLE_LINE_HEIGHTS_SELECTED_VALUE = "MULTIPLE";
 
-/** A line-height selector for use with the Tiptap LineHeight extension.  */
+/** Sentinel value for the custom spacing option */
+const CUSTOM_SPACING_VALUE = "CUSTOM_SPACING";
+
+/**
+ * A line-height selector for use with the Tiptap LineHeight extension.
+ *
+ * NOTE: When using the LineHeight extension, you may wish to set the editor's
+ * base line-height to 1 in your CSS, such as via the RichTextEditor's `sx`
+ * prop. LineHeight applies styles via `span` elements (via the underlying
+ * TextStyle extension, see
+ * https://tiptap.dev/docs/editor/extensions/functionality/line-height), which
+ * are inline elements. Per
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/line-height, on inline
+ * elements, line-height only "specifies the height that is used to calculate
+ * line box height", while the final line box height is determined by the
+ * tallest inline element on that line. By setting the editor's base line-height
+ * to 1, we ensure that LineHeight values like 1.0, 1.15, etc. can take effect
+ * properly, since they won't be overridden by a higher inherited line-height
+ * from block-level elements (e.g. paragraphs).
+ */
 export default function MenuSelectLineHeight(
   inProps: MenuSelectLineHeightProps,
 ) {
@@ -125,13 +174,17 @@ export default function MenuSelectLineHeight(
   const {
     options = DEFAULT_LINE_HEIGHT_SELECT_OPTIONS,
     unsetOptionLabel = "Default",
+    customSpacingLabel = "Custom spacing…",
     emptyLabel,
     hideUnsetOption = false,
+    hideCustomSpacingOption = false,
     classes = {},
     sx,
     ...menuSelectProps
   } = props;
   const editor = useRichTextEditorContext();
+
+  const [customDialogOpen, setCustomDialogOpen] = useState(false);
 
   const optionObjects: LineHeightSelectOptionObject[] = (options ?? []).map(
     (option) => (typeof option === "string" ? { value: option } : option),
@@ -185,70 +238,179 @@ export default function MenuSelectLineHeight(
   }
 
   return (
-    <MenuSelectLineHeightRoot
-      onChange={(event) => {
-        const value = event.target.value;
-        if (value) {
-          editor?.chain().setLineHeight(value).focus().run();
-        } else {
-          editor?.chain().unsetLineHeight().focus().run();
+    <>
+      <MenuSelectLineHeightRoot
+        onChange={(event) => {
+          const value = event.target.value;
+          if (value === CUSTOM_SPACING_VALUE) {
+            setCustomDialogOpen(true);
+          } else if (value) {
+            editor?.chain().setLineHeight(value).focus().run();
+          } else {
+            editor?.chain().unsetLineHeight().focus().run();
+          }
+        }}
+        disabled={
+          // Pass an arbitrary value to can().setLineHeight() just to check `can()`
+          !editor?.isEditable || !editor.can().setLineHeight("1.5")
         }
-      }}
-      disabled={
-        // Pass an arbitrary value to can().setLineHeight() just to check `can()`
-        !editor?.isEditable || !editor.can().setLineHeight("1.5")
-      }
-      renderValue={() => {
-        // Always show the icon (rather than the current value) to obviously
-        // indicate what this does, similar to Google Docs, MS Word, etc.
-        return (
-          emptyLabel ?? (
-            <MenuSelectLineHeightIcon
-              className={clsx([menuSelectLineHeightClasses.icon, classes.icon])}
-            />
-          )
-        );
-      }}
-      displayEmpty
-      aria-label="Line heights"
-      tooltipTitle="Line height"
-      {...menuSelectProps}
-      // We don't want to pass any non-string falsy values here, always falling
-      // back to ""
-      value={currentLineHeight || ""}
-      inputProps={{
-        ...menuSelectProps.inputProps,
-        className: clsx([
-          menuSelectLineHeightClasses.selectInput,
-          classes.selectInput,
-          menuSelectProps.inputProps?.className,
-        ]),
-      }}
-      className={clsx([
-        menuSelectLineHeightClasses.root,
-        classes.root,
-        menuSelectProps.className,
-      ])}
-      sx={sx}
-    >
-      {!hideUnsetOption && (
-        // Allow users to unset the line height
-        <MenuItem value="">{unsetOptionLabel}</MenuItem>
+        renderValue={() => {
+          // Always show the icon (rather than the current value) to obviously
+          // indicate what this does, similar to Google Docs, MS Word, etc.
+          return (
+            emptyLabel ?? (
+              <MenuSelectLineHeightIcon
+                className={clsx([
+                  menuSelectLineHeightClasses.icon,
+                  classes.icon,
+                ])}
+              />
+            )
+          );
+        }}
+        displayEmpty
+        aria-label="Line spacing"
+        tooltipTitle="Line spacing"
+        {...menuSelectProps}
+        // We don't want to pass any non-string falsy values here, always falling
+        // back to ""
+        value={currentLineHeight || ""}
+        inputProps={{
+          ...menuSelectProps.inputProps,
+          className: clsx([
+            menuSelectLineHeightClasses.selectInput,
+            classes.selectInput,
+            menuSelectProps.inputProps?.className,
+          ]),
+        }}
+        className={clsx([
+          menuSelectLineHeightClasses.root,
+          classes.root,
+          menuSelectProps.className,
+        ])}
+        sx={sx}
+      >
+        {!hideUnsetOption && (
+          // Allow users to unset the line height
+          <MenuItem value="">{unsetOptionLabel}</MenuItem>
+        )}
+
+        {/* Including a "hidden" option for "multiple selected" (we don't want a
+        user to be able to select this) allows us to avoid "you have provided an
+        out-of-range value" errors */}
+        <MenuItem
+          style={{ display: "none" }}
+          value={MULTIPLE_LINE_HEIGHTS_SELECTED_VALUE}
+        />
+
+        {optionObjects.map((option) => (
+          <MenuItem key={option.value} value={option.value}>
+            {option.label ?? option.value}
+          </MenuItem>
+        ))}
+
+        {!hideCustomSpacingOption && (
+          <MenuItem value={CUSTOM_SPACING_VALUE}>{customSpacingLabel}</MenuItem>
+        )}
+      </MenuSelectLineHeightRoot>
+
+      {!hideCustomSpacingOption && (
+        <CustomSpacingDialog
+          open={customDialogOpen}
+          initialValue={
+            currentLineHeight &&
+            currentLineHeight !== MULTIPLE_LINE_HEIGHTS_SELECTED_VALUE
+              ? currentLineHeight
+              : ""
+          }
+          onClose={() => {
+            setCustomDialogOpen(false);
+          }}
+          onApply={(value) => {
+            if (value) {
+              editor?.chain().setLineHeight(value).focus().run();
+            } else {
+              editor?.chain().unsetLineHeight().focus().run();
+            }
+            setCustomDialogOpen(false);
+          }}
+        />
       )}
+    </>
+  );
+}
 
-      {/* Including a "hidden" option for "multiple selected" (we don't want a
-      user to be able to select this) allows us to avoid "you have provided an
-      out-of-range value" errors */}
-      <MenuItem
-        style={{ display: "none" }}
-        value={MULTIPLE_LINE_HEIGHTS_SELECTED_VALUE}
-      />
+type CustomSpacingDialogProps = {
+  open: boolean;
+  initialValue: string;
+  onClose: () => void;
+  onApply: (value: string) => void;
+};
 
-      {optionObjects.map((option) => (
-        <MenuItem key={option.value} value={option.value}>
-          {option.label ?? option.value}
-        </MenuItem>
-      ))}
-    </MenuSelectLineHeightRoot>
+/** Dialog for entering a custom line-height value. */
+function CustomSpacingDialog({
+  open,
+  initialValue,
+  onClose,
+  onApply,
+}: CustomSpacingDialogProps) {
+  const [value, setValue] = useState(initialValue);
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  // Auto-focus the input when the dialog opens
+  useEffect(() => {
+    if (open && inputRef.current) {
+      // Small delay to ensure the dialog has fully rendered
+      setTimeout(() => {
+        inputRef.current?.focus();
+        inputRef.current?.select();
+      }, 100);
+    }
+  }, [open]);
+
+  // Reset value when dialog opens with new initial value
+  useEffect(() => {
+    setValue(initialValue);
+  }, [initialValue, open]);
+
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    event.stopPropagation();
+    onApply(value.trim());
+  };
+
+  return (
+    <CustomSpacingDialogRoot
+      open={open}
+      onClose={onClose}
+      maxWidth="xs"
+      fullWidth
+    >
+      <form onSubmit={handleSubmit} autoComplete="off">
+        <DialogTitle>Custom line spacing</DialogTitle>
+        <DialogContent>
+          <TextField
+            inputRef={inputRef}
+            value={value}
+            onChange={(event) => {
+              setValue(event.target.value);
+            }}
+            label="Line height"
+            placeholder="Ex: 1.5, 2.25, 150%"
+            margin="dense"
+            size="small"
+            fullWidth
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={onClose} variant="outlined" size="small">
+            Cancel
+          </Button>
+          <Button type="submit" color="primary" variant="outlined" size="small">
+            Apply
+          </Button>
+        </DialogActions>
+      </form>
+    </CustomSpacingDialogRoot>
   );
 }

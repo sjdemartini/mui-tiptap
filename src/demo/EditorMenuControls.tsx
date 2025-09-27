@@ -56,10 +56,6 @@ export default function EditorMenuControls() {
 
       <MenuDivider />
 
-      <MenuSelectLineHeight />
-
-      <MenuDivider />
-
       <MenuButtonBold />
 
       <MenuButtonItalic />
@@ -109,6 +105,8 @@ export default function EditorMenuControls() {
       <MenuDivider />
 
       <MenuSelectTextAlign />
+
+      <MenuSelectLineHeight options={["1.5", "2", "2.5", "3"]} />
 
       <MenuDivider />
 

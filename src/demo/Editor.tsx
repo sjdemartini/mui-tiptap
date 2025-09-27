@@ -215,6 +215,21 @@ export default function Editor({ disableStickyMenuBar }: Props) {
             "& h1, & h2, & h3, & h4, & h5, & h6": {
               scrollMarginTop: showMenuBar ? 50 : 0,
             },
+
+            // When using the LineHeight extension, you may wish to set the
+            // editor's base line-height to 1. LineHeight applies styles via
+            // `span` elements (via the underlying TextStyle extension, see
+            // https://tiptap.dev/docs/editor/extensions/functionality/line-height),
+            // which are inline elements. Per
+            // https://developer.mozilla.org/en-US/docs/Web/CSS/line-height, on
+            // inline elements, line-height only "specifies the height that is
+            // used to calculate line box height", while the final line box
+            // height is determined by the tallest inline element on that line.
+            // By setting the editor's base line-height to 1, we ensure that
+            // LineHeight values like 1.0, 1.15, etc. can take effect properly,
+            // since they won't be overridden by a higher inherited line-height
+            // from block-level elements (e.g. paragraphs). Uncomment this:
+            // lineHeight: 1,
           },
         }}
       >

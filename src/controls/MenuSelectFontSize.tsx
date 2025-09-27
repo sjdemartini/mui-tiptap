@@ -137,11 +137,13 @@ function stripPxFromValue(value: string): string {
   return value.replace("px", "");
 }
 
-// Use this as a sentinel value so we can handle the case that the user's
-// selection includes multiple different font sizes. There won't be a visible
-// "option" in the Select for this value, and this will allow the user to set
-// the current font size to "Default" or to any of the multiple values, and have
-// it take effect. See more comments around `currentFontSize` below.
+/**
+ * Use this as a sentinel value so we can handle the case that the user's
+ * selection includes multiple different font sizes. There won't be a visible
+ * "option" in the Select for this value, and this will allow the user to set
+ * the current font size to "Default" or to any of the multiple values, and have
+ * it take effect. See more comments around `currentFontSize` below.
+ */
 const MULTIPLE_SIZES_SELECTED_VALUE = "MULTIPLE";
 
 /** A font-size selector for use with the mui-tiptap FontSize extension.  */
