@@ -299,6 +299,9 @@ export default function MenuSelectTextAlign(inProps: MenuSelectTextAlignProps) {
             key={alignmentOption.value}
             value={alignmentOption.value}
             disabled={!editor?.can().setTextAlign(alignmentOption.value)}
+            // Add an accessible label, since no text is included within the
+            // menu item
+            aria-label={alignmentOption.label ?? alignmentOption.value}
             className={clsx([
               menuSelectTextAlignClasses.menuItem,
               classes.menuItem,

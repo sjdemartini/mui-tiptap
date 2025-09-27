@@ -123,6 +123,15 @@ export default function MenuButton(inProps: MenuButtonProps) {
           ref={buttonRef}
           size="small"
           value={tooltipLabel}
+          // Add an accessible label, since no text is included within the
+          // button. The parent Tooltip from MUI can automatically apply
+          // aria-labels, but only to their direct children and only when the
+          // tooltip title is a string, which in our case it is not
+          // (https://mui.com/material-ui/react-tooltip/#accessibility,
+          // https://github.com/mui/material-ui/blob/e98e41d284a75486655db1547e263ecc5ab67bdb/packages/mui-material/src/Tooltip/Tooltip.js#L581-L587),
+          // and MenuButtonTooltip's direct child is its `contentWrapper`
+          // anyway, not the button itself.
+          aria-label={tooltipLabel}
           {...toggleButtonProps}
         >
           {children ??
