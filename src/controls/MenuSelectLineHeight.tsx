@@ -153,6 +153,8 @@ const CUSTOM_SPACING_VALUE = "CUSTOM_SPACING";
 /**
  * A line-height selector for use with the Tiptap LineHeight extension.
  *
+ * Requires Tiptap v3+.
+ *
  * NOTE: When using the LineHeight extension, you may wish to set the editor's
  * base line-height to 1 in your CSS, such as via the RichTextEditor's `sx`
  * prop. LineHeight applies styles via `span` elements (via the underlying
