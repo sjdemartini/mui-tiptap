@@ -236,3 +236,8 @@ declare module "@mui/material/styles" {
     };
   }
 }
+
+// This empty export allows this file to be a module so we can import and
+// include it in the build, to have the type augmentations available to
+// consumers.
+export {};
