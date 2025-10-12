@@ -15,7 +15,9 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      id-token: write # Needed for https://docs.npmjs.com/generating-provenance-statements
+      # Required for OIDC
+      # (https://docs.npmjs.com/trusted-publishers#github-actions-configuration):
+      id-token: write
 
     needs: [build-test] # Require standard CI steps to pass before publishing
 
@@ -26,8 +28,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v4
 
-      # Set up .npmrc file to publish to npm. This also allows NODE_AUTH_TOKEN
-      # to work below.
+      # Set up .npmrc file to publish to npm
       - uses: actions/setup-node@v4
         with:
           node-version: "20.x"
@@ -46,6 +47,4 @@ jobs:
       # (https://gist.github.com/DarrenN/8c6a5b969481725a4413?permalink_comment_id=4156395#gistcomment-4156395)
       # to parse the version, then could regex for whether it's a pre-release or
       # not.
-      - run: npm publish --provenance
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - run: npm publish
