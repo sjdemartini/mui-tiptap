@@ -31,6 +31,14 @@ export default function App() {
         palette: {
           mode: paletteMode,
         },
+
+        components: {
+          "MuiTiptap-MenuBar": {
+            styleOverrides: {
+              root: { backgroundColor: "#191919" },
+            },
+          },
+        },
       }),
     [paletteMode],
   );

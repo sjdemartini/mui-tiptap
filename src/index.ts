@@ -1,3 +1,5 @@
+// Import type declarations for MUI theme overrides (module augmentation)
+import "./overrides";
 export { RichTextEditorContext, useRichTextEditorContext } from "./context";
 export {
   default as ControlledBubbleMenu,
