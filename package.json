@@ -17,7 +17,10 @@
   "homepage": "https://github.com/sjdemartini/mui-tiptap",
   "bugs": "https://github.com/sjdemartini/mui-tiptap/issues",
   "author": "Steven DeMartini <sjdemartini@users.noreply.github.com>",
-  "repository": "github:sjdemartini/mui-tiptap",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sjdemartini/mui-tiptap.git"
+  },
   "files": [
     "dist"
   ],
