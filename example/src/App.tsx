@@ -35,7 +35,10 @@ export default function App() {
         components: {
           "MuiTiptap-MenuBar": {
             styleOverrides: {
-              root: { backgroundColor: "#191919" },
+              root: ({ theme }) => ({
+                backgroundColor:
+                  theme.palette.mode === "dark" ? "#191919" : "#f3f3f3",
+              }),
             },
           },
         },
