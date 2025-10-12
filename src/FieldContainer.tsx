@@ -68,7 +68,7 @@ const FieldContainerRoot = styled(Box, {
   }),
 }));
 
-const FieldContainerNotchedOutline = styled("fieldset", {
+const FieldContainerNotchedOutline = styled("div", {
   name: componentName,
   slot: "notchedOutline" satisfies FieldContainerClassKey,
   overridesResolver: (props, styles) => styles.notchedOutline,
