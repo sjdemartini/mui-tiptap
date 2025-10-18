@@ -176,6 +176,10 @@ function App() {
   const editor = useEditor({
     extensions: [StarterKit],
     content: "<p>Hello <b>world</b>!</p>",
+    // With Tiptap v3, set shouldRerenderOnTransaction to true, as mui-tiptap currently relies
+    // on rerenders to keep controls/children reactive to support both Tiptap v2 and v3.
+    // (https://github.com/sjdemartini/mui-tiptap/issues/425 tracks v3-specific handling.)
+    shouldRerenderOnTransaction: true,
   });
   return (
     <RichTextEditorProvider editor={editor}>
