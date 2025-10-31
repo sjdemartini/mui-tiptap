@@ -2,6 +2,9 @@
   "ignorePatterns": [
     {
       "pattern": "^https://tiptap.dev/"
+    },
+    {
+      "pattern": "^https://www\\.npmjs\\.com/"
     }
   ],
   "timeout": "10s",
