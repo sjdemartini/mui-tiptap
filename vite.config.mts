@@ -9,7 +9,7 @@ export default defineConfig({
   test: {
     exclude: [...configDefaults.exclude, "example/**"],
     coverage: {
-      all: true,
+      include: ["src/**/*.{js,jsx,ts,tsx}"],
       exclude: [...(configDefaults.coverage.exclude ?? []), "example/**"],
     },
   },
