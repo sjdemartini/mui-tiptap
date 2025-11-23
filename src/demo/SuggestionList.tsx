@@ -4,7 +4,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import Paper from "@mui/material/Paper";
 import type { MentionNodeAttrs } from "@tiptap/extension-mention";
 import type { SuggestionOptions, SuggestionProps } from "@tiptap/suggestion";
-import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
+import { forwardRef, useImperativeHandle, useState } from "react";
 import type { MentionSuggestion } from "./mentionSuggestionOptions";
 
 export type SuggestionListRef = {
@@ -23,6 +23,14 @@ export type SuggestionListProps = SuggestionProps<MentionSuggestion>;
 const SuggestionList = forwardRef<SuggestionListRef, SuggestionListProps>(
   (props, ref) => {
     const [selectedIndex, setSelectedIndex] = useState(0);
+
+    // Follow React's recommendation to avoid calling setState within an effect
+    // https://react.dev/learn/you-might-not-need-an-effect#adjusting-some-state-when-a-prop-changes
+    const [prevItems, setPrevItems] = useState(props.items);
+    if (props.items !== prevItems) {
+      setPrevItems(props.items);
+      setSelectedIndex(0);
+    }
 
     const selectItem = (index: number) => {
       if (index >= props.items.length) {
@@ -61,10 +69,6 @@ const SuggestionList = forwardRef<SuggestionListRef, SuggestionListProps>(
     const enterHandler = () => {
       selectItem(selectedIndex);
     };
-
-    useEffect(() => {
-      setSelectedIndex(0);
-    }, [props.items]);
 
     useImperativeHandle(ref, () => ({
       onKeyDown: ({ event }) => {
