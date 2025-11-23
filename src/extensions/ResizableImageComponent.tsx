@@ -140,6 +140,7 @@ function ResizableImageComponent(inProps: ResizableImageComponentProps) {
       // Throttle our "on resize" handler, since the event fires very rapidly during
       // dragging, so rendering would end up stuttering a bit without a throttle
       throttle(
+        // eslint-disable-next-line react-hooks/refs -- ref is used in a memoized throttle callback (event handler), not during render
         (event: MouseEvent) => {
           if (!imageRef.current) {
             return;
