@@ -177,13 +177,9 @@ jobs:
         # README and documentation is updated, we want to ensure that links
         # remain correct. (This also checks external links, though that's a
         # secondary concern.)
-        # Use retry action to automatically retry once if the check fails due to
-        # transient network issues or other flakiness.
-        uses: nick-fields/retry@v3
-        with:
-          max_attempts: 2
-          timeout_minutes: 5
-          command: pnpm run md-link:check
+        # Retry once if the check fails due to transient network issues or other
+        # flakiness.
+        run: pnpm run md-link:check || (echo "Retrying markdown link check..." && pnpm run md-link:check)
 
       - name: Test
         # Run the tests and print out the coverage information. In the future,
