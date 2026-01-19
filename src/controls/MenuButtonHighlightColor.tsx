@@ -43,7 +43,7 @@ export default function MenuButtonHighlightColor({
       // the provided defaultMarkColor
       (editor.getAttributes("highlight").color as string | null | undefined) ||
       defaultMarkColor
-    : "";
+    : defaultMarkColor;
   return (
     <MenuButtonColorPicker
       IconComponent={FormatInkHighlighterNoBar}
