@@ -177,7 +177,14 @@ jobs:
         # README and documentation is updated, we want to ensure that links
         # remain correct. (This also checks external links, though that's a
         # secondary concern.)
-        run: pnpm run md-link:check
+        # Retry once if the check fails due to transient network issues or other
+        # flakiness.
+        run: |
+          if ! pnpm run md-link:check; then
+            echo "Markdown link check failed, retrying once..."
+            sleep 5
+            pnpm run md-link:check
+          fi
 
       - name: Test
         # Run the tests and print out the coverage information. In the future,
