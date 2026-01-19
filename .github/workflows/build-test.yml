@@ -180,11 +180,11 @@ jobs:
         # Retry once if the check fails due to transient network issues or other
         # flakiness.
         run: |
-          pnpm run md-link:check || {
+          if ! pnpm run md-link:check; then
             echo "Markdown link check failed, retrying once..."
             sleep 5
             pnpm run md-link:check
-          }
+          fi
 
       - name: Test
         # Run the tests and print out the coverage information. In the future,
