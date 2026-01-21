@@ -4,8 +4,9 @@ import ToggleButton, {
 } from "@mui/material/ToggleButton";
 import { styled, useThemeProps, type SxProps } from "@mui/material/styles";
 import { clsx } from "clsx";
-import type { ReactNode, RefObject } from "react";
+import { useMemo, type ReactNode, type RefObject } from "react";
 import { getUtilityComponentName } from "../styles";
+import { getModShortcutKey } from "../utils";
 import {
   menuButtonClasses,
   type MenuButtonClassKey,
@@ -110,6 +111,18 @@ export default function MenuButton(inProps: MenuButtonProps) {
     ...toggleButtonProps
   } = props;
 
+  const labelWithShortcut = useMemo(
+    () =>
+      tooltipShortcutKeys?.length
+        ? `${tooltipLabel} (${tooltipShortcutKeys
+            .map((shortcutKey) =>
+              shortcutKey === "mod" ? getModShortcutKey() : shortcutKey,
+            )
+            .join(" + ")})`
+        : tooltipLabel,
+    [tooltipLabel, tooltipShortcutKeys],
+  );
+
   return (
     <MenuButtonRoot
       className={clsx([menuButtonClasses.root, className, classes.root])}
@@ -131,7 +144,7 @@ export default function MenuButton(inProps: MenuButtonProps) {
           // https://github.com/mui/material-ui/blob/e98e41d284a75486655db1547e263ecc5ab67bdb/packages/mui-material/src/Tooltip/Tooltip.js#L581-L587),
           // and MenuButtonTooltip's direct child is its `contentWrapper`
           // anyway, not the button itself.
-          aria-label={tooltipLabel}
+          aria-label={labelWithShortcut}
           {...toggleButtonProps}
         >
           {children ??
