@@ -65,7 +65,11 @@ export default function App() {
             >
               View in a dialog
             </Button>
-            <IconButton onClick={togglePaletteMode} color="inherit">
+            <IconButton
+              onClick={togglePaletteMode}
+              color="inherit"
+              aria-label="Dark mode toggle"
+            >
               {theme.palette.mode === "dark" ? (
                 <Brightness7Icon />
               ) : (
