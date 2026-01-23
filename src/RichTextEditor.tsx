@@ -113,12 +113,18 @@ const RichTextEditor = forwardRef<RichTextEditorRef, RichTextEditorProps>(
       // behavior without requiring consumer changes, and including it should be
       // harmless in v2 versions that predate this option.
       shouldRerenderOnTransaction = true,
+      editorProps = {
+        attributes: {
+          "aria-label": "Editor Content",
+        },
+      },
       ...editorOptions
     }: RichTextEditorProps,
     ref,
   ) {
     const mergedEditorOptions = {
       editable,
+      editorProps,
       shouldRerenderOnTransaction,
       ...editorOptions,
     } satisfies UseEditorOptions;
