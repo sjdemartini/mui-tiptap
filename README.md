@@ -373,7 +373,7 @@ You can override styles in several different ways, following standard [MUI conve
    const theme = createTheme({
      components: {
        // Override the behavior for the mui-tiptap `FieldContainer`
-       "MuiTiptap-FieldContainer": {
+       MuiTiptapFieldContainer: {
          defaultProps: {
            // If no `variant` value is set, use "standard"
            variant: "standard",
@@ -398,9 +398,9 @@ You can override styles in several different ways, following standard [MUI conve
 
 4. Apply styles based on utility class names of mui-tiptap components. These are useful for applying CSS externally, or for nested component styling when using `sx` or `styleOverrides`.
 
-   For instance, for the `RichTextField` component, the `"MuiTiptap-RichTextField-root"` class name is applied to its root element, a separate class will be included on that element based on the current variant (like `"MuiTiptap-RichTextField-outlined"`), and its inner content element gets the `"MuiTiptap-RichTextField-content"` class.
+   For instance, for the `RichTextField` component, the `"MuiTiptapRichTextField-root"` class name is applied to its root element, a separate class will be included on that element based on the current variant (like `"MuiTiptap-RichTextField-outlined"`), and its inner content element gets the `"MuiTiptap-RichTextField-content"` class.
 
-   You can import helper objects from mui-tiptap to avoid hard-coding these, like `import { richTextFieldClasses } from "mui-tiptap";`, and access them like `richTextFieldClasses.content` for the `"MuiTiptap-RichTextField-content"` value.
+   You can import helper objects from mui-tiptap to avoid hard-coding these, like `import { richTextFieldClasses } from "mui-tiptap";`, and access them like `richTextFieldClasses.content` for the `"MuiTiptapRichTextField-content"` value.
 
 ## Localization
 
