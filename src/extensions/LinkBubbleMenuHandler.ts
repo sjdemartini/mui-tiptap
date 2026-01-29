@@ -2,7 +2,22 @@ import { Extension, getAttributes } from "@tiptap/core";
 import { Plugin, PluginKey } from "@tiptap/pm/state";
 import type { LinkBubbleMenuProps } from "../LinkBubbleMenu";
 
+export enum LinkMenuState {
+  HIDDEN,
+  VIEW_LINK_DETAILS,
+  EDIT_LINK,
+}
+
+export type LinkBubbleMenuHandlerStorage = {
+  state: LinkMenuState;
+  bubbleMenuOptions: Partial<LinkBubbleMenuProps> | undefined;
+};
+
 declare module "@tiptap/core" {
+  interface Storage {
+    linkBubbleMenuHandler: LinkBubbleMenuHandlerStorage;
+  }
+
   interface Commands<ReturnType> {
     linkBubbleMenu: {
       /**
@@ -33,17 +48,6 @@ declare module "@tiptap/core" {
     };
   }
 }
-
-export enum LinkMenuState {
-  HIDDEN,
-  VIEW_LINK_DETAILS,
-  EDIT_LINK,
-}
-
-export type LinkBubbleMenuHandlerStorage = {
-  state: LinkMenuState;
-  bubbleMenuOptions: Partial<LinkBubbleMenuProps> | undefined;
-};
 
 /**
  * To be used in conjunction with the `LinkBubbleMenu` component, as this

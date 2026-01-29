@@ -1,14 +1,12 @@
 /// <reference types="@tiptap/extension-link" />
 import { styled, useThemeProps, type SxProps } from "@mui/material/styles";
+import { useEditorState } from "@tiptap/react";
 import { clsx } from "clsx";
 import ControlledBubbleMenu, {
   type ControlledBubbleMenuProps,
 } from "../ControlledBubbleMenu";
 import { useRichTextEditorContext } from "../context";
-import {
-  LinkMenuState,
-  type LinkBubbleMenuHandlerStorage,
-} from "../extensions/LinkBubbleMenuHandler";
+import { LinkMenuState } from "../extensions/LinkBubbleMenuHandler";
 import { getUtilityComponentName } from "../styles";
 import EditLinkMenuContent, {
   type EditLinkMenuContentProps,
@@ -78,35 +76,48 @@ export default function LinkBubbleMenu(inProps: LinkBubbleMenuProps) {
 
   const editor = useRichTextEditorContext();
 
-  if (!editor?.isEditable) {
-    return null;
-  }
-
   if (!("linkBubbleMenuHandler" in editor.storage)) {
     throw new Error(
       "You must add the LinkBubbleMenuHandler extension to the useEditor `extensions` array in order to use this component!",
     );
   }
-  const handlerStorage = editor.storage
-    .linkBubbleMenuHandler as LinkBubbleMenuHandlerStorage;
 
-  // Update the menu step if the bubble menu state has changed
-  const menuState = handlerStorage.state;
+  const {
+    menuState,
+    bubbleMenuOptions,
+    closeLinkBubbleMenu,
+    editLinkInBubbleMenu,
+    selectionTo,
+  } = useEditorState({
+    editor,
+    selector: ({ editor: editorSnapshot }) => ({
+      menuState: editorSnapshot.storage.linkBubbleMenuHandler.state,
+      bubbleMenuOptions:
+        editorSnapshot.storage.linkBubbleMenuHandler.bubbleMenuOptions,
+      closeLinkBubbleMenu: editorSnapshot.commands.closeLinkBubbleMenu,
+      editLinkInBubbleMenu: editorSnapshot.commands.editLinkInBubbleMenu,
+      selectionTo: editorSnapshot.state.selection.to,
+    }),
+  });
+
+  if (!editor.isEditable) {
+    return null;
+  }
 
   let linkMenuContent = null;
   if (menuState === LinkMenuState.VIEW_LINK_DETAILS) {
     linkMenuContent = (
       <ViewLinkMenuContent
         editor={editor}
-        onCancel={editor.commands.closeLinkBubbleMenu}
-        onEdit={editor.commands.editLinkInBubbleMenu}
+        onCancel={closeLinkBubbleMenu}
+        onEdit={editLinkInBubbleMenu}
         onRemove={() => {
           // Remove the link and place the cursor at the end of the link (which
           // requires "focus" to take effect)
           editor
             .chain()
             .unsetLink()
-            .setTextSelection(editor.state.selection.to)
+            .setTextSelection(selectionTo)
             .focus()
             .run();
         }}
@@ -152,7 +163,7 @@ export default function LinkBubbleMenu(inProps: LinkBubbleMenuProps) {
             .focus()
             .run();
 
-          editor.commands.closeLinkBubbleMenu();
+          closeLinkBubbleMenu();
         }}
         labels={labels}
         formatHref={formatHref}
@@ -164,7 +175,7 @@ export default function LinkBubbleMenu(inProps: LinkBubbleMenuProps) {
     <ControlledBubbleMenu
       editor={editor}
       open={menuState !== LinkMenuState.HIDDEN}
-      {...handlerStorage.bubbleMenuOptions}
+      {...bubbleMenuOptions}
       {...controlledBubbleMenuProps}
       classes={{
         root: clsx([linkBubbleMenuClasses.root, classes.root]),

@@ -3,6 +3,7 @@ import DialogActions from "@mui/material/DialogActions";
 import Link from "@mui/material/Link";
 import { styled, useThemeProps, type SxProps } from "@mui/material/styles";
 import { getMarkRange, getMarkType, type Editor } from "@tiptap/core";
+import { useEditorState } from "@tiptap/react";
 import { clsx } from "clsx";
 import truncate from "es-toolkit/compat/truncate";
 import type { ReactNode } from "react";
@@ -62,16 +63,23 @@ export default function ViewLinkMenuContent(inProps: ViewLinkMenuContentProps) {
     sx,
   } = props;
 
-  const linkRange = getMarkRange(
-    editor.state.selection.$to,
-    getMarkType("link", editor.schema),
-  );
-  const linkText = linkRange
-    ? editor.state.doc.textBetween(linkRange.from, linkRange.to)
-    : "";
-
-  const currentHref =
-    (editor.getAttributes("link").href as string | undefined) ?? "";
+  const { linkText, currentHref } = useEditorState({
+    editor,
+    selector: ({ editor: editorSnapshot }) => {
+      const linkRange = getMarkRange(
+        editorSnapshot.state.selection.$to,
+        getMarkType("link", editorSnapshot.schema),
+      );
+      return {
+        linkText: linkRange
+          ? editorSnapshot.state.doc.textBetween(linkRange.from, linkRange.to)
+          : "",
+        currentHref:
+          (editorSnapshot.getAttributes("link").href as string | undefined) ??
+          "",
+      };
+    },
+  });
 
   // If the user presses escape, we should cancel
   useKeyDown("Escape", onCancel);

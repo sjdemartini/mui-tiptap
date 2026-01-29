@@ -1,5 +1,6 @@
 /// <reference types="@tiptap/extension-color" />
 import type { Editor } from "@tiptap/core";
+import { useEditorState } from "@tiptap/react";
 import { useRichTextEditorContext } from "../context";
 import { FormatColorTextNoBar } from "../icons";
 import { getAttributesForEachSelected } from "../utils";
@@ -33,17 +34,26 @@ export default function MenuButtonTextColor({
   ...menuButtonProps
 }: MenuButtonTextColorProps) {
   const editor = useRichTextEditorContext();
+  const { isEditable, canSetColor, isActive, allCurrentTextStyleAttrs } =
+    useEditorState({
+      editor,
+      selector: ({ editor: editorSnapshot }) => ({
+        isEditable: editorSnapshot.isEditable,
+        canSetColor: editorSnapshot.can().setColor("#000"),
+        isActive: editorSnapshot.isActive("textStyle"),
+        // Determine if all of the selected content shares the same set color.
+        allCurrentTextStyleAttrs: getAttributesForEachSelected(
+          editorSnapshot.state,
+          "textStyle",
+        ) as TextStyleAttrs[],
+      }),
+    });
 
-  // Determine if all of the selected content shares the same set color.
-  const allCurrentTextStyleAttrs: TextStyleAttrs[] = editor
-    ? getAttributesForEachSelected(editor.state, "textStyle")
-    : [];
-  const isTextStyleAppliedToEntireSelection = !!editor?.isActive("textStyle");
   const currentColors: string[] = allCurrentTextStyleAttrs.map(
     // Treat any null/missing color as the default color
     (attrs) => attrs.color || defaultTextColor,
   );
-  if (!isTextStyleAppliedToEntireSelection) {
+  if (!isActive) {
     // If there is some selected content that does not have textStyle, we can
     // treat it the same as a selected textStyle mark with color set to the
     // default
@@ -74,9 +84,9 @@ export default function MenuButtonTextColor({
       tooltipLabel={tooltipLabel}
       value={currentColor}
       onChange={(newColor) => {
-        editor?.chain().focus().setColor(newColor).run();
+        editor.chain().focus().setColor(newColor).run();
       }}
-      disabled={!editor?.isEditable || !editor.can().setColor("#000")}
+      disabled={!isEditable || !canSetColor}
       {...menuButtonProps}
       labels={{ removeColorButton: "Reset", ...menuButtonProps.labels }}
     />

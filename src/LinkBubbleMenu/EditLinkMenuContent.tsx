@@ -3,6 +3,7 @@ import DialogActions from "@mui/material/DialogActions";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { getMarkRange, getMarkType, type Editor } from "@tiptap/core";
+import { useEditorState } from "@tiptap/react";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import useKeyDown from "../hooks/useKeyDown";
 import { formatHref as formatHrefDefault } from "../utils/links";
@@ -48,21 +49,28 @@ export default function EditLinkMenuContent({
   labels,
   formatHref = formatHrefDefault,
 }: EditLinkMenuContentProps) {
-  const existingHref = editor.isActive("link")
-    ? (editor.getAttributes("link").href as string)
-    : "";
-  const linkRange = getMarkRange(
-    editor.state.selection.$from,
-    getMarkType("link", editor.schema),
-  );
-  const linkText = linkRange
-    ? editor.state.doc.textBetween(linkRange.from, linkRange.to)
-    : "";
+  const { existingHref, linkText, selectedText } = useEditorState({
+    editor,
+    selector: ({ editor: editorSnapshot }) => {
+      const linkRange = getMarkRange(
+        editorSnapshot.state.selection.$from,
+        getMarkType("link", editorSnapshot.schema),
+      );
 
-  const selectedText = editor.state.doc.textBetween(
-    editor.state.selection.$from.pos,
-    editor.state.selection.$to.pos,
-  );
+      return {
+        existingHref: editorSnapshot.isActive("link")
+          ? (editorSnapshot.getAttributes("link").href as string)
+          : "",
+        linkText: linkRange
+          ? editorSnapshot.state.doc.textBetween(linkRange.from, linkRange.to)
+          : "",
+        selectedText: editorSnapshot.state.doc.textBetween(
+          editorSnapshot.state.selection.$from.pos,
+          editorSnapshot.state.selection.$to.pos,
+        ),
+      };
+    },
+  });
 
   // If we're on a link, we'll use the full link text, otherwise we'll fall back
   // to the selected text
