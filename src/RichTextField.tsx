@@ -158,57 +158,62 @@ export default function RichTextField(inProps: RichTextFieldProps) {
   const isFieldFocused = useDebouncedFocus({ editor });
 
   return (
-    <RichTextFieldRoot
-      {...fieldContainerProps}
-      variant={variant}
-      focused={!disabled && isFieldFocused}
-      disabled={disabled}
-      className={clsx([
-        richTextFieldClasses.root,
-        classes.root,
-        variant === "outlined"
-          ? [richTextFieldClasses.outlined, classes.outlined]
-          : [richTextFieldClasses.standard, classes.standard],
-        className,
-      ])}
-      ownerState={ownerState}
-      sx={sx}
-    >
-      {controls && (
-        <MenuBar
-          {...MenuBarProps}
-          classes={{
-            ...MenuBarProps?.classes,
-            root: clsx([
-              richTextFieldClasses.menuBar,
-              classes.menuBar,
-              MenuBarProps?.classes?.root,
-            ]),
-            content: clsx([
-              richTextFieldClasses.menuBarContent,
-              classes.menuBarContent,
-              MenuBarProps?.classes?.content,
-            ]),
-          }}
-        >
-          {disableDebounceRenderControls ? (
-            controls
-          ) : (
-            <DebounceRender>{controls}</DebounceRender>
-          )}
-        </MenuBar>
-      )}
-
-      <RichTextContent
-        {...RichTextContentProps}
+    // Don't even bother rendering if editor from useEditor is undefined like V2 can do,
+    // so everything inside is safe to assume editor is valid
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    editor && (
+      <RichTextFieldRoot
+        {...fieldContainerProps}
+        variant={variant}
+        focused={!disabled && isFieldFocused}
+        disabled={disabled}
         className={clsx([
-          richTextFieldClasses.content,
-          classes.content,
-          RichTextContentProps?.className,
+          richTextFieldClasses.root,
+          classes.root,
+          variant === "outlined"
+            ? [richTextFieldClasses.outlined, classes.outlined]
+            : [richTextFieldClasses.standard, classes.standard],
+          className,
         ])}
-      />
+        ownerState={ownerState}
+        sx={sx}
+      >
+        {controls && (
+          <MenuBar
+            {...MenuBarProps}
+            classes={{
+              ...MenuBarProps?.classes,
+              root: clsx([
+                richTextFieldClasses.menuBar,
+                classes.menuBar,
+                MenuBarProps?.classes?.root,
+              ]),
+              content: clsx([
+                richTextFieldClasses.menuBarContent,
+                classes.menuBarContent,
+                MenuBarProps?.classes?.content,
+              ]),
+            }}
+          >
+            {disableDebounceRenderControls ? (
+              controls
+            ) : (
+              <DebounceRender>{controls}</DebounceRender>
+            )}
+          </MenuBar>
+        )}
 
-      {footer}
-    </RichTextFieldRoot>
+        <RichTextContent
+          {...RichTextContentProps}
+          className={clsx([
+            richTextFieldClasses.content,
+            classes.content,
+            RichTextContentProps?.className,
+          ])}
+        />
+
+        {footer}
+      </RichTextFieldRoot>
+    )
   );
 }

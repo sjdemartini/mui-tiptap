@@ -5,9 +5,9 @@ export const RichTextEditorContext = createContext<Editor | null | undefined>(
   undefined,
 );
 
-export function useRichTextEditorContext(): Editor | null {
+export function useRichTextEditorContext(): Editor {
   const editor = useContext(RichTextEditorContext);
-  if (editor === undefined) {
+  if (!editor) {
     throw new Error(
       "Tiptap editor not found in component context. Be sure to use <RichTextEditorProvider editor={editor} />!",
     );

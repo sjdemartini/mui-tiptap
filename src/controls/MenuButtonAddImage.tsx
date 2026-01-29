@@ -1,4 +1,5 @@
 import AddPhotoAlternate from "@mui/icons-material/AddPhotoAlternate";
+import { useEditorState } from "@tiptap/react";
 import { useRichTextEditorContext } from "../context";
 import MenuButton, { type MenuButtonProps } from "./MenuButton";
 
@@ -29,17 +30,21 @@ export default function MenuButtonAddImage({
   ...props
 }: MenuButtonAddImageProps) {
   const editor = useRichTextEditorContext();
+  const { isEditable, canSetImage } = useEditorState({
+    editor,
+    selector: ({ editor: editorSnapshot }) => ({
+      isEditable: editorSnapshot.isEditable,
+      // We can use any URL here for testing `can` (to see if an image can be
+      // added to the editor currently)
+      canSetImage: editorSnapshot.can().setImage({ src: "http://example.com" }),
+    }),
+  });
 
   return (
     <MenuButton
       tooltipLabel="Insert image"
       IconComponent={AddPhotoAlternate}
-      disabled={
-        !editor?.isEditable ||
-        // We can use any URL here for testing `can` (to see if an image can be
-        // added to the editor currently)
-        !editor.can().setImage({ src: "http://example.com" })
-      }
+      disabled={!isEditable || !canSetImage}
       {...props}
     />
   );

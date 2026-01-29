@@ -1,4 +1,5 @@
 import FormatClear from "@mui/icons-material/FormatClear";
+import { useEditorState } from "@tiptap/react";
 import { useRichTextEditorContext } from "../context";
 import MenuButton, { type MenuButtonProps } from "./MenuButton";
 
@@ -12,12 +13,19 @@ export default function MenuButtonRemoveFormatting(
   props: MenuButtonRemoveFormattingProps,
 ) {
   const editor = useRichTextEditorContext();
+  const { isEditable, canUnsetAllMarks } = useEditorState({
+    editor,
+    selector: ({ editor: editorSnapshot }) => ({
+      isEditable: editorSnapshot.isEditable,
+      canUnsetAllMarks: editorSnapshot.can().unsetAllMarks(),
+    }),
+  });
   return (
     <MenuButton
       tooltipLabel="Remove inline formatting"
       IconComponent={FormatClear}
-      disabled={!editor?.isEditable || !editor.can().unsetAllMarks()}
-      onClick={() => editor?.chain().focus().unsetAllMarks().run()}
+      disabled={!isEditable || !canUnsetAllMarks}
+      onClick={() => editor.chain().focus().unsetAllMarks().run()}
       {...props}
     />
   );
