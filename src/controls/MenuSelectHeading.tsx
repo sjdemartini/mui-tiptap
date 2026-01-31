@@ -8,7 +8,9 @@ import { useCallback, useMemo, type ReactNode } from "react";
 import { useRichTextEditorContext } from "../context";
 import { getEditorStyles, getUtilityComponentName } from "../styles";
 import { getAttributesForEachSelected } from "../utils/getAttributesForEachSelected";
-import MenuButtonTooltip from "./MenuButtonTooltip";
+import MenuButtonTooltip, {
+  type MenuButtonTooltipProps,
+} from "./MenuButtonTooltip";
 import MenuSelect, { type MenuSelectProps } from "./MenuSelect";
 import {
   menuSelectHeadingClasses,
@@ -47,6 +49,33 @@ export type MenuSelectHeadingProps = Omit<
     empty?: ReactNode;
     /** @deprecated Use `labels.empty` instead. */
     emptyValue?: React.ReactNode;
+  };
+  /**
+   * Override the default shortcut keys shown in the tooltip for each heading
+   * option. For any value that is omitted, it falls back to the default
+   * shortcut keys. Use `hideShortcuts` to hide all shortcuts entirely.
+   *
+   * Useful for localizing key names, or for updating the displayed shortcuts to
+   * match any custom keyboard shortcuts configured in your Tiptap editor.
+   *
+   * Use the literal string "mod" to represent Cmd on Mac and Ctrl on Windows
+   * and Linux.
+   */
+  shortcutKeys?: {
+    /** Shortcut keys for the "Paragraph" option. Default: ["mod", "alt", "0"] */
+    paragraph?: MenuButtonTooltipProps["shortcutKeys"];
+    /** Shortcut keys for Heading 1. Default: ["mod", "alt", "1"] */
+    heading1?: MenuButtonTooltipProps["shortcutKeys"];
+    /** Shortcut keys for Heading 2. Default: ["mod", "alt", "2"] */
+    heading2?: MenuButtonTooltipProps["shortcutKeys"];
+    /** Shortcut keys for Heading 3. Default: ["mod", "alt", "3"] */
+    heading3?: MenuButtonTooltipProps["shortcutKeys"];
+    /** Shortcut keys for Heading 4. Default: ["mod", "alt", "4"] */
+    heading4?: MenuButtonTooltipProps["shortcutKeys"];
+    /** Shortcut keys for Heading 5. Default: ["mod", "alt", "5"] */
+    heading5?: MenuButtonTooltipProps["shortcutKeys"];
+    /** Shortcut keys for Heading 6. Default: ["mod", "alt", "6"] */
+    heading6?: MenuButtonTooltipProps["shortcutKeys"];
   };
   /**
    * Whether to hide the shortcut key tooltips for each heading option. By
@@ -178,6 +207,7 @@ export default function MenuSelectHeading(inProps: MenuSelectHeadingProps) {
   const props = useThemeProps({ props: inProps, name: componentName });
   const {
     labels,
+    shortcutKeys,
     hideShortcuts = false,
     classes = {},
     sx,
@@ -328,7 +358,11 @@ export default function MenuSelectHeading(inProps: MenuSelectHeadingProps) {
       >
         <MenuSelectMenuOption
           label=""
-          shortcutKeys={hideShortcuts ? undefined : ["mod", "alt", "0"]}
+          shortcutKeys={
+            hideShortcuts
+              ? undefined
+              : (shortcutKeys?.paragraph ?? ["mod", "alt", "0"])
+          }
           placement="right"
           classes={{
             contentWrapper: clsx([
@@ -350,7 +384,11 @@ export default function MenuSelectHeading(inProps: MenuSelectHeadingProps) {
         >
           <MenuSelectHeadingOption1
             label=""
-            shortcutKeys={hideShortcuts ? undefined : ["mod", "alt", "1"]}
+            shortcutKeys={
+              hideShortcuts
+                ? undefined
+                : (shortcutKeys?.heading1 ?? ["mod", "alt", "1"])
+            }
             placement="right"
             className={clsx([
               menuSelectHeadingClasses.menuOption,
@@ -373,7 +411,11 @@ export default function MenuSelectHeading(inProps: MenuSelectHeadingProps) {
         >
           <MenuSelectHeadingOption2
             label=""
-            shortcutKeys={hideShortcuts ? undefined : ["mod", "alt", "2"]}
+            shortcutKeys={
+              hideShortcuts
+                ? undefined
+                : (shortcutKeys?.heading2 ?? ["mod", "alt", "2"])
+            }
             placement="right"
             className={clsx([
               menuSelectHeadingClasses.menuOption,
@@ -396,7 +438,11 @@ export default function MenuSelectHeading(inProps: MenuSelectHeadingProps) {
         >
           <MenuSelectHeadingOption3
             label=""
-            shortcutKeys={hideShortcuts ? undefined : ["mod", "alt", "3"]}
+            shortcutKeys={
+              hideShortcuts
+                ? undefined
+                : (shortcutKeys?.heading3 ?? ["mod", "alt", "3"])
+            }
             placement="right"
             className={clsx([
               menuSelectHeadingClasses.menuOption,
@@ -419,7 +465,11 @@ export default function MenuSelectHeading(inProps: MenuSelectHeadingProps) {
         >
           <MenuSelectHeadingOption4
             label=""
-            shortcutKeys={hideShortcuts ? undefined : ["mod", "alt", "4"]}
+            shortcutKeys={
+              hideShortcuts
+                ? undefined
+                : (shortcutKeys?.heading4 ?? ["mod", "alt", "4"])
+            }
             placement="right"
             className={clsx([
               menuSelectHeadingClasses.menuOption,
@@ -442,7 +492,11 @@ export default function MenuSelectHeading(inProps: MenuSelectHeadingProps) {
         >
           <MenuSelectHeadingOption5
             label=""
-            shortcutKeys={hideShortcuts ? undefined : ["mod", "alt", "5"]}
+            shortcutKeys={
+              hideShortcuts
+                ? undefined
+                : (shortcutKeys?.heading5 ?? ["mod", "alt", "5"])
+            }
             placement="right"
             className={clsx([
               menuSelectHeadingClasses.menuOption,
@@ -465,7 +519,11 @@ export default function MenuSelectHeading(inProps: MenuSelectHeadingProps) {
         >
           <MenuSelectHeadingOption6
             label=""
-            shortcutKeys={hideShortcuts ? undefined : ["mod", "alt", "6"]}
+            shortcutKeys={
+              hideShortcuts
+                ? undefined
+                : (shortcutKeys?.heading6 ?? ["mod", "alt", "6"])
+            }
             placement="right"
             className={clsx([
               menuSelectHeadingClasses.menuOption,
