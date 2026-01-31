@@ -25,8 +25,12 @@ export type MenuButtonColorPickerProps = Omit<
 > & {
   /** The current CSS color string value. */
   value: string | undefined;
-  /** The value the color picker uses initially when no color has been chosen previously */
-  initialColorValue?: string;
+  /**
+   * The color shown in the color picker when it opens, if `value` is empty.
+   * Does not affect the button's color indicator bar (which remains transparent
+   * when `value` is empty).
+   */
+  defaultPickerColor?: string;
   /** Callback when the color changes. */
   onChange: (newColor: string) => void;
   /**
@@ -125,7 +129,7 @@ export default function MenuButtonColorPicker(
   const props = useThemeProps({ props: inProps, name: componentName });
   const {
     value: colorValue,
-    initialColorValue,
+    defaultPickerColor,
     onChange,
     swatchColors,
     labels,
@@ -203,7 +207,7 @@ export default function MenuButtonColorPicker(
         id={popperId}
         open={!!anchorEl}
         anchorEl={anchorEl}
-        value={colorValue || initialColorValue || ""}
+        value={colorValue || defaultPickerColor || ""}
         onSave={(newColor) => {
           onChange(newColor);
           handleClose();
