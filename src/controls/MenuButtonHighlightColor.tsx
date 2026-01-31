@@ -50,6 +50,7 @@ export default function MenuButtonHighlightColor({
       tooltipLabel="Highlight color"
       tooltipShortcutKeys={["mod", "Shift", "H"]}
       value={currentHighlightColor}
+      defaultPickerColor={defaultMarkColor}
       onChange={(newColor) => {
         if (newColor) {
           editor?.chain().focus().setHighlight({ color: newColor }).run();
