@@ -128,7 +128,7 @@ export default function LinkBubbleMenu(inProps: LinkBubbleMenuProps) {
     linkMenuContent = (
       <EditLinkMenuContent
         editor={editor}
-        onCancel={editor.commands.closeLinkBubbleMenu}
+        onCancel={closeLinkBubbleMenu}
         onSave={({ text, link }) => {
           editor
             .chain()

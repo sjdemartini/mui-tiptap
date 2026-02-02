@@ -8,11 +8,12 @@ export type MenuButtonEditLinkProps = Partial<MenuButtonProps>;
 
 export default function MenuButtonEditLink(props: MenuButtonEditLinkProps) {
   const editor = useRichTextEditorContext();
-  const { isEditable, isActive } = useEditorState({
+  const { isEditable, isActive, openLinkBubbleMenu } = useEditorState({
     editor,
     selector: ({ editor: editorSnapshot }) => ({
       isEditable: editorSnapshot.isEditable,
       isActive: editorSnapshot.isActive("link"),
+      openLinkBubbleMenu: editorSnapshot.commands.openLinkBubbleMenu,
     }),
   });
   const buttonRef = useRef<HTMLButtonElement | null>(null);
@@ -27,7 +28,7 @@ export default function MenuButtonEditLink(props: MenuButtonEditLinkProps) {
       onClick={() =>
         // When clicking the button to open the bubble menu, we'll place the
         // menu below the button
-        editor.commands.openLinkBubbleMenu({
+        openLinkBubbleMenu({
           anchorEl: buttonRef.current,
           placement: "bottom",
         })
