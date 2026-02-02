@@ -1,4 +1,5 @@
 import type { Editor } from "@tiptap/core";
+import { useEditorState } from "@tiptap/react";
 import debounce from "es-toolkit/compat/debounce";
 import { useEffect, useMemo, useState } from "react";
 
@@ -22,8 +23,15 @@ export default function useDebouncedFocus({
   editor,
   wait = 250,
 }: UseDebouncedFocusOptions): boolean {
+  const editorState = useEditorState({
+    editor,
+    selector: ({ editor: editorSnapshot }) => ({
+      isFocused: editorSnapshot?.isFocused ?? false,
+    }),
+  });
+
   const [isFocusedDebounced, setIsFocusedDebounced] = useState(
-    !!editor?.isFocused,
+    !!editorState?.isFocused,
   );
 
   const updateIsFocusedDebounced = useMemo(
@@ -35,7 +43,7 @@ export default function useDebouncedFocus({
   );
 
   useEffect(() => {
-    const isFocused = !!editor?.isFocused;
+    const isFocused = !!editorState?.isFocused;
     updateIsFocusedDebounced(isFocused);
 
     // We'll immediately "flush" to update the focused state of the outlined field when
@@ -50,7 +58,7 @@ export default function useDebouncedFocus({
     return () => {
       updateIsFocusedDebounced.cancel();
     };
-  }, [editor?.isFocused, updateIsFocusedDebounced]);
+  }, [editorState?.isFocused, updateIsFocusedDebounced]);
 
   return isFocusedDebounced;
 }

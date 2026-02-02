@@ -2,6 +2,7 @@ import FormatSize from "@mui/icons-material/FormatSize";
 import MenuItem from "@mui/material/MenuItem";
 import { styled, useThemeProps, type SxProps } from "@mui/material/styles";
 import type { Editor } from "@tiptap/core";
+import { useEditorState } from "@tiptap/react";
 import { clsx } from "clsx";
 import type { ReactNode } from "react";
 import { useRichTextEditorContext } from "../context";
@@ -164,6 +165,19 @@ export default function MenuSelectFontSize(inProps: MenuSelectFontSizeProps) {
     ...menuSelectProps
   } = props;
   const editor = useRichTextEditorContext();
+  const { isEditable, canSetFontSize, isActive, allCurrentTextStyleAttrs } =
+    useEditorState({
+      editor,
+      selector: ({ editor: editorSnapshot }) => ({
+        isEditable: editorSnapshot.isEditable,
+        canSetFontSize: editorSnapshot.can().setFontSize("12px"),
+        isActive: editorSnapshot.isActive("textStyle"),
+        allCurrentTextStyleAttrs: getAttributesForEachSelected(
+          editorSnapshot.state,
+          "textStyle",
+        ) as TextStyleAttrs[],
+      }),
+    });
 
   const optionObjects: FontSizeSelectOptionObject[] = (options ?? []).map(
     (option) => (typeof option === "string" ? { value: option } : option),
@@ -180,14 +194,10 @@ export default function MenuSelectFontSize(inProps: MenuSelectFontSizeProps) {
   //    unset the sizes or can change to any given size.
   // 3) Otherwise (no font size is set in any selected content), we'll show the
   //    unsetOption as selected.
-  const allCurrentTextStyleAttrs: TextStyleAttrs[] = editor
-    ? getAttributesForEachSelected(editor.state, "textStyle")
-    : [];
-  const isTextStyleAppliedToEntireSelection = !!editor?.isActive("textStyle");
   const currentFontSizes: string[] = allCurrentTextStyleAttrs.map(
     (attrs) => attrs.fontSize ?? "", // Treat any null/missing font-size as ""
   );
-  if (!isTextStyleAppliedToEntireSelection) {
+  if (!isActive) {
     // If there is some selected content that does not have textStyle, we can
     // treat it the same as a selected textStyle mark with fontSize set to null
     // or ""
@@ -221,14 +231,14 @@ export default function MenuSelectFontSize(inProps: MenuSelectFontSizeProps) {
       onChange={(event) => {
         const value = event.target.value;
         if (value) {
-          editor?.chain().setFontSize(value).focus().run();
+          editor.chain().setFontSize(value).focus().run();
         } else {
-          editor?.chain().unsetFontSize().focus().run();
+          editor.chain().unsetFontSize().focus().run();
         }
       }}
       disabled={
         // Pass an arbitrary value to can().setFontSize() just to check `can()`
-        !editor?.isEditable || !editor.can().setFontSize("12px")
+        !isEditable || !canSetFontSize
       }
       renderValue={(value) => {
         if (!value || value === MULTIPLE_SIZES_SELECTED_VALUE) {

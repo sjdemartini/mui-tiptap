@@ -1,11 +1,15 @@
 import { styled, useThemeProps, type SxProps } from "@mui/material/styles";
-import { EditorContent, type EditorContentProps } from "@tiptap/react";
+import {
+  EditorContent,
+  useEditorState,
+  type EditorContentProps,
+} from "@tiptap/react";
 import { clsx } from "clsx";
 import { useMemo } from "react";
 import {
   richTextContentClasses,
-  type RichTextContentClassKey,
   type RichTextContentClasses,
+  type RichTextContentClassKey,
 } from "./RichTextContent.classes";
 import { useRichTextEditorContext } from "./context";
 import { getEditorStyles, getUtilityComponentName } from "./styles";
@@ -83,10 +87,15 @@ export default function RichTextContent(inProps: RichTextContentProps) {
   } = props;
 
   const editor = useRichTextEditorContext();
-  const editable = !!editor?.isEditable;
+  const { isEditable } = useEditorState({
+    editor,
+    selector: ({ editor: editorSnapshot }) => ({
+      isEditable: editorSnapshot.isEditable,
+    }),
+  });
 
   const ownerState: RichTextContentOwnerState = {
-    editable,
+    editable: isEditable,
     disableDefaultStyles,
   };
 
@@ -96,22 +105,27 @@ export default function RichTextContent(inProps: RichTextContentProps) {
         richTextContentClasses.root,
         className,
         classes.root,
-        editable
+        isEditable
           ? [richTextContentClasses.editable, classes.editable]
           : [richTextContentClasses.readonly, classes.readonly],
       ]),
-    [className, classes.root, classes.editable, classes.readonly, editable],
+    [className, classes.root, classes.editable, classes.readonly, isEditable],
   );
 
   return (
-    <RichTextContentRoot
-      editor={editor}
-      // Use spread for innerRef to avoid TS errors in Tiptap < 2.2.0, and only
-      // include if present
-      {...(innerRef ? { innerRef } : {})}
-      ownerState={ownerState}
-      className={editorClasses}
-      sx={sx}
-    />
+    // Don't even bother rendering if editor from useEditor is undefined like V2 can do,
+    // so everything inside is safe to assume editor is valid
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    editor && (
+      <RichTextContentRoot
+        editor={editor}
+        // Use spread for innerRef to avoid TS errors in Tiptap < 2.2.0, and only
+        // include if present
+        {...(innerRef ? { innerRef } : {})}
+        ownerState={ownerState}
+        className={editorClasses}
+        sx={sx}
+      />
+    )
   );
 }

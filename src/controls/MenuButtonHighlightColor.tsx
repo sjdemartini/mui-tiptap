@@ -1,4 +1,5 @@
 /// <reference types="@tiptap/extension-highlight" />
+import { useEditorState } from "@tiptap/react";
 import { useRichTextEditorContext } from "../context";
 import { FormatInkHighlighterNoBar } from "../icons";
 import MenuButtonColorPicker, {
@@ -36,13 +37,25 @@ export default function MenuButtonHighlightColor({
   ...menuButtonProps
 }: MenuButtonHighlightColorProps) {
   const editor = useRichTextEditorContext();
-  const currentHighlightColor = editor?.isActive("highlight")
+  const { isEditable, canToggleHighlight, highlightColor, isActive } =
+    useEditorState({
+      editor,
+      selector: ({ editor: editorSnapshot }) => ({
+        isEditable: editorSnapshot.isEditable,
+        canToggleHighlight: editorSnapshot.can().toggleHighlight(),
+        highlightColor: editorSnapshot.getAttributes("highlight").color as
+          | string
+          | null
+          | undefined,
+        isActive: editorSnapshot.isActive("highlight"),
+      }),
+    });
+  const currentHighlightColor = isActive
     ? // If there's no color set for the highlight (as can happen with the
       // highlight keyboard shortcut, toggleHighlight/setHighlight when no
       // explicit color is provided, and the "==thing==" syntax), fall back to
       // the provided defaultMarkColor
-      (editor.getAttributes("highlight").color as string | null | undefined) ||
-      defaultMarkColor
+      highlightColor || defaultMarkColor
     : "";
   return (
     <MenuButtonColorPicker
@@ -53,12 +66,12 @@ export default function MenuButtonHighlightColor({
       defaultPickerColor={defaultMarkColor}
       onChange={(newColor) => {
         if (newColor) {
-          editor?.chain().focus().setHighlight({ color: newColor }).run();
+          editor.chain().focus().setHighlight({ color: newColor }).run();
         } else {
-          editor?.chain().focus().unsetHighlight().run();
+          editor.chain().focus().unsetHighlight().run();
         }
       }}
-      disabled={!editor?.isEditable || !editor.can().toggleHighlight()}
+      disabled={!isEditable || !canToggleHighlight}
       {...menuButtonProps}
       labels={{
         removeColorButton: "None",

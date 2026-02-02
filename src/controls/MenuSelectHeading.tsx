@@ -3,6 +3,7 @@ import MenuItem from "@mui/material/MenuItem";
 import type { SelectChangeEvent } from "@mui/material/Select";
 import { styled, useThemeProps, type SxProps } from "@mui/material/styles";
 import type { Heading, Level } from "@tiptap/extension-heading";
+import { useEditorState } from "@tiptap/react";
 import { clsx } from "clsx";
 import { useCallback, useMemo, type ReactNode } from "react";
 import { useRichTextEditorContext } from "../context";
@@ -214,6 +215,25 @@ export default function MenuSelectHeading(inProps: MenuSelectHeadingProps) {
     ...menuSelectProps
   } = props;
   const editor = useRichTextEditorContext();
+  const {
+    isEditable,
+    canSetParagraph,
+    isParaActive,
+    isHeadingActive,
+    currentNodeHeadingAttributes,
+  } = useEditorState({
+    editor,
+    selector: ({ editor: editorSnapshot }) => ({
+      isEditable: editorSnapshot.isEditable,
+      canSetParagraph: editorSnapshot.can().setParagraph(),
+      isParaActive: editorSnapshot.isActive("para"),
+      isHeadingActive: editorSnapshot.isActive("heading"),
+      currentNodeHeadingAttributes: getAttributesForEachSelected(
+        editorSnapshot.state,
+        "heading",
+      ),
+    }),
+  });
 
   const handleHeadingType: (
     event: SelectChangeEvent<"" | HeadingOptionValue>,
@@ -221,10 +241,10 @@ export default function MenuSelectHeading(inProps: MenuSelectHeadingProps) {
     (event) => {
       const value = event.target.value;
       if (value === HEADING_OPTION_VALUES.Paragraph) {
-        editor?.chain().setParagraph().focus().run();
+        editor.chain().setParagraph().focus().run();
       } else if (value in HEADING_OPTION_VALUE_TO_LEVEL) {
         editor
-          ?.chain()
+          .chain()
           .setHeading({
             level:
               HEADING_OPTION_VALUE_TO_LEVEL[
@@ -240,13 +260,9 @@ export default function MenuSelectHeading(inProps: MenuSelectHeadingProps) {
 
   let selectedValue: HeadingOptionValue | "" = "";
   let currentLevel: number | undefined;
-  if (editor?.isActive("paragraph")) {
+  if (isParaActive) {
     selectedValue = HEADING_OPTION_VALUES.Paragraph;
-  } else if (editor?.isActive("heading")) {
-    const currentNodeHeadingAttributes = getAttributesForEachSelected(
-      editor.state,
-      "heading",
-    );
+  } else if (isHeadingActive) {
     const currentNodeLevels = currentNodeHeadingAttributes.map(
       (attrs) => attrs.level as number | undefined,
     );
@@ -268,11 +284,11 @@ export default function MenuSelectHeading(inProps: MenuSelectHeadingProps) {
   }
 
   const isCurrentlyParagraphOrHeading = selectedValue !== "";
-  const canSetParagraph = !!editor?.can().setParagraph();
 
   // Figure out which settings the user has enabled with the heading extension
+  // Note this does not use the state selector so the heading extension can't be dynamically added
   const enabledHeadingLevels: Set<Level> = useMemo(() => {
-    const headingExtension = editor?.extensionManager.extensions.find(
+    const headingExtension = editor.extensionManager.extensions.find(
       (extension): extension is typeof Heading => extension.name == "heading",
     );
     return new Set(headingExtension?.options.levels ?? []);
@@ -289,10 +305,15 @@ export default function MenuSelectHeading(inProps: MenuSelectHeadingProps) {
   const firstEnabledHeading = firstEnabledHeadingResult.done
     ? undefined
     : firstEnabledHeadingResult.value;
-  const canSetHeading =
-    firstEnabledHeading !== undefined &&
-    (currentLevel === firstEnabledHeading ||
-      !!editor?.can().setHeading({ level: firstEnabledHeading }));
+  const { canSetHeading } = useEditorState({
+    editor,
+    selector: ({ editor: editorSnapshot }) => ({
+      canSetHeading:
+        firstEnabledHeading !== undefined &&
+        (currentLevel === firstEnabledHeading ||
+          editorSnapshot.can().setHeading({ level: firstEnabledHeading })),
+    }),
+  });
 
   return (
     // We currently have to specify that the value is of type
@@ -304,7 +325,7 @@ export default function MenuSelectHeading(inProps: MenuSelectHeadingProps) {
     <MenuSelectHeadingRoot
       onChange={handleHeadingType}
       disabled={
-        !editor?.isEditable ||
+        !isEditable ||
         (!isCurrentlyParagraphOrHeading && !canSetParagraph && !canSetHeading)
       }
       displayEmpty

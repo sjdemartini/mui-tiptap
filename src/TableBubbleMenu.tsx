@@ -1,5 +1,6 @@
 import { styled, useThemeProps } from "@mui/material/styles";
 import { findParentNodeClosestToPos, posToDOMRect } from "@tiptap/core";
+import { useEditorState } from "@tiptap/react";
 import { clsx } from "clsx";
 import { useMemo } from "react";
 import ControlledBubbleMenu, {
@@ -94,6 +95,16 @@ export default function TableBubbleMenu(inProps: TableBubbleMenuProps) {
   // future menu interaction.
   const isEditorFocusedDebounced = useDebouncedFocus({ editor });
 
+  const editorState = useEditorState({
+    editor,
+    selector: ({ editor: editorSnapshot }) => ({
+      isTableActive: editorSnapshot.isActive("table"),
+      anchor: editorSnapshot.state.selection.$anchor,
+      ranges: editorSnapshot.state.selection.ranges,
+      view: editorSnapshot.view,
+    }),
+  });
+
   // We want to position the table menu outside the entire table, rather than at the
   // current cursor position, so that it's essentially static even as the table changes
   // in size and doesn't "block" things within the table while you're trying to edit.
@@ -109,48 +120,52 @@ export default function TableBubbleMenu(inProps: TableBubbleMenuProps) {
   // clicking from one table to another will incorrectly get the bubble menu "stuck" on
   // the table that was first used to position the Popper.
   const bubbleMenuAnchorEl = useMemo(
-    () =>
-      editor
-        ? {
-            getBoundingClientRect: () => {
-              const nearestTableParent = editor.isActive("table")
-                ? findParentNodeClosestToPos(
-                    editor.state.selection.$anchor,
-                    (node) => node.type.name === "table",
-                  )
-                : null;
+    () => ({
+      getBoundingClientRect: () => {
+        const nearestTableParent = editorState.isTableActive
+          ? findParentNodeClosestToPos(
+              editorState.anchor,
+              (node) => node.type.name === "table",
+            )
+          : null;
 
-              if (nearestTableParent) {
-                const wrapperDomNode = editor.view.nodeDOM(
-                  nearestTableParent.pos,
-                ) as HTMLElement | null | undefined;
+        if (nearestTableParent) {
+          const wrapperDomNode = editor.view.nodeDOM(nearestTableParent.pos) as
+            | HTMLElement
+            | null
+            | undefined;
 
-                // The DOM node of a Tiptap table node is a div wrapper, which contains a `table` child.
-                // The div wrapper is a block element that fills the entire row, but the table may not be
-                // full width, so we want to get our bounding rectangle based on the `table` (to align it
-                // with the table itself), not the div. See
-                // https://github.com/ueberdosis/tiptap/blob/40a9404c94c7fef7900610c195536384781ae101/packages/extension-table/src/TableView.ts#L69-L71
-                const tableDomNode = wrapperDomNode?.querySelector("table");
-                if (tableDomNode) {
-                  return tableDomNode.getBoundingClientRect();
-                }
-              }
-
-              // Since we weren't able to find a table from the current user position, that means the user
-              // hasn't put their cursor in a table. We'll be hiding the table in this case, but we need
-              // to return a bounding rect regardless (can't return `null`), so we use the standard logic
-              // based on the current cursor position/selection instead.
-              const { ranges } = editor.state.selection;
-              const from = Math.min(...ranges.map((range) => range.$from.pos));
-              const to = Math.max(...ranges.map((range) => range.$to.pos));
-              return posToDOMRect(editor.view, from, to);
-            },
+          // The DOM node of a Tiptap table node is a div wrapper, which contains a `table` child.
+          // The div wrapper is a block element that fills the entire row, but the table may not be
+          // full width, so we want to get our bounding rectangle based on the `table` (to align it
+          // with the table itself), not the div. See
+          // https://github.com/ueberdosis/tiptap/blob/40a9404c94c7fef7900610c195536384781ae101/packages/extension-table/src/TableView.ts#L69-L71
+          const tableDomNode = wrapperDomNode?.querySelector("table");
+          if (tableDomNode) {
+            return tableDomNode.getBoundingClientRect();
           }
-        : null,
-    [editor],
+        }
+
+        // Since we weren't able to find a table from the current user position, that means the user
+        // hasn't put their cursor in a table. We'll be hiding the table in this case, but we need
+        // to return a bounding rect regardless (can't return `null`), so we use the standard logic
+        // based on the current cursor position/selection instead.
+        const ranges = editorState.ranges;
+        const from = Math.min(...ranges.map((range) => range.$from.pos));
+        const to = Math.max(...ranges.map((range) => range.$to.pos));
+        return posToDOMRect(editorState.view, from, to);
+      },
+    }),
+    [
+      editor,
+      editorState.anchor,
+      editorState.isTableActive,
+      editorState.ranges,
+      editorState.view,
+    ],
   );
 
-  if (!editor?.isEditable) {
+  if (!editor.isEditable) {
     return null;
   }
 
@@ -164,7 +179,7 @@ export default function TableBubbleMenu(inProps: TableBubbleMenuProps) {
   return (
     <ControlledBubbleMenu
       editor={editor}
-      open={isEditorFocusedDebounced && editor.isActive("table")}
+      open={isEditorFocusedDebounced && editorState.isTableActive}
       anchorEl={bubbleMenuAnchorEl}
       // So the menu doesn't move as columns are added, removed, or resized, we
       // prefer "foo-start" rather than the centered "foo" placement. Similarly,

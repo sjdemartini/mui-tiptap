@@ -63,9 +63,14 @@ function RichTextReadOnlyInternal({
   }, [editorOptions.content]);
 
   return (
-    <RichTextEditorProvider editor={editor}>
-      <RichTextContent sx={sx} {...RichTextContentProps} />
-    </RichTextEditorProvider>
+    // Don't even bother rendering if editor from useEditor is undefined like V2 can do,
+    // so everything inside is safe to assume editor is valid
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    editor && (
+      <RichTextEditorProvider editor={editor}>
+        <RichTextContent sx={sx} {...RichTextContentProps} />
+      </RichTextEditorProvider>
+    )
   );
 }
 

@@ -1,5 +1,6 @@
 import FormatColorFill from "@mui/icons-material/FormatColorFill";
 import GridOff from "@mui/icons-material/GridOff";
+import { useEditorState } from "@tiptap/react";
 import MenuDivider from "../MenuDivider";
 import { useRichTextEditorContext } from "../context";
 import {
@@ -49,27 +50,61 @@ export default function TableMenuControls({
   labels,
 }: TableMenuControlsProps) {
   const editor = useRichTextEditorContext();
+  const {
+    isEditable,
+    canAddColumnBefore,
+    canAddColumnAfter,
+    canDeleteColumn,
+    canAddRowBefore,
+    canAddRowAfter,
+    canDeleteRow,
+    canMergeCells,
+    canSplitCell,
+    canToggleHeaderRow,
+    canToggleHeaderColumn,
+    canToggleHeaderCell,
+    canDeleteTable,
+    isTableHeaderActive,
+  } = useEditorState({
+    editor,
+    selector: ({ editor: editorSnapshot }) => ({
+      isEditable: editorSnapshot.isEditable,
+      canAddColumnBefore: editorSnapshot.can().addColumnBefore(),
+      canAddColumnAfter: editorSnapshot.can().addColumnAfter(),
+      canDeleteColumn: editorSnapshot.can().deleteColumn(),
+      canAddRowBefore: editorSnapshot.can().addRowBefore(),
+      canAddRowAfter: editorSnapshot.can().addRowAfter(),
+      canDeleteRow: editorSnapshot.can().deleteRow(),
+      canMergeCells: editorSnapshot.can().mergeCells(),
+      canSplitCell: editorSnapshot.can().splitCell(),
+      canToggleHeaderRow: editorSnapshot.can().toggleHeaderRow(),
+      canToggleHeaderColumn: editorSnapshot.can().toggleHeaderColumn(),
+      canToggleHeaderCell: editorSnapshot.can().toggleHeaderCell(),
+      canDeleteTable: editorSnapshot.can().deleteTable(),
+      isTableHeaderActive: editorSnapshot.isActive("tableHeader"),
+    }),
+  });
   return (
     <MenuControlsContainer className={className}>
       <MenuButton
         tooltipLabel={labels?.insertColumnBefore ?? "Insert column before"}
         IconComponent={InsertColumnLeft}
-        onClick={() => editor?.chain().focus().addColumnBefore().run()}
-        disabled={!editor?.can().addColumnBefore()}
+        onClick={() => editor.chain().focus().addColumnBefore().run()}
+        disabled={!isEditable || !canAddColumnBefore}
       />
 
       <MenuButton
         tooltipLabel={labels?.insertColumnAfter ?? "Insert column after"}
         IconComponent={InsertColumnRight}
-        onClick={() => editor?.chain().focus().addColumnAfter().run()}
-        disabled={!editor?.can().addColumnAfter()}
+        onClick={() => editor.chain().focus().addColumnAfter().run()}
+        disabled={!isEditable || !canAddColumnAfter}
       />
 
       <MenuButton
         tooltipLabel={labels?.deleteColumn ?? "Delete column"}
         IconComponent={DeleteColumn}
-        onClick={() => editor?.chain().focus().deleteColumn().run()}
-        disabled={!editor?.can().deleteColumn()}
+        onClick={() => editor.chain().focus().deleteColumn().run()}
+        disabled={!isEditable || !canDeleteColumn}
       />
 
       <MenuDivider />
@@ -77,22 +112,22 @@ export default function TableMenuControls({
       <MenuButton
         tooltipLabel={labels?.insertRowAbove ?? "Insert row above"}
         IconComponent={InsertRowTop}
-        onClick={() => editor?.chain().focus().addRowBefore().run()}
-        disabled={!editor?.can().addRowBefore()}
+        onClick={() => editor.chain().focus().addRowBefore().run()}
+        disabled={!isEditable || !canAddRowBefore}
       />
 
       <MenuButton
         tooltipLabel={labels?.insertRowBelow ?? "Insert row below"}
         IconComponent={InsertRowBottom}
-        onClick={() => editor?.chain().focus().addRowAfter().run()}
-        disabled={!editor?.can().addRowAfter()}
+        onClick={() => editor.chain().focus().addRowAfter().run()}
+        disabled={!isEditable || !canAddRowAfter}
       />
 
       <MenuButton
         tooltipLabel={labels?.deleteRow ?? "Delete row"}
         IconComponent={DeleteRow}
-        onClick={() => editor?.chain().focus().deleteRow().run()}
-        disabled={!editor?.can().deleteRow()}
+        onClick={() => editor.chain().focus().deleteRow().run()}
+        disabled={!isEditable || !canDeleteRow}
       />
 
       <MenuDivider />
@@ -100,15 +135,15 @@ export default function TableMenuControls({
       <MenuButton
         tooltipLabel={labels?.mergeCells ?? "Merge cells"}
         IconComponent={MergeCellsHorizontal}
-        onClick={() => editor?.chain().focus().mergeCells().run()}
-        disabled={!editor?.can().mergeCells()}
+        onClick={() => editor.chain().focus().mergeCells().run()}
+        disabled={!isEditable || !canMergeCells}
       />
 
       <MenuButton
         tooltipLabel={labels?.splitCell ?? "Split cell"}
         IconComponent={SplitCellsHorizontal}
-        onClick={() => editor?.chain().focus().splitCell().run()}
-        disabled={!editor?.can().splitCell()}
+        onClick={() => editor.chain().focus().splitCell().run()}
+        disabled={!isEditable || !canSplitCell}
       />
 
       <MenuDivider />
@@ -116,23 +151,23 @@ export default function TableMenuControls({
       <MenuButton
         tooltipLabel={labels?.toggleHeaderRow ?? "Toggle header row"}
         IconComponent={LayoutRowFill}
-        onClick={() => editor?.chain().focus().toggleHeaderRow().run()}
-        disabled={!editor?.can().toggleHeaderRow()}
+        onClick={() => editor.chain().focus().toggleHeaderRow().run()}
+        disabled={!isEditable || !canToggleHeaderRow}
       />
 
       <MenuButton
         tooltipLabel={labels?.toggleHeaderColumn ?? "Toggle header column"}
         IconComponent={LayoutColumnFill}
-        onClick={() => editor?.chain().focus().toggleHeaderColumn().run()}
-        disabled={!editor?.can().toggleHeaderColumn()}
+        onClick={() => editor.chain().focus().toggleHeaderColumn().run()}
+        disabled={!isEditable || !canToggleHeaderColumn}
       />
 
       <MenuButton
         tooltipLabel={labels?.toggleHeaderCell ?? "Toggle header cell"}
         IconComponent={FormatColorFill}
-        onClick={() => editor?.chain().focus().toggleHeaderCell().run()}
-        disabled={!editor?.can().toggleHeaderCell()}
-        selected={editor?.isActive("tableHeader") ?? false}
+        onClick={() => editor.chain().focus().toggleHeaderCell().run()}
+        disabled={!isEditable || !canToggleHeaderCell}
+        selected={isTableHeaderActive}
       />
 
       <MenuDivider />
@@ -140,8 +175,8 @@ export default function TableMenuControls({
       <MenuButton
         tooltipLabel={labels?.deleteTable ?? "Delete table"}
         IconComponent={GridOff}
-        onClick={() => editor?.chain().focus().deleteTable().run()}
-        disabled={!editor?.can().deleteTable()}
+        onClick={() => editor.chain().focus().deleteTable().run()}
+        disabled={!isEditable || !canDeleteTable}
       />
     </MenuControlsContainer>
   );

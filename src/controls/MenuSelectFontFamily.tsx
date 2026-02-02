@@ -2,6 +2,7 @@
 import MenuItem from "@mui/material/MenuItem";
 import { styled, useThemeProps, type SxProps } from "@mui/material/styles";
 import type { Editor } from "@tiptap/core";
+import { useEditorState } from "@tiptap/react";
 import { clsx } from "clsx";
 import type { ReactNode } from "react";
 import { useRichTextEditorContext } from "../context";
@@ -114,6 +115,19 @@ export default function MenuSelectFontFamily(
     ...menuSelectProps
   } = props;
   const editor = useRichTextEditorContext();
+  const { isEditable, canSetFontFamily, isActive, allCurrentTextStyleAttrs } =
+    useEditorState({
+      editor,
+      selector: ({ editor: editorSnapshot }) => ({
+        isEditable: editorSnapshot.isEditable,
+        canSetFontFamily: editorSnapshot.can().setFontFamily("serif"),
+        isActive: editorSnapshot.isActive("textStyle"),
+        allCurrentTextStyleAttrs: getAttributesForEachSelected(
+          editorSnapshot.state,
+          "textStyle",
+        ) as TextStyleAttrs[],
+      }),
+    });
 
   // Determine if all of the selected content shares the same set font family.
   // Scenarios:
@@ -126,14 +140,10 @@ export default function MenuSelectFontFamily(
   //    unset the families or can change to any given family.
   // 3) Otherwise (no font family is set in any selected content), we'll show the
   //    unsetOption as selected.
-  const allCurrentTextStyleAttrs: TextStyleAttrs[] = editor
-    ? getAttributesForEachSelected(editor.state, "textStyle")
-    : [];
-  const isTextStyleAppliedToEntireSelection = !!editor?.isActive("textStyle");
   const currentFontFamilies: string[] = allCurrentTextStyleAttrs.map(
     (attrs) => attrs.fontFamily ?? "", // Treat any null/missing font-family as ""
   );
-  if (!isTextStyleAppliedToEntireSelection) {
+  if (!isActive) {
     // If there is some selected content that does not have textStyle, we can
     // treat it the same as a selected textStyle mark with fontFamily set to
     // null or ""
@@ -167,14 +177,14 @@ export default function MenuSelectFontFamily(
       onChange={(event) => {
         const value = event.target.value;
         if (value) {
-          editor?.chain().setFontFamily(value).focus().run();
+          editor.chain().setFontFamily(value).focus().run();
         } else {
-          editor?.chain().unsetFontFamily().focus().run();
+          editor.chain().unsetFontFamily().focus().run();
         }
       }}
       disabled={
         // Pass an arbitrary value just to check `can()`
-        !editor?.isEditable || !editor.can().setFontFamily("serif")
+        !isEditable || !canSetFontFamily
       }
       renderValue={(value) => {
         if (!value || value === MULTIPLE_FAMILIES_SELECTED_VALUE) {
