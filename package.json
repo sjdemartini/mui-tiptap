@@ -1,6 +1,6 @@
 {
   "name": "mui-tiptap",
-  "version": "1.28.1",
+  "version": "1.29.0",
   "description": "A Material-UI (MUI) styled WYSIWYG rich text editor, using Tiptap",
   "keywords": [
     "mui",
@@ -166,7 +166,7 @@
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.26",
-    "globals": "^16.2.0",
+    "globals": "^17.1.0",
     "husky": "^9.1.7",
     "lint-staged": "^16.1.2",
     "markdown-link-check": "^3.14.2",

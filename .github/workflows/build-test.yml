@@ -33,6 +33,7 @@ jobs:
     if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.repository }}
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         node-version: [20]
         # Run against different versions of Tiptap to ensure compatibility: the
@@ -176,8 +177,18 @@ jobs:
         # internal anchor links, validate that they're formed properly. As the
         # README and documentation is updated, we want to ensure that links
         # remain correct. (This also checks external links, though that's a
-        # secondary concern.)
-        run: pnpm run md-link:check
+        # secondary concern.) Try up to 3 times to handle transient network
+        # failures.
+        run: |
+          for i in 1 2 3; do
+            pnpm run md-link:check && exit 0 || {
+              if [ $i -lt 3 ]; then
+                echo "Attempt $i failed, retrying in 10 seconds..."
+                sleep 10
+              fi
+            }
+          done
+          exit 1
 
       - name: Test
         # Run the tests and print out the coverage information. In the future,
