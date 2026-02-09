@@ -85,14 +85,7 @@ const MenuSelectTooltip = styled(MenuButtonTooltip, {
 /** A Select that is styled to work well with other menu bar controls. */
 export default function MenuSelect<T>(inProps: MenuSelectProps<T>) {
   const props = useThemeProps({ props: inProps, name: componentName });
-  const {
-    tooltipTitle,
-    classes = {},
-    sx,
-    "aria-label": ariaLabel = tooltipTitle,
-    slotProps = { input: { "aria-label": ariaLabel } },
-    ...selectProps
-  } = props;
+  const { tooltipTitle, classes = {}, sx, ...selectProps } = props;
 
   // We use a controlled tooltip here because otherwise it seems the tooltip can
   // get stuck open after selecting something (as it can re-trigger the
@@ -106,8 +99,15 @@ export default function MenuSelect<T>(inProps: MenuSelectProps<T>) {
       margin="none"
       variant="outlined"
       size="small"
-      slotProps={slotProps}
       {...selectProps}
+      inputProps={{
+        // Fall back to tooltipTitle as an accessible name for the combobox
+        // element if no aria-label is provided via `inputProps` or
+        // `slotProps.input`. Note that neither the Tooltip itself nor a
+        // top-level aria-label on Select would reach the combobox.
+        "aria-label": tooltipTitle,
+        ...selectProps.inputProps,
+      }}
       onMouseEnter={(...args) => {
         setTooltipOpen(true);
         selectProps.onMouseEnter?.(...args);

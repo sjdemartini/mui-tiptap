@@ -68,7 +68,11 @@ export default function App() {
             <IconButton
               onClick={togglePaletteMode}
               color="inherit"
-              aria-label="Dark mode toggle"
+              aria-label={
+                theme.palette.mode === "dark"
+                  ? "Switch to light mode"
+                  : "Switch to dark mode"
+              }
             >
               {theme.palette.mode === "dark" ? (
                 <Brightness7Icon />
@@ -80,7 +84,7 @@ export default function App() {
         </Toolbar>
       </AppBar>
 
-      <Box sx={{ p: 3, maxWidth: 1207, margin: "0 auto" }}>
+      <Box component="main" sx={{ p: 3, maxWidth: 1207, margin: "0 auto" }}>
         <Editor />
       </Box>
 

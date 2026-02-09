@@ -137,6 +137,11 @@ export default function Editor({ disableStickyMenuBar }: Props) {
         content={exampleContent}
         editable={isEditable}
         editorProps={{
+          attributes: {
+            // For accessibility, you can provide an aria-label to the editor's
+            // contenteditable element
+            "aria-label": "Main editor content",
+          },
           handleDrop: handleDrop,
           handlePaste: handlePaste,
         }}
@@ -226,7 +231,7 @@ export default function Editor({ disableStickyMenuBar }: Props) {
         )}
       </RichTextEditor>
 
-      <Typography variant="h5" sx={{ mt: 5 }}>
+      <Typography variant="h5" component="h2" sx={{ mt: 5 }}>
         Saved result:
       </Typography>
 
