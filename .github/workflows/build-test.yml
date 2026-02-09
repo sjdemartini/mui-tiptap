@@ -40,17 +40,20 @@ jobs:
         # version used in our lockfile, an older version we support, the latest
         # v2 version, and the latest v3 major.
         tiptap-version: [null, 2.0.4, "^2.10.0", "^3.0.0"]
-        # Run against this package's TS version, as well as the minimum TS
-        # version that MUI supports, based on DefinitelyType's support window
+        # Run against this package's TS version, as well as the oldest TS
+        # version in DefinitelyTyped's support window (currently TS versions
+        # from the last ~2 years). This aligns with the minimum TS version
+        # that MUI supports
         # (https://mui.com/material-ui/getting-started/supported-platforms/#typescript).
-        # We skip testing against some combinations of TS+Tiptap versions to
-        # avoid excessive CI runs.
-        typescript-version: [null, 4.9]
+        # See https://github.com/microsoft/DefinitelyTyped-tools/blob/main/packages/typescript-versions/src/index.ts
+        # for the current list. We skip testing against some combinations of
+        # TS+Tiptap versions to avoid excessive CI runs.
+        typescript-version: [null, 5.2]
         exclude:
           - tiptap-version: "^2.10.0"
-            typescript-version: 4.9
+            typescript-version: 5.2
           - tiptap-version: "^3.0.0"
-            typescript-version: 4.9
+            typescript-version: 5.2
         include:
           # Specify the version of y-prosemirror to use to ensure proper peer
           # dependency compatibility and resolution on older Tiptap versions.
