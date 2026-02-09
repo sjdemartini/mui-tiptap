@@ -1,5 +1,6 @@
 index.html
 pnpm-lock.yaml
+pnpm-workspace.yaml
 dist/
 .docusaurus/
 coverage/
