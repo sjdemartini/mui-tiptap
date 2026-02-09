@@ -10,3 +10,7 @@ auditConfig:
     # fixes this but isn't supported by the plugin ecosystem yet. Remove this
     # ignore once upstream updates land.
     - CVE-2026-26996
+
+onlyBuiltDependencies:
+  - '@swc/core'
+  - esbuild
