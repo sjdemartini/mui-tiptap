@@ -1,4 +1,4 @@
-import { useEditor, type Editor } from "@tiptap/react";
+import { useEditor, useEditorState, type Editor } from "@tiptap/react";
 import {
   forwardRef,
   useEffect,
@@ -123,6 +123,13 @@ const RichTextEditor = forwardRef<RichTextEditorRef, RichTextEditorProps>(
       ...editorOptions,
     } satisfies UseEditorOptions;
     const editor = useEditor(mergedEditorOptions, editorDependencies);
+    const { isDestroyed, isEditable } = useEditorState({
+      editor,
+      selector: ({ editor: editorSnapshot }) => ({
+        isDestroyed: editorSnapshot.isDestroyed,
+        isEditable: editorSnapshot.isEditable,
+      }),
+    });
 
     // Allow consumers of this component to access the editor via ref
     useImperativeHandle<RichTextEditorRef, RichTextEditorRef>(
@@ -140,8 +147,8 @@ const RichTextEditor = forwardRef<RichTextEditorRef, RichTextEditorProps>(
         // defensive check here.
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         !editor ||
-        editor.isDestroyed ||
-        editor.isEditable === editable
+        isDestroyed ||
+        isEditable === editable
       ) {
         return;
       }
@@ -151,19 +158,24 @@ const RichTextEditor = forwardRef<RichTextEditorRef, RichTextEditorProps>(
       queueMicrotask(() => {
         editor.setEditable(editable);
       });
-    }, [editable, editor]);
+    }, [editor, editable, isDestroyed, isEditable]);
 
     return (
-      <RichTextEditorProvider editor={editor}>
-        <RichTextField
-          disabled={!editable}
-          controls={renderControls?.(editor)}
-          className={className}
-          sx={sx}
-          {...RichTextFieldProps}
-        />
-        {children?.(editor)}
-      </RichTextEditorProvider>
+      // Don't even bother rendering if editor from useEditor is undefined like V2 can do,
+      // so everything inside is safe to assume editor is valid
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      editor && (
+        <RichTextEditorProvider editor={editor}>
+          <RichTextField
+            disabled={!editable}
+            controls={renderControls?.(editor)}
+            className={className}
+            sx={sx}
+            {...RichTextFieldProps}
+          />
+          {children?.(editor)}
+        </RichTextEditorProvider>
+      )
     );
   },
 );

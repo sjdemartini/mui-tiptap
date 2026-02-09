@@ -22,6 +22,7 @@ import MenuButtonTooltip, {
 // without needing to list extension-text-align as a peer dependency.
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { TextAlignOptions } from "@tiptap/extension-text-align";
+import { useEditorState } from "@tiptap/react";
 import { MENU_BUTTON_FONT_SIZE_DEFAULT } from "./MenuButton";
 import MenuSelect, { type MenuSelectProps } from "./MenuSelect";
 import {
@@ -202,14 +203,15 @@ export default function MenuSelectTextAlign(inProps: MenuSelectTextAlignProps) {
   const handleAlignmentSelect: (event: SelectChangeEvent) => void = useCallback(
     (event) => {
       const alignment = event.target.value;
-      editor?.chain().setTextAlign(alignment).focus().run();
+      editor.chain().setTextAlign(alignment).focus().run();
     },
     [editor],
   );
 
   // Figure out which settings the user has enabled with the heading extension
+  // Dynamic changes to extensions may not register immediately
   const textAlignExtensionOptions = useMemo(() => {
-    const textAlignExtension = editor?.extensionManager.extensions.find(
+    const textAlignExtension = editor.extensionManager.extensions.find(
       (extension) => extension.name == "textAlign",
     );
     return textAlignExtension?.options as TextAlignOptions | undefined;
@@ -220,26 +222,31 @@ export default function MenuSelectTextAlign(inProps: MenuSelectTextAlignProps) {
       return new Set(textAlignExtensionOptions?.alignments);
     }, [textAlignExtensionOptions]);
 
+  const enabledAlignmentArray = Array.from(enabledAlignments);
+  const { isEditable, availableAlignments, activeAlignment } = useEditorState({
+    editor,
+    selector: ({ editor: editorSnapshot }) => ({
+      isEditable: editorSnapshot.isEditable,
+      availableAlignments: enabledAlignmentArray.filter((alignment) =>
+        editorSnapshot.can().setTextAlign(alignment),
+      ),
+      activeAlignment:
+        enabledAlignmentArray.find((alignment) =>
+          editorSnapshot.isActive({ textAlign: alignment }),
+        ) ?? "",
+    }),
+  });
   // Only set the Select `value` as non-empty if all alignments are the same
   // (which we'll know if `isActive({ textAlign: alignment })` returns true).
   // This allows the user to change all current selected nodes' alignments to
   // any alignment, including the default alignment. If we instead set the
   // `value` as the default for instance, attempting to change multiple node's
   // alignments to that default would not work (not triggering "onChange").
-  const selectedValue =
-    Array.from(enabledAlignments).find((alignment) =>
-      editor?.isActive({ textAlign: alignment }),
-    ) ?? "";
 
   return (
     <MenuSelectTextAlignRoot
       onChange={handleAlignmentSelect}
-      disabled={
-        !editor?.isEditable ||
-        !Array.from(enabledAlignments).some((alignment) =>
-          editor.can().setTextAlign(alignment),
-        )
-      }
+      disabled={!isEditable || !availableAlignments.length}
       // Override the rendering of the selected value so that we don't show
       // tooltips on hovering (like we do for the menu options)
       renderValue={(value) => {
@@ -271,7 +278,7 @@ export default function MenuSelectTextAlign(inProps: MenuSelectTextAlignProps) {
         );
       }}
       tooltipTitle="Align"
-      value={selectedValue}
+      value={activeAlignment}
       displayEmpty
       {...menuSelectProps}
       inputProps={{
@@ -297,7 +304,7 @@ export default function MenuSelectTextAlign(inProps: MenuSelectTextAlignProps) {
           <MenuSelectTextAlignMenuItem
             key={alignmentOption.value}
             value={alignmentOption.value}
-            disabled={!editor?.can().setTextAlign(alignmentOption.value)}
+            disabled={!availableAlignments.includes(alignmentOption.value)}
             // Add an accessible label, since no text is included within the
             // menu item
             aria-label={alignmentOption.label ?? alignmentOption.value}

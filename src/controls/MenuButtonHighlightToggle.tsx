@@ -1,4 +1,5 @@
 /// <reference types="@tiptap/extension-highlight" />
+import { useEditorState } from "@tiptap/react";
 import { useRichTextEditorContext } from "../context";
 import { FormatInkHighlighter } from "../icons";
 import MenuButton, { type MenuButtonProps } from "./MenuButton";
@@ -19,14 +20,22 @@ export default function MenuButtonHighlightToggle({
   ...menuButtonProps
 }: MenuButtonHighlightToggleProps) {
   const editor = useRichTextEditorContext();
+  const { isEditable, canToggleHighlight, isActive } = useEditorState({
+    editor,
+    selector: ({ editor: editorSnapshot }) => ({
+      isEditable: editorSnapshot.isEditable,
+      canToggleHighlight: editorSnapshot.can().toggleHighlight(),
+      isActive: editorSnapshot.isActive("highlight"),
+    }),
+  });
   return (
     <MenuButton
       IconComponent={FormatInkHighlighter}
       tooltipLabel="Highlight"
       tooltipShortcutKeys={["mod", "Shift", "H"]}
-      selected={editor?.isActive("highlight") ?? false}
-      disabled={!editor?.isEditable || !editor.can().toggleHighlight()}
-      onClick={() => editor?.chain().focus().toggleHighlight().run()}
+      selected={isActive}
+      disabled={!isEditable || !canToggleHighlight}
+      onClick={() => editor.chain().focus().toggleHighlight().run()}
       {...menuButtonProps}
     />
   );

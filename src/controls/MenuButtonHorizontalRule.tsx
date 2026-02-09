@@ -1,5 +1,6 @@
 /// <reference types="@tiptap/extension-horizontal-rule" />
 import HorizontalRuleIcon from "@mui/icons-material/HorizontalRule";
+import { useEditorState } from "@tiptap/react";
 import { useRichTextEditorContext } from "../context";
 import MenuButton, { type MenuButtonProps } from "./MenuButton";
 
@@ -9,12 +10,19 @@ export default function MenuButtonHorizontalRule(
   props: MenuButtonHorizontalRuleProps,
 ) {
   const editor = useRichTextEditorContext();
+  const { isEditable, canSetHorizontalRule } = useEditorState({
+    editor,
+    selector: ({ editor: editorSnapshot }) => ({
+      isEditable: editorSnapshot.isEditable,
+      canSetHorizontalRule: editorSnapshot.can().setHorizontalRule(),
+    }),
+  });
   return (
     <MenuButton
       tooltipLabel="Insert horizontal line"
       IconComponent={HorizontalRuleIcon}
-      disabled={!editor?.isEditable || !editor.can().setHorizontalRule()}
-      onClick={() => editor?.chain().focus().setHorizontalRule().run()}
+      disabled={!isEditable || !canSetHorizontalRule}
+      onClick={() => editor.chain().focus().setHorizontalRule().run()}
       {...props}
     />
   );

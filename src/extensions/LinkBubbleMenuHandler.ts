@@ -2,7 +2,22 @@ import { Extension, getAttributes } from "@tiptap/core";
 import { Plugin, PluginKey } from "@tiptap/pm/state";
 import type { LinkBubbleMenuProps } from "../LinkBubbleMenu";
 
+export enum LinkMenuState {
+  HIDDEN,
+  VIEW_LINK_DETAILS,
+  EDIT_LINK,
+}
+
+export type LinkBubbleMenuHandlerStorage = {
+  state: LinkMenuState;
+  bubbleMenuOptions: Partial<LinkBubbleMenuProps> | undefined;
+};
+
 declare module "@tiptap/core" {
+  interface Storage {
+    linkBubbleMenuHandler: LinkBubbleMenuHandlerStorage;
+  }
+
   interface Commands<ReturnType> {
     linkBubbleMenu: {
       /**
@@ -34,17 +49,6 @@ declare module "@tiptap/core" {
   }
 }
 
-export enum LinkMenuState {
-  HIDDEN,
-  VIEW_LINK_DETAILS,
-  EDIT_LINK,
-}
-
-export type LinkBubbleMenuHandlerStorage = {
-  state: LinkMenuState;
-  bubbleMenuOptions: Partial<LinkBubbleMenuProps> | undefined;
-};
-
 /**
  * To be used in conjunction with the `LinkBubbleMenu` component, as this
  * extension provides editor commands to control the state of the link bubble
@@ -71,7 +75,7 @@ const LinkBubbleMenuHandler = Extension.create<
     return {
       openLinkBubbleMenu:
         (bubbleMenuOptions = {}) =>
-        ({ editor, chain, dispatch }) => {
+        ({ editor, chain, tr, dispatch }) => {
           const currentMenuState = this.storage.state;
 
           let newMenuState: LinkMenuState;
@@ -108,6 +112,8 @@ const LinkBubbleMenuHandler = Extension.create<
             // called with `chain()` above.
             this.storage.state = newMenuState;
             this.storage.bubbleMenuOptions = bubbleMenuOptions;
+            //change the transaction so components get notified of changes in useEditorState
+            tr.setMeta("openLinkBubbleMenu", true);
           }
 
           return true;
@@ -115,7 +121,7 @@ const LinkBubbleMenuHandler = Extension.create<
 
       editLinkInBubbleMenu:
         () =>
-        ({ dispatch }) => {
+        ({ dispatch, tr }) => {
           const currentMenuState = this.storage.state;
           const newMenuState = LinkMenuState.EDIT_LINK;
           if (currentMenuState === newMenuState) {
@@ -126,6 +132,8 @@ const LinkBubbleMenuHandler = Extension.create<
             // Only change the state if this is not a dry-run
             // https://tiptap.dev/api/commands#dry-run-for-commands.
             this.storage.state = newMenuState;
+            //change the transaction so components get notified of changes in useEditorState
+            tr.setMeta("closeLinkBubbleMenu", true);
           }
 
           return true;

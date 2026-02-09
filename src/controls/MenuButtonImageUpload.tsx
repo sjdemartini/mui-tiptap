@@ -69,7 +69,7 @@ export default function MenuButtonImageUpload({
   const fileInput = useRef<HTMLInputElement | null>(null);
 
   const handleAndInsertNewFiles = async (files: FileList) => {
-    if (!editor || editor.isDestroyed || files.length === 0) {
+    if (editor.isDestroyed || files.length === 0) {
       return;
     }
     const attributesForImages = await onUploadFiles(Array.from(files));

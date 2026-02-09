@@ -8,6 +8,7 @@ import {
   type SxProps,
 } from "@mui/material/styles";
 import { isNodeSelection, posToDOMRect, type Editor } from "@tiptap/core";
+import { useEditorState } from "@tiptap/react";
 import { clsx } from "clsx";
 import { useCallback, type ReactNode } from "react";
 import {
@@ -171,6 +172,12 @@ export default function ControlledBubbleMenu(
   } = props;
 
   const theme = useTheme();
+  const { optionsElement } = useEditorState({
+    editor,
+    selector: ({ editor: editorSnapshot }) => ({
+      optionsElement: editorSnapshot.options.element,
+    }),
+  });
 
   const defaultAnchorEl = useCallback(() => {
     // The logic here is taken from the positioning implementation in Tiptap's BubbleMenuPlugin
@@ -213,7 +220,7 @@ export default function ControlledBubbleMenu(
             // We'll reposition (to one of the below fallback placements) whenever our Popper goes
             // outside of the editor. (This is necessary since our children aren't actually rendered
             // here, but instead with a portal, so the editor DOM node isn't a parent.)
-            boundary: editor.options.element,
+            boundary: optionsElement,
             fallbackPlacements: fallbackPlacements,
             padding: flipPadding,
           },
