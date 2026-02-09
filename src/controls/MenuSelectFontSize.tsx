@@ -247,7 +247,6 @@ export default function MenuSelectFontSize(inProps: MenuSelectFontSizeProps) {
         return stripPxFromValue(value);
       }}
       displayEmpty
-      aria-label="Font sizes"
       tooltipTitle="Font size"
       {...menuSelectProps}
       // We don't want to pass any non-string falsy values here, always falling

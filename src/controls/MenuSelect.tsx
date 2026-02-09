@@ -100,6 +100,14 @@ export default function MenuSelect<T>(inProps: MenuSelectProps<T>) {
       variant="outlined"
       size="small"
       {...selectProps}
+      inputProps={{
+        // Fall back to tooltipTitle as an accessible name for the combobox
+        // element if no aria-label is provided via `inputProps` or
+        // `slotProps.input`. Note that neither the Tooltip itself nor a
+        // top-level aria-label on Select would reach the combobox.
+        "aria-label": tooltipTitle,
+        ...selectProps.inputProps,
+      }}
       onMouseEnter={(...args) => {
         setTooltipOpen(true);
         selectProps.onMouseEnter?.(...args);

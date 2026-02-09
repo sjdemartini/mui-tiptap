@@ -333,7 +333,6 @@ export default function MenuSelectHeading(inProps: MenuSelectHeadingProps) {
         }
         return result ?? selected;
       }}
-      aria-label="Text headings"
       tooltipTitle="Styles"
       {...menuSelectProps}
       value={selectedValue}

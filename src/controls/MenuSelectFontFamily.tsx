@@ -183,7 +183,6 @@ export default function MenuSelectFontFamily(
         return options.find((option) => option.value === value)?.label ?? value;
       }}
       displayEmpty
-      aria-label="Font families"
       tooltipTitle="Font"
       {...menuSelectProps}
       // We don't want to pass any non-string falsy values here, always falling
