@@ -125,17 +125,40 @@ export default function LinkBubbleMenu(inProps: LinkBubbleMenuProps) {
             // full link "mark"
             .extendMarkRange("link")
             // Update the link href and its text content
-            .insertContent({
-              type: "text",
-              marks: [
-                {
-                  type: "link",
-                  attrs: {
-                    href: link,
-                  },
-                },
-              ],
-              text: text,
+            .command(({ tr, state }) => {
+              const existingHref = editor.isActive("link")
+                ? (editor.getAttributes("link").href as string)
+                : "";
+
+              const { selection, schema } = state;
+
+              if (existingHref) {
+                // Get the resolved position from the selection
+                const resolvedPos = state.doc.resolve(selection.from);
+                const nodeAfter = resolvedPos.nodeAfter;
+
+                if (nodeAfter?.isText) {
+                  // Insert new text without changing the link mark
+                  tr.insertText(text, selection.from, selection.to);
+
+                  // Set the link separately to ensure the link mark is applied
+                  tr.addMark(
+                    selection.from,
+                    selection.from + text.length,
+                    schema.marks.link.create({ href: link })
+                  );
+                }
+              } else {
+                tr.insertText(text, selection.from, selection.to);
+
+                tr.addMark(
+                  selection.from,
+                  selection.from + text.length,
+                  schema.marks.link.create({ href: link })
+                );
+              }
+
+              return true;
             })
             // Note that as of "@tiptap/extension-link" 2.0.0-beta.37 when
             // `autolink` is on (which we want), adding the link mark directly
