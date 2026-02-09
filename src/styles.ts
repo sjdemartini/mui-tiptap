@@ -539,21 +539,21 @@ export function getImageBackgroundColorStyles(theme: Pick<Theme, "palette">): {
  * The default prefix for all styled component names (used by consumers in `styleOverrides`)
  * and utility classes generated for mui-tiptap components.
  */
-const COMPONENT_NAME_AND_UTILITY_CLASS_PREFIX = "MuiTiptap-";
+const COMPONENT_NAME_AND_UTILITY_CLASS_PREFIX = "MuiTiptap";
 
 /**
  * Get the utility name for a given component, used with `styled` to specify the
  * component name used in the MUI `theme` and `styleOverrides`.
  *
  * @param name The name without the prefix, ex: "RichTextContent".
- * @returns The full component name, ex: "MuiTiptap-RichTextContent".
+ * @returns The full component name, ex: "MuiTiptapRichTextContent".
  */
 export function getUtilityComponentName(name: string): string {
   return `${COMPONENT_NAME_AND_UTILITY_CLASS_PREFIX}${name}`;
 }
 
 /**
- * Get a utility class of the form "MuiTiptap-Foo-root" for the <Foo />
+ * Get a utility class of the form "MuiTiptapFoo-root" for the <Foo />
  * component and "root" (root element) slot.
  *
  * For convenience in users targeting certain CSS selectors to override
@@ -577,7 +577,7 @@ export function getUtilityClass(componentName: string, slot: string): string {
  * These returned utility classes are used for targeting and overriding styles
  * in nested components.
  *
- * Ex: {"root": "MuiTiptap-Foo-root"} for the <Foo /> component.
+ * Ex: {"root": "MuiTiptapFoo-root"} for the <Foo /> component.
  */
 export function getUtilityClasses<T extends string>(
   componentName: string,
