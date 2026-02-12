@@ -1,0 +1,8 @@
+# This is not a multi-package workspace. Explicitly set packages to an empty
+# list so that pnpm doesn't treat subdirectories (like example/) as workspace
+# members, which would change dependency resolution behavior.
+packages: []
+
+onlyBuiltDependencies:
+  - '@swc/core'
+  - esbuild
