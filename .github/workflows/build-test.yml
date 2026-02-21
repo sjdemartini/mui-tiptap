@@ -151,12 +151,14 @@ jobs:
         # need to install the dependencies for the example project too.
         run: pnpm run example:install
 
-      - if: ${{ env.TIPTAP_MAJOR != '2' }}
+      - if: ${{ env.TIPTAP_MAJOR != '2' && matrix.typescript-version == null }}
         name: Type check
         # Though this largely happens as part of `pnpm run build`, there are
         # some files that are not part of the publishable build but which we'd
-        # also like to type-check. As such, we only bother doing this for the
-        # newer Tiptap versions.
+        # also like to type-check (like vite.config.mts). We only run this for
+        # the current TS version, since dev dependencies may use newer TS syntax
+        # in their .d.ts files that older TS versions can't parse. The build
+        # step already validates our library's own types against all TS versions.
         run: pnpm run type:check
 
       # prettier's organize-imports plugin depends on TypeScript, so we only run
