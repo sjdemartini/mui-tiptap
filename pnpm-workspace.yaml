@@ -1,0 +1,12 @@
+# This is not a multi-package workspace. Explicitly set packages to an empty
+# list so that pnpm doesn't treat subdirectories (like example/) as workspace
+# members, which would change dependency resolution behavior.
+packages: []
+
+auditConfig:
+  ignoreCves:
+    # Ignore CVE-2026-26996 (minimatch ReDoS): eslint 9.x and typescript-eslint
+    # 8.x depend on minimatch 3.x/9.x which have no patched release. eslint 10
+    # fixes this but isn't supported by the plugin ecosystem yet. Remove this
+    # ignore once upstream updates land.
+    - CVE-2026-26996
