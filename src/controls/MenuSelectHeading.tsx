@@ -8,6 +8,7 @@ import { useCallback, useMemo, type ReactNode } from "react";
 import { useRichTextEditorContext } from "../context";
 import { getEditorStyles, getUtilityComponentName } from "../styles";
 import { getAttributesForEachSelected } from "../utils/getAttributesForEachSelected";
+import { getShortcutKeysDescription } from "../utils/platform";
 import MenuButtonTooltip, {
   type MenuButtonTooltipProps,
 } from "./MenuButtonTooltip";
@@ -207,12 +208,24 @@ export default function MenuSelectHeading(inProps: MenuSelectHeadingProps) {
   const props = useThemeProps({ props: inProps, name: componentName });
   const {
     labels,
-    shortcutKeys,
+    shortcutKeys: shortcutKeyOverrides,
     hideShortcuts = false,
     classes = {},
     sx,
     ...menuSelectProps
   } = props;
+  const shortcutKeys = hideShortcuts
+    ? undefined
+    : {
+        paragraph: shortcutKeyOverrides?.paragraph ?? ["mod", "alt", "0"],
+        heading1: shortcutKeyOverrides?.heading1 ?? ["mod", "alt", "1"],
+        heading2: shortcutKeyOverrides?.heading2 ?? ["mod", "alt", "2"],
+        heading3: shortcutKeyOverrides?.heading3 ?? ["mod", "alt", "3"],
+        heading4: shortcutKeyOverrides?.heading4 ?? ["mod", "alt", "4"],
+        heading5: shortcutKeyOverrides?.heading5 ?? ["mod", "alt", "5"],
+        heading6: shortcutKeyOverrides?.heading6 ?? ["mod", "alt", "6"],
+      };
+
   const editor = useRichTextEditorContext();
 
   const handleHeadingType: (
@@ -354,14 +367,11 @@ export default function MenuSelectHeading(inProps: MenuSelectHeadingProps) {
       <MenuItem
         value={HEADING_OPTION_VALUES.Paragraph}
         disabled={!isCurrentlyParagraphOrHeading && !canSetParagraph}
+        aria-description={getShortcutKeysDescription(shortcutKeys?.paragraph)}
       >
         <MenuSelectMenuOption
           label=""
-          shortcutKeys={
-            hideShortcuts
-              ? undefined
-              : (shortcutKeys?.paragraph ?? ["mod", "alt", "0"])
-          }
+          shortcutKeys={shortcutKeys?.paragraph}
           placement="right"
           classes={{
             contentWrapper: clsx([
@@ -380,14 +390,11 @@ export default function MenuSelectHeading(inProps: MenuSelectHeadingProps) {
         <MenuItem
           value={HEADING_OPTION_VALUES.Heading1}
           disabled={!canSetHeading}
+          aria-description={getShortcutKeysDescription(shortcutKeys?.heading1)}
         >
           <MenuSelectHeadingOption1
             label=""
-            shortcutKeys={
-              hideShortcuts
-                ? undefined
-                : (shortcutKeys?.heading1 ?? ["mod", "alt", "1"])
-            }
+            shortcutKeys={shortcutKeys?.heading1}
             placement="right"
             className={clsx([
               menuSelectHeadingClasses.menuOption,
@@ -407,14 +414,11 @@ export default function MenuSelectHeading(inProps: MenuSelectHeadingProps) {
         <MenuItem
           value={HEADING_OPTION_VALUES.Heading2}
           disabled={!canSetHeading}
+          aria-description={getShortcutKeysDescription(shortcutKeys?.heading2)}
         >
           <MenuSelectHeadingOption2
             label=""
-            shortcutKeys={
-              hideShortcuts
-                ? undefined
-                : (shortcutKeys?.heading2 ?? ["mod", "alt", "2"])
-            }
+            shortcutKeys={shortcutKeys?.heading2}
             placement="right"
             className={clsx([
               menuSelectHeadingClasses.menuOption,
@@ -434,14 +438,11 @@ export default function MenuSelectHeading(inProps: MenuSelectHeadingProps) {
         <MenuItem
           value={HEADING_OPTION_VALUES.Heading3}
           disabled={!canSetHeading}
+          aria-description={getShortcutKeysDescription(shortcutKeys?.heading3)}
         >
           <MenuSelectHeadingOption3
             label=""
-            shortcutKeys={
-              hideShortcuts
-                ? undefined
-                : (shortcutKeys?.heading3 ?? ["mod", "alt", "3"])
-            }
+            shortcutKeys={shortcutKeys?.heading3}
             placement="right"
             className={clsx([
               menuSelectHeadingClasses.menuOption,
@@ -461,14 +462,11 @@ export default function MenuSelectHeading(inProps: MenuSelectHeadingProps) {
         <MenuItem
           value={HEADING_OPTION_VALUES.Heading4}
           disabled={!canSetHeading}
+          aria-description={getShortcutKeysDescription(shortcutKeys?.heading4)}
         >
           <MenuSelectHeadingOption4
             label=""
-            shortcutKeys={
-              hideShortcuts
-                ? undefined
-                : (shortcutKeys?.heading4 ?? ["mod", "alt", "4"])
-            }
+            shortcutKeys={shortcutKeys?.heading4}
             placement="right"
             className={clsx([
               menuSelectHeadingClasses.menuOption,
@@ -488,14 +486,11 @@ export default function MenuSelectHeading(inProps: MenuSelectHeadingProps) {
         <MenuItem
           value={HEADING_OPTION_VALUES.Heading5}
           disabled={!canSetHeading}
+          aria-description={getShortcutKeysDescription(shortcutKeys?.heading5)}
         >
           <MenuSelectHeadingOption5
             label=""
-            shortcutKeys={
-              hideShortcuts
-                ? undefined
-                : (shortcutKeys?.heading5 ?? ["mod", "alt", "5"])
-            }
+            shortcutKeys={shortcutKeys?.heading5}
             placement="right"
             className={clsx([
               menuSelectHeadingClasses.menuOption,
@@ -515,14 +510,11 @@ export default function MenuSelectHeading(inProps: MenuSelectHeadingProps) {
         <MenuItem
           value={HEADING_OPTION_VALUES.Heading6}
           disabled={!canSetHeading}
+          aria-description={getShortcutKeysDescription(shortcutKeys?.heading6)}
         >
           <MenuSelectHeadingOption6
             label=""
-            shortcutKeys={
-              hideShortcuts
-                ? undefined
-                : (shortcutKeys?.heading6 ?? ["mod", "alt", "6"])
-            }
+            shortcutKeys={shortcutKeys?.heading6}
             placement="right"
             className={clsx([
               menuSelectHeadingClasses.menuOption,

@@ -6,6 +6,7 @@ import { styled, useThemeProps, type SxProps } from "@mui/material/styles";
 import { clsx } from "clsx";
 import type { ReactNode, RefObject } from "react";
 import { getUtilityComponentName } from "../styles";
+import { getShortcutKeysDescription } from "../utils/platform";
 import {
   menuButtonClasses,
   type MenuButtonClassKey,
@@ -110,6 +111,11 @@ export default function MenuButton(inProps: MenuButtonProps) {
     ...toggleButtonProps
   } = props;
 
+  // Expose keyboard shortcuts to screen readers. We use aria-description
+  // rather than aria-keyshortcuts due to inconsistent screen reader
+  // support for the latter.
+  const ariaDescription = getShortcutKeysDescription(tooltipShortcutKeys);
+
   return (
     <MenuButtonRoot
       className={clsx([menuButtonClasses.root, className, classes.root])}
@@ -132,6 +138,7 @@ export default function MenuButton(inProps: MenuButtonProps) {
           // and MenuButtonTooltip's direct child is its `contentWrapper`
           // anyway, not the button itself.
           aria-label={tooltipLabel}
+          aria-description={ariaDescription}
           {...toggleButtonProps}
         >
           {children ??

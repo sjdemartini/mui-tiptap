@@ -24,6 +24,22 @@ export function getModShortcutKey(): string {
   return isMac() ? "⌘" : "Ctrl";
 }
 
+/**
+ * Format an array of shortcut keys (e.g. ["mod", "Shift", "B"]) into a
+ * human-readable string (e.g. "Ctrl + Shift + B" or "⌘ + Shift + B"), suitable
+ * for use as an aria-description. Returns undefined if the array is empty or
+ * undefined.
+ */
+export function getShortcutKeysDescription(
+  shortcutKeys: string[] | undefined,
+): string | undefined {
+  return shortcutKeys?.length
+    ? shortcutKeys
+        .map((key) => (key === "mod" ? getModShortcutKey() : key))
+        .join(" + ")
+    : undefined;
+}
+
 /** Return true if the user is using a touch-based device. */
 export function isTouchDevice(): boolean {
   if (isTouchDeviceResult === undefined) {

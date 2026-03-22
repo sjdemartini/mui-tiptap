@@ -22,6 +22,7 @@ import MenuButtonTooltip, {
 // without needing to list extension-text-align as a peer dependency.
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { TextAlignOptions } from "@tiptap/extension-text-align";
+import { getShortcutKeysDescription } from "../utils/platform";
 import { MENU_BUTTON_FONT_SIZE_DEFAULT } from "./MenuButton";
 import MenuSelect, { type MenuSelectProps } from "./MenuSelect";
 import {
@@ -301,6 +302,9 @@ export default function MenuSelectTextAlign(inProps: MenuSelectTextAlignProps) {
             // Add an accessible label, since no text is included within the
             // menu item
             aria-label={alignmentOption.label ?? alignmentOption.value}
+            aria-description={getShortcutKeysDescription(
+              alignmentOption.shortcutKeys,
+            )}
             className={clsx([
               menuSelectTextAlignClasses.menuItem,
               classes.menuItem,
