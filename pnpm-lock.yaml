@@ -191,7 +191,7 @@ importers:
         version: 18.3.7(@types/react@18.3.26)
       '@vitejs/plugin-react-swc':
         specifier: ^4.2.2
-        version: 4.2.3(vite@7.3.1(@types/node@22.19.11)(yaml@2.8.3))
+        version: 4.2.3(vite@7.3.2(@types/node@22.19.11)(yaml@2.8.3))
       '@vitest/coverage-v8':
         specifier: ^4.0.4
         version: 4.0.18(vitest@4.0.18)
@@ -268,8 +268,8 @@ importers:
         specifier: ^8.51.0
         version: 8.54.0(eslint@9.39.2)(typescript@5.9.3)
       vite:
-        specifier: ^7.1.12
-        version: 7.3.1(@types/node@22.19.11)(yaml@2.8.3)
+        specifier: ^7.3.2
+        version: 7.3.2(@types/node@22.19.11)(yaml@2.8.3)
       vitest:
         specifier: ^4.0.4
         version: 4.0.18(@types/node@22.19.11)(@vitest/ui@4.0.18)(yaml@2.8.3)
@@ -1880,8 +1880,8 @@ packages:
     resolution: {integrity: sha512-Sg0xJUNDU1sJNGdfGWhVHX0kkZ+HWcvmVymJbj6NSgZZmW/8S9Y2HQ5euytnIgakgxN6papOAWiwDo1ctFDcoQ==}
     hasBin: true
 
-  basic-ftp@5.2.0:
-    resolution: {integrity: sha512-VoMINM2rqJwJgfdHq6RiUudKt2BV+FY5ZFezP/ypmwayk68+NzzAQy4XXLlqsGD4MCzq3DrmNFD/uUmBJuGoXw==}
+  basic-ftp@5.2.2:
+    resolution: {integrity: sha512-1tDrzKsdCg70WGvbFss/ulVAxupNauGnOlgpyjKzeQxzyllBLS0CGLV7tjIXTK3ZQA9/FBEm9qyFFN1bciA6pw==}
     engines: {node: '>=10.0.0'}
 
   boolbase@1.0.0:
@@ -3569,8 +3569,8 @@ packages:
     resolution: {integrity: sha512-4yoz1kEWqUjzi5zsPbAS/903QXSYp0UOtHsPpp7p9rHAw/W+dkInskAE386Fat3oKRROwO98d9ZB0G4cObgUyw==}
     engines: {node: '>= 0.10'}
 
-  vite@7.3.1:
-    resolution: {integrity: sha512-w+N7Hifpc3gRjZ63vYBXA56dvvRlNWRczTdmCBBa+CotUzAPf5b7YMdMR/8CQoeYE5LX3W4wj6RYTgonm1b9DA==}
+  vite@7.3.2:
+    resolution: {integrity: sha512-Bby3NOsna2jsjfLVOHKes8sGwgl4TT0E6vvpYgnAYDIF/tie7MRaFthmKuHx1NSXjiTueXH3do80FMQgvEktRg==}
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
     peerDependencies:
@@ -5078,11 +5078,11 @@ snapshots:
   '@unrs/resolver-binding-win32-x64-msvc@1.9.2':
     optional: true
 
-  '@vitejs/plugin-react-swc@4.2.3(vite@7.3.1(@types/node@22.19.11)(yaml@2.8.3))':
+  '@vitejs/plugin-react-swc@4.2.3(vite@7.3.2(@types/node@22.19.11)(yaml@2.8.3))':
     dependencies:
       '@rolldown/pluginutils': 1.0.0-rc.2
       '@swc/core': 1.15.18
-      vite: 7.3.1(@types/node@22.19.11)(yaml@2.8.3)
+      vite: 7.3.2(@types/node@22.19.11)(yaml@2.8.3)
     transitivePeerDependencies:
       - '@swc/helpers'
 
@@ -5109,13 +5109,13 @@ snapshots:
       chai: 6.2.2
       tinyrainbow: 3.0.3
 
-  '@vitest/mocker@4.0.18(vite@7.3.1(@types/node@22.19.11)(yaml@2.8.3))':
+  '@vitest/mocker@4.0.18(vite@7.3.2(@types/node@22.19.11)(yaml@2.8.3))':
     dependencies:
       '@vitest/spy': 4.0.18
       estree-walker: 3.0.3
       magic-string: 0.30.21
     optionalDependencies:
-      vite: 7.3.1(@types/node@22.19.11)(yaml@2.8.3)
+      vite: 7.3.2(@types/node@22.19.11)(yaml@2.8.3)
 
   '@vitest/pretty-format@4.0.18':
     dependencies:
@@ -5290,7 +5290,7 @@ snapshots:
 
   baseline-browser-mapping@2.9.11: {}
 
-  basic-ftp@5.2.0: {}
+  basic-ftp@5.2.2: {}
 
   boolbase@1.0.0: {}
 
@@ -6092,7 +6092,7 @@ snapshots:
 
   get-uri@6.0.4:
     dependencies:
-      basic-ftp: 5.2.0
+      basic-ftp: 5.2.2
       data-uri-to-buffer: 6.0.2
       debug: 4.4.3
     transitivePeerDependencies:
@@ -7370,7 +7370,7 @@ snapshots:
 
   validator@13.15.23: {}
 
-  vite@7.3.1(@types/node@22.19.11)(yaml@2.8.3):
+  vite@7.3.2(@types/node@22.19.11)(yaml@2.8.3):
     dependencies:
       esbuild: 0.27.2
       fdir: 6.5.0(picomatch@4.0.4)
@@ -7386,7 +7386,7 @@ snapshots:
   vitest@4.0.18(@types/node@22.19.11)(@vitest/ui@4.0.18)(yaml@2.8.3):
     dependencies:
       '@vitest/expect': 4.0.18
-      '@vitest/mocker': 4.0.18(vite@7.3.1(@types/node@22.19.11)(yaml@2.8.3))
+      '@vitest/mocker': 4.0.18(vite@7.3.2(@types/node@22.19.11)(yaml@2.8.3))
       '@vitest/pretty-format': 4.0.18
       '@vitest/runner': 4.0.18
       '@vitest/snapshot': 4.0.18
@@ -7403,7 +7403,7 @@ snapshots:
       tinyexec: 1.0.2
       tinyglobby: 0.2.15
       tinyrainbow: 3.0.3
-      vite: 7.3.1(@types/node@22.19.11)(yaml@2.8.3)
+      vite: 7.3.2(@types/node@22.19.11)(yaml@2.8.3)
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 22.19.11
