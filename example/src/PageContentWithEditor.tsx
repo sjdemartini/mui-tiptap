@@ -145,7 +145,7 @@ export default function PageContentWithEditor() {
 
   return (
     <>
-      <Box mb={2}>Try the editor below!</Box>
+      <Box sx={{ mb: 2 }}>Try the editor below!</Box>
 
       <RichTextEditor
         ref={rteRef}

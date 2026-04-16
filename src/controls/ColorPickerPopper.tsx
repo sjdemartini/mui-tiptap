@@ -88,7 +88,7 @@ export function ColorPickerPopperBody({
         {...ColorPickerProps}
       />
 
-      <Stack direction="row" justifyContent="space-between" sx={{ mt: 1 }}>
+      <Stack direction="row" sx={{ justifyContent: "space-between", mt: 1 }}>
         <Tooltip title={removeColorButtonTooltipTitle} arrow>
           <Button
             onClick={() => {

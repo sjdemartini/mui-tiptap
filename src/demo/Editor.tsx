@@ -241,7 +241,7 @@ export default function Editor({ disableStickyMenuBar }: Props) {
             <code>{submittedContent}</code>
           </pre>
 
-          <Box mt={3}>
+          <Box sx={{ mt: 3 }}>
             <Typography variant="overline" sx={{ mb: 2 }}>
               Read-only saved snapshot:
             </Typography>
