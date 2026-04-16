@@ -90,7 +90,10 @@ jobs:
           pnpm --dir example add -D "typescript@${{ matrix.typescript-version }}"
 
       - name: Dependencies audit
-        run: pnpm audit --audit-level=high
+        # Use --ignore-registry-errors to work around the npm registry retiring
+        # its legacy audit endpoint, which pnpm has not yet updated to support
+        # (https://github.com/pnpm/pnpm/issues/11265)
+        run: pnpm audit --audit-level=high --ignore-registry-errors
 
       - if: ${{ env.TIPTAP_MAJOR == '2' }}
         name: Swap out v3-specific dependencies for v2 versions
