@@ -130,7 +130,7 @@ const ColorPickerPopperRoot = styled(Popper, {
   // modal, consistent with recommendations here
   // https://github.com/mui/material-ui/issues/14216. See
   // https://github.com/sjdemartini/mui-tiptap/issues/206.
-  zIndex: theme.zIndex.tooltip,
+  zIndex: (theme.vars || theme).zIndex.tooltip,
   // This width seems to work well to allow exactly 8 swatches, as well as the
   // default button content
   width: 235,

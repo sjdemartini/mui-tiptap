@@ -55,14 +55,14 @@ const FieldContainerRoot = styled(Box, {
   // https://github.com/mui-org/material-ui/blob/a4972c5931e637611f6421ed2a5cc3f78207cbb2/packages/material-ui/src/OutlinedInput/OutlinedInput.js#L9-L37
   // https://github.com/mui/material-ui/blob/a4972c5931e637611f6421ed2a5cc3f78207cbb2/packages/material-ui/src/OutlinedInput/NotchedOutline.js
   ...(ownerState.variant === "outlined" && {
-    borderRadius: theme.shape.borderRadius,
+    borderRadius: (theme.vars || theme).shape.borderRadius,
     padding: 1,
     position: "relative",
 
     ...(!ownerState.focused &&
       !ownerState.disabled && {
         [`&:hover .${fieldContainerClasses.notchedOutline}`]: {
-          borderColor: theme.palette.text.primary,
+          borderColor: (theme.vars || theme).palette.text.primary,
         },
       }),
   }),
@@ -87,12 +87,12 @@ const FieldContainerNotchedOutline = styled("div", {
   zIndex: Z_INDEXES.NOTCHED_OUTLINE,
 
   ...(ownerState.focused && {
-    borderColor: theme.palette.primary.main,
+    borderColor: (theme.vars || theme).palette.primary.main,
     borderWidth: 2,
   }),
 
   ...(ownerState.disabled && {
-    borderColor: theme.palette.action.disabled,
+    borderColor: (theme.vars || theme).palette.action.disabled,
   }),
 }));
 

@@ -165,7 +165,8 @@ export default function Editor({ disableStickyMenuBar }: Props) {
               sx={{
                 borderTopStyle: "solid",
                 borderTopWidth: 1,
-                borderTopColor: (theme) => theme.palette.divider,
+                borderTopColor: (theme) =>
+                  (theme.vars || theme).palette.divider,
                 py: 1,
                 px: 1.5,
               }}

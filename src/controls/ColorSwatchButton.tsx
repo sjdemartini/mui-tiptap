@@ -68,11 +68,11 @@ const ColorSwatchButtonRoot = styled("button", {
   height: theme.spacing(2.5),
   width: theme.spacing(2.5),
   minWidth: theme.spacing(2.5),
-  borderRadius: theme.shape.borderRadius,
+  borderRadius: (theme.vars || theme).shape.borderRadius,
   borderColor:
     theme.palette.mode === "dark"
-      ? theme.palette.grey[700]
-      : theme.palette.grey[400],
+      ? (theme.vars || theme).palette.grey[700]
+      : (theme.vars || theme).palette.grey[400],
   borderStyle: "solid",
   borderWidth: 1,
   cursor: "pointer",
