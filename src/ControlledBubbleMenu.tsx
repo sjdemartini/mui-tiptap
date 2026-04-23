@@ -120,7 +120,7 @@ const ControlledBubbleMenuPaper = styled(Paper, {
   slot: "paper" satisfies ControlledBubbleMenuClassKey,
   overridesResolver: (props, styles) => styles.paper,
 })(({ theme }) => ({
-  backgroundColor: theme.palette.background.default,
+  backgroundColor: (theme.vars || theme).palette.background.default,
 }));
 
 // The `BubbleMenu` React component provided by Tiptap in @tiptap/react and the

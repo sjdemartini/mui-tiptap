@@ -83,7 +83,7 @@ const ResizableImageComponentImage = styled("img", {
       // This "selected" state outline style is copied from our standard editor
       // styles (which are kept there as well so they appear even if not using our
       // custom resizable image).
-      outline: `3px solid ${theme.palette.primary.main}`,
+      outline: `3px solid ${(theme.vars || theme).palette.primary.main}`,
     }),
   }),
 );
