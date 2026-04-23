@@ -118,7 +118,7 @@ const MenuButtonColorPickerIndicatorIcon = styled(FormatColorBar, {
     fontSize: MENU_BUTTON_FONT_SIZE_DEFAULT,
     position: "absolute",
     ...(ownerState.disabled && {
-      color: theme.palette.action.disabled,
+      color: (theme.vars || theme).palette.action.disabled,
     }),
   }),
 );

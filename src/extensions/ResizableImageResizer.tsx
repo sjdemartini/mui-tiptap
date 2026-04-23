@@ -38,7 +38,7 @@ const ResizableImageResizerRoot = styled("div", {
   right: -3,
   width: 12,
   height: 12,
-  background: theme.palette.primary.main,
+  background: (theme.vars || theme).palette.primary.main,
   cursor: "nwse-resize",
 }));
 

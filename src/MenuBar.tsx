@@ -64,7 +64,7 @@ const MenuBarRoot = styled(Collapse, {
     props.ownerState.disableSticky ? styles.nonSticky : styles.sticky,
   ],
 })<{ ownerState: MenuBarOwnerState }>(({ theme, ownerState }) => ({
-  borderBottomColor: theme.palette.divider,
+  borderBottomColor: (theme.vars || theme).palette.divider,
   borderBottomStyle: "solid",
   borderBottomWidth: 1,
 
@@ -74,7 +74,7 @@ const MenuBarRoot = styled(Collapse, {
         position: "sticky",
         top: ownerState.stickyOffset,
         zIndex: Z_INDEXES.MENU_BAR,
-        background: theme.palette.background.default,
+        background: (theme.vars || theme).palette.background.default,
       }),
 }));
 

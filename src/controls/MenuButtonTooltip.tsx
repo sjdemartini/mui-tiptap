@@ -86,7 +86,7 @@ const MenuButtonTooltipShortcutKey = styled("span", {
   lineHeight: "19px",
   padding: "0 4px",
   minWidth: 17,
-  borderRadius: theme.shape.borderRadius,
+  borderRadius: (theme.vars || theme).shape.borderRadius,
   display: "inline-block",
 
   "&:not(:first-of-type)": {

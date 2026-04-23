@@ -34,6 +34,8 @@ export default function App() {
   const theme = useMemo(
     () =>
       createTheme({
+        // Uncomment this line to enable css vars
+        // cssVariables: true,
         palette: {
           mode: paletteMode,
           secondary: {

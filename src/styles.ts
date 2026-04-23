@@ -125,7 +125,7 @@ export function getEditorStyles(
     },
 
     '& a:not([data-type="mention"])': {
-      color: theme.palette.primary.main,
+      color: (theme.vars || theme).palette.primary.main,
       textDecoration: "none",
 
       "&:hover": {
@@ -215,8 +215,8 @@ export function getEditorStyles(
         left: 0,
         display: "block",
         width: 4,
-        borderRadius: theme.shape.borderRadius,
-        background: theme.palette.text.disabled,
+        borderRadius: (theme.vars || theme).shape.borderRadius,
+        background: (theme.vars || theme).palette.text.disabled,
         content: '""',
       },
     },
@@ -225,12 +225,12 @@ export function getEditorStyles(
       padding: "2px 3px 1px",
       borderWidth: 1,
       borderStyle: "solid",
-      borderColor: theme.palette.divider,
+      borderColor: (theme.vars || theme).palette.divider,
       borderRadius: 3,
-      backgroundColor: theme.palette.action.hover,
+      backgroundColor: (theme.vars || theme).palette.action.hover,
       color:
         theme.palette.mode === "dark"
-          ? theme.palette.secondary.main
+          ? (theme.vars || theme).palette.secondary.main
           : darken(theme.palette.secondary.dark, 0.1),
     },
 
@@ -240,9 +240,9 @@ export function getEditorStyles(
       padding: theme.spacing(1),
       borderWidth: 1,
       borderStyle: "solid",
-      borderColor: theme.palette.divider,
-      borderRadius: theme.shape.borderRadius,
-      background: theme.palette.action.hover,
+      borderColor: (theme.vars || theme).palette.divider,
+      borderRadius: (theme.vars || theme).shape.borderRadius,
+      background: (theme.vars || theme).palette.action.hover,
       // By default the line-height of some monospace fonts (like "Ubuntu Mono")
       // appears to be a bit taller than necessary in pre block format
       lineHeight: 1.4,
@@ -258,8 +258,8 @@ export function getEditorStyles(
       // Setting the line-height here prevents the at-mentions from bumping up against
       // one another on consecutive lines
       lineHeight: "1.3em",
-      borderRadius: theme.shape.borderRadius,
-      color: theme.palette.primary.main,
+      borderRadius: (theme.vars || theme).shape.borderRadius,
+      color: (theme.vars || theme).palette.primary.main,
       background:
         theme.palette.mode === "dark"
           ? alpha(darken(theme.palette.primary.dark, 0.7), 0.5)
@@ -288,7 +288,7 @@ export function getEditorStyles(
       // Behavior when an image (node) is selected, at which point it can be deleted,
       // moved, etc.
       "&.ProseMirror-selectednode": {
-        outline: `3px solid ${theme.palette.primary.main}`,
+        outline: `3px solid ${(theme.vars || theme).palette.primary.main}`,
       },
     },
 
@@ -296,10 +296,10 @@ export function getEditorStyles(
       borderWidth: 0,
       borderTopWidth: "thin",
       borderStyle: "solid",
-      borderColor: theme.palette.text.secondary,
+      borderColor: (theme.vars || theme).palette.text.secondary,
 
       "&.ProseMirror-selectednode": {
-        borderColor: theme.palette.primary.main,
+        borderColor: (theme.vars || theme).palette.primary.main,
       },
     },
 
@@ -323,8 +323,8 @@ export function getEditorStyles(
         borderStyle: "solid",
         borderColor:
           theme.palette.mode === "dark"
-            ? theme.palette.grey[500]
-            : theme.palette.grey[400],
+            ? (theme.vars || theme).palette.grey[500]
+            : (theme.vars || theme).palette.grey[400],
         padding: "3px 5px",
         verticalAlign: "top",
         boxSizing: "border-box",
@@ -338,7 +338,7 @@ export function getEditorStyles(
       "& th": {
         fontWeight: 500,
         textAlign: "left",
-        backgroundColor: theme.palette.action.selected,
+        backgroundColor: (theme.vars || theme).palette.action.selected,
       },
     },
 
@@ -379,7 +379,7 @@ export function getEditorStyles(
         // This z-index proved necessary to ensure the handle sits above the
         // background of any cell (header and non-header)
         zIndex: Z_INDEXES.TABLE_ELEMENT,
-        backgroundColor: theme.palette.primary.light,
+        backgroundColor: (theme.vars || theme).palette.primary.light,
         pointerEvents: "none",
       },
 
@@ -409,7 +409,7 @@ export function getEditorStyles(
     // Based on the example styles from https://tiptap.dev/api/extensions/placeholder,
     // this adds the placeholder text at the top
     "& p.is-editor-empty:first-of-type::before": {
-      color: theme.palette.text.disabled,
+      color: (theme.vars || theme).palette.text.disabled,
       content: "attr(data-placeholder)",
       float: "left",
       height: 0,
@@ -420,7 +420,7 @@ export function getEditorStyles(
       // Override the default color provided for the Gapcursor extension (for better
       // dark/light mode compatibility)
       // https://github.com/ueberdosis/tiptap/blob/ab4a0e2507b4b92c46d293a0bb06bb00a04af6e0/packages/core/src/style.ts#L47
-      borderColor: theme.palette.text.primary,
+      borderColor: (theme.vars || theme).palette.text.primary,
     },
 
     // These styles were based on Tiptap's example here
