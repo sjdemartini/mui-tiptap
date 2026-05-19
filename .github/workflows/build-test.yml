@@ -211,4 +211,4 @@ jobs:
         # - https://github.com/sjdemartini/mui-tiptap/issues/264
         # Ideally we can fix this in the future without breaking Node and NextJS
         # contexts.
-        run: npx @arethetypeswrong/cli@0.16.2 --pack --ignore-rules named-exports
+        run: pnpm exec attw --pack --ignore-rules named-exports

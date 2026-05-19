@@ -97,6 +97,7 @@
     "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"
   },
   "devDependencies": {
+    "@arethetypeswrong/cli": "0.18.2",
     "@emotion/react": "^11.11.0",
     "@emotion/styled": "^11.11.0",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.5.0",
