@@ -62,7 +62,7 @@ const FieldContainerRoot = styled(Box, {
     ...(!ownerState.focused &&
       !ownerState.disabled && {
         [`&:hover .${fieldContainerClasses.notchedOutline}`]: {
-          borderColor: theme.palette.text.primary,
+          borderColor: (theme.vars || theme).palette.text.primary,
         },
       }),
   }),
@@ -76,10 +76,10 @@ const FieldContainerNotchedOutline = styled("div", {
   position: "absolute",
   inset: 0,
   borderRadius: "inherit",
-  borderColor:
-    theme.palette.mode === "light"
-      ? "rgba(0, 0, 0, 0.23)"
-      : "rgba(255, 255, 255, 0.23)",
+  borderColor: "rgba(0, 0, 0, 0.23)",
+  ...theme.applyStyles("dark", {
+    borderColor: "rgba(255, 255, 255, 0.23)",
+  }),
   borderStyle: "solid",
   borderWidth: 1,
   pointerEvents: "none",
@@ -87,12 +87,12 @@ const FieldContainerNotchedOutline = styled("div", {
   zIndex: Z_INDEXES.NOTCHED_OUTLINE,
 
   ...(ownerState.focused && {
-    borderColor: theme.palette.primary.main,
+    borderColor: (theme.vars || theme).palette.primary.main,
     borderWidth: 2,
   }),
 
   ...(ownerState.disabled && {
-    borderColor: theme.palette.action.disabled,
+    borderColor: (theme.vars || theme).palette.action.disabled,
   }),
 }));
 

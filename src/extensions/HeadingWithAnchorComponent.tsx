@@ -78,7 +78,7 @@ const HeadingWithAnchorComponentLink = styled("a", {
 })(({ theme }) => ({
   position: "absolute",
   left: -21,
-  color: `${theme.palette.text.secondary} !important`,
+  color: `${(theme.vars || theme).palette.text.secondary} !important`,
   opacity: 0, // This is changed by the root hover above
   transition: theme.transitions.create("opacity"),
   textDecoration: "none",
