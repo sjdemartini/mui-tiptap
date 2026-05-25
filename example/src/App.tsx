@@ -9,41 +9,55 @@ import Typography from "@mui/material/Typography";
 import {
   ThemeProvider,
   createTheme,
-  type PaletteMode,
+  useColorScheme,
 } from "@mui/material/styles";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import { useCallback, useMemo, useState } from "react";
+import { useMemo } from "react";
 import PageContentWithEditor from "./PageContentWithEditor";
 
+function ColorSchemeToggle() {
+  const { mode, setMode, systemMode } = useColorScheme();
+  const resolvedMode = mode === "system" ? systemMode : mode;
+  const isDarkMode = resolvedMode === "dark";
+
+  return (
+    <IconButton
+      onClick={() => {
+        setMode(isDarkMode ? "light" : "dark");
+      }}
+      color="inherit"
+      aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
+    >
+      {isDarkMode ? <Brightness7Icon /> : <Brightness4Icon />}
+    </IconButton>
+  );
+}
+
 export default function App() {
-  const systemSettingsPrefersDarkMode = useMediaQuery(
-    "(prefers-color-scheme: dark)",
-  );
-  const [paletteMode, setPaletteMode] = useState<PaletteMode>(
-    systemSettingsPrefersDarkMode ? "dark" : "light",
-  );
-  const togglePaletteMode = useCallback(() => {
-    setPaletteMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
-  }, []);
   const theme = useMemo(
     () =>
       createTheme({
-        palette: {
-          mode: paletteMode,
+        cssVariables: {
+          colorSchemeSelector: "class",
+        },
+        colorSchemes: {
+          light: true,
+          dark: true,
         },
 
         components: {
           "MuiTiptap-MenuBar": {
             styleOverrides: {
               root: ({ theme }) => ({
-                backgroundColor:
-                  theme.palette.mode === "dark" ? "#191919" : "#f3f3f3",
+                backgroundColor: (theme.vars || theme).palette.grey[100],
+                ...theme.applyStyles("dark", {
+                  backgroundColor: (theme.vars || theme).palette.grey[900],
+                }),
               }),
             },
           },
         },
       }),
-    [paletteMode],
+    [],
   );
 
   return (
@@ -57,13 +71,9 @@ export default function App() {
               Example app using <code>mui-tiptap</code>
             </Typography>
 
-            <IconButton onClick={togglePaletteMode} color="inherit">
-              {theme.palette.mode === "dark" ? (
-                <Brightness7Icon />
-              ) : (
-                <Brightness4Icon />
-              )}
-            </IconButton>
+            <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
+              <ColorSchemeToggle />
+            </Box>
           </Toolbar>
         </AppBar>
 
