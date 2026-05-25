@@ -86,7 +86,7 @@ const MenuButtonTooltipShortcutKey = styled("span", {
       : alpha(theme.palette.text.secondary, 0.2)
   }`,
   backgroundColor: theme.vars
-    ? `rgba(${theme.vars.palette.background.defaultChannel} / 0.3)`
+    ? `rgba(${theme.vars.palette.background.paperChannel} / 0.3)`
     : alpha(theme.palette.background.paper, 0.3),
   height: "19px",
   lineHeight: "19px",

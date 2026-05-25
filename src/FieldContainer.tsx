@@ -76,10 +76,13 @@ const FieldContainerNotchedOutline = styled("div", {
   position: "absolute",
   inset: 0,
   borderRadius: "inherit",
-  borderColor: "rgba(0, 0, 0, 0.23)",
-  ...theme.applyStyles("dark", {
-    borderColor: "rgba(255, 255, 255, 0.23)",
-  }),
+  borderColor: theme.vars
+    ? `rgba(${theme.vars.palette.common.onBackgroundChannel} / 0.23)`
+    : "rgba(0, 0, 0, 0.23)",
+  ...(!theme.vars &&
+    theme.applyStyles("dark", {
+      borderColor: "rgba(255, 255, 255, 0.23)",
+    })),
   borderStyle: "solid",
   borderWidth: 1,
   pointerEvents: "none",
