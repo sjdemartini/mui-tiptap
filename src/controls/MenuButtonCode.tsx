@@ -2,6 +2,7 @@
 import Code from "@mui/icons-material/Code";
 import { useRichTextEditorContext } from "../context";
 import MenuButton, { type MenuButtonProps } from "./MenuButton";
+import { isEditorActive } from "./isEditorActive";
 
 export type MenuButtonCodeProps = Partial<MenuButtonProps>;
 
@@ -13,7 +14,7 @@ export default function MenuButtonCode(props: MenuButtonCodeProps) {
       tooltipShortcutKeys={["mod", "E"]}
       IconComponent={Code}
       selected={editor?.isActive("code") ?? false}
-      disabled={!editor?.isEditable || !editor.can().toggleCode()}
+      disabled={!isEditorActive(editor) || !editor.can().toggleCode()}
       onClick={() => editor?.chain().focus().toggleCode().run()}
       {...props}
     />

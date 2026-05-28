@@ -1,6 +1,7 @@
 /// <reference types="@tiptap/extension-highlight" />
 import { useRichTextEditorContext } from "../context";
 import { FormatInkHighlighter } from "../icons";
+import { isEditorActive } from "./isEditorActive";
 import MenuButton, { type MenuButtonProps } from "./MenuButton";
 
 export type MenuButtonHighlightToggleProps = Partial<MenuButtonProps>;
@@ -25,7 +26,7 @@ export default function MenuButtonHighlightToggle({
       tooltipLabel="Highlight"
       tooltipShortcutKeys={["mod", "Shift", "H"]}
       selected={editor?.isActive("highlight") ?? false}
-      disabled={!editor?.isEditable || !editor.can().toggleHighlight()}
+      disabled={!isEditorActive(editor) || !editor.can().toggleHighlight()}
       onClick={() => editor?.chain().focus().toggleHighlight().run()}
       {...menuButtonProps}
     />

@@ -13,6 +13,7 @@ import {
   type MenuSelectFontFamilyClassKey,
   type MenuSelectFontFamilyClasses,
 } from "./MenuSelectFontFamily.classes";
+import { isEditorActive } from "./isEditorActive";
 
 export type FontFamilySelectOption = {
   /**
@@ -174,7 +175,7 @@ export default function MenuSelectFontFamily(
       }}
       disabled={
         // Pass an arbitrary value just to check `can()`
-        !editor?.isEditable || !editor.can().setFontFamily("serif")
+        !isEditorActive(editor) || !editor.can().setFontFamily("serif")
       }
       renderValue={(value) => {
         if (!value || value === MULTIPLE_FAMILIES_SELECTED_VALUE) {

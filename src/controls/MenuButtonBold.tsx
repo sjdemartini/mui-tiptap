@@ -2,6 +2,7 @@
 import FormatBold from "@mui/icons-material/FormatBold";
 import { useRichTextEditorContext } from "../context";
 import MenuButton, { type MenuButtonProps } from "./MenuButton";
+import { isEditorActive } from "./isEditorActive";
 
 export type MenuButtonBoldProps = Partial<MenuButtonProps>;
 
@@ -13,7 +14,7 @@ export default function MenuButtonBold(props: MenuButtonBoldProps) {
       tooltipShortcutKeys={["mod", "B"]}
       IconComponent={FormatBold}
       selected={editor?.isActive("bold") ?? false}
-      disabled={!editor?.isEditable || !editor.can().toggleBold()}
+      disabled={!isEditorActive(editor) || !editor.can().toggleBold()}
       onClick={() => editor?.chain().focus().toggleBold().run()}
       {...props}
     />

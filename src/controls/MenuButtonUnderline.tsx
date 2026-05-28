@@ -2,6 +2,7 @@
 import FormatUnderlinedIcon from "@mui/icons-material/FormatUnderlined";
 import { useRichTextEditorContext } from "../context";
 import MenuButton, { type MenuButtonProps } from "./MenuButton";
+import { isEditorActive } from "./isEditorActive";
 
 export type MenuButtonUnderlineProps = Partial<MenuButtonProps>;
 
@@ -13,7 +14,7 @@ export default function MenuButtonUnderline(props: MenuButtonUnderlineProps) {
       tooltipShortcutKeys={["mod", "U"]}
       IconComponent={FormatUnderlinedIcon}
       selected={editor?.isActive("underline") ?? false}
-      disabled={!editor?.isEditable || !editor.can().toggleUnderline()}
+      disabled={!isEditorActive(editor) || !editor.can().toggleUnderline()}
       onClick={() => editor?.chain().focus().toggleUnderline().run()}
       {...props}
     />

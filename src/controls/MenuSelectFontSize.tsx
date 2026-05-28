@@ -15,6 +15,7 @@ import {
   type MenuSelectFontSizeClassKey,
   type MenuSelectFontSizeClasses,
 } from "./MenuSelectFontSize.classes";
+import { isEditorActive } from "./isEditorActive";
 
 export type FontSizeSelectOptionObject = {
   /**
@@ -228,7 +229,7 @@ export default function MenuSelectFontSize(inProps: MenuSelectFontSizeProps) {
       }}
       disabled={
         // Pass an arbitrary value to can().setFontSize() just to check `can()`
-        !editor?.isEditable || !editor.can().setFontSize("12px")
+        !isEditorActive(editor) || !editor.can().setFontSize("12px")
       }
       renderValue={(value) => {
         if (!value || value === MULTIPLE_SIZES_SELECTED_VALUE) {

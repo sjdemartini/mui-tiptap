@@ -2,6 +2,7 @@
 import FormatAlignCenterIcon from "@mui/icons-material/FormatAlignCenter";
 import { useRichTextEditorContext } from "../context";
 import MenuButton, { type MenuButtonProps } from "./MenuButton";
+import { isEditorActive } from "./isEditorActive";
 
 export type MenuButtonAlignCenterProps = Partial<MenuButtonProps>;
 
@@ -15,7 +16,7 @@ export default function MenuButtonAlignCenter(
       tooltipShortcutKeys={["mod", "Shift", "E"]}
       IconComponent={FormatAlignCenterIcon}
       selected={editor?.isActive({ textAlign: "center" }) ?? false}
-      disabled={!editor?.isEditable || !editor.can().setTextAlign("center")}
+      disabled={!isEditorActive(editor) || !editor.can().setTextAlign("center")}
       onClick={() => editor?.chain().focus().setTextAlign("center").run()}
       {...props}
     />

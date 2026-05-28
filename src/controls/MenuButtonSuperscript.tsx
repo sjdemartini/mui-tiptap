@@ -2,6 +2,7 @@
 import Superscript from "@mui/icons-material/Superscript";
 import { useRichTextEditorContext } from "../context";
 import MenuButton, { type MenuButtonProps } from "./MenuButton";
+import { isEditorActive } from "./isEditorActive";
 
 export type MenuButtonSuperscriptProps = Partial<MenuButtonProps>;
 
@@ -15,7 +16,7 @@ export default function MenuButtonSuperscript(
       tooltipShortcutKeys={["mod", "."]}
       IconComponent={Superscript}
       selected={editor?.isActive("superscript") ?? false}
-      disabled={!editor?.isEditable || !editor.can().toggleSuperscript()}
+      disabled={!isEditorActive(editor) || !editor.can().toggleSuperscript()}
       onClick={() => editor?.chain().focus().toggleSuperscript().run()}
       {...props}
     />

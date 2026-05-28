@@ -1,6 +1,7 @@
 /// <reference types="@tiptap/extension-highlight" />
 import { useRichTextEditorContext } from "../context";
 import { FormatInkHighlighterNoBar } from "../icons";
+import { isEditorActive } from "./isEditorActive";
 import MenuButtonColorPicker, {
   type MenuButtonColorPickerProps,
 } from "./MenuButtonColorPicker";
@@ -58,7 +59,7 @@ export default function MenuButtonHighlightColor({
           editor?.chain().focus().unsetHighlight().run();
         }
       }}
-      disabled={!editor?.isEditable || !editor.can().toggleHighlight()}
+      disabled={!isEditorActive(editor) || !editor.can().toggleHighlight()}
       {...menuButtonProps}
       labels={{
         removeColorButton: "None",

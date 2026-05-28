@@ -2,6 +2,7 @@
 import StrikethroughS from "@mui/icons-material/StrikethroughS";
 import { useRichTextEditorContext } from "../context";
 import MenuButton, { type MenuButtonProps } from "./MenuButton";
+import { isEditorActive } from "./isEditorActive";
 
 export type MenuButtonStrikethroughProps = Partial<MenuButtonProps>;
 
@@ -15,7 +16,7 @@ export default function MenuButtonStrikethrough(
       tooltipShortcutKeys={["mod", "Shift", "S"]}
       IconComponent={StrikethroughS}
       selected={editor?.isActive("strike") ?? false}
-      disabled={!editor?.isEditable || !editor.can().toggleStrike()}
+      disabled={!isEditorActive(editor) || !editor.can().toggleStrike()}
       onClick={() => editor?.chain().focus().toggleStrike().run()}
       {...props}
     />
