@@ -69,10 +69,10 @@ const ColorSwatchButtonRoot = styled("button", {
   width: theme.spacing(2.5),
   minWidth: theme.spacing(2.5),
   borderRadius: theme.shape.borderRadius,
-  borderColor:
-    theme.palette.mode === "dark"
-      ? theme.palette.grey[700]
-      : theme.palette.grey[400],
+  borderColor: (theme.vars || theme).palette.grey[400],
+  ...theme.applyStyles("dark", {
+    borderColor: (theme.vars || theme).palette.grey[700],
+  }),
   borderStyle: "solid",
   borderWidth: 1,
   cursor: "pointer",
@@ -85,7 +85,7 @@ const ColorSwatchButtonRoot = styled("button", {
     // To indicate that a color hasn't been chosen, we'll use a checkerboard pattern
     // (https://stackoverflow.com/a/65129916/4543977)
     background: `repeating-conic-gradient(
-      ${theme.palette.grey[400]} 0% 25%, ${theme.palette.common.white} 0% 50%)
+      ${(theme.vars || theme).palette.grey[400]} 0% 25%, ${(theme.vars || theme).palette.common.white} 0% 50%)
       50% / 12px 12px`,
     backgroundClip: "content-box",
   }),

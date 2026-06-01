@@ -80,8 +80,14 @@ const MenuButtonTooltipShortcutKey = styled("span", {
   overridesResolver: (props, styles) => styles.shortcutKey,
 })(({ theme }) => ({
   fontSize: theme.typography.pxToRem(12),
-  border: `1px solid ${alpha(theme.palette.text.secondary, 0.2)}`,
-  backgroundColor: alpha(theme.palette.background.paper, 0.3),
+  border: `1px solid ${
+    theme.vars
+      ? `rgba(${theme.vars.palette.text.secondaryChannel} / 0.2)`
+      : alpha(theme.palette.text.secondary, 0.2)
+  }`,
+  backgroundColor: theme.vars
+    ? `rgba(${theme.vars.palette.background.paperChannel} / 0.3)`
+    : alpha(theme.palette.background.paper, 0.3),
   height: "19px",
   lineHeight: "19px",
   padding: "0 4px",
