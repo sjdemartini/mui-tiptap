@@ -134,3 +134,6 @@ dist
 
 # VSCode workspace file
 *.code-workspace
+
+# Local worktrees
+.worktrees/
