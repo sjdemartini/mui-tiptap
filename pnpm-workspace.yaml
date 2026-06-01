@@ -3,6 +3,9 @@
 # members, which would change dependency resolution behavior.
 packages: []
 
-onlyBuiltDependencies:
-  - '@swc/core'
-  - esbuild
+autoInstallPeers: false
+
+allowBuilds:
+  '@swc/core': true
+  esbuild: true
+  unrs-resolver: false

@@ -51,16 +51,16 @@
   },
   "license": "MIT",
   "engines": {
-    "pnpm": ">=9"
+    "pnpm": ">=11"
   },
-  "packageManager": "pnpm@10.17.1+sha512.17c560fca4867ae9473a3899ad84a88334914f379be46d455cbf92e5cf4b39d34985d452d2583baf19967fa76cb5c17bc9e245529d0b98745721aa7200ecaf7a",
+  "packageManager": "pnpm@11.5.0+sha512.dbfcc4f81cf48597afd4bc391ffdf12c11f1a9fb83a395bfa6b0a2d9cc2fd8ffebafdb1ccbd529632153f793904c2615b7f09fe1a345473fd1c35845172a8eb1",
   "publishConfig": {
     "access": "public"
   },
   "sideEffects": false,
   "scripts": {
-    "build": "pnpm clean && tsc --project tsconfig.build.json && tsc --project tsconfig.build-esm.json",
-    "clean": "rimraf dist coverage",
+    "build": "pnpm run clean:build && tsc --project tsconfig.build.json && tsc --project tsconfig.build-esm.json",
+    "clean:build": "rimraf dist coverage",
     "example": "pnpm build && pnpm example:install && pnpm --dir ./example run dev",
     "example:install": "rimraf ./example/node_modules && pnpm --dir ./example install",
     "dev": "vite",
