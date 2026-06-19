@@ -1,5 +1,6 @@
 import { useRichTextEditorContext } from "../context";
 import { Table } from "../icons";
+import { isEditorActive } from "./isEditorActive";
 import MenuButton, { type MenuButtonProps } from "./MenuButton";
 
 export type MenuButtonAddTableProps = Partial<MenuButtonProps>;
@@ -10,7 +11,7 @@ export default function MenuButtonAddTable(props: MenuButtonAddTableProps) {
     <MenuButton
       tooltipLabel="Insert table"
       IconComponent={Table}
-      disabled={!editor?.isEditable || !editor.can().insertTable()}
+      disabled={!isEditorActive(editor) || !editor.can().insertTable()}
       onClick={() =>
         editor
           ?.chain()

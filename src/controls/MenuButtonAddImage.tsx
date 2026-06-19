@@ -1,6 +1,7 @@
 import AddPhotoAlternate from "@mui/icons-material/AddPhotoAlternate";
 import { useRichTextEditorContext } from "../context";
 import MenuButton, { type MenuButtonProps } from "./MenuButton";
+import { isEditorActive } from "./isEditorActive";
 
 export type MenuButtonAddImageProps = Partial<MenuButtonProps> & {
   /**
@@ -35,7 +36,7 @@ export default function MenuButtonAddImage({
       tooltipLabel="Insert image"
       IconComponent={AddPhotoAlternate}
       disabled={
-        !editor?.isEditable ||
+        !isEditorActive(editor) ||
         // We can use any URL here for testing `can` (to see if an image can be
         // added to the editor currently)
         !editor.can().setImage({ src: "http://example.com" })

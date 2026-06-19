@@ -1,6 +1,7 @@
 import FormatClear from "@mui/icons-material/FormatClear";
 import { useRichTextEditorContext } from "../context";
 import MenuButton, { type MenuButtonProps } from "./MenuButton";
+import { isEditorActive } from "./isEditorActive";
 
 export type MenuButtonRemoveFormattingProps = Partial<MenuButtonProps>;
 
@@ -16,7 +17,7 @@ export default function MenuButtonRemoveFormatting(
     <MenuButton
       tooltipLabel="Remove inline formatting"
       IconComponent={FormatClear}
-      disabled={!editor?.isEditable || !editor.can().unsetAllMarks()}
+      disabled={!isEditorActive(editor) || !editor.can().unsetAllMarks()}
       onClick={() => editor?.chain().focus().unsetAllMarks().run()}
       {...props}
     />

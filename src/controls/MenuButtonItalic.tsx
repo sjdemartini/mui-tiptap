@@ -2,6 +2,7 @@
 import FormatItalic from "@mui/icons-material/FormatItalic";
 import { useRichTextEditorContext } from "../context";
 import MenuButton, { type MenuButtonProps } from "./MenuButton";
+import { isEditorActive } from "./isEditorActive";
 
 export type MenuButtonItalicProps = Partial<MenuButtonProps>;
 
@@ -13,7 +14,7 @@ export default function MenuButtonItalic(props: MenuButtonItalicProps) {
       tooltipShortcutKeys={["mod", "I"]}
       IconComponent={FormatItalic}
       selected={editor?.isActive("italic") ?? false}
-      disabled={!editor?.isEditable || !editor.can().toggleItalic()}
+      disabled={!isEditorActive(editor) || !editor.can().toggleItalic()}
       onClick={() => editor?.chain().focus().toggleItalic().run()}
       {...props}
     />

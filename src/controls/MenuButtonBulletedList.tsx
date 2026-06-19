@@ -2,6 +2,7 @@
 import FormatListBulleted from "@mui/icons-material/FormatListBulleted";
 import { useRichTextEditorContext } from "../context";
 import MenuButton, { type MenuButtonProps } from "./MenuButton";
+import { isEditorActive } from "./isEditorActive";
 
 export type MenuButtonBulletedListProps = Partial<MenuButtonProps>;
 
@@ -15,7 +16,7 @@ export default function MenuButtonBulletedList(
       tooltipShortcutKeys={["mod", "Shift", "8"]}
       IconComponent={FormatListBulleted}
       selected={editor?.isActive("bulletList") ?? false}
-      disabled={!editor?.isEditable || !editor.can().toggleBulletList()}
+      disabled={!isEditorActive(editor) || !editor.can().toggleBulletList()}
       onClick={() => editor?.chain().focus().toggleBulletList().run()}
       {...props}
     />

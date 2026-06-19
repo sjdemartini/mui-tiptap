@@ -6,6 +6,7 @@ import { getAttributesForEachSelected } from "../utils";
 import MenuButtonColorPicker, {
   type MenuButtonColorPickerProps,
 } from "./MenuButtonColorPicker";
+import { isEditorActive } from "./isEditorActive";
 
 export interface MenuButtonTextColorProps
   extends Partial<MenuButtonColorPickerProps> {
@@ -76,7 +77,7 @@ export default function MenuButtonTextColor({
       onChange={(newColor) => {
         editor?.chain().focus().setColor(newColor).run();
       }}
-      disabled={!editor?.isEditable || !editor.can().setColor("#000")}
+      disabled={!isEditorActive(editor) || !editor.can().setColor("#000")}
       {...menuButtonProps}
       labels={{ removeColorButton: "Reset", ...menuButtonProps.labels }}
     />

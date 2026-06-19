@@ -18,6 +18,7 @@ import {
   type MenuSelectHeadingClassKey,
   type MenuSelectHeadingClasses,
 } from "./MenuSelectHeading.classes";
+import { isEditorActive } from "./isEditorActive";
 
 export type MenuSelectHeadingProps = Omit<
   MenuSelectProps<HeadingOptionValue | "">,
@@ -281,7 +282,7 @@ export default function MenuSelectHeading(inProps: MenuSelectHeadingProps) {
   }
 
   const isCurrentlyParagraphOrHeading = selectedValue !== "";
-  const canSetParagraph = !!editor?.can().setParagraph();
+  const canSetParagraph = isEditorActive(editor) && editor.can().setParagraph();
 
   // Figure out which settings the user has enabled with the heading extension
   const enabledHeadingLevels: Set<Level> = useMemo(() => {
