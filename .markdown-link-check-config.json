@@ -5,6 +5,9 @@
     },
     {
       "pattern": "^https://www\\.npmjs\\.com/"
+    },
+    {
+      "pattern": "^https://codesandbox\\.io/p/sandbox/mui-tiptap-demo-3zl2l6$"
     }
   ],
   "timeout": "10s",
