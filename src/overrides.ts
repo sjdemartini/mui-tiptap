@@ -60,179 +60,179 @@ type Theme = Omit<MuiTheme, "components">;
 
 declare module "@mui/material/styles" {
   interface ComponentNameToClassKey {
-    "MuiTiptap-ColorPicker": ColorPickerClassKey;
-    "MuiTiptap-ColorPickerPopper": ColorPickerPopperClassKey;
-    "MuiTiptap-ColorSwatchButton": ColorSwatchButtonClassKey;
-    "MuiTiptap-ControlledBubbleMenu": ControlledBubbleMenuClassKey;
-    "MuiTiptap-FieldContainer": FieldContainerClassKey;
-    "MuiTiptap-HeadingWithAnchorComponent": HeadingWithAnchorComponentClassKey;
-    "MuiTiptap-LinkBubbleMenu": LinkBubbleMenuClassKey;
-    "MuiTiptap-MenuBar": MenuBarClassKey;
-    "MuiTiptap-MenuButton": MenuButtonClassKey;
-    "MuiTiptap-MenuButtonColorPicker": MenuButtonColorPickerClassKey;
-    "MuiTiptap-MenuButtonTooltip": MenuButtonTooltipClassKey;
-    "MuiTiptap-MenuControlsContainer": MenuControlsContainerClassKey;
-    "MuiTiptap-MenuDivider": MenuDividerClassKey;
-    "MuiTiptap-MenuSelect": MenuSelectClassKey;
-    "MuiTiptap-MenuSelectFontFamily": MenuSelectFontFamilyClassKey;
-    "MuiTiptap-MenuSelectFontSize": MenuSelectFontSizeClassKey;
-    "MuiTiptap-MenuSelectHeading": MenuSelectHeadingClassKey;
-    "MuiTiptap-MenuSelectTextAlign": MenuSelectTextAlignClassKey;
-    "MuiTiptap-ResizableImageComponent": ResizableImageComponentClassKey;
-    "MuiTiptap-ResizableImageResizer": ResizableImageResizerClassKey;
-    "MuiTiptap-RichTextContent": RichTextContentClassKey;
-    "MuiTiptap-RichTextField": RichTextFieldClassKey;
-    "MuiTiptap-TableBubbleMenu": TableBubbleMenuClassKey;
-    "MuiTiptap-ViewLinkMenuContent": ViewLinkMenuContentClassKey;
+    MuiTiptapColorPicker: ColorPickerClassKey;
+    MuiTiptapColorPickerPopper: ColorPickerPopperClassKey;
+    MuiTiptapColorSwatchButton: ColorSwatchButtonClassKey;
+    MuiTiptapControlledBubbleMenu: ControlledBubbleMenuClassKey;
+    MuiTiptapFieldContainer: FieldContainerClassKey;
+    MuiTiptapHeadingWithAnchorComponent: HeadingWithAnchorComponentClassKey;
+    MuiTiptapLinkBubbleMenu: LinkBubbleMenuClassKey;
+    MuiTiptapMenuBar: MenuBarClassKey;
+    MuiTiptapMenuButton: MenuButtonClassKey;
+    MuiTiptapMenuButtonColorPicker: MenuButtonColorPickerClassKey;
+    MuiTiptapMenuButtonTooltip: MenuButtonTooltipClassKey;
+    MuiTiptapMenuControlsContainer: MenuControlsContainerClassKey;
+    MuiTiptapMenuDivider: MenuDividerClassKey;
+    MuiTiptapMenuSelect: MenuSelectClassKey;
+    MuiTiptapMenuSelectFontFamily: MenuSelectFontFamilyClassKey;
+    MuiTiptapMenuSelectFontSize: MenuSelectFontSizeClassKey;
+    MuiTiptapMenuSelectHeading: MenuSelectHeadingClassKey;
+    MuiTiptapMenuSelectTextAlign: MenuSelectTextAlignClassKey;
+    MuiTiptapResizableImageComponent: ResizableImageComponentClassKey;
+    MuiTiptapResizableImageResizer: ResizableImageResizerClassKey;
+    MuiTiptapRichTextContent: RichTextContentClassKey;
+    MuiTiptapRichTextField: RichTextFieldClassKey;
+    MuiTiptapTableBubbleMenu: TableBubbleMenuClassKey;
+    MuiTiptapViewLinkMenuContent: ViewLinkMenuContentClassKey;
   }
 
   interface ComponentsPropsList {
-    "MuiTiptap-ColorPicker": Partial<ColorPickerProps>;
-    "MuiTiptap-ColorPickerPopper": Partial<ColorPickerPopperProps>;
-    "MuiTiptap-ColorSwatchButton": Partial<ColorSwatchButtonProps>;
-    "MuiTiptap-ControlledBubbleMenu": Partial<ControlledBubbleMenuProps>;
-    "MuiTiptap-FieldContainer": Partial<FieldContainerProps>;
-    "MuiTiptap-HeadingWithAnchorComponent": Partial<HeadingWithAnchorComponentProps>;
-    "MuiTiptap-LinkBubbleMenu": Partial<LinkBubbleMenuProps>;
-    "MuiTiptap-MenuBar": Partial<MenuBarProps>;
-    "MuiTiptap-MenuButton": Partial<MenuButtonProps>;
-    "MuiTiptap-MenuButtonColorPicker": Partial<MenuButtonColorPickerProps>;
-    "MuiTiptap-MenuButtonTooltip": Partial<MenuButtonTooltipProps>;
-    "MuiTiptap-MenuControlsContainer": Partial<MenuControlsContainerProps>;
-    "MuiTiptap-MenuDivider": Partial<MenuDividerProps>;
-    "MuiTiptap-MenuSelect": Partial<MenuSelectProps<unknown>>;
-    "MuiTiptap-MenuSelectFontFamily": Partial<MenuSelectFontFamilyProps>;
-    "MuiTiptap-MenuSelectFontSize": Partial<MenuSelectFontSizeProps>;
-    "MuiTiptap-MenuSelectHeading": Partial<MenuSelectHeadingProps>;
-    "MuiTiptap-MenuSelectTextAlign": Partial<MenuSelectTextAlignProps>;
-    "MuiTiptap-ResizableImageComponent": Partial<ResizableImageComponentProps>;
-    "MuiTiptap-ResizableImageResizer": Partial<ResizableImageResizerProps>;
-    "MuiTiptap-RichTextContent": Partial<RichTextContentProps>;
-    "MuiTiptap-RichTextField": Partial<RichTextFieldProps>;
-    "MuiTiptap-TableBubbleMenu": Partial<TableBubbleMenuProps>;
-    "MuiTiptap-ViewLinkMenuContent": Partial<ViewLinkMenuContentProps>;
+    MuiTiptapColorPicker: Partial<ColorPickerProps>;
+    MuiTiptapColorPickerPopper: Partial<ColorPickerPopperProps>;
+    MuiTiptapColorSwatchButton: Partial<ColorSwatchButtonProps>;
+    MuiTiptapControlledBubbleMenu: Partial<ControlledBubbleMenuProps>;
+    MuiTiptapFieldContainer: Partial<FieldContainerProps>;
+    MuiTiptapHeadingWithAnchorComponent: Partial<HeadingWithAnchorComponentProps>;
+    MuiTiptapLinkBubbleMenu: Partial<LinkBubbleMenuProps>;
+    MuiTiptapMenuBar: Partial<MenuBarProps>;
+    MuiTiptapMenuButton: Partial<MenuButtonProps>;
+    MuiTiptapMenuButtonColorPicker: Partial<MenuButtonColorPickerProps>;
+    MuiTiptapMenuButtonTooltip: Partial<MenuButtonTooltipProps>;
+    MuiTiptapMenuControlsContainer: Partial<MenuControlsContainerProps>;
+    MuiTiptapMenuDivider: Partial<MenuDividerProps>;
+    MuiTiptapMenuSelect: Partial<MenuSelectProps<unknown>>;
+    MuiTiptapMenuSelectFontFamily: Partial<MenuSelectFontFamilyProps>;
+    MuiTiptapMenuSelectFontSize: Partial<MenuSelectFontSizeProps>;
+    MuiTiptapMenuSelectHeading: Partial<MenuSelectHeadingProps>;
+    MuiTiptapMenuSelectTextAlign: Partial<MenuSelectTextAlignProps>;
+    MuiTiptapResizableImageComponent: Partial<ResizableImageComponentProps>;
+    MuiTiptapResizableImageResizer: Partial<ResizableImageResizerProps>;
+    MuiTiptapRichTextContent: Partial<RichTextContentProps>;
+    MuiTiptapRichTextField: Partial<RichTextFieldProps>;
+    MuiTiptapTableBubbleMenu: Partial<TableBubbleMenuProps>;
+    MuiTiptapViewLinkMenuContent: Partial<ViewLinkMenuContentProps>;
   }
 
   interface Components {
-    "MuiTiptap-ColorPicker"?: {
-      defaultProps?: ComponentsPropsList["MuiTiptap-ColorPicker"];
-      styleOverrides?: ComponentsOverrides<Theme>["MuiTiptap-ColorPicker"];
-      variants?: ComponentsVariants["MuiTiptap-ColorPicker"];
+    MuiTiptapColorPicker?: {
+      defaultProps?: ComponentsPropsList["MuiTiptapColorPicker"];
+      styleOverrides?: ComponentsOverrides<Theme>["MuiTiptapColorPicker"];
+      variants?: ComponentsVariants["MuiTiptapColorPicker"];
     };
-    "MuiTiptap-ColorPickerPopper"?: {
-      defaultProps?: ComponentsPropsList["MuiTiptap-ColorPickerPopper"];
-      styleOverrides?: ComponentsOverrides<Theme>["MuiTiptap-ColorPickerPopper"];
-      variants?: ComponentsVariants["MuiTiptap-ColorPickerPopper"];
+    MuiTiptapColorPickerPopper?: {
+      defaultProps?: ComponentsPropsList["MuiTiptapColorPickerPopper"];
+      styleOverrides?: ComponentsOverrides<Theme>["MuiTiptapColorPickerPopper"];
+      variants?: ComponentsVariants["MuiTiptapColorPickerPopper"];
     };
-    "MuiTiptap-ColorSwatchButton"?: {
-      defaultProps?: ComponentsPropsList["MuiTiptap-ColorSwatchButton"];
-      styleOverrides?: ComponentsOverrides<Theme>["MuiTiptap-ColorSwatchButton"];
-      variants?: ComponentsVariants["MuiTiptap-ColorSwatchButton"];
+    MuiTiptapColorSwatchButton?: {
+      defaultProps?: ComponentsPropsList["MuiTiptapColorSwatchButton"];
+      styleOverrides?: ComponentsOverrides<Theme>["MuiTiptapColorSwatchButton"];
+      variants?: ComponentsVariants["MuiTiptapColorSwatchButton"];
     };
-    "MuiTiptap-ControlledBubbleMenu"?: {
-      defaultProps?: ComponentsPropsList["MuiTiptap-ControlledBubbleMenu"];
-      styleOverrides?: ComponentsOverrides<Theme>["MuiTiptap-ControlledBubbleMenu"];
-      variants?: ComponentsVariants["MuiTiptap-ControlledBubbleMenu"];
+    MuiTiptapControlledBubbleMenu?: {
+      defaultProps?: ComponentsPropsList["MuiTiptapControlledBubbleMenu"];
+      styleOverrides?: ComponentsOverrides<Theme>["MuiTiptapControlledBubbleMenu"];
+      variants?: ComponentsVariants["MuiTiptapControlledBubbleMenu"];
     };
-    "MuiTiptap-FieldContainer"?: {
-      defaultProps?: ComponentsPropsList["MuiTiptap-FieldContainer"];
-      styleOverrides?: ComponentsOverrides<Theme>["MuiTiptap-FieldContainer"];
-      variants?: ComponentsVariants["MuiTiptap-FieldContainer"];
+    MuiTiptapFieldContainer?: {
+      defaultProps?: ComponentsPropsList["MuiTiptapFieldContainer"];
+      styleOverrides?: ComponentsOverrides<Theme>["MuiTiptapFieldContainer"];
+      variants?: ComponentsVariants["MuiTiptapFieldContainer"];
     };
-    "MuiTiptap-HeadingWithAnchorComponent"?: {
-      defaultProps?: ComponentsPropsList["MuiTiptap-HeadingWithAnchorComponent"];
-      styleOverrides?: ComponentsOverrides<Theme>["MuiTiptap-HeadingWithAnchorComponent"];
-      variants?: ComponentsVariants["MuiTiptap-HeadingWithAnchorComponent"];
+    MuiTiptapHeadingWithAnchorComponent?: {
+      defaultProps?: ComponentsPropsList["MuiTiptapHeadingWithAnchorComponent"];
+      styleOverrides?: ComponentsOverrides<Theme>["MuiTiptapHeadingWithAnchorComponent"];
+      variants?: ComponentsVariants["MuiTiptapHeadingWithAnchorComponent"];
     };
-    "MuiTiptap-LinkBubbleMenu"?: {
-      defaultProps?: ComponentsPropsList["MuiTiptap-LinkBubbleMenu"];
-      styleOverrides?: ComponentsOverrides<Theme>["MuiTiptap-LinkBubbleMenu"];
-      variants?: ComponentsVariants["MuiTiptap-LinkBubbleMenu"];
+    MuiTiptapLinkBubbleMenu?: {
+      defaultProps?: ComponentsPropsList["MuiTiptapLinkBubbleMenu"];
+      styleOverrides?: ComponentsOverrides<Theme>["MuiTiptapLinkBubbleMenu"];
+      variants?: ComponentsVariants["MuiTiptapLinkBubbleMenu"];
     };
-    "MuiTiptap-MenuBar"?: {
-      defaultProps?: ComponentsPropsList["MuiTiptap-MenuBar"];
-      styleOverrides?: ComponentsOverrides<Theme>["MuiTiptap-MenuBar"];
-      variants?: ComponentsVariants["MuiTiptap-MenuBar"];
+    MuiTiptapMenuBar?: {
+      defaultProps?: ComponentsPropsList["MuiTiptapMenuBar"];
+      styleOverrides?: ComponentsOverrides<Theme>["MuiTiptapMenuBar"];
+      variants?: ComponentsVariants["MuiTiptapMenuBar"];
     };
-    "MuiTiptap-MenuButton"?: {
-      defaultProps?: ComponentsPropsList["MuiTiptap-MenuButton"];
-      styleOverrides?: ComponentsOverrides<Theme>["MuiTiptap-MenuButton"];
-      variants?: ComponentsVariants["MuiTiptap-MenuButton"];
+    MuiTiptapMenuButton?: {
+      defaultProps?: ComponentsPropsList["MuiTiptapMenuButton"];
+      styleOverrides?: ComponentsOverrides<Theme>["MuiTiptapMenuButton"];
+      variants?: ComponentsVariants["MuiTiptapMenuButton"];
     };
-    "MuiTiptap-MenuButtonColorPicker"?: {
-      defaultProps?: ComponentsPropsList["MuiTiptap-MenuButtonColorPicker"];
-      styleOverrides?: ComponentsOverrides<Theme>["MuiTiptap-MenuButtonColorPicker"];
-      variants?: ComponentsVariants["MuiTiptap-MenuButtonColorPicker"];
+    MuiTiptapMenuButtonColorPicker?: {
+      defaultProps?: ComponentsPropsList["MuiTiptapMenuButtonColorPicker"];
+      styleOverrides?: ComponentsOverrides<Theme>["MuiTiptapMenuButtonColorPicker"];
+      variants?: ComponentsVariants["MuiTiptapMenuButtonColorPicker"];
     };
-    "MuiTiptap-MenuButtonTooltip"?: {
-      defaultProps?: ComponentsPropsList["MuiTiptap-MenuButtonTooltip"];
-      styleOverrides?: ComponentsOverrides<Theme>["MuiTiptap-MenuButtonTooltip"];
-      variants?: ComponentsVariants["MuiTiptap-MenuButtonTooltip"];
+    MuiTiptapMenuButtonTooltip?: {
+      defaultProps?: ComponentsPropsList["MuiTiptapMenuButtonTooltip"];
+      styleOverrides?: ComponentsOverrides<Theme>["MuiTiptapMenuButtonTooltip"];
+      variants?: ComponentsVariants["MuiTiptapMenuButtonTooltip"];
     };
-    "MuiTiptap-MenuControlsContainer"?: {
-      defaultProps?: ComponentsPropsList["MuiTiptap-MenuControlsContainer"];
-      styleOverrides?: ComponentsOverrides<Theme>["MuiTiptap-MenuControlsContainer"];
-      variants?: ComponentsVariants["MuiTiptap-MenuControlsContainer"];
+    MuiTiptapMenuControlsContainer?: {
+      defaultProps?: ComponentsPropsList["MuiTiptapMenuControlsContainer"];
+      styleOverrides?: ComponentsOverrides<Theme>["MuiTiptapMenuControlsContainer"];
+      variants?: ComponentsVariants["MuiTiptapMenuControlsContainer"];
     };
-    "MuiTiptap-MenuDivider"?: {
-      defaultProps?: ComponentsPropsList["MuiTiptap-MenuDivider"];
-      styleOverrides?: ComponentsOverrides<Theme>["MuiTiptap-MenuDivider"];
-      variants?: ComponentsVariants["MuiTiptap-MenuDivider"];
+    MuiTiptapMenuDivider?: {
+      defaultProps?: ComponentsPropsList["MuiTiptapMenuDivider"];
+      styleOverrides?: ComponentsOverrides<Theme>["MuiTiptapMenuDivider"];
+      variants?: ComponentsVariants["MuiTiptapMenuDivider"];
     };
-    "MuiTiptap-MenuSelect"?: {
-      defaultProps?: ComponentsPropsList["MuiTiptap-MenuSelect"];
-      styleOverrides?: ComponentsOverrides<Theme>["MuiTiptap-MenuSelect"];
-      variants?: ComponentsVariants["MuiTiptap-MenuSelect"];
+    MuiTiptapMenuSelect?: {
+      defaultProps?: ComponentsPropsList["MuiTiptapMenuSelect"];
+      styleOverrides?: ComponentsOverrides<Theme>["MuiTiptapMenuSelect"];
+      variants?: ComponentsVariants["MuiTiptapMenuSelect"];
     };
-    "MuiTiptap-MenuSelectFontFamily"?: {
-      defaultProps?: ComponentsPropsList["MuiTiptap-MenuSelectFontFamily"];
-      styleOverrides?: ComponentsOverrides<Theme>["MuiTiptap-MenuSelectFontFamily"];
-      variants?: ComponentsVariants["MuiTiptap-MenuSelectFontFamily"];
+    MuiTiptapMenuSelectFontFamily?: {
+      defaultProps?: ComponentsPropsList["MuiTiptapMenuSelectFontFamily"];
+      styleOverrides?: ComponentsOverrides<Theme>["MuiTiptapMenuSelectFontFamily"];
+      variants?: ComponentsVariants["MuiTiptapMenuSelectFontFamily"];
     };
-    "MuiTiptap-MenuSelectFontSize"?: {
-      defaultProps?: ComponentsPropsList["MuiTiptap-MenuSelectFontSize"];
-      styleOverrides?: ComponentsOverrides<Theme>["MuiTiptap-MenuSelectFontSize"];
-      variants?: ComponentsVariants["MuiTiptap-MenuSelectFontSize"];
+    MuiTiptapMenuSelectFontSize?: {
+      defaultProps?: ComponentsPropsList["MuiTiptapMenuSelectFontSize"];
+      styleOverrides?: ComponentsOverrides<Theme>["MuiTiptapMenuSelectFontSize"];
+      variants?: ComponentsVariants["MuiTiptapMenuSelectFontSize"];
     };
-    "MuiTiptap-MenuSelectHeading"?: {
-      defaultProps?: ComponentsPropsList["MuiTiptap-MenuSelectHeading"];
-      styleOverrides?: ComponentsOverrides<Theme>["MuiTiptap-MenuSelectHeading"];
-      variants?: ComponentsVariants["MuiTiptap-MenuSelectHeading"];
+    MuiTiptapMenuSelectHeading?: {
+      defaultProps?: ComponentsPropsList["MuiTiptapMenuSelectHeading"];
+      styleOverrides?: ComponentsOverrides<Theme>["MuiTiptapMenuSelectHeading"];
+      variants?: ComponentsVariants["MuiTiptapMenuSelectHeading"];
     };
-    "MuiTiptap-MenuSelectTextAlign"?: {
-      defaultProps?: ComponentsPropsList["MuiTiptap-MenuSelectTextAlign"];
-      styleOverrides?: ComponentsOverrides<Theme>["MuiTiptap-MenuSelectTextAlign"];
-      variants?: ComponentsVariants["MuiTiptap-MenuSelectTextAlign"];
+    MuiTiptapMenuSelectTextAlign?: {
+      defaultProps?: ComponentsPropsList["MuiTiptapMenuSelectTextAlign"];
+      styleOverrides?: ComponentsOverrides<Theme>["MuiTiptapMenuSelectTextAlign"];
+      variants?: ComponentsVariants["MuiTiptapMenuSelectTextAlign"];
     };
-    "MuiTiptap-ResizableImageComponent"?: {
-      defaultProps?: ComponentsPropsList["MuiTiptap-ResizableImageComponent"];
-      styleOverrides?: ComponentsOverrides<Theme>["MuiTiptap-ResizableImageComponent"];
-      variants?: ComponentsVariants["MuiTiptap-ResizableImageComponent"];
+    MuiTiptapResizableImageComponent?: {
+      defaultProps?: ComponentsPropsList["MuiTiptapResizableImageComponent"];
+      styleOverrides?: ComponentsOverrides<Theme>["MuiTiptapResizableImageComponent"];
+      variants?: ComponentsVariants["MuiTiptapResizableImageComponent"];
     };
-    "MuiTiptap-ResizableImageResizer"?: {
-      defaultProps?: ComponentsPropsList["MuiTiptap-ResizableImageResizer"];
-      styleOverrides?: ComponentsOverrides<Theme>["MuiTiptap-ResizableImageResizer"];
-      variants?: ComponentsVariants["MuiTiptap-ResizableImageResizer"];
+    MuiTiptapResizableImageResizer?: {
+      defaultProps?: ComponentsPropsList["MuiTiptapResizableImageResizer"];
+      styleOverrides?: ComponentsOverrides<Theme>["MuiTiptapResizableImageResizer"];
+      variants?: ComponentsVariants["MuiTiptapResizableImageResizer"];
     };
-    "MuiTiptap-RichTextContent"?: {
-      defaultProps?: ComponentsPropsList["MuiTiptap-RichTextContent"];
-      styleOverrides?: ComponentsOverrides<Theme>["MuiTiptap-RichTextContent"];
-      variants?: ComponentsVariants["MuiTiptap-RichTextContent"];
+    MuiTiptapRichTextContent?: {
+      defaultProps?: ComponentsPropsList["MuiTiptapRichTextContent"];
+      styleOverrides?: ComponentsOverrides<Theme>["MuiTiptapRichTextContent"];
+      variants?: ComponentsVariants["MuiTiptapRichTextContent"];
     };
-    "MuiTiptap-RichTextField"?: {
-      defaultProps?: ComponentsPropsList["MuiTiptap-RichTextField"];
-      styleOverrides?: ComponentsOverrides<Theme>["MuiTiptap-RichTextField"];
-      variants?: ComponentsVariants["MuiTiptap-RichTextField"];
+    MuiTiptapRichTextField?: {
+      defaultProps?: ComponentsPropsList["MuiTiptapRichTextField"];
+      styleOverrides?: ComponentsOverrides<Theme>["MuiTiptapRichTextField"];
+      variants?: ComponentsVariants["MuiTiptapRichTextField"];
     };
-    "MuiTiptap-TableBubbleMenu"?: {
-      defaultProps?: ComponentsPropsList["MuiTiptap-TableBubbleMenu"];
-      styleOverrides?: ComponentsOverrides<Theme>["MuiTiptap-TableBubbleMenu"];
-      variants?: ComponentsVariants["MuiTiptap-TableBubbleMenu"];
+    MuiTiptapTableBubbleMenu?: {
+      defaultProps?: ComponentsPropsList["MuiTiptapTableBubbleMenu"];
+      styleOverrides?: ComponentsOverrides<Theme>["MuiTiptapTableBubbleMenu"];
+      variants?: ComponentsVariants["MuiTiptapTableBubbleMenu"];
     };
-    "MuiTiptap-ViewLinkMenuContent"?: {
-      defaultProps?: ComponentsPropsList["MuiTiptap-ViewLinkMenuContent"];
-      styleOverrides?: ComponentsOverrides<Theme>["MuiTiptap-ViewLinkMenuContent"];
-      variants?: ComponentsVariants["MuiTiptap-ViewLinkMenuContent"];
+    MuiTiptapViewLinkMenuContent?: {
+      defaultProps?: ComponentsPropsList["MuiTiptapViewLinkMenuContent"];
+      styleOverrides?: ComponentsOverrides<Theme>["MuiTiptapViewLinkMenuContent"];
+      variants?: ComponentsVariants["MuiTiptapViewLinkMenuContent"];
     };
   }
 }

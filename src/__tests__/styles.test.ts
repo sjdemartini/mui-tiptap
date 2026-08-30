@@ -8,29 +8,27 @@ import {
 describe("getUtilityComponentName()", () => {
   it("returns component name with MuiTiptap prefix", () => {
     expect(getUtilityComponentName("RichTextContent")).toBe(
-      "MuiTiptap-RichTextContent",
+      "MuiTiptapRichTextContent",
     );
-    expect(getUtilityComponentName("MenuButton")).toBe("MuiTiptap-MenuButton");
-    expect(getUtilityComponentName("ColorPicker")).toBe(
-      "MuiTiptap-ColorPicker",
-    );
+    expect(getUtilityComponentName("MenuButton")).toBe("MuiTiptapMenuButton");
+    expect(getUtilityComponentName("ColorPicker")).toBe("MuiTiptapColorPicker");
   });
 });
 
 describe("getUtilityClass()", () => {
   it("returns utility class with component name and slot", () => {
-    expect(getUtilityClass("Foo", "root")).toBe("MuiTiptap-Foo-root");
+    expect(getUtilityClass("Foo", "root")).toBe("MuiTiptapFoo-root");
     expect(getUtilityClass("RichTextField", "content")).toBe(
-      "MuiTiptap-RichTextField-content",
+      "MuiTiptapRichTextField-content",
     );
   });
 
   it("handles special characters in component name and slot", () => {
     expect(getUtilityClass("MenuFoo", "sub-element")).toBe(
-      "MuiTiptap-MenuFoo-sub-element",
+      "MuiTiptapMenuFoo-sub-element",
     );
     expect(getUtilityClass("MenuFoo", "sub_element")).toBe(
-      "MuiTiptap-MenuFoo-sub_element",
+      "MuiTiptapMenuFoo-sub_element",
     );
   });
 });
@@ -39,8 +37,8 @@ describe("getUtilityClasses()", () => {
   it("returns record mapping slots to utility classes", () => {
     const result = getUtilityClasses("Foo", ["root", "disabled"]);
     expect(result).toEqual({
-      root: "MuiTiptap-Foo-root",
-      disabled: "MuiTiptap-Foo-disabled",
+      root: "MuiTiptapFoo-root",
+      disabled: "MuiTiptapFoo-disabled",
     });
   });
 
