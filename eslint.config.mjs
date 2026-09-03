@@ -1,11 +1,12 @@
 import comments from "@eslint-community/eslint-plugin-eslint-comments/configs";
+import { fixupConfigRules } from "@eslint/compat";
 import js from "@eslint/js";
 import eslintConfigPrettier from "eslint-config-prettier";
 import importPlugin from "eslint-plugin-import";
 import jsxA11y from "eslint-plugin-jsx-a11y";
 import reactPlugin from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
-import reactRefresh from "eslint-plugin-react-refresh";
+import reactRefreshPlugin from "eslint-plugin-react-refresh";
 import { defineConfig } from "eslint/config";
 import globals from "globals";
 import tseslint from "typescript-eslint";
@@ -37,8 +38,8 @@ export default defineConfig(
       js.configs.recommended,
       ...tseslint.configs.recommendedTypeChecked,
       ...tseslint.configs.strictTypeChecked,
-      reactPlugin.configs.flat.recommended,
-      reactPlugin.configs.flat["jsx-runtime"],
+      ...fixupConfigRules(reactPlugin.configs.flat.recommended),
+      ...fixupConfigRules(reactPlugin.configs.flat["jsx-runtime"]),
       importPlugin.flatConfigs.recommended,
       importPlugin.flatConfigs.typescript,
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
@@ -48,7 +49,7 @@ export default defineConfig(
     ],
     plugins: {
       "react-hooks": reactHooks,
-      "react-refresh": reactRefresh,
+      "react-refresh": reactRefreshPlugin,
     },
 
     linterOptions: {
@@ -233,6 +234,22 @@ export default defineConfig(
             "@typescript-eslint/no-unnecessary-condition": "off",
           }
         : {}),
+    },
+  },
+  {
+    files: ["src/controls/ColorPickerPopper.tsx"],
+    rules: {
+      // This effect intentionally synchronizes internal state with a controlled
+      // prop, rather than deriving state during render.
+      "react-hooks/set-state-in-effect": "off",
+    },
+  },
+  {
+    files: ["src/styles.ts"],
+    rules: {
+      // The assertion narrows Emotion's `whiteSpace` type while preserving the
+      // `!important` suffix required by the generated CSS.
+      "@typescript-eslint/no-unnecessary-type-assertion": "off",
     },
   },
 );
