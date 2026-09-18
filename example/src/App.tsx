@@ -45,7 +45,7 @@ export default function App() {
         },
 
         components: {
-          "MuiTiptap-MenuBar": {
+          MuiTiptapMenuBar: {
             styleOverrides: {
               root: ({ theme }) => ({
                 backgroundColor: (theme.vars || theme).palette.grey[100],
