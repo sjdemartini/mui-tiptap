@@ -69,11 +69,10 @@ export type RichTextFieldProps = Omit<
   RichTextContentProps?: Partial<RichTextContentProps>;
 };
 
-interface RichTextFieldOwnerState
-  extends Pick<
-    RichTextFieldProps,
-    "variant" | "disabled" | "disableDebounceRenderControls"
-  > {}
+interface RichTextFieldOwnerState extends Pick<
+  RichTextFieldProps,
+  "variant" | "disabled" | "disableDebounceRenderControls"
+> {}
 
 const componentName = getUtilityComponentName("RichTextField");
 

@@ -42,8 +42,10 @@ export interface ResizableImageComponentProps extends NodeViewProps {
   sx?: SxProps;
 }
 
-interface ResizableImageComponentOwnerState
-  extends Pick<ResizableImageComponentProps, "selected"> {
+interface ResizableImageComponentOwnerState extends Pick<
+  ResizableImageComponentProps,
+  "selected"
+> {
   selectedOrResizing: boolean;
 }
 

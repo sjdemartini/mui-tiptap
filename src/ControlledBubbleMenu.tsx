@@ -86,8 +86,7 @@ export type ControlledBubbleMenuProps = Omit<
    * 8px on all sides.
    */
   flipPadding?:
-    | number
-    | { top?: number; right?: number; bottom?: number; left?: number };
+    number | { top?: number; right?: number; bottom?: number; left?: number };
   /** Class applied to the root Popper element. */
   className?: string;
   /** Override or extend existing styles. */

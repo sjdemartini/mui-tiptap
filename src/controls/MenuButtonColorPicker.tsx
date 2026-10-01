@@ -88,8 +88,10 @@ export type MenuButtonColorPickerProps = Omit<
   classes?: Partial<MenuButtonColorPickerClasses>;
 };
 
-interface MenuButtonColorPickerOwnerState
-  extends Pick<MenuButtonColorPickerProps, "disabled"> {}
+interface MenuButtonColorPickerOwnerState extends Pick<
+  MenuButtonColorPickerProps,
+  "disabled"
+> {}
 
 const componentName = getUtilityComponentName("MenuButtonColorPicker");
 

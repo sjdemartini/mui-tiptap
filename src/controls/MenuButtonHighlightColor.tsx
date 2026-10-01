@@ -5,8 +5,7 @@ import MenuButtonColorPicker, {
   type MenuButtonColorPickerProps,
 } from "./MenuButtonColorPicker";
 
-export interface MenuButtonHighlightColorProps
-  extends Partial<MenuButtonColorPickerProps> {
+export interface MenuButtonHighlightColorProps extends Partial<MenuButtonColorPickerProps> {
   /**
    * Shows this as the current highlight color (in the color picker) if a
    * highlight is active for the selected editor text but no specific color was

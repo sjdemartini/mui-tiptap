@@ -130,8 +130,7 @@ const DEFAULT_FONT_SIZE_SELECT_OPTIONS: MenuSelectFontSizeProps["options"] = [
 // `getAttributes("textStyle")`, but may return font-size attributes here, so
 // add typing for those
 interface TextStyleAttrs
-  extends ReturnType<Editor["getAttributes"]>,
-    FontSizeAttrs {}
+  extends ReturnType<Editor["getAttributes"]>, FontSizeAttrs {}
 
 function stripPxFromValue(value: string): string {
   return value.replace("px", "");

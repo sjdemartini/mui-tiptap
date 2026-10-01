@@ -40,8 +40,10 @@ export type RichTextContentProps = {
   sx?: SxProps;
 };
 
-interface RichTextContentOwnerState
-  extends Pick<RichTextContentProps, "disableDefaultStyles"> {
+interface RichTextContentOwnerState extends Pick<
+  RichTextContentProps,
+  "disableDefaultStyles"
+> {
   editable: boolean;
 }
 
