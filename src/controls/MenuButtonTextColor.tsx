@@ -7,8 +7,7 @@ import MenuButtonColorPicker, {
   type MenuButtonColorPickerProps,
 } from "./MenuButtonColorPicker";
 
-export interface MenuButtonTextColorProps
-  extends Partial<MenuButtonColorPickerProps> {
+export interface MenuButtonTextColorProps extends Partial<MenuButtonColorPickerProps> {
   /**
    * Used to indicate the default color of the text in the Tiptap editor, if no
    * color has been set with the color extension (or if color has been *unset*

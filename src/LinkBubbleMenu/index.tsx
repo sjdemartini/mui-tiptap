@@ -22,10 +22,9 @@ import ViewLinkMenuContent, {
   type ViewLinkMenuContentProps,
 } from "./ViewLinkMenuContent";
 
-export interface LinkBubbleMenuProps
-  extends Partial<
-    Omit<ControlledBubbleMenuProps, "open" | "editor" | "children" | "classes">
-  > {
+export interface LinkBubbleMenuProps extends Partial<
+  Omit<ControlledBubbleMenuProps, "open" | "editor" | "children" | "classes">
+> {
   /**
    * Override the default text content/labels in this interface. For any value
    * that is omitted in this object, it falls back to the default content.

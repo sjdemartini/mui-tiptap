@@ -31,8 +31,10 @@ export type FieldContainerProps = Omit<
   sx?: SxProps;
 };
 
-interface FieldContainerOwnerState
-  extends Pick<FieldContainerProps, "variant" | "focused" | "disabled"> {}
+interface FieldContainerOwnerState extends Pick<
+  FieldContainerProps,
+  "variant" | "focused" | "disabled"
+> {}
 
 const componentName = getUtilityComponentName("FieldContainer");
 

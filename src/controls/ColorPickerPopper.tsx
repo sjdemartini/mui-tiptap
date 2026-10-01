@@ -22,11 +22,10 @@ import {
 } from "./ColorPickerPopper.classes";
 import type { MenuButtonColorPickerProps } from "./MenuButtonColorPicker";
 
-export interface ColorPickerPopperBodyProps
-  extends Pick<
-    MenuButtonColorPickerProps,
-    "swatchColors" | "labels" | "ColorPickerProps"
-  > {
+export interface ColorPickerPopperBodyProps extends Pick<
+  MenuButtonColorPickerProps,
+  "swatchColors" | "labels" | "ColorPickerProps"
+> {
   /** The current color value. Must be a valid CSS color string. */
   value: string;
   /** Callback when the user is saving/changing the current color. */
@@ -36,8 +35,7 @@ export interface ColorPickerPopperBodyProps
 }
 
 export interface ColorPickerPopperProps
-  extends Omit<PopperProps, "classes">,
-    ColorPickerPopperBodyProps {
+  extends Omit<PopperProps, "classes">, ColorPickerPopperBodyProps {
   /** Override or extend existing styles. */
   classes?: Partial<ColorPickerPopperClasses>;
   /** Provide custom styles. */

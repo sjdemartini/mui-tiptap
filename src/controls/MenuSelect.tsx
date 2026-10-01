@@ -12,8 +12,10 @@ import {
   type MenuSelectClassKey,
 } from "./MenuSelect.classes";
 
-export interface MenuSelectProps<T>
-  extends Omit<SelectProps<T>, "margin" | "variant" | "size" | "classes"> {
+export interface MenuSelectProps<T> extends Omit<
+  SelectProps<T>,
+  "margin" | "variant" | "size" | "classes"
+> {
   /** An optional tooltip to show when hovering over this Select. */
   tooltipTitle?: string;
   /** Override or extend existing styles. */

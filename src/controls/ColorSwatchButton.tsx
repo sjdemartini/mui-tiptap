@@ -50,8 +50,10 @@ export interface ColorSwatchButtonProps
   sx?: SxProps;
 }
 
-interface ColorSwatchButtonOwnerState
-  extends Pick<ColorSwatchButtonProps, "active"> {
+interface ColorSwatchButtonOwnerState extends Pick<
+  ColorSwatchButtonProps,
+  "active"
+> {
   colorNotSet: boolean;
 }
 

@@ -46,11 +46,10 @@ export type MenuBarProps = Omit<
   sx?: SxProps;
 };
 
-interface MenuBarOwnerState
-  extends Pick<
-    MenuBarProps,
-    "hide" | "disableSticky" | "stickyOffset" | "unmountOnExit"
-  > {
+interface MenuBarOwnerState extends Pick<
+  MenuBarProps,
+  "hide" | "disableSticky" | "stickyOffset" | "unmountOnExit"
+> {
   stickyOffset: NonNullable<MenuBarProps["stickyOffset"]>;
 }
 
