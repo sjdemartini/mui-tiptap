@@ -9,3 +9,8 @@ allowBuilds:
   '@swc/core': true
   esbuild: true
   unrs-resolver: false
+
+# get-uri still requests basic-ftp 5; 6.2.1 fixes its directory-listing ReDoS.
+# This path is used only by the development documentation link checker.
+overrides:
+  'get-uri>basic-ftp': 6.2.1
