@@ -7,8 +7,8 @@ autoInstallPeers: false
 
 overrides:
   # get-uri still requires basic-ftp v5; remove once it accepts a patched release.
-  # https://github.com/advisories/GHSA-c475-qrg2-pj4r
-  'get-uri@6>basic-ftp': ^6.2.1
+  # https://github.com/patrickjuchli/basic-ftp/security/advisories/GHSA-5rfr-xx34-2xxv
+  'get-uri@6>basic-ftp': ^6.2.2
 
 allowBuilds:
   '@swc/core': true
