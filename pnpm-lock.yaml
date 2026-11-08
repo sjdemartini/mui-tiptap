@@ -5,7 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  get-uri@6>basic-ftp: ^6.2.1
+  get-uri@6>basic-ftp: ^6.2.2
 
 importers:
 
@@ -1672,8 +1672,8 @@ packages:
     engines: {node: '>=6.0.0'}
     hasBin: true
 
-  basic-ftp@6.2.1:
-    resolution: {integrity: sha512-bK67isD+lKq46AU8vNtjvMaT2ZqAOAmNCbxUHlFBRD4k15NWxyEjmaKtZPlgce58So4BNTjITGQOVTjL9y0ECA==}
+  basic-ftp@6.2.6:
+    resolution: {integrity: sha512-0EjZCaodOz6yiokv2JA1VyKGNdGxULZ+GGlPgG9tm4d+T/bHtX1hUch8CumDneBfpIbiSdn7TaCGwpM+gwsOlw==}
     engines: {node: '>=10.0.0'}
 
   boolbase@1.0.0:
@@ -5015,7 +5015,7 @@ snapshots:
 
   baseline-browser-mapping@2.11.20: {}
 
-  basic-ftp@6.2.1: {}
+  basic-ftp@6.2.6: {}
 
   boolbase@1.0.0: {}
 
@@ -5796,7 +5796,7 @@ snapshots:
 
   get-uri@6.0.4:
     dependencies:
-      basic-ftp: 6.2.1
+      basic-ftp: 6.2.6
       data-uri-to-buffer: 6.0.2
       debug: 4.4.3
     transitivePeerDependencies:
