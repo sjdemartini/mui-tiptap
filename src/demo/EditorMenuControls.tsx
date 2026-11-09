@@ -1,6 +1,7 @@
 import { useTheme } from "@mui/material/styles";
 import {
   MenuButtonAddTable,
+  MenuButtonBackgroundColor,
   MenuButtonBlockquote,
   MenuButtonBold,
   MenuButtonBulletedList,
@@ -91,6 +92,18 @@ export default function EditorMenuControls() {
           { value: "#ffd699", label: "Light orange" },
           // Plain yellow matches the browser default `mark` like when using Cmd+Shift+H
           { value: "#ffff00", label: "Yellow" },
+          { value: "#99cc99", label: "Light green" },
+          { value: "#90c6ff", label: "Light blue" },
+          { value: "#8085e9", label: "Light purple" },
+        ]}
+      />
+
+      <MenuButtonBackgroundColor
+        swatchColors={[
+          { value: "#dddddd", label: "Light grey" },
+          { value: "#ffa6a6", label: "Light red" },
+          { value: "#ffd699", label: "Light orange" },
+          { value: "#ffff99", label: "Light yellow" },
           { value: "#99cc99", label: "Light green" },
           { value: "#90c6ff", label: "Light blue" },
           { value: "#8085e9", label: "Light purple" },

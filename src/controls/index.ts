@@ -28,6 +28,10 @@ export {
   type MenuButtonAlignRightProps,
 } from "./MenuButtonAlignRight";
 export {
+  default as MenuButtonBackgroundColor,
+  type MenuButtonBackgroundColorProps,
+} from "./MenuButtonBackgroundColor";
+export {
   default as MenuButtonBlockquote,
   type MenuButtonBlockquoteProps,
 } from "./MenuButtonBlockquote";
