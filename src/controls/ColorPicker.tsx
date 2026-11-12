@@ -118,7 +118,7 @@ export type ColorPickerProps = {
    *
    * And in your CSS:
    *
-   *   .MuiTiptap-ColorPicker-swatchContainer.hide {
+   *   .MuiTiptapColorPicker-swatchContainer.hide {
    *     display: none;
    *   }
    */
