@@ -250,7 +250,7 @@ export function getEditorStyles(
       // Override the default Prosemirror styles, which use pre-wrap. We want code
       // blocks to be horizontally scrollable, like they are on GitHub or StackOverflow
       // (since that makes reading code, logs, etc. much easier), with no wrapping.
-      whiteSpace: "pre !important" as "pre",
+      whiteSpace: "pre !important",
     },
 
     '& [data-type="mention"]': {
