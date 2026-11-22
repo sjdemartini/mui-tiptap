@@ -189,14 +189,19 @@ export default function MenuSelectTextAlign(inProps: MenuSelectTextAlignProps) {
     // Handle the deprecated name for the `options` prop if present
     // eslint-disable-next-line @typescript-eslint/no-deprecated
     alignmentOptions,
-    options = alignmentOptions?.map((option) => ({
-      ...option,
-      value: option.alignment,
-    })) ?? DEFAULT_ALIGNMENT_OPTIONS,
+    options: optionsProp,
     classes = {},
     sx,
     ...menuSelectProps
   } = props;
+
+  const options =
+    optionsProp ??
+    alignmentOptions?.map((option) => ({
+      ...option,
+      value: option.alignment,
+    })) ??
+    DEFAULT_ALIGNMENT_OPTIONS;
 
   const editor = useRichTextEditorContext();
 
